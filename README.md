@@ -1,4 +1,4 @@
-# Tassadraft v1.2
+# Tassadraft v2.0
 
 ### Svelte, TailwindCSS, Capacitor
 
