@@ -1,0 +1,37 @@
+{
+  "name": "tassadraft-v2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
+    "windows:build:android": "npm run build && npx cap copy android && cd android && gradlew assembleRelease -Pandroid.injected.signing.store.file=C:/Users/33780/Documents/Tassadraft-v2/android/app/my-release-key.jks -Pandroid.injected.signing.store.password=KHwCR3TSMxjOxWD -Pandroid.injected.signing.key.alias=my-key-alias -Pandroid.injected.signing.key.password=KHwCR3TSMxjOxWD"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.1.1",
+    "@tsconfig/svelte": "^5.0.4",
+    "@types/node": "^20.14.10",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "svelte": "^4.2.18",
+    "svelte-check": "^3.8.1",
+    "tailwindcss": "^3.4.4",
+    "tslib": "^2.6.3",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.1"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.0",
+    "@capacitor/core": "^6.1.0",
+    "@capacitor/geolocation": "^6.0.0",
+    "@capacitor/ios": "^6.1.0",
+    "@sveltejs/adapter-auto": "^3.2.2",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "svelte-preprocess": "^6.0.2",
+    "vite-plugin-env-compatible": "^2.0.1"
+  }
+}
