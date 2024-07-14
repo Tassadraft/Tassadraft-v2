@@ -28,10 +28,6 @@
     });
 </script>
 
-<style>
-    /* You can add custom styles here if needed */
-</style>
-
 <div class="relative">
     <button id="menu-button" class="fixed top-4 left-4 cursor-pointer text-2xl p-2 rounded {isOpen ? 'hidden' : ''}" on:click={toggleMenu}>
         <svg class="size-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">

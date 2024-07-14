@@ -11,7 +11,7 @@
 </script>
 
 <div class="flex flex-row items-center gap-0.5">
-    <Icon name="sun" size="{size+1}" />
+    <Icon name="sun" size="{size+1}" color={checked ? '' : 'primary'} />
     <Switch size={size} bind:value={checked} />
-    <Icon name="moon" size="{size+1}" />
+    <Icon name="moon" size="{size+1}" color={checked ? 'primary' : ''} />
 </div>

@@ -32,6 +32,7 @@
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "svelte-preprocess": "^6.0.2",
+    "svelte-routing": "^2.13.0",
     "vite-plugin-env-compatible": "^2.0.1"
   }
 }

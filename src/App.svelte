@@ -1,8 +1,10 @@
 <script>
     import axios from 'axios';
     import { onMount } from 'svelte';
-    import Menu from './lib/Menu.svelte';
-    import ThemeSwitch from './lib/ThemeSwitch.svelte';
+    import { Router, Link, Route } from "svelte-routing";
+    import Homepage from './lib/pages/Homepage.svelte';
+
+    export let url = "";
 
     axios.defaults.baseURL = process.env.TASSADAPI_BASE_URL;
 
@@ -17,12 +19,16 @@
             }
         }
 
-        if (localStorage.getItem('theme') !== 'light' || localStorage.getItem('theme') !== 'dark') {
+        const theme = localStorage.getItem('theme');
+        if (theme !== 'light' && theme !== 'dark') {
             localStorage.setItem('theme', 'light');
         }
 
     })
 </script>
 
-<Menu />
-<ThemeSwitch />
+<Router {url}>
+    <div>
+        <Route path="/"><Homepage /></Route>
+    </div>
+</Router>
