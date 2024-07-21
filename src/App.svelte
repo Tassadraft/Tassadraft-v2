@@ -1,8 +1,9 @@
 <script>
     import axios from 'axios';
     import { onMount } from 'svelte';
-    import { Router, Link, Route } from "svelte-routing";
+    import { Router, Route } from "svelte-routing";
     import Homepage from './lib/pages/Homepage.svelte';
+    import Tassadraft from "./lib/pages/Tassadraft.svelte";
 
     export let url = "";
 
@@ -24,11 +25,14 @@
             localStorage.setItem('theme', 'light');
         }
 
-    })
+    });
+
+    document.body.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
 </script>
 
 <Router {url}>
     <div>
         <Route path="/"><Homepage /></Route>
+        <Route path="/tassadraft"><Tassadraft /></Route>
     </div>
 </Router>
