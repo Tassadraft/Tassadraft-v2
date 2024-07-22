@@ -3,7 +3,7 @@
     import { onMount } from 'svelte';
 
     onMount(() => {
-        document.title = 'Tassadraft';
+        document.title = 'Logout';
     });
 </script>
 

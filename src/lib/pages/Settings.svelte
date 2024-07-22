@@ -3,7 +3,7 @@
     import { onMount } from 'svelte';
 
     onMount(() => {
-        document.title = 'Tassadraft';
+        document.title = 'Settings';
     });
 </script>
 
@@ -11,4 +11,8 @@
     <div class="mt-3">
         <Menu />
     </div>
+</div>
+
+<div class="flex flex-row">
+    <p>test</p>
 </div>

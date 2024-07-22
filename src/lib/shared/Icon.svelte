@@ -4,10 +4,20 @@
     export let size = 24;
     export let color = 'gray';
 
-    console.log(name, size);
-
     let IconComponent = null;
-    const validIcons = ['Book', 'Camera', 'Moon', 'Sun', 'Burger'];
+    const validIcons = [
+        'Book',
+        'Camera',
+        'Moon',
+        'Sun',
+        'Burger',
+        'Close',
+        'Settings',
+        'RightChevron',
+        'Home',
+        'User',
+        'UserRemove',
+    ];
 
     const toCamelCase = (str) => {
         if (str.length === 0) {
@@ -37,7 +47,7 @@
     onMount(async () => {
         const camelCaseName = toCamelCase(name);
         if (validIcons.includes(camelCaseName)) {
-            IconComponent = (await import(`./icons/${camelCaseName}.svelte`)).default;
+            IconComponent = (await import(`../icons/${camelCaseName}.svelte`)).default;
         } else {
             throw new Error(`Invalid icon name: ${name}`);
         }

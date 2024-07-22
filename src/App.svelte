@@ -4,6 +4,8 @@
     import { Router, Route } from "svelte-routing";
     import Homepage from './lib/pages/Homepage.svelte';
     import Tassadraft from "./lib/pages/Tassadraft.svelte";
+    import Settings from './lib/pages/Settings.svelte';
+    import Login from './lib/pages/Login.svelte';
 
     export let url = "";
 
@@ -34,5 +36,8 @@
     <div>
         <Route path="/"><Homepage /></Route>
         <Route path="/tassadraft"><Tassadraft /></Route>
+        <Route path="/settings"><Settings /></Route>
+        <Route path="/login"><Login /></Route>
+        <Route path="/logout"><Settings /></Route>
     </div>
 </Router>

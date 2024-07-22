@@ -1,5 +1,5 @@
 <script>
-    import Icon from './Icon.svelte';
+    import Icon from '../shared/Icon.svelte';
 
     export let title = '';
     export let icon = '';
@@ -17,7 +17,7 @@
                 <Icon name={icon} size="32"/>
             </div>
         </div>
-        <div class="flex flex-col items-center justify-center text-center text-gray-600 dark:text-gray-400 order-2 md:order-3 transition-opacity duration-300 ml-10 {description && hovering ? '' : 'opacity-0'}">
+        <div class="flex flex-col items-center justify-center text-center text-gray-600 dark:text-gray-400 order-2 md:order-3 transition-opacity duration-300 md:ml-10 {description && hovering ? '' : 'opacity-0'}">
             <p>{description}</p>
         </div>
     </div>

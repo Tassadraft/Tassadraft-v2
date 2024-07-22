@@ -1,9 +1,10 @@
 <script>
     import Menu from '../menu/Menu.svelte';
     import { onMount } from 'svelte';
+    import Form from '../shared/Form.svelte';
 
     onMount(() => {
-        document.title = 'Tassadraft';
+        document.title = 'Login';
     });
 </script>
 
@@ -12,3 +13,5 @@
         <Menu />
     </div>
 </div>
+
+<Form action="login" method="post" />
