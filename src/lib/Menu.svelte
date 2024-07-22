@@ -1,6 +1,7 @@
 <script>
     import MenuItem from './MenuItem.svelte';
     import { onMount } from 'svelte';
+    import Icon from "./Icon.svelte";
 
     let isOpen = false;
 
@@ -28,16 +29,16 @@
     });
 </script>
 
-<div class="relative">
-    <button id="menu-button" class="fixed top-4 left-4 cursor-pointer text-2xl p-2 rounded {isOpen ? 'hidden' : ''}" on:click={toggleMenu}>
-        <svg class="size-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
-        </svg>
+<div>
+    <button id="menu-button" class="cursor-pointer rounded {isOpen ? 'opacity-0' : ''}" on:click={toggleMenu}>
+        <Icon name="burger" size="4" />
     </button>
 
     <nav id="menu" class="fixed top-0 left-0 w-64 h-full bg-gray-800 dark:bg-gray-900 text-white transform transition-transform duration-300 ease-in-out {isOpen ? '' : '-translate-x-full'}">
         <div class="flex justify-end p-4">
-            <button class="text-2xl" on:click={closeMenu}>&times;</button>
+            <button class="text-2xl" on:click={closeMenu}>
+                <Icon name="close" size="8" />
+            </button>
         </div>
         <ul class="space-y-4 p-4">
             <MenuItem href="/tassadraft" onClick={closeMenu}>Tassadraft</MenuItem>

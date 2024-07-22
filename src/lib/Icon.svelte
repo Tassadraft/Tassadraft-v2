@@ -1,11 +1,13 @@
 <script>
     import { onMount } from 'svelte';
     export let name = '';
-    export let size = 4;
+    export let size = 24;
     export let color = 'gray';
 
+    console.log(name, size);
+
     let IconComponent = null;
-    const validIcons = ['Book', 'Camera', 'Moon', 'Sun'];
+    const validIcons = ['Book', 'Camera', 'Moon', 'Sun', 'Burger'];
 
     const toCamelCase = (str) => {
         if (str.length === 0) {
