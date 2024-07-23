@@ -15,5 +15,5 @@
 
 <form action={action} on:submit={handleSubmit} method="{method}">
     <slot></slot>
-    <Button type="submit">Submit</Button>
+    <Button type="submit" handleClick={null}>Submit</Button>
 </form>

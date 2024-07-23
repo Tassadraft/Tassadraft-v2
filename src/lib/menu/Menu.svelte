@@ -38,7 +38,7 @@
     <nav id="menu" class="fixed top-0 left-0 w-64 h-full bg-gray-700 dark:bg-gray-800 text-white transform transition-transform duration-300 ease-in-out {isOpen ? '' : '-translate-x-full'}">
         <div class="flex justify-end p-4">
             <Button disabled={true} className="text-2xl" handleClick={closeMenu}>
-                <Icon name="close" />
+                <Icon name="close" color="primary-500" />
             </Button>
         </div>
         <ul class="space-y-4 p-4">

@@ -22,7 +22,7 @@
     </p>
     {#if iconRight}
         <div class="mt-3 w-full flex">
-            <Icon name={iconRight} color="primary-500" />
+            <Icon name={iconRight} />
         </div>
     {/if}
 </Link>
