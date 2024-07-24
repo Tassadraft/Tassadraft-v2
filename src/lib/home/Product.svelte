@@ -10,7 +10,7 @@
 </script>
 
 <a href={href} on:mouseenter={() => hovering = true} on:mouseleave={() => hovering = false} class="block">
-    <div class="flex flex-col md:flex-row items-center p-6 rounded-lg shadow-lg dark:bg-gray-800 h-40">
+    <div class="flex flex-col md:flex-row items-center p-6 rounded-lg shadow-lg dark:bg-gray-700 h-40">
         <div class="flex flex-col items-center justify-center order-1 md:order-2 text-center transition-opacity duration-300 {description && hovering ? 'opacity-50' : ''}">
             <p class="text-gray-800 dark:text-white text-2xl mb-1">{title}</p>
             <div class="size-12 dark:bg-gray-700 shadow-lg rounded-full flex items-center justify-center">

@@ -3,10 +3,29 @@
     import { onMount } from 'svelte';
     import Form from '../shared/Form.svelte';
     import Input from '../shared/Input.svelte';
+    import PasswordInput from '../shared/PasswordInput.svelte';
+    import { showToast, storeToast } from '../../toastService.js';
 
     onMount(() => {
         document.title = 'Login';
+        if (localStorage.getItem('apiToken')) {
+            storeToast('You are already logged in', 'warning');
+            window.location.href = '/';
+        }
     });
+
+    let email = '';
+    let password = '';
+
+    const handleSuccess = (response) => {
+        localStorage.setItem('apiToken', response.token);
+        storeToast('You are now logged in');
+        window.location.href = '/';
+    }
+
+    const handleFailure = (response) => {
+        showToast(response, 'error')
+    }
 </script>
 
 <div class="flex justify-start">
@@ -15,6 +34,7 @@
     </div>
 </div>
 
-<Form action="login" method="post">
-    <Input type="email" name="gdf" placeholder="fff" label="ici" />
+<Form action="/login" method="post" handleSuccess={handleSuccess} handleFailure={handleFailure}>
+    <Input type="email" name="email" placeholder="jean.dupont@gmail.com" label="Email" value={email} required={true} />
+    <PasswordInput value={password} required={true} />
 </Form>

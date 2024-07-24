@@ -1,19 +1,38 @@
 <script>
-    import axios from 'axios';
+    import axios from '../../axiosConfig.js';
     import Button from './Button.svelte';
 
     export let method = 'GET';
     export let action = '';
+    export let handleSuccess = () => {};
+    export let handleFailure = () => {};
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const form = event.target;
         const formData = new FormData(form);
-        const url = form.action;
+
+        const formDataObj = {};
+        formData.forEach((value, key) => {
+            formDataObj[key] = value;
+        });
+
+        try {
+            const response = await axios({
+                method,
+                url: `${axios.defaults.baseURL}${action}`,
+                data: method === 'GET' ? null : formData,
+                params: method === 'GET' ? formDataObj : null,
+                headers: method !== 'GET' ? { 'Content-Type': 'multipart/form-data' } : {}
+            });
+            handleSuccess(response.data);
+        } catch (error) {
+            handleFailure(error.message);
+        }
     };
 </script>
 
-<form action={action} on:submit={handleSubmit} method="{method}">
+<form action={action} on:submit={handleSubmit} method={method}>
     <slot></slot>
     <Button type="submit" handleClick={null}>Submit</Button>
 </form>

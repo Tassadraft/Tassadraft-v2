@@ -3,9 +3,7 @@
     export let disabled = false;
     export let idName = '';
     export let className = '';
-    export let handleClick = () => {
-        console.log('clicked');
-    };
+    export let handleClick = () => {};
 </script>
 
 <button

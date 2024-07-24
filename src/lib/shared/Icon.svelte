@@ -17,6 +17,8 @@
         'Home',
         'User',
         'UserRemove',
+        'Eye',
+        'EyeSlash'
     ];
 
     const toCamelCase = (str) => {
@@ -55,5 +57,5 @@
 </script>
 
 {#if IconComponent}
-    <svelte:component this={IconComponent} {size} color={getTailwindColorClass(color)} />
+    <svelte:component this={IconComponent} {size} className={`${getTailwindColorClass(color) || 'text-gray-800 dark:text-white'}`} />
 {/if}
