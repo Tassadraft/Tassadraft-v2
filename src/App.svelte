@@ -22,13 +22,15 @@
     document.body.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
 </script>
 
-<Router {url}>
-    <div>
-        <Route path="/"><Homepage /></Route>
-        <Route path="/tassadraft"><Tassadraft /></Route>
-        <Route path="/settings"><Settings /></Route>
-        <Route path="/account"><Account /></Route>
-        <Route path="/login"><Login /></Route>
-        <Route path="/logout"><Logout /></Route>
-    </div>
-</Router>
+<main class="bg-gray-200 dark:bg-gray-900 text-black dark:text-white min-h-screen min-w-screen app-container">
+    <Router {url}>
+        <div>
+            <Route path="/"><Homepage /></Route>
+            <Route path="/tassadraft"><Tassadraft /></Route>
+            <Route path="/settings"><Settings /></Route>
+            <Route path="/account"><Account /></Route>
+            <Route path="/login"><Login /></Route>
+            <Route path="/logout"><Logout /></Route>
+        </div>
+    </Router>
+</main>

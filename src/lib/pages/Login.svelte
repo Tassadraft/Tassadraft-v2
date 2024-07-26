@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<Form action="/login" method="post" handleSuccess={handleSuccess} handleFailure={handleFailure}>
+<Form action="/api/login" method="post" handleSuccess={handleSuccess} handleFailure={handleFailure}>
     <Input type="email" name="email" placeholder="jean.dupont@gmail.com" label="Email" value={email} required={true} />
     <PasswordInput value={password} required={true} />
 </Form>
