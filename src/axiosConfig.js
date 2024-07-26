@@ -6,7 +6,7 @@ const token = localStorage.getItem('apiToken');
 if (token) {
     try {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        const response = await axios.get('/api/reserved');
+        const response = await axios.get('/api/auth');
         if (response.status !== 200) {
             throw new Error('Invalid token');
         }
