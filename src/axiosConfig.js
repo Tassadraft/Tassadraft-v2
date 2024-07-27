@@ -10,6 +10,12 @@ if (token) {
         if (response.status !== 200) {
             throw new Error('Invalid token');
         }
+        try {
+            await axios.get('/api/auth/reserved');
+            localStorage.setItem('subscribed', 'true');
+        } catch (error) {
+            localStorage.setItem('subscribed', 'false');
+        }
     } catch (error) {
         localStorage.removeItem('apiToken');
         axios.defaults.headers.common['Authorization'] = '';

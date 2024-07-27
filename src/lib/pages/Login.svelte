@@ -5,6 +5,7 @@
     import Input from '../shared/Input.svelte';
     import PasswordInput from '../shared/PasswordInput.svelte';
     import { showToast, storeToast } from '../../toastService.js';
+    import axios from '../../axiosConfig.js';
 
     onMount(() => {
         document.title = 'Login';
@@ -17,8 +18,14 @@
     let email = '';
     let password = '';
 
-    const handleSuccess = (response) => {
+    const handleSuccess = async (response) => {
         localStorage.setItem('apiToken', response.token);
+        try {
+            await axios.get('/api/auth/reserved');
+            localStorage.setItem('subscribed', 'true');
+        } catch (error) {
+            localStorage.setItem('subscribed', 'false');
+        }
         storeToast('You are now logged in');
         window.location.href = '/';
     }

@@ -13,7 +13,7 @@
     const realType = type;
 
     let focused = false;
-    const classes = 'block w-full px-3 py-2 mt-1 text-base text-gray-800 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm pr-10';
+    const classes = `block w-full px-3 py-2 mt-1 text-base text-gray-800 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${disabled ? 'bg-gray-300 dark:bg-gray-500' : ''}`;
 
     const typeWorkaround = node => node.type = type;
     const switchType = () => type = type === 'password' ? 'text' : 'password';
@@ -50,7 +50,7 @@
                     name={name}
                     required={required}
                     disabled={disabled}
-                    class={classes}
+                    class={`${classes} pr-9`}
             />
             <Button className="absolute top-2 right-2 cursor-pointer" handleClick={switchType}>
                 <Icon name="eye" />
@@ -65,7 +65,7 @@
                     name={name}
                     required={required}
                     disabled={disabled}
-                    class={classes}
+                    class={`${classes} pr-9`}
             />
             <Button className="absolute top-2 right-2 cursor-pointer" handleClick={switchType}>
                 <Icon name="eyeSlash" />

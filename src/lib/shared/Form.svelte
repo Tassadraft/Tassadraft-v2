@@ -6,6 +6,7 @@
     export let action = '';
     export let handleSuccess = () => {};
     export let handleFailure = () => {};
+    export let submitable = true;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -32,7 +33,9 @@
     };
 </script>
 
-<form action={action} on:submit={handleSubmit} method={method}>
+<form action={action} on:submit={handleSubmit} method={method} class="bg-gray-200 dark:bg-gray-700 rounded-2xl p-3 shadow">
     <slot></slot>
-    <Button type="submit" handleClick={null}>Submit</Button>
+    {#if submitable}
+        <Button type="submit">Submit</Button>
+    {/if}
 </form>
