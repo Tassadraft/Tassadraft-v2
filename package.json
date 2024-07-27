@@ -8,7 +8,11 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
+    "preinstall": "node install.js",
     "windows:build:android": "npm run build && npx cap copy android && cd android && gradlew assembleRelease -Pandroid.injected.signing.store.file=C:/Users/33780/Documents/Tassadraft-v2/android/app/my-release-key.jks -Pandroid.injected.signing.store.password=KHwCR3TSMxjOxWD -Pandroid.injected.signing.key.alias=my-key-alias -Pandroid.injected.signing.key.password=KHwCR3TSMxjOxWD"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.19.0"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
@@ -28,12 +32,12 @@
     "@capacitor/core": "^6.1.0",
     "@capacitor/geolocation": "^6.0.0",
     "@capacitor/ios": "^6.1.0",
-    "@rollup/rollup-linux-x64-gnu": "^4.19.0",
     "@sveltejs/adapter-auto": "^3.2.2",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "svelte-preprocess": "^6.0.2",
     "svelte-routing": "^2.13.0",
+    "toastify-js": "^1.12.0",
     "vite-plugin-env-compatible": "^2.0.1"
   }
 }
