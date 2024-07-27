@@ -7,7 +7,7 @@
     import Login from './lib/pages/Login.svelte';
     import Account from './lib/pages/Account.svelte';
     import Logout from './lib/pages/Logout.svelte';
-    import { showStoredToasts } from './toastService.js';
+    import { showStoredToasts } from './service/toastService.js';
 
     export let url = "";
 
@@ -15,6 +15,10 @@
         const theme = localStorage.getItem('theme');
         if (theme !== 'light' && theme !== 'dark') {
             localStorage.setItem('theme', 'light');
+        }
+        const currency = localStorage.getItem('currency');
+        if (currency !== 'dollar' && currency !== 'euro') {
+            localStorage.setItem('currency', 'euro');
         }
         showStoredToasts();
     });

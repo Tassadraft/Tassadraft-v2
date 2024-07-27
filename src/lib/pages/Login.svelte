@@ -4,7 +4,7 @@
     import Form from '../shared/Form.svelte';
     import Input from '../shared/Input.svelte';
     import PasswordInput from '../shared/PasswordInput.svelte';
-    import { showToast, storeToast } from '../../toastService.js';
+    import { showToast, storeToast } from '../../service/toastService.js';
     import axios from '../../axiosConfig.js';
 
     onMount(() => {

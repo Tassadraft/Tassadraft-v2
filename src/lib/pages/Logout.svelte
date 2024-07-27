@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import { storeToast } from '../../toastService.js';
+    import { storeToast } from '../../service/toastService.js';
 
     onMount(() => {
         document.title = 'Logout';

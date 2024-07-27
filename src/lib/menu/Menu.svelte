@@ -2,7 +2,7 @@
     import MenuItem from './MenuItem.svelte';
     import { onMount } from 'svelte';
     import Icon from "../shared/Icon.svelte";
-    import ThemeSwitch from '../settings/ThemeSwitch.svelte';
+    import ThemeSwitch from '../shared/ThemeSwitch.svelte';
     import Button from '../shared/Button.svelte';
 
     const token = localStorage.getItem('apiToken');

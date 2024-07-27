@@ -4,16 +4,14 @@
     import Form from '../shared/Form.svelte';
     import Title from '../shared/Title.svelte';
     import Radio from '../shared/Radio.svelte';
+    import CurrencyRadio from '../settings/CurrencyRadio.svelte';
+    import ThemeSwitch from '../shared/ThemeSwitch.svelte';
 
     let radioValue;
 
     onMount(() => {
         document.title = 'Settings';
     });
-
-    const handleCurrencyChange = (e) => {
-        console.log(e);
-    };
 
     const options = [{
         value: 'green',
@@ -36,8 +34,6 @@
 <Title>Settings</Title>
 
 <Form submitable={false}>
-    <Radio {options} fontSize={16} legend='Select a starter Pokemon' bind:userSelected={radioValue}/>
-    <p>
-        {radioValue} is selected
-    </p>
+    <ThemeSwitch title="Theme" />
+    <CurrencyRadio />
 </Form>

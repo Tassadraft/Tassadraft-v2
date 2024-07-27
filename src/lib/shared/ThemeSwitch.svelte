@@ -1,6 +1,8 @@
 <script>
-    import Switch from '../shared/Switch.svelte';
-    import Icon from '../shared/Icon.svelte';
+    import Switch from './Switch.svelte';
+    import Icon from './Icon.svelte';
+
+    export let title = '';
 
     let checked = localStorage.getItem('theme') === 'dark';
 
@@ -10,6 +12,10 @@
     $: localStorage.setItem('theme', checked ? 'dark' : 'light');
     $: document.body.classList.toggle('dark', checked);
 </script>
+
+<div class="legend font-bold mb-2">
+    {title}
+</div>
 
 <div class="flex flex-row items-center gap-0.5">
     <Icon name="sun" size={iconSize} color={checked ? '' : 'primary'} />
