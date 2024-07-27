@@ -31,13 +31,13 @@
 </script>
 
 <div>
-    <Button idName="menu-button" className={isOpen ? 'opacity-0' : ''} handleClick={() => isOpen = !isOpen}>
+    <Button idName="menu-button" className={isOpen ? 'opacity-0' : ''} on:click={() => isOpen = !isOpen}>
         <Icon name="burger" />
     </Button>
 
     <nav id="menu" class="z-50 fixed top-0 left-0 w-64 h-full bg-gray-700 dark:bg-gray-800 text-white transform transition-transform duration-300 ease-in-out {isOpen ? '' : '-translate-x-full'}">
         <div class="flex justify-end p-4">
-            <Button className="text-2xl" handleClick={closeMenu}>
+            <Button className="text-2xl" on:click={closeMenu}>
                 <Icon name="close" color="primary-500" />
             </Button>
         </div>
