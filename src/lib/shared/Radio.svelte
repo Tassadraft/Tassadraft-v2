@@ -13,11 +13,11 @@
 </script>
 
 <style>
-    input[type="radio"]:checked + label .w-2.h-2 {
+    input[type="radio"]:checked + label .size-2 {
         transform: scale(1);
     }
 
-    input[type="radio"]:focus + label .w-4.h-4 {
+    input[type="radio"]:focus + label .size-4 {
         box-shadow: 0 0 0 1px var(--primary-500);
     }
 
@@ -26,7 +26,7 @@
         cursor: not-allowed;
     }
 
-    input[type="radio"]:disabled + label .w-4.h-4 {
+    input[type="radio"]:disabled + label .size-4 {
         background: #ccc;
     }
 
@@ -54,8 +54,8 @@
                     on:change={() => handleChange(value)} />
             <label for={slugify(label)} class="relative block text-left pl-8">
                 {label}
-                <span class="absolute left-0 top-1/2 transform -translate-y-1/2 w-4 h-4 border border-gray-400 rounded-full flex items-center justify-center pointer-events-none">
-                    <span class="w-2 h-2 rounded-full bg-primary-500 transform scale-0 transition-transform"></span>
+                <span class="absolute left-0 top-1/2 transform -translate-y-1/2 size-4 border border-gray-400 rounded-full flex items-center justify-center pointer-events-none">
+                    <span class="size-2 rounded-full bg-primary-500 transform scale-0 transition-transform"></span>
                 </span>
             </label>
         </div>
