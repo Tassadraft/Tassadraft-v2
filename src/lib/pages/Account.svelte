@@ -4,6 +4,7 @@
     import axios from '../../axiosConfig';
     import Form from '../shared/Form.svelte';
     import Input from '../shared/Input.svelte';
+    import Title from '../shared/Title.svelte';
 
     let username = '';
     let email = '';
@@ -33,6 +34,8 @@
         <Menu />
     </div>
 </div>
+
+<Title>Account</Title>
 
 <Form submitable={false}>
     <Input label="Username" bind:value={username} disabled={true}/>

@@ -18,7 +18,7 @@
         <Icon name={iconLeft} color="primary-500" />
     </div>
     <p class="text-xl p-2">
-        <slot></slot>
+        <slot />
     </p>
     {#if iconRight}
         <div class="mt-3 w-full flex">

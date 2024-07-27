@@ -5,5 +5,5 @@
 </script>
 
 <a href={href} class={className} on:click={onClick}>
-    <slot></slot>
+    <slot />
 </a>
