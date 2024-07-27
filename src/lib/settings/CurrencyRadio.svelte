@@ -5,7 +5,7 @@
 
     const handleChange = (event) => {
         localStorage.setItem('currency', event);
-    }
+    };
 
     const currencies = [
         {
