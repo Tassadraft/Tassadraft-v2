@@ -6,6 +6,7 @@
     import PasswordInput from '../shared/PasswordInput.svelte';
     import { showToast, storeToast } from '../../service/toastService.js';
     import axios from '../../axiosConfig.js';
+    import Title from '../shared/Title.svelte';
 
     onMount(() => {
         document.title = 'Login';
@@ -35,11 +36,9 @@
     }
 </script>
 
-<div class="flex justify-start">
-    <div class="mt-3">
-        <Menu />
-    </div>
-</div>
+<Menu />
+
+<Title>Login</Title>
 
 <Form action="/api/login" method="post" handleSuccess={handleSuccess} handleFailure={handleFailure}>
     <Input type="email" name="email" placeholder="jean.dupont@gmail.com" label="Email" value={email} required={true} />

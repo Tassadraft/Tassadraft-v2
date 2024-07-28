@@ -12,7 +12,7 @@
 <Link
         href={notClickable ? null : href}
         className={`hover:bg-gray-600 dark:hover:bg-gray-500 cursor-pointer flex flex-row transition-colors duration-300 rounded ${notClickable ? 'cursor-not-allowed opacity-50' : ''}`}
-        onClick={notClickable ? null : onClick}
+        on:click={notClickable ? null : onClick}
 >
     <div class="mt-2.5">
         <Icon name={iconLeft} color="primary-500" />

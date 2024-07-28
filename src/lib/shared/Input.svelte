@@ -52,7 +52,7 @@
                     disabled={disabled}
                     class={`${classes} pr-9`}
             />
-            <Button className="absolute top-2 right-2 cursor-pointer" on:click={switchType}>
+            <Button additionalStyle="absolute top-2 right-2 cursor-pointer" on:click={switchType}>
                 <Icon name="eye" />
             </Button>
         {:else}
@@ -67,7 +67,7 @@
                     disabled={disabled}
                     class={`${classes} pr-9`}
             />
-            <Button className="absolute top-2 right-2 cursor-pointer" on:click={switchType}>
+            <Button additionalStyle="absolute top-2 right-2 cursor-pointer" on:click={switchType}>
                 <Icon name="eyeSlash" />
             </Button>
         {/if}

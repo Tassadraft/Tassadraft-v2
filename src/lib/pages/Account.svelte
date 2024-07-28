@@ -29,11 +29,7 @@
     });
 </script>
 
-<div class="flex justify-start">
-    <div class="mt-3">
-        <Menu />
-    </div>
-</div>
+<Menu />
 
 <Title>Account</Title>
 

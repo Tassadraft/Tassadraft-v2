@@ -1,14 +1,14 @@
 <script>
     import Menu from '../menu/Menu.svelte';
     import { onMount } from 'svelte';
+    import Photo from '../shared/Photo.svelte';
+
+    const photos = [];
 
     onMount(() => {
         document.title = 'Tassadraft';
     });
 </script>
 
-<div class="flex justify-start">
-    <div class="mt-3">
-        <Menu />
-    </div>
-</div>
+<Menu />
+<Photo on:photo={(e) => photos.push({uri: e.detail.photo.webpath, cards: []})} />
