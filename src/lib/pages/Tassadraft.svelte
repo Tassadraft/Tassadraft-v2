@@ -2,8 +2,10 @@
     import Menu from '../menu/Menu.svelte';
     import { onMount } from 'svelte';
     import Photo from '../shared/Photo.svelte';
+    import TassadraftSegment from '../Segments/TassadraftSegment.svelte';
+    import Title from '../shared/Title.svelte';
 
-    const photos = [];
+    let photos = [];
 
     onMount(() => {
         document.title = 'Tassadraft';
@@ -11,4 +13,6 @@
 </script>
 
 <Menu />
-<Photo on:photo={(e) => photos.push({uri: e.detail.photo.webpath, cards: []})} />
+<Title>Tassadraft</Title>
+<TassadraftSegment bind:photos={photos} />
+<Photo on:photo={(e) => photos = [...photos, {uri: e.detail.photo.webpath, cards: [], processed: false}]} />
