@@ -36,11 +36,11 @@
         <hr class="my-2" />
         <div class="flex flex-row justify-center">
             {#if successText}
-                <div class="flex flex-row justify-center space-x-4 w-full">
-                    <Button class="ml-4" on:click={handleSuccess}>
+                <div class="flex flex-row justify-center space-x-12 w-full">
+                    <Button on:click={handleSuccess}>
                         {successText}
                     </Button>
-                    <Button class="mr-4" on:click={() => dialog.close()}>
+                    <Button on:click={() => dialog.close()}>
                         {closeText}
                     </Button>
                 </div>

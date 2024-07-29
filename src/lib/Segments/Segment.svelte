@@ -6,7 +6,7 @@
     const dispatch = createEventDispatcher();
 
     export let options = [];
-    export let selected = options[0]?.name;
+    export let selected;
 
     let popoverMessage = '';
     let showPopover = false;
@@ -14,7 +14,6 @@
 
     const handleSelect = (option) => {
         if (!option.disabled) {
-            selected = option.name;
             dispatch('change', { value: option.name });
         }
     };

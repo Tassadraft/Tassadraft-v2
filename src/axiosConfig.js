@@ -6,13 +6,21 @@ const token = localStorage.getItem('apiToken');
 if (token) {
     try {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        const response = await axios.get('/api/auth');
-        if (response.status !== 200) {
-            throw new Error('Invalid token');
-        }
+        axios.get('/api/auth').then((response) => {
+            if (response.status !== 200) {
+                localStorage.removeItem('apiToken');
+                axios.defaults.headers.common['Authorization'] = '';
+                throw new Error('Invalid token');
+            }
+        });
         try {
-            await axios.get('/api/auth/reserved');
-            localStorage.setItem('subscribed', 'true');
+            axios.get('/api/auth/reserved').then((response) => {
+                if (response.status === 200) {
+                    localStorage.setItem('subscribed', 'true');
+                } else {
+                    localStorage.setItem('subscribed', 'false');
+                }
+            });
         } catch (error) {
             localStorage.setItem('subscribed', 'false');
         }

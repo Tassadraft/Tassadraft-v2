@@ -4,6 +4,7 @@
     import Photo from '../shared/Photo.svelte';
     import TassadraftSegment from '../Segments/TassadraftSegment.svelte';
     import Title from '../shared/Title.svelte';
+    import PhotosList from '../shared/PhotosList.svelte';
 
     let photos = [];
 
@@ -14,5 +15,6 @@
 
 <Menu />
 <Title>Tassadraft</Title>
-<TassadraftSegment bind:photos={photos} />
-<Photo on:photo={(e) => photos = [...photos, {uri: e.detail.photo.webpath, cards: [], processed: false}]} />
+<TassadraftSegment bind:photos={photos} on:processed={(e) => console.log(e)} />
+<PhotosList bind:photos={photos} />
+<Photo on:photo={(e) => photos = [...photos, {uri: e.detail.photo.webPath, cards: [], processed: false}]} />
