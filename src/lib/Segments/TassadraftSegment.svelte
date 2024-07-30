@@ -37,12 +37,6 @@
             loading = true;
             const base64Strings = await getBase64Strings(photos.filter(photo => !photo.processed));
             const response = await axios.post('/api/auth/reserved/process', {photos: base64Strings});
-            photos = photos.map(photo => {
-                if (photo.processed) {
-                    return photo;
-                }
-                return {...photo, processed: true};
-            });
             loading = false;
             selectedOption = 'Cards';
             dispatch('processed', response.data);

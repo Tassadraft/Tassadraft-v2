@@ -11,22 +11,36 @@
     let state;
 
     const handleProcessed = (e) => {
+        const unprocessedPhotos = photos.filter(photo => !photo.processed);
         e.detail?.cards?.forEach((card) => {
-            if (cards.find((c) => c.name === card.name) === undefined) {
-                cards = [...cards, card];
+            let savedCard = cards.find((c) => c.name === card.name);
+            if (!savedCard) {
+                savedCard = {...card, photos: [], images: []};
+            }
+            unprocessedPhotos.forEach((photo, index) => {
+                if (card.images.includes(index + 1)) {
+                    photo.cards = [...photo.cards, savedCard];
+                    savedCard.photos = [...savedCard.photos, photo.uri];
+                }
+            });
+            if (!cards.includes(savedCard)) {
+                cards = [...cards, savedCard];
             }
         });
-    }
+        photos = photos.map(photo => {
+            return {...photo, processed: true};
+        });
+    };
 </script>
 
-<Menu />
-<Title title="Tassadraft" />
-<TassadraftSegment bind:selectedOption={state} bind:photos={photos} on:processed={handleProcessed} />
+<Menu/>
+<Title title="Tassadraft"/>
+<TassadraftSegment bind:selectedOption={state} bind:photos={photos} on:processed={handleProcessed}/>
 {#if state === 'Photos'}
-    <PhotosList bind:photos={photos} />
-    <Photo on:photo={(e) => photos = [...photos, {uri: e.detail.photo.webPath, cards: [], processed: false}]} />
+    <PhotosList bind:cards={cards} bind:photos={photos}/>
+    <Photo on:photo={(e) => photos = [...photos, {uri: e.detail.photo.webPath, cards: [], processed: false}]}/>
 {:else}
     {#if state === 'Cards'}
-        <CardsTable bind:cards={cards} />
+        <CardsTable bind:cards={cards}/>
     {/if}
 {/if}
