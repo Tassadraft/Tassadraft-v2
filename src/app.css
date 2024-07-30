@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media(min-width: 320px) {
+    .tr-first {
+        padding-left: 8px;
+    }
+
+    td p {
+        font-size: 10px;
+    }
+}

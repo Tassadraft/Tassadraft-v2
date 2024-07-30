@@ -14,7 +14,6 @@ const warningToastStyle = {
 };
 
 const showToast = (text, status = 'success', duration = 5000) => {
-    console.log(text);
     let style = successToastStyle;
     if (status === 'error') {
         style = errorToastStyle;

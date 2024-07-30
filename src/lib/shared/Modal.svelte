@@ -29,7 +29,7 @@
             on:click={() => dialog.close()}
     />
 
-    <div class="p-4 bg-white rounded-lg relative">
+    <div class="p-4 bg-white dark:bg-gray-700 rounded-lg relative">
         <slot name="header" />
         <hr class="my-2" />
         <slot />

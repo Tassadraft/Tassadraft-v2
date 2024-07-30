@@ -5,10 +5,13 @@
     import ThemeSwitch from '../shared/ThemeSwitch.svelte';
     import Button from '../shared/Button.svelte';
 
-    const token = localStorage.getItem('apiToken');
-
     let isOpen = false;
-    let connected = token !== '' && token !== null && token !== undefined;
+    let connected = false;
+
+    $: {
+        const token = localStorage.getItem('apiToken');
+        connected = token !== '' && token !== null && token !== undefined;
+    }
 
     const closeMenu = () => {
         isOpen = false;

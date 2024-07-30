@@ -5,14 +5,17 @@
     import axios from '../../axiosConfig.js';
     import { createEventDispatcher } from 'svelte';
     import getBase64Strings from '../../service/base64Service.js';
+    import { showToast } from '../../service/toastService.js';
+    import Loader from '../shared/Loader.svelte';
 
     const dispatch = createEventDispatcher();
 
     export let photos = [];
+    export let selectedOption = 'Photos';
 
     let showModal = false;
-    let selectedOption = 'Photos';
     let options = [];
+    let loading = false;
 
     $: {
         options = [
@@ -25,14 +28,14 @@
         if (selectedOption === 'Photos' && photos.filter(photo => !photo.processed).length !== 0) {
             showModal = true;
         } else {
-            selectedOption = event.detail;
+            selectedOption = event.detail.value;
         }
     };
 
     const handleSuccess = async () => {
         try {
+            loading = true;
             const base64Strings = await getBase64Strings(photos.filter(photo => !photo.processed));
-            console.log(base64Strings);
             const response = await axios.post('/api/auth/reserved/process', {photos: base64Strings});
             photos = photos.map(photo => {
                 if (photo.processed) {
@@ -40,17 +43,26 @@
                 }
                 return {...photo, processed: true};
             });
+            loading = false;
+            selectedOption = 'Cards';
             dispatch('processed', response.data);
         } catch (error) {
-            console.error(error);
+            loading = false;
+            console.log(error);
+            if (error.response?.status === 401) {
+                showToast('You are not authorized to process photos', 'error');
+            } else {
+                showToast('An error occurred while processing photos', 'error');
+            }
         }
     };
 </script>
 
 <Segment bind:selected={selectedOption} {options} on:change={handleSegmentChange}/>
+<Loader bind:loading={loading} />
 
 <Modal bind:showModal successText="Yes" closeText="No" on:success={handleSuccess}>
     <Subtitle slot="header">Photos processing</Subtitle>
-    <p>Some photos seem not to be processed yet.</p>
-    <p>Do you want to process them ?</p>
+    <p class="text-black dark:text-white">Some photos seem not to be processed yet.</p>
+    <p class="text-black dark:text-white">Do you want to process them ?</p>
 </Modal>

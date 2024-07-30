@@ -9,7 +9,7 @@
         if (target) {
             const {left, top, width} = target.getBoundingClientRect();
             x = left + width / 2;
-            y = top;
+            y = top + 25;
         }
     }
 </script>

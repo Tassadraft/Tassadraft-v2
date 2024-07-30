@@ -9,7 +9,6 @@
     import Title from '../shared/Title.svelte';
 
     onMount(() => {
-        document.title = 'Login';
         if (localStorage.getItem('apiToken')) {
             storeToast('You are already logged in', 'warning');
             window.location.href = '/';
@@ -38,7 +37,7 @@
 
 <Menu />
 
-<Title>Login</Title>
+<Title title="Login" />
 
 <Form action="/api/login" method="post" handleSuccess={handleSuccess} handleFailure={handleFailure}>
     <Input type="email" name="email" placeholder="jean.dupont@gmail.com" label="Email" value={email} required={true} />
