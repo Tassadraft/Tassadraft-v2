@@ -20,6 +20,7 @@
                 cards = cards.filter(c => c !== card);
             }
         });
+        photos = photos.filter(photo => photo.uri !== selectedPhotoUri);
     };
 </script>
 
