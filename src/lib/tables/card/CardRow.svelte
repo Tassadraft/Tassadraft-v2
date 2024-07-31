@@ -1,8 +1,14 @@
 <script>
     import Switch from '../../shared/Switch.svelte';
+    import Button from '../../shared/Button.svelte';
+    import Icon from '../../shared/Icon.svelte';
+    import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
 
     export let card;
     export let currency;
+
     let displayFoil = false;
     let displayedPrice = 0;
 
@@ -30,6 +36,10 @@
                 break;
         }
     }
+
+    const handleDelete = () => {
+        dispatch('delete', card);
+    }
 </script>
 
 <tr class="h-10">
@@ -41,7 +51,12 @@
             <Switch size="4" bind:value={displayFoil} />
         </div>
     </td>
-    <td class="text-center">
+    <td class="text-center border-r border-primary-700">
         <p class="text-xs truncate">{displayedPrice}</p>
+    </td>
+    <td class="text-center">
+        <Button additionalStyle="mt-2" on:click={handleDelete}>
+            <Icon name="trash" />
+        </Button>
     </td>
 </tr>

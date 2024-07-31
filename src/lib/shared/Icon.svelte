@@ -18,7 +18,8 @@
         'User',
         'UserRemove',
         'Eye',
-        'EyeSlash'
+        'EyeSlash',
+        'Trash'
     ];
 
     const toCamelCase = (str) => {
