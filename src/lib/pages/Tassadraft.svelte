@@ -10,6 +10,7 @@
     let cards = [];
     let state;
     let deletedPhotos = [];
+    let deletedCards = [];
 
     const handleProcessed = (e) => {
         const unprocessedPhotos = photos.filter(photo => !photo.processed);
@@ -42,6 +43,6 @@
     <Photo on:photo={(e) => photos = [...photos, {uri: e.detail.photo.webPath, cards: [], processed: false}]}/>
 {:else}
     {#if state === 'Cards'}
-        <CardsTable bind:cards={cards}/>
+        <CardsTable bind:deletedCards={deletedCards} bind:cards={cards}/>
     {/if}
 {/if}

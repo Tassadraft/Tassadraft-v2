@@ -3,6 +3,7 @@
     import Modal from './Modal.svelte';
     import Subtitle from './Subtitle.svelte';
     import Fab from './Fab.svelte';
+    import { showToast } from '../../service/toastService.js';
 
     export let photos = [];
     export let cards = [];
@@ -25,6 +26,7 @@
         });
         deletedPhotos = [...deletedPhotos, photo];
         photos = photos.filter(photo => photo.uri !== selectedPhotoUri);
+        showToast('Photo deleted', 'success');
     };
 
     const handleUndo = () => {
@@ -38,8 +40,7 @@
                 cards = [...cards, card];
             }
         });
-
-        console.log(cards);
+        showToast('Photo restored', 'success');
     };
 </script>
 

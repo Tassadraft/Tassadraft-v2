@@ -2,8 +2,10 @@
     import CardRow from './CardRow.svelte';
     import Modal from '../../shared/Modal.svelte';
     import { showToast } from '../../../service/toastService.js';
+    import Fab from '../../shared/Fab.svelte';
 
     export let cards = [];
+    export let deletedCards = [];
 
     let currency;
     let showModal = false;
@@ -17,9 +19,15 @@
     }
 
     const handleDeleteSuccess = () => {
-        cards = cards.filter(card => card.id !== deletingCard.id);
+        cards = cards.filter(card => card.name !== deletingCard.name);
+        deletedCards = [...deletedCards, deletingCard];
         showModal = false;
         showToast(`${deletingCard.name} deleted`, 'success');
+    }
+
+    const handleUndo = () => {
+        const lastDeletedCard = deletedCards.pop();
+        cards = [...cards, lastDeletedCard];
     }
 </script>
 
@@ -52,3 +60,7 @@
 <Modal bind:showModal={showModal} closeText="No" successText="Yes" on:success={handleDeleteSuccess}>
     <p class="text-black dark:text-white">Delete {deletingCard?.name} ?</p>
 </Modal>
+
+{#if deletedCards.length > 0}
+    <Fab icon="undo" horizontal="left" vertical="bottom" on:click={handleUndo} />
+{/if}
