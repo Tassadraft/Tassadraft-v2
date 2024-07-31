@@ -9,6 +9,7 @@
     let photos = [];
     let cards = [];
     let state;
+    let deletedPhotos = [];
 
     const handleProcessed = (e) => {
         const unprocessedPhotos = photos.filter(photo => !photo.processed);
@@ -37,7 +38,7 @@
 <Title title="Tassadraft"/>
 <TassadraftSegment bind:selectedOption={state} bind:photos={photos} on:processed={handleProcessed}/>
 {#if state === 'Photos'}
-    <PhotosList bind:cards={cards} bind:photos={photos}/>
+    <PhotosList bind:deletedPhotos={deletedPhotos} bind:cards={cards} bind:photos={photos}/>
     <Photo on:photo={(e) => photos = [...photos, {uri: e.detail.photo.webPath, cards: [], processed: false}]}/>
 {:else}
     {#if state === 'Cards'}

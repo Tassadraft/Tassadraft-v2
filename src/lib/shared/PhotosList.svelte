@@ -2,9 +2,12 @@
     import Button from './Button.svelte';
     import Modal from './Modal.svelte';
     import Subtitle from './Subtitle.svelte';
+    import Fab from './Fab.svelte';
 
     export let photos = [];
     export let cards = [];
+    export let deletedPhotos = [];
+
     let selectedPhotoUri = '';
     let showModal = false;
 
@@ -20,7 +23,23 @@
                 cards = cards.filter(c => c !== card);
             }
         });
+        deletedPhotos = [...deletedPhotos, photo];
         photos = photos.filter(photo => photo.uri !== selectedPhotoUri);
+    };
+
+    const handleUndo = () => {
+        const photo = deletedPhotos[deletedPhotos.length - 1];
+        deletedPhotos = deletedPhotos.slice(0, -1);
+        photos = [...photos, photo];
+
+        photo.cards.forEach(card => {
+            const cardExists = cards.some(existingCard => existingCard.name === card.name);
+            if (!cardExists) {
+                cards = [...cards, card];
+            }
+        });
+
+        console.log(cards);
     };
 </script>
 
@@ -35,3 +54,7 @@
         <Subtitle>Are you sure you want to delete this photo ?</Subtitle>
     </Modal>
 </div>
+
+{#if deletedPhotos.length > 0}
+    <Fab icon="undo" horizontal="left" vertical="bottom" on:click={handleUndo} />
+{/if}
