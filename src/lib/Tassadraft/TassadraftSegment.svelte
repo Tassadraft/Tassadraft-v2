@@ -1,5 +1,5 @@
 <script>
-    import Segment from "./Segment.svelte";
+    import Segment from "../Segments/Segment.svelte";
     import Modal from '../shared/Modal.svelte';
     import Subtitle from '../shared/Subtitle.svelte';
     import axios from '../../axiosConfig.js';
@@ -53,7 +53,7 @@
 </script>
 
 <Segment bind:selected={selectedOption} {options} on:change={handleSegmentChange}/>
-<Loader bind:loading={loading} />
+<Loader bind:loading />
 
 <Modal bind:showModal successText="Yes" closeText="No" on:success={handleSuccess}>
     <Subtitle slot="header">Photos processing</Subtitle>

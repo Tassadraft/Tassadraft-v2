@@ -8,4 +8,4 @@
     export let required = false;
 </script>
 
-<Input bind:value={value} type="password" name={name} placeholder={placeholder} label={label} required={required} />
+<Input bind:value type="password" {name} {placeholder} {label} {required} />

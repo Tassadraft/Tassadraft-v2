@@ -20,7 +20,11 @@
         'Eye',
         'EyeSlash',
         'Trash',
-        'Undo'
+        'Undo',
+        'ArrowDown',
+        'ArrowUp',
+        'Euro',
+        'Dollar',
     ];
 
     const toCamelCase = (str) => {
@@ -48,14 +52,18 @@
         return colorMap[color] || 'text-current';
     }
 
-    onMount(async () => {
+    const setIcon = async (name) => {
         const camelCaseName = toCamelCase(name);
         if (validIcons.includes(camelCaseName)) {
             IconComponent = (await import(`../icons/${camelCaseName}.svelte`)).default;
         } else {
             throw new Error(`Invalid icon name: ${name}`);
         }
-    });
+    }
+
+    $: {
+        setIcon(name);
+    }
 </script>
 
 {#if IconComponent}

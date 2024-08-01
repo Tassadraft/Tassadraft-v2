@@ -10,27 +10,27 @@
     export let currency;
 
     let displayFoil = false;
-    let displayedPrice = 0;
+    card.displayedPrice = 0;
 
     $: {
         switch(displayFoil) {
             case true:
                 if (!!card.price.usdFoil) {
-                    displayedPrice = card.price.usdFoil;
+                    card.displayedPrice = card.price.usdFoil;
                 } else if (!!card.price.eurFoil) {
-                    displayedPrice = card.price.eurFoil;
+                    card.displayedPrice = card.price.eurFoil;
                 } else {
-                    displayedPrice = card.price.usd;
+                    card.displayedPrice = card.price.usd;
                     displayFoil = false;
                 }
                 break;
             case false:
                 switch(currency) {
                     case 'usd':
-                        displayedPrice = card.price.usd;
+                        card.displayedPrice = card.price.usd;
                         break;
                     case 'euro':
-                        displayedPrice = card.price.eur;
+                        card.displayedPrice = card.price.eur;
                         break;
                 }
                 break;
@@ -48,11 +48,13 @@
     </td>
     <td class="text-center border-r border-primary-700">
         <div class="mt-2">
-            <Switch size="4" bind:value={displayFoil} />
+            {#if !!card.price.usdFoil}
+                <Switch size="4" bind:value={displayFoil} />
+            {/if}
         </div>
     </td>
     <td class="text-center border-r border-primary-700">
-        <p class="text-xs truncate">{displayedPrice}</p>
+        <p class="text-xs truncate">{card.displayedPrice}</p>
     </td>
     <td class="text-center">
         <Button additionalStyle="mt-2" on:click={handleDelete}>
