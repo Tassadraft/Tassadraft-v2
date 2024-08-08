@@ -1,7 +1,7 @@
 <script>
     import Radio from '../shared/Radio.svelte';
 
-    let radioValue;
+    let radioValue = localStorage.getItem('currency') || 'euro';
 
     const handleChange = (event) => {
         localStorage.setItem('currency', event);
@@ -11,12 +11,13 @@
         {
             value: 'euro',
             label: '€',
-            selected: true,
+            selected: 'euro' === radioValue,
         }, {
             value: 'dollar',
             label: '$',
+            selected: 'dollar' === radioValue,
         },
     ];
 </script>
 
-<Radio handleChange={handleChange} options={currencies} fontSize={16} legend='Currency' bind:userSelected={radioValue}/>
+<Radio {handleChange} options={currencies} fontSize={16} legend='Currency' bind:userSelected={radioValue}/>

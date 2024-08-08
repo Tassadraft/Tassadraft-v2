@@ -6,9 +6,9 @@
     import PasswordInput from '../shared/PasswordInput.svelte';
     import { showToast, storeToast } from '../../service/toastService.js';
     import axios from '../../axiosConfig.js';
+    import Title from '../shared/Title.svelte';
 
     onMount(() => {
-        document.title = 'Login';
         if (localStorage.getItem('apiToken')) {
             storeToast('You are already logged in', 'warning');
             window.location.href = '/';
@@ -35,11 +35,9 @@
     }
 </script>
 
-<div class="flex justify-start">
-    <div class="mt-3">
-        <Menu />
-    </div>
-</div>
+<Menu />
+
+<Title title="Login" />
 
 <Form action="/api/login" method="post" handleSuccess={handleSuccess} handleFailure={handleFailure}>
     <Input type="email" name="email" placeholder="jean.dupont@gmail.com" label="Email" value={email} required={true} />

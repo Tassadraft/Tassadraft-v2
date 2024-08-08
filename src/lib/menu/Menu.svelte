@@ -5,10 +5,13 @@
     import ThemeSwitch from '../shared/ThemeSwitch.svelte';
     import Button from '../shared/Button.svelte';
 
-    const token = localStorage.getItem('apiToken');
-
     let isOpen = false;
-    let connected = token !== '' && token !== null && token !== undefined;
+    let connected = false;
+
+    $: {
+        const token = localStorage.getItem('apiToken');
+        connected = token !== '' && token !== null && token !== undefined;
+    }
 
     const closeMenu = () => {
         isOpen = false;
@@ -30,30 +33,32 @@
     });
 </script>
 
-<div>
-    <Button idName="menu-button" className={isOpen ? 'opacity-0' : ''} on:click={() => isOpen = !isOpen}>
-        <Icon name="burger" />
-    </Button>
+<div class="flex justify-start">
+    <div class="mt-3">
+        <Button idName="menu-button" className={isOpen ? 'opacity-0' : ''} on:click={() => isOpen = !isOpen}>
+            <Icon name="burger" />
+        </Button>
 
-    <nav id="menu" class="z-50 fixed top-0 left-0 w-64 h-full bg-gray-700 dark:bg-gray-800 text-white transform transition-transform duration-300 ease-in-out {isOpen ? '' : '-translate-x-full'}">
-        <div class="flex justify-end p-4">
-            <Button className="text-2xl" on:click={closeMenu}>
-                <Icon name="close" color="primary-500" />
-            </Button>
-        </div>
-        <ul class="space-y-4 p-4">
-            <MenuItem iconLeft="home" href="/" onClick={closeMenu}>Home</MenuItem>
-            <MenuItem iconLeft="camera" href="/tassadraft" onClick={closeMenu}>Tassadraft</MenuItem>
-            <MenuItem iconLeft="book" href="#" onClick={closeMenu}>Tassadecks</MenuItem>
-            <MenuItem iconLeft="camera" href="#" onClick={closeMenu}>Tassacards</MenuItem>
-            <MenuItem iconLeft="settings" href="/settings" onClick={closeMenu}>Settings</MenuItem>
-            {#if connected}
-                <MenuItem iconLeft="user" href="/account" onClick={closeMenu}>Account</MenuItem>
-                <MenuItem iconLeft="userRemove" href="/logout" onClick={closeMenu}>Logout</MenuItem>
-            {:else}
-                <MenuItem iconLeft="user" href="/login" onClick={closeMenu}>Login</MenuItem>
-            {/if}
-            <ThemeSwitch />
-        </ul>
-    </nav>
+        <nav id="menu" class="z-50 fixed top-0 left-0 w-64 h-full bg-gray-700 dark:bg-gray-800 text-white transform transition-transform duration-300 ease-in-out {isOpen ? '' : '-translate-x-full'}">
+            <div class="flex justify-end p-4">
+                <Button on:click={closeMenu}>
+                    <Icon name="close" />
+                </Button>
+            </div>
+            <ul class="space-y-4 p-4">
+                <MenuItem iconLeft="home" href="/" onClick={closeMenu}>Home</MenuItem>
+                <MenuItem iconLeft="camera" href="/tassadraft" onClick={closeMenu}>Tassadraft</MenuItem>
+                <MenuItem iconLeft="book" href="#" onClick={closeMenu}>Tassadecks</MenuItem>
+                <MenuItem iconLeft="camera" href="#" onClick={closeMenu}>Tassacards</MenuItem>
+                <MenuItem iconLeft="settings" href="/settings" onClick={closeMenu}>Settings</MenuItem>
+                {#if connected}
+                    <MenuItem iconLeft="user" href="/account" onClick={closeMenu}>Account</MenuItem>
+                    <MenuItem iconLeft="userRemove" href="/logout" onClick={closeMenu}>Logout</MenuItem>
+                {:else}
+                    <MenuItem iconLeft="user" href="/login" onClick={closeMenu}>Login</MenuItem>
+                {/if}
+                <ThemeSwitch />
+            </ul>
+        </nav>
+    </div>
 </div>

@@ -13,7 +13,6 @@
     let subscriptionName = '';
 
     onMount(async () => {
-        document.title = 'Account';
         try {
             const { data: response } = await axios.get('/api/auth/account');
             username = response.username;
@@ -29,13 +28,9 @@
     });
 </script>
 
-<div class="flex justify-start">
-    <div class="mt-3">
-        <Menu />
-    </div>
-</div>
+<Menu />
 
-<Title>Account</Title>
+<Title title="Account" />
 
 <Form submitable={false}>
     <Input label="Username" bind:value={username} disabled={true}/>

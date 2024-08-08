@@ -20,13 +20,17 @@
         if (currency !== 'dollar' && currency !== 'euro') {
             localStorage.setItem('currency', 'euro');
         }
+        const languageCode = localStorage.getItem('languageCode');
+        if (languageCode !== 'en' && languageCode !== 'fr') {
+            localStorage.setItem('languageCode', 'en');
+        }
         showStoredToasts();
     });
 
     document.body.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
 </script>
 
-<main class="bg-gray-300 dark:bg-gray-900 text-black dark:text-white min-h-screen min-w-screen px-3.5">
+<main class="bg-gray-200 dark:bg-gray-900 text-black dark:text-white min-h-screen min-w-screen px-3.5">
     <Router {url}>
         <div>
             <Route path="/"><Homepage /></Route>

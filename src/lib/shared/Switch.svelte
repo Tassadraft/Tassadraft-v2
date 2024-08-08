@@ -2,6 +2,7 @@
     export let value;
 
     export let size = 2;
+    export let disabled = false;
 
     const handleToggleChange = (event) => {
         value = event.target.checked;
@@ -9,7 +10,7 @@
 </script>
 
 <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" on:change="{handleToggleChange}" class="sr-only peer" checked={value}>
+    <input type="checkbox" on:change="{handleToggleChange}" class="sr-only peer" checked={value} {disabled}>
     <span
             class="relative bg-gray-400 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:bg-primary-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white dark:border-gray-600 toggle-circle"
             style="width: {size * 8}px; height: {size * 4}px;">
