@@ -44,7 +44,7 @@
 
 <tr class="h-10">
     <td class="tr-first text-left border-r border-primary-700">
-        <p class="text-xs truncate">{card.name}</p>
+        <p class="text-xs truncate">{card.translation.name}</p>
     </td>
     <td class="text-center border-r border-primary-700">
         <div class="mt-2">

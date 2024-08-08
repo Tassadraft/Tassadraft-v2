@@ -4,6 +4,7 @@
     import Title from '../shared/Title.svelte';
     import CurrencyRadio from '../settings/CurrencyRadio.svelte';
     import ThemeSwitch from '../shared/ThemeSwitch.svelte';
+    import LanguageRadio from "../settings/LanguageRadio.svelte";
 </script>
 
 <Menu />
@@ -13,4 +14,5 @@
 <Form submitable={false}>
     <ThemeSwitch title="Theme" />
     <CurrencyRadio />
+    <LanguageRadio />
 </Form>

@@ -1,7 +1,7 @@
 <script>
     import { createEventDispatcher } from "svelte";
-    import Button from '../shared/Button.svelte';
-    import Popover from '../shared/Popover.svelte';
+    import Button from './Button.svelte';
+    import Popover from './Popover.svelte';
 
     const dispatch = createEventDispatcher();
 

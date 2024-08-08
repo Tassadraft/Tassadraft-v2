@@ -1,5 +1,5 @@
 <script>
-    import Segment from "../Segments/Segment.svelte";
+    import Segment from "../shared/Segment.svelte";
     import Modal from '../shared/Modal.svelte';
     import Subtitle from '../shared/Subtitle.svelte';
     import axios from '../../axiosConfig.js';
@@ -36,7 +36,10 @@
         try {
             loading = true;
             const base64Strings = await getBase64Strings(photos.filter(photo => !photo.processed));
-            const response = await axios.post('/api/auth/reserved/process', {photos: base64Strings});
+            const response = await axios.post('/api/auth/reserved/process', {
+                photos: base64Strings,
+                languageCode: localStorage.getItem('languageCode'),
+            });
             loading = false;
             selectedOption = 'Cards';
             dispatch('processed', response.data);

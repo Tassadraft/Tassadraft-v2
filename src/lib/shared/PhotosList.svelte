@@ -35,7 +35,7 @@
         photos = [...photos, photo];
 
         photo.cards.forEach(card => {
-            const cardExists = cards.some(existingCard => existingCard.name === card.name);
+            const cardExists = cards.some(existingCard => existingCard.scryfallId === card.scryfallId);
             if (!cardExists) {
                 cards = [...cards, card];
             }

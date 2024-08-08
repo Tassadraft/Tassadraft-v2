@@ -14,13 +14,13 @@
 
     const handleProcessed = (e) => {
         const unprocessedPhotos = photos.filter(photo => !photo.processed);
-        e.detail?.cards?.forEach((card) => {
-            let savedCard = cards.find(c => c.name === card.name);
+        e.detail?.cards?.forEach((cardObject) => {
+            let savedCard = cards.find(c => c.scryfallId === cardObject.card.scryfallId);
             if (!savedCard) {
-                savedCard = { ...card, photos: [] };
+                savedCard = { ...cardObject.card, photos: [] };
             }
             unprocessedPhotos.forEach((photo, index) => {
-                if (card.images.includes(index + 1)) {
+                if (cardObject.images.includes(index)) {
                     photo.cards = [...photo.cards, savedCard];
                     savedCard.photos = [...savedCard.photos, photo.uri];
                 }

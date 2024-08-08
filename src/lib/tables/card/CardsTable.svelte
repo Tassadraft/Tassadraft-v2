@@ -28,10 +28,10 @@
     }
 
     const handleDeleteSuccess = () => {
-        cards = cards.filter(card => card.name !== deletingCard.name);
+        cards = cards.filter(card => card.scryfallId !== deletingCard.scryfallId);
         deletedCards = [...deletedCards, deletingCard];
         showModal = false;
-        showToast(`${deletingCard.name} deleted`, 'success');
+        showToast(`${deletingCard.translation.name} deleted`, 'success');
     }
 
     const handleUndo = () => {
@@ -68,7 +68,7 @@
 </div>
 
 <Modal bind:showModal={showModal} closeText="No" successText="Yes" on:success={handleDeleteSuccess}>
-    <p class="text-black dark:text-white">Delete {deletingCard?.name} ?</p>
+    <p class="text-black dark:text-white">Delete {deletingCard?.translation.name} ?</p>
 </Modal>
 
 {#if deletedCards.length > 0}
