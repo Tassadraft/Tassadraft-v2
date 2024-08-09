@@ -8,19 +8,17 @@
     export let cards = [];
     export let deletedCards = [];
 
-    let currency;
     let showModal = false;
+    const currency = localStorage.getItem('currency');
     let deletingCard;
     const columns = [
         {name: 'Name', key: 'name'},
         {name: 'Foil'},
-        {name: 'Price', key: 'displayedPrice', icon: localStorage.getItem('currency')},
+        {name: 'Price', key: 'displayedPrice', icon: currency},
         {name: 'Delete'}
     ];
     let sortBy = '';
     let sortDirection = 'asc';
-
-    $: currency = localStorage.getItem('currency');
 
     const handleDelete = (e) => {
         deletingCard = e.detail;
