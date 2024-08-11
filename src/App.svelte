@@ -1,13 +1,19 @@
 <script>
     import { onMount } from 'svelte';
     import { Router, Route } from "svelte-routing";
-    import Homepage from './lib/pages/Homepage.svelte';
+    import Homepage from './lib/pages/Home.svelte';
     import Tassadraft from "./lib/pages/Tassadraft.svelte";
     import Settings from './lib/pages/Settings.svelte';
     import Login from './lib/pages/Login.svelte';
     import Account from './lib/pages/Account.svelte';
     import Logout from './lib/pages/Logout.svelte';
     import { showStoredToasts } from './service/toastService.js';
+    import Tassadecks from "./lib/pages/Tassadecks.svelte";
+    import Deck from "./lib/tassadecks/Deck.svelte";
+    import NewDeck from "./lib/tassadecks/NewDeck.svelte";
+    import MyDecks from "./lib/tassadecks/MyDecks.svelte";
+    import NewDeckScratch from "./lib/tassadecks/NewDeckScratch.svelte";
+    import NewDeckUpload from "./lib/tassadecks/NewDeckUpload.svelte";
 
     export let url = "";
 
@@ -35,10 +41,18 @@
         <div>
             <Route path="/"><Homepage /></Route>
             <Route path="/tassadraft"><Tassadraft /></Route>
+            <Route path="/tassadecks"><Tassadecks /></Route>
             <Route path="/settings"><Settings /></Route>
             <Route path="/account"><Account /></Route>
             <Route path="/login"><Login /></Route>
             <Route path="/logout"><Logout /></Route>
+
+            <Route path="/decks/edit/:deckId" let:params><Deck {...params} /></Route>
+            <Route path="/decks/new"><NewDeck /></Route>
+            <Route path="/decks/new/scratch"><NewDeckScratch /></Route>
+            <Route path="/decks/new/upload"><NewDeckUpload /></Route>
+            <Route path="/decks/me"><MyDecks /></Route>
+            <Route path="/decks"><NewDeck /></Route>
         </div>
     </Router>
 </main>

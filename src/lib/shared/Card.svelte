@@ -1,5 +1,5 @@
 <script>
-    import Icon from '../shared/Icon.svelte';
+    import Icon from './Icon.svelte';
 
     export let title = '';
     export let icon = '';

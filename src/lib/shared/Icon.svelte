@@ -25,6 +25,10 @@
         'ArrowUp',
         'Euro',
         'Dollar',
+        'Upload',
+        'Search',
+        'Pen',
+        'Lego',
     ];
 
     const toCamelCase = (str) => {

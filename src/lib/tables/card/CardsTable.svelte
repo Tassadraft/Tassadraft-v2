@@ -9,7 +9,7 @@
     export let deletedCards = [];
 
     let showModal = false;
-    const currency = localStorage.getItem('currency');
+    let currency = localStorage.getItem('currency');
     let deletingCard;
     const columns = [
         {name: 'Name', key: 'name'},

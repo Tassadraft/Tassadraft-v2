@@ -48,7 +48,7 @@
             <ul class="space-y-4 p-4">
                 <MenuItem iconLeft="home" href="/" onClick={closeMenu}>Home</MenuItem>
                 <MenuItem iconLeft="camera" href="/tassadraft" onClick={closeMenu}>Tassadraft</MenuItem>
-                <MenuItem iconLeft="book" href="#" onClick={closeMenu}>Tassadecks</MenuItem>
+                <MenuItem iconLeft="book" href="/tassadecks" onClick={closeMenu}>Tassadecks</MenuItem>
                 <MenuItem iconLeft="camera" href="#" onClick={closeMenu}>Tassacards</MenuItem>
                 <MenuItem iconLeft="settings" href="/settings" onClick={closeMenu}>Settings</MenuItem>
                 {#if connected}

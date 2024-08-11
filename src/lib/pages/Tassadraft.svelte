@@ -1,7 +1,7 @@
 <script>
     import Menu from '../menu/Menu.svelte';
     import Photo from '../shared/Photo.svelte';
-    import TassadraftSegment from '../Tassadraft/TassadraftSegment.svelte';
+    import TassadraftSegment from '../tassadraft/TassadraftSegment.svelte';
     import Title from '../shared/Title.svelte';
     import PhotosList from '../shared/PhotosList.svelte';
     import CardsTable from '../tables/card/CardsTable.svelte';
