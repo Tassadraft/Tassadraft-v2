@@ -5,7 +5,7 @@
     import axios from "../../axiosConfig.js";
 
     onMount(async () => {
-        const {data: decks } = await axios.get('/api/auth/reserved/decks');
+        const {data: decks } = await axios.get(`/api/decks?languageCode=${localStorage.getItem('languageCode')}`);
         console.log(decks);
     });
 </script>

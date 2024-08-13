@@ -25,10 +25,7 @@
     };
 </script>
 
-<Form method="POST" action={deck.id > 0 ? `/api/auth/reserved/decks/edit/${deck.id}` : '/api/auth/reserved/decks/new'} {handleSuccess} {handleError}>
-    {#if deck.name}
-        <input type="hidden" name="deckId" value={deck.id} />
-    {/if}
+<Form method="POST" action={`/api/auth/reserved/decks/${deck.id > 0 ? `edit/${deck.id}` : 'new'}?languageCode=${localStorage.getItem('languageCode')}`} {handleSuccess} {handleError}>
     <Input label="Name" type="text" name="name" bind:value={deck.name} required={true} />
     <Input label="Description" type="text" name="description" bind:value={deck.description} required={true} />
     <Switch size="6" name="public" bind:value={deck.public} label="Public" />

@@ -8,7 +8,7 @@
     });
 
     const products = [
-        { href: '/tassadraft', title: 'tassadraft', icon: 'camera', description: 'Your batch card recognition tool' },
+        { href: '/tassadraft', title: 'Tassadraft', icon: 'camera', description: 'Your batch card recognition tool' },
         { href: '#', title: 'Tassacards', icon: 'book', description: 'Coming soon' },
         { href: '/tassadecks', title: 'Tassadecks', icon: 'camera', description: 'Your dedicated deck editor' },
     ];

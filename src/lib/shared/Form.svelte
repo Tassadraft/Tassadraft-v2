@@ -13,7 +13,9 @@
         const form = event.target;
         const formData = new FormData(form);
 
-        const formDataObj = {};
+        const formDataObj = {
+            languageCode: localStorage.getItem('languageCode')
+        };
         formData.forEach((value, key) => {
             formDataObj[key] = value;
         });

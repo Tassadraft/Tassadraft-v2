@@ -14,6 +14,7 @@
     import MyDecks from "./lib/tassadecks/MyDecks.svelte";
     import NewDeckScratch from "./lib/tassadecks/NewDeckScratch.svelte";
     import NewDeckUpload from "./lib/tassadecks/NewDeckUpload.svelte";
+    import DecksList from "./lib/tassadecks/DecksList.svelte";
 
     export let url = "";
 
@@ -52,7 +53,7 @@
             <Route path="/decks/new/scratch"><NewDeckScratch /></Route>
             <Route path="/decks/new/upload"><NewDeckUpload /></Route>
             <Route path="/decks/me"><MyDecks /></Route>
-            <Route path="/decks"><NewDeck /></Route>
+            <Route path="/decks"><DecksList /></Route>
         </div>
     </Router>
 </main>
