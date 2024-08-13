@@ -11,7 +11,7 @@
 
 <Title title="Settings" />
 
-<Form submitable={false}>
+<Form submittable={false}>
     <ThemeSwitch title="Theme" />
     <CurrencyRadio />
     <LanguageRadio />

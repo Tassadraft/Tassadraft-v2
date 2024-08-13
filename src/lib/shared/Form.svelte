@@ -6,7 +6,7 @@
     export let action = '';
     export let handleSuccess = () => {};
     export let handleFailure = () => {};
-    export let submitable = true;
+    export let submittable = true;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -35,7 +35,7 @@
 
 <form action={action} on:submit={handleSubmit} method={method} class="bg-gray-200 dark:bg-gray-700 rounded-2xl p-3 shadow">
     <slot />
-    {#if submitable}
+    {#if submittable}
         <Button type="submit">Submit</Button>
     {/if}
 </form>

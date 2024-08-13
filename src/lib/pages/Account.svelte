@@ -32,7 +32,7 @@
 
 <Title title="Account" />
 
-<Form submitable={false}>
+<Form submittable={false}>
     <Input label="Username" bind:value={username} disabled={true}/>
     <Input label="Email" bind:value={email} disabled={true}/>
     {#if subscriptionName && subscriptionEndsOn && subscriptionCreatedOn}
