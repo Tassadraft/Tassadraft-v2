@@ -13,7 +13,10 @@
         'Burger',
         'Close',
         'Settings',
-        'RightChevron',
+        'ChevronLeft',
+        'ChevronRight',
+        'DoubleArrowLeft',
+        'DoubleArrowRight',
         'Home',
         'User',
         'UserRemove',
@@ -29,6 +32,8 @@
         'Search',
         'Pen',
         'Lego',
+        'List',
+        'Grid',
     ];
 
     const toCamelCase = (str) => {

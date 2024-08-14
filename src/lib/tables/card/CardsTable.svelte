@@ -15,7 +15,7 @@
         {name: 'Name', key: 'name'},
         {name: 'Foil'},
         {name: 'Price', key: 'displayedPrice', icon: currency},
-        {name: 'Delete'}
+        {name: 'Delete'},
     ];
     let sortBy = '';
     let sortDirection = 'asc';

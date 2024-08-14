@@ -5,7 +5,7 @@
     export let href = '';
     export let onClick;
     export let iconLeft = '';
-    export let iconRight = 'rightChevron';
+    export let iconRight = 'chevronRight';
     const notClickable = href === window.location.pathname;
 </script>
 

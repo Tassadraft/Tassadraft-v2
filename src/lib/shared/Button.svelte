@@ -6,6 +6,14 @@
     export let additionalStyle = '';
     export let customStyle = false;
     export let ariaLabel = 'This is a button';
+    export let iconButton = false;
+
+    $: buttonClasses = customStyle
+        ? className
+        : `${iconButton
+            ? `text-gray-700 dark:text-primary-100 hover:text-gray-800 hover:dark:text-primary-500`
+            : 'text-gray-800 dark:text-primary-500 hover:text-gray-700 hover:dark:text-primary-400'}
+            ${disabled ? '' : ' cursor-pointer'} rounded transition-colors duration-300 ${additionalStyle}`;
 </script>
 
 <button
@@ -18,7 +26,7 @@
         on:focus
         on:blur
         on:mouseout
-        class="{customStyle ? className : `cursor-pointer rounded text-gray-800 dark:text-primary-500 ${disabled ? '' : 'hover:text-gray-700 hover:dark:text-primary-400'} transition-colors duration-300`} {additionalStyle}"
+        class={buttonClasses}
 >
-    <slot />
+    <slot/>
 </button>
