@@ -3,7 +3,7 @@
     import Input from '../shared/Input.svelte';
     import Switch from '../shared/Switch.svelte';
     import FileUpload from '../shared/FileUpload.svelte';
-    import { showToast } from '../../service/toastService.js';
+    import { showToast, storeToast } from '../../service/toastService.js';
 
     export let scratch = true;
 
@@ -16,7 +16,7 @@
     };
 
     const handleSuccess = (response) => {
-        showToast(response.message, 'success');
+        storeToast(response.message, 'success');
         window.location = `/decks/edit/${response.deckId}`;
     };
 

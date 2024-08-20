@@ -45,7 +45,7 @@
                     </Button>
                 </div>
             {:else}
-                <Button class="mx-auto" on:click={() => dialog.close()}>
+                <Button className="mx-auto" on:click={() => dialog.close()}>
                     {closeText}
                 </Button>
             {/if}

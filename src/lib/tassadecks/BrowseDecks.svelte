@@ -8,6 +8,8 @@
     import Icon from '../shared/Icon.svelte';
     import Button from '../shared/Button.svelte';
     import DecksTable from '../tables/deck/DecksTable.svelte';
+    import IconButton from '../shared/IconButton.svelte';
+    import DecksGrid from './DecksGrid.svelte';
 
     let allDecks = {};
     let myDecks = {};
@@ -25,26 +27,22 @@
 <Title title="All decks" />
 
 <div class="flex flex-row justify-end">
-    <Button
-            disabled={displayingMode === 'list'}
-            customStyle={displayingMode === 'list'}
-            className={displayingMode === 'list' ? 'text-primary-500': ''}
-            iconButton={true} on:click={() => displayingMode = 'list'}>
-        <Icon name="list" />
-    </Button>
-    <Button
-            disabled={displayingMode === 'grid'}
-            customStyle={displayingMode === 'grid'}
-            className={displayingMode === 'grid' ? 'text-primary-500': ''}
-            iconButton={true} on:click={() => displayingMode = 'grid'}>
-        <Icon name="grid" />
-    </Button>
+    <IconButton
+        icon="list"
+        disabled={displayingMode === 'list'}
+        on:click={() => displayingMode = 'list'}
+    />
+    <IconButton
+        icon="grid"
+        disabled={displayingMode === 'grid'}
+        on:click={() => displayingMode = 'grid'}
+    />
 </div>
 
 {#if allDecks}
     <Subtitle>{allDecks.total ?? 0} public decks</Subtitle>
     {#if displayingMode === 'grid'}
-        <p>grid</p>
+        <DecksGrid bind:decks={allDecks.decks} displayOwner={false} />
     {:else if displayingMode === 'list'}
         <DecksTable bind:decks={allDecks.decks} displayOwner={false} />
     {/if}
@@ -53,9 +51,9 @@
 {#if myDecks}
     <Subtitle>{myDecks.total ?? 0} decks owned</Subtitle>
     {#if displayingMode === 'grid'}
-        <p>grid</p>
+        <DecksGrid bind:decks={myDecks.decks} displayOwner={true} />
     {:else if displayingMode === 'list'}
-        <DecksTable bind:decks={allDecks.decks} displayOwner={true} />
+        <DecksTable bind:decks={myDecks.decks} displayOwner={true} />
     {/if}
     <Pagination bind:paginatedObject={myDecks} baseUrl={`/api/auth/reserved/decks/me?languageCode=${localStorage.getItem('languageCode')}`} />
 {/if}

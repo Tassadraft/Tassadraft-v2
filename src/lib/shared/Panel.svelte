@@ -1,0 +1,7 @@
+<script>
+
+</script>
+
+<div class="shadow-2xl rounded-xl bg-gray-200 dark:bg-gray-700 p-3">
+    <slot />
+</div>

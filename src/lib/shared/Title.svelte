@@ -1,10 +1,6 @@
 <script>
-    import { onMount } from 'svelte';
-
     export let title;
 
-    onMount(() => {
-        document.title = title;
-    });
+    $: document.title = title;
 </script>
 <h1 class="text-3xl font-bold mb-2">{title}</h1>

@@ -1,4 +1,8 @@
 <script>
+    import {createEventDispatcher} from 'svelte';
+
+    const dispatch = createEventDispatcher();
+
     export let value;
     export let size = 2;
     export let disabled = false;
@@ -7,6 +11,7 @@
 
     const handleToggleChange = (event) => {
         value = event.target.checked;
+        dispatch('change', value);
     };
 </script>
 
