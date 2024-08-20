@@ -42,8 +42,6 @@
         createdAt = rawCreatedAt.toLocaleString();
         cardsLength = deck.categories?.reduce((acc, category) => acc + category.cards.length, 0) || 0;
     }
-
-    $: console.log(showCardModal, selectedCard);
 </script>
 
 <Menu />
