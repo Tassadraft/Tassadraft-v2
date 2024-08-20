@@ -42,6 +42,8 @@
         createdAt = rawCreatedAt.toLocaleString();
         cardsLength = deck.categories?.reduce((acc, category) => acc + category.cards.length, 0) || 0;
     }
+
+    $: console.log(showCardModal, selectedCard);
 </script>
 
 <Menu />
@@ -70,7 +72,7 @@
                 <ul class="flex flex-col gap-1">
                     {#each categoryObject.cards as cardObject}
                         <li>
-                            <Button customStyle={true} className="text-left hover:text-primary-500 transition-colors duration-300" on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
+                            <Button customStyle={true} className="text-left hover:text-primary-500 transition-colors duration-300 shadow-primary-500 shadow-[0_4px_6px_rgba(0,0,0,0.1),0_1px_3px_rgba(0,0,0,0.08)] rounded" on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
                                 {cardObject.card.translation?.name}
                             </Button>
                         </li>
@@ -81,16 +83,10 @@
     {/each}
 </div>
 
-<style>
-    .modal-image {
-        width: 250px;
-    }
-</style>
-
 <Modal bind:showModal={showCardModal} closeText="Close" on:success={() => showCardModal = false}>
     <Subtitle slot="header">{selectedCard?.card?.translation?.name}</Subtitle>
     <div class="flex flex-col items-center gap-2">
-        <img class="modal-image" src={selectedCard?.card?.imageUri?.normal} alt={selectedCard.card.translation?.name} />
+        <img class="w-60" src={selectedCard?.card?.imageUri?.normal} alt={selectedCard.card.translation?.name} />
         <p class="text-white">{selectedCard?.card?.translation?.typeLine}</p>
     </div>
 </Modal>
