@@ -22,7 +22,7 @@
 
     onMount(async () => {
         try {
-            const {data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?language-code=${localStorage.getItem('languageCode')}`);
+            const {data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
             deck = deckData;
         } catch (e) {
             storeToast('Error while loading the deck', 'error');
@@ -41,6 +41,16 @@
         updatedAt = rawUpdatedAt.toLocaleString();
         createdAt = rawCreatedAt.toLocaleString();
         cardsLength = deck.categories?.reduce((acc, category) => acc + category.cards.length, 0) || 0;
+    }
+
+    $: {
+        for (const categoryObject of deck.categories) {
+            for (const cardObject of categoryObject.cards) {
+                if (cardObject.card.translation?.name.includes('//')) {
+                    console.log(cardObject.card);
+                }
+            }
+        }
     }
 </script>
 
@@ -67,10 +77,10 @@
         {#if categoryObject.cards.length}
             <div class="shadow-md rounded-lg p-4" >
                 <Subtitle>{categoryObject.category.name} ({categoryObject.cards.length})</Subtitle>
-                <ul class="flex flex-col gap-1">
+                <ul class="flex flex-col gap-1 mt-3">
                     {#each categoryObject.cards as cardObject}
                         <li>
-                            <Button customStyle={true} className="text-left hover:text-primary-500 transition-colors duration-300 shadow-primary-500 shadow-[0_4px_6px_rgba(0,0,0,0.1),0_1px_3px_rgba(0,0,0,0.08)] rounded" on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
+                            <Button customStyle={true} className="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.card.legality?.commander === 'legal' ? '' : 'text-red-700'}" on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
                                 {cardObject.card.translation?.name}
                             </Button>
                         </li>
