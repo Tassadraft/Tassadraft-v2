@@ -13,7 +13,7 @@
         <p class="text-xs truncate">{deck.name}</p>
     </td>
     <td class="text-center border-r border-primary-700">
-        <p class="text-xs truncate">{deck.cards.length}</p>
+        <p class="text-xs truncate">{deck.categories?.reduce((acc, category) => acc + category.cards.length, 0) || 0}</p>
     </td>
     <td class="text-center border-r border-primary-700">
         <div class="mt-2 flex justify-center">
