@@ -59,7 +59,7 @@
         <TableHeader {columns} bind:sortBy bind:sortDirection on:sort={handleSort} />
         <tbody>
         {#each cards as card}
-            <CardRow bind:card={card} bind:currency={currency} on:delete={handleDelete} />
+            <CardRow bind:card {currency} on:delete={handleDelete} />
         {/each}
         </tbody>
     </table>
