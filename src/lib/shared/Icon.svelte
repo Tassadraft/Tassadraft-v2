@@ -34,6 +34,9 @@
         'Lego',
         'List',
         'Grid',
+        'Plus',
+        'Minus',
+        'Save',
     ];
 
     const toCamelCase = (str) => {

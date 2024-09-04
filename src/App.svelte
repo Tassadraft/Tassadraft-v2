@@ -9,7 +9,7 @@
     import Logout from './lib/pages/Logout.svelte';
     import { showStoredToasts } from './service/toastService.js';
     import Tassadecks from "./lib/pages/Tassadecks.svelte";
-    import Deck from "./lib/tassadecks/Deck.svelte";
+    import Deck from "./lib/tassadecks/Editor.svelte";
     import NewDeck from "./lib/tassadecks/NewDeck.svelte";
     import MyDecks from "./lib/tassadecks/MyDecks.svelte";
     import NewDeckScratch from "./lib/tassadecks/NewDeckScratch.svelte";
