@@ -57,7 +57,7 @@
                     return;
                 }
                 categoryObject.cards = [...categoryObject.cards, {card}];
-                showToast('Card added to the deck', 'success');
+                showToast(`${card.translation?.name} added to the deck`, 'success');
                 deck = {...deck};
                 return;
             }
@@ -68,7 +68,7 @@
         for (const categoryObject of deck.categories) {
             if (categoryObject.cards.find(cardObject => cardObject.card.scryfallId === e.detail.scryfallId)) {
                 categoryObject.cards = categoryObject.cards.filter(cardObject => cardObject.card.scryfallId !== e.detail.scryfallId);
-                showToast('Card removed from the deck', 'success');
+                showToast(`${e.detail.translation.name} removed from the deck`, 'success');
                 deck = {...deck};
                 return;
             }
@@ -123,14 +123,14 @@
         </Button>
         <div class="w-full flex flex-row justify-end">
             <IconButton
-                    icon="list"
-                    disabled={displayingMode === 'list'}
-                    on:click={() => displayingMode = 'list'}
+                icon="list"
+                disabled={displayingMode === 'list'}
+                on:click={() => displayingMode = 'list'}
             />
             <IconButton
-                    icon="grid"
-                    disabled={displayingMode === 'grid'}
-                    on:click={() => displayingMode = 'grid'}
+                icon="grid"
+                disabled={displayingMode === 'grid'}
+                on:click={() => displayingMode = 'grid'}
             />
         </div>
     </div>
@@ -143,14 +143,25 @@
                 <Subtitle>{categoryObject.category.name} ({categoryObject.cards.length})</Subtitle>
                 <ul class="flex flex-col gap-1 mt-3">
                     {#each categoryObject.cards as cardObject}
-                        <li class="flex flex-row gap-1">
-                            <Button customStyle={true} className="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.card.legality?.commander === 'legal' ? '' : 'text-red-700'}" on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
-                                {cardObject.card.translation?.name}
-                            </Button>
-                            <div class="mt-2">
-                                <IconButton icon="minus" on:click={() => removeCard({detail: cardObject.card})} />
+                        {#if displayingMode === 'list'}
+                            <li class="flex flex-row gap-1">
+                                <Button customStyle={true} className="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.card.legality?.commander === 'legal' ? '' : 'text-red-700'}" on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
+                                    {cardObject.card.translation?.name}
+                                </Button>
+                                <div class="mt-2">
+                                    <IconButton icon="minus" on:click={() => removeCard({detail: cardObject.card})} />
+                                </div>
+                            </li>
+                        {:else}
+                            <div class="relative group">
+                                <img src={cardObject.card.imageUri?.small} alt={cardObject.card.translation?.name}
+                                     class="w-48 flex-shrink-0 group-hover:opacity-50 transition-opacity duration-300"/>
+                                <div class="absolute inset-0 flex justify-center items-center flex-col gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <IconButton icon="search" on:click={() => {selectedCard = cardObject; showCardModal = true;}}/>
+                                    <IconButton icon="trash" on:click={() => removeCard({detail: cardObject.card})}/>
+                                </div>
                             </div>
-                        </li>
+                        {/if}
                     {/each}
                 </ul>
             </div>
@@ -158,17 +169,14 @@
     {/each}
 </div>
 
-<Modal bind:showModal={showCardModal} closeText="Close" on:success={() => showCardModal = false}>
+<Modal bind:showModal={showCardModal} closeText="Close" on:success={() => showCardModal = false} fullWidth={selectedCard?.card?.layout === 'transform'}>
     <Subtitle slot="header">{selectedCard?.card?.translation?.name}</Subtitle>
-    <div class="flex flex-col items-center gap-2">
+    <div class="flex items-center justify-center gap-3 {selectedCard?.card?.layout === 'transform' ? 'flex-row' : 'flex-col'} mx-auto">
         {#if selectedCard?.card?.layout === 'transform'}
-            <img src={selectedCard?.card?.cardFaces[0]?.imageUri.normal} alt={selectedCard?.card?.cardFaces[0]?.translation?.name} />
-            <p class="text-white">{selectedCard?.card?.cardFaces[0]?.translation?.typeLine}</p>
-            <img src={selectedCard?.card?.cardFaces[1]?.imageUri.normal} alt={selectedCard?.card?.cardFaces[1]?.translation?.name} />
-            <p class="text-white">{selectedCard?.card?.cardFaces[1]?.translation?.typeLine}</p>
+            <img class="w-64" src={selectedCard?.card?.cardFaces[0]?.imageUri.normal} alt={selectedCard?.card?.cardFaces[0]?.translation?.name} />
+            <img class="w-64" src={selectedCard?.card?.cardFaces[1]?.imageUri.normal} alt={selectedCard?.card?.cardFaces[1]?.translation?.name} />
         {:else}
-            <img src={selectedCard?.card?.imageUri?.normal} alt={selectedCard?.card?.translation?.name} />
-            <p class="text-white">{selectedCard?.card?.translation?.typeLine}</p>
+            <img class="w-64" src={selectedCard?.card?.imageUri?.normal} alt={selectedCard?.card?.translation?.name} />
         {/if}
     </div>
 </Modal>

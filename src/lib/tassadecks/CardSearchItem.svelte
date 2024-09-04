@@ -36,7 +36,6 @@
 </script>
 
 <div class="relative group">
-    <!-- Container for image and button, `group` allows hover states to apply to child elements -->
     {#if card?.layout === 'transform'}
         <div class="relative flex gap-4">
             <div class="relative">
@@ -61,6 +60,11 @@
             <div class="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <IconButton bind:icon on:click={isCardInDeck ? handleDelete : handleAdd}/>
             </div>
+            {#if isCardInDeck}
+                <div class="absolute z-10 top-3 right-3 bg-amber-500 p-0.5 rounded-lg bg-opacity-50 border border-gray-600">
+                    <p class="text-black">In deck</p>
+                </div>
+            {/if}
         </div>
     {/if}
 </div>
