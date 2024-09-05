@@ -29,6 +29,9 @@
     const searchBarName = 'searchCard';
     let displayingMode = 'list';
 
+    let currentHoveredCard = null;
+    let hoveredCategoryIndex = null;
+
     onMount(async () => {
         try {
             const {data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
@@ -39,6 +42,47 @@
         }
     });
 
+    const handleCardHover = (catIndex, cardIndex) => {
+        currentHoveredCard = cardIndex;
+        hoveredCategoryIndex = catIndex;
+        updateStackPositions();
+    };
+
+    const resetStack = (catIndex) => {
+        currentHoveredCard = null;
+        hoveredCategoryIndex = catIndex;
+        updateStackPositions();
+    };
+
+    const updateStackPositions = () => {
+        if (hoveredCategoryIndex === null) return;
+
+        const categoryCards = deck.categories[hoveredCategoryIndex]?.cards;
+        if (!categoryCards) return;  // Ensure categoryCards exists
+
+        // Iterate over each card in the category
+        categoryCards.forEach((card, i) => {
+            // Get the card elements by class name
+            const cardElement = document.querySelectorAll(`.category-${hoveredCategoryIndex} .absolute`)[i];
+            if (!cardElement) return;  // Ensure the cardElement exists
+
+            if (currentHoveredCard !== null && i < currentHoveredCard) {
+                // Cards before the hovered one: stack them with decreasing z-index and slight upward translation
+                cardElement.style.transform = `translateY(${i * 10}px) scale(0.95)`;
+                cardElement.style.zIndex = `${i}`;
+            } else if (currentHoveredCard !== null && i === currentHoveredCard) {
+                // Hovered card: bring it to the front, no translation, full scale
+                cardElement.style.transform = `translateY(0px) scale(1)`;
+                cardElement.style.zIndex = `1000`;  // Bring the hovered card to the front
+            } else {
+                // Cards after the hovered one: stack them with more significant translation but behind the hovered card
+                cardElement.style.transform = `translateY(${i * 30}px)`;
+                cardElement.style.zIndex = `${i}`;
+            }
+        });
+    };
+
+
     const handleSearch = async (query) => {
         try {
             const {data} = await axios.get(`/api/auth/reserved/cards/search?query=${query}&maxResults=10`);
@@ -46,7 +90,7 @@
         } catch (e) {
             storeToast('Error while searching', 'error');
         }
-    }
+    };
 
     const addCard = (e) => {
         for (const categoryObject of deck.categories) {
@@ -62,7 +106,7 @@
                 return;
             }
         }
-    }
+    };
 
     const removeCard = (e) => {
         for (const categoryObject of deck.categories) {
@@ -73,12 +117,12 @@
                 return;
             }
         }
-    }
+    };
 
     const save = async () => {
         // TODO: update the deck (back => check if owner and add TODO: check if shared)
         showToast('Deck saved', 'success');
-    }
+    };
 
     $: {
         const rawUpdatedAt = new Date(deck.updatedAt);
@@ -123,29 +167,29 @@
         </Button>
         <div class="w-full flex flex-row justify-end">
             <IconButton
-                icon="list"
-                disabled={displayingMode === 'list'}
-                on:click={() => displayingMode = 'list'}
+                    icon="list"
+                    disabled={displayingMode === 'list'}
+                    on:click={() => displayingMode = 'list'}
             />
             <IconButton
-                icon="grid"
-                disabled={displayingMode === 'grid'}
-                on:click={() => displayingMode = 'grid'}
+                    icon="grid"
+                    disabled={displayingMode === 'grid'}
+                    on:click={() => displayingMode = 'grid'}
             />
         </div>
     </div>
 </Panel>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    {#each deck.categories as categoryObject}
+    {#each deck.categories as categoryObject, categoryIndex}
         {#if categoryObject.cards.length}
-            <div class="shadow-md rounded-lg p-4" >
+            <div class="shadow-md rounded-lg p-4 relative">
                 <Subtitle>{categoryObject.category.name} ({categoryObject.cards.length})</Subtitle>
                 <ul class="flex flex-col gap-1 mt-3">
-                    {#each categoryObject.cards as cardObject}
+                    {#each categoryObject.cards.reverse() as cardObject, cardIndex}
                         {#if displayingMode === 'list'}
                             <li class="flex flex-row gap-1">
-                                <Button customStyle={true} className="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.card.legality?.commander === 'legal' ? '' : 'text-red-700'}" on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
+                                <Button customStyle={true} class="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.card.legality?.commander === 'legal' ? '' : 'text-red-700'}" on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
                                     {cardObject.card.translation?.name}
                                 </Button>
                                 <div class="mt-2">
@@ -153,12 +197,26 @@
                                 </div>
                             </li>
                         {:else}
-                            <div class="relative group">
-                                <img src={cardObject.card.imageUri?.small} alt={cardObject.card.translation?.name}
-                                     class="w-48 flex-shrink-0 group-hover:opacity-50 transition-opacity duration-300"/>
-                                <div class="absolute inset-0 flex justify-center items-center flex-col gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <IconButton icon="search" on:click={() => {selectedCard = cardObject; showCardModal = true;}}/>
-                                    <IconButton icon="trash" on:click={() => removeCard({detail: cardObject.card})}/>
+                            <div
+                                class="relative group transition-transform duration-300"
+                                style="z-index: {currentHoveredCard === cardIndex && hoveredCategoryIndex === categoryIndex ? 1000 : 1};"
+                                role="button"
+                                tabindex="0"
+                                aria-label="Card: {cardObject.card.translation?.name}"
+                                on:mouseenter={() => handleCardHover(categoryIndex, cardIndex)}
+                                on:mouseleave={() => resetStack(categoryIndex)}
+                                on:focus={() => handleCardHover(categoryIndex, cardIndex)}
+                                on:blur={() => resetStack(categoryIndex)}
+                            >
+                                <img
+                                    src={cardObject.card.imageUri?.small}
+                                    alt={cardObject.card.translation?.name}
+                                    class="w-48 flex-shrink-0"
+                                    style="transform: translateY({cardIndex * 30}px);"
+                                />
+                                <div class="absolute inset-0 flex justify-center items-center flex-col gap-5 opacity-0 group-hover:opacity-50 transition-opacity duration-300">
+                                    <IconButton icon="search" on:click={() => {selectedCard = cardObject; showCardModal = true;}} />
+                                    <IconButton icon="trash" on:click={() => removeCard({detail: cardObject.card})} />
                                 </div>
                             </div>
                         {/if}
