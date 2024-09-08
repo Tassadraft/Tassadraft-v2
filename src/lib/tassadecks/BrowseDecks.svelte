@@ -5,11 +5,10 @@
     import axios from "../../axiosConfig.js";
     import Pagination from '../shared/Pagination.svelte';
     import Subtitle from '../shared/Subtitle.svelte';
-    import Icon from '../shared/Icon.svelte';
-    import Button from '../shared/Button.svelte';
     import DecksTable from '../tables/deck/DecksTable.svelte';
     import IconButton from '../shared/IconButton.svelte';
     import DecksGrid from './DecksGrid.svelte';
+    import DisplayingMode from "../shared/DisplayingMode.svelte";
 
     let allDecks = {};
     let myDecks = {};
@@ -17,7 +16,6 @@
 
     onMount(async () => {
         const { data } = await axios.get(`/api/decks?languageCode=${localStorage.getItem('languageCode')}`);
-        console.log(data);
         allDecks = data.allDecks;
         myDecks = data.myDecks;
     });
@@ -26,18 +24,7 @@
 <Menu />
 <Title title="All decks" />
 
-<div class="flex flex-row justify-end">
-    <IconButton
-        icon="list"
-        disabled={displayingMode === 'list'}
-        on:click={() => displayingMode = 'list'}
-    />
-    <IconButton
-        icon="grid"
-        disabled={displayingMode === 'grid'}
-        on:click={() => displayingMode = 'grid'}
-    />
-</div>
+<DisplayingMode bind:displayingMode />
 
 {#if allDecks}
     <Subtitle>{allDecks.total ?? 0} public decks</Subtitle>

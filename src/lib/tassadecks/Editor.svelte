@@ -1,18 +1,19 @@
 <script>
     import Menu from "../menu/Menu.svelte";
     import Title from "../shared/Title.svelte";
-    import {onMount} from "svelte";
+    import { onMount } from "svelte";
     import axios from "../../axiosConfig.js";
     import Panel from '../shared/Panel.svelte';
     import Switch from '../shared/Switch.svelte';
     import Subtitle from '../shared/Subtitle.svelte';
-    import { showToast, storeToast } from '../../service/toastService.js';
+    import { showToast } from '../../service/toastService.js';
     import Modal from '../shared/Modal.svelte';
     import Button from '../shared/Button.svelte';
     import Search from "../shared/Search.svelte";
     import IconButton from "../shared/IconButton.svelte";
     import CardSearchItem from "./CardSearchItem.svelte";
     import Icon from "../shared/Icon.svelte";
+    import DisplayingMode from "../shared/DisplayingMode.svelte";
 
     export let deckId = "";
 
@@ -27,68 +28,28 @@
 
     let searchedCards = [];
     const searchBarName = 'searchCard';
-    let displayingMode = 'list';
-
-    let currentHoveredCard = null;
-    let hoveredCategoryIndex = null;
+    let displayingMode = 'grid';
 
     onMount(async () => {
         try {
             const {data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
             deck = deckData;
         } catch (e) {
-            storeToast('Error while loading the deck', 'error');
+            showToast('Error while loading the deck', 'error');
             window.location = '/decks/new';
         }
     });
 
-    const handleCardHover = (catIndex, cardIndex) => {
-        currentHoveredCard = cardIndex;
-        hoveredCategoryIndex = catIndex;
-        updateStackPositions();
+    const handleCardHover = (cardObject) => {
+        selectedCard = cardObject;
     };
-
-    const resetStack = (catIndex) => {
-        currentHoveredCard = null;
-        hoveredCategoryIndex = catIndex;
-        updateStackPositions();
-    };
-
-    const updateStackPositions = () => {
-        if (hoveredCategoryIndex === null) return;
-
-        const categoryCards = deck.categories[hoveredCategoryIndex]?.cards;
-        if (!categoryCards) return;  // Ensure categoryCards exists
-
-        // Iterate over each card in the category
-        categoryCards.forEach((card, i) => {
-            // Get the card elements by class name
-            const cardElement = document.querySelectorAll(`.category-${hoveredCategoryIndex} .absolute`)[i];
-            if (!cardElement) return;  // Ensure the cardElement exists
-
-            if (currentHoveredCard !== null && i < currentHoveredCard) {
-                // Cards before the hovered one: stack them with decreasing z-index and slight upward translation
-                cardElement.style.transform = `translateY(${i * 10}px) scale(0.95)`;
-                cardElement.style.zIndex = `${i}`;
-            } else if (currentHoveredCard !== null && i === currentHoveredCard) {
-                // Hovered card: bring it to the front, no translation, full scale
-                cardElement.style.transform = `translateY(0px) scale(1)`;
-                cardElement.style.zIndex = `1000`;  // Bring the hovered card to the front
-            } else {
-                // Cards after the hovered one: stack them with more significant translation but behind the hovered card
-                cardElement.style.transform = `translateY(${i * 30}px)`;
-                cardElement.style.zIndex = `${i}`;
-            }
-        });
-    };
-
 
     const handleSearch = async (query) => {
         try {
             const {data} = await axios.get(`/api/auth/reserved/cards/search?query=${query}&maxResults=10`);
             searchedCards = data;
         } catch (e) {
-            storeToast('Error while searching', 'error');
+            showToast('Error while searching', 'error');
         }
     };
 
@@ -165,28 +126,19 @@
                 <p>Search</p>
             </div>
         </Button>
-        <div class="w-full flex flex-row justify-end">
-            <IconButton
-                    icon="list"
-                    disabled={displayingMode === 'list'}
-                    on:click={() => displayingMode = 'list'}
-            />
-            <IconButton
-                    icon="grid"
-                    disabled={displayingMode === 'grid'}
-                    on:click={() => displayingMode = 'grid'}
-            />
+        <div class="flex justify-end w-full">
+            <DisplayingMode bind:displayingMode />
         </div>
     </div>
 </Panel>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    {#each deck.categories as categoryObject, categoryIndex}
+    {#each deck.categories as categoryObject}
         {#if categoryObject.cards.length}
             <div class="shadow-md rounded-lg p-4 relative">
                 <Subtitle>{categoryObject.category.name} ({categoryObject.cards.length})</Subtitle>
                 <ul class="flex flex-col gap-1 mt-3">
-                    {#each categoryObject.cards.reverse() as cardObject, cardIndex}
+                    {#each categoryObject.cards as cardObject, index (cardObject.card.scryfallId)}
                         {#if displayingMode === 'list'}
                             <li class="flex flex-row gap-1">
                                 <Button customStyle={true} class="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.card.legality?.commander === 'legal' ? '' : 'text-red-700'}" on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
@@ -197,27 +149,19 @@
                                 </div>
                             </li>
                         {:else}
-                            <div
-                                class="relative group transition-transform duration-300"
-                                style="z-index: {currentHoveredCard === cardIndex && hoveredCategoryIndex === categoryIndex ? 1000 : 1};"
-                                role="button"
-                                tabindex="0"
-                                aria-label="Card: {cardObject.card.translation?.name}"
-                                on:mouseenter={() => handleCardHover(categoryIndex, cardIndex)}
-                                on:mouseleave={() => resetStack(categoryIndex)}
-                                on:focus={() => handleCardHover(categoryIndex, cardIndex)}
-                                on:blur={() => resetStack(categoryIndex)}
-                            >
+                            <div class="absolute" style="top: {index * 30}px; z-index: {index + 1};">
                                 <img
-                                    src={cardObject.card.imageUri?.small}
-                                    alt={cardObject.card.translation?.name}
-                                    class="w-48 flex-shrink-0"
-                                    style="transform: translateY({cardIndex * 30}px);"
+                                        src={cardObject.card.imageUri?.normal}
+                                        alt={cardObject.card.translation?.name}
+                                        class="{index === categoryObject.cards.length - 1 ? 'w-48' : 'w-48 opacity-90'}"
                                 />
-                                <div class="absolute inset-0 flex justify-center items-center flex-col gap-5 opacity-0 group-hover:opacity-50 transition-opacity duration-300">
-                                    <IconButton icon="search" on:click={() => {selectedCard = cardObject; showCardModal = true;}} />
-                                    <IconButton icon="trash" on:click={() => removeCard({detail: cardObject.card})} />
-                                </div>
+                                {#if index === categoryObject.cards.length - 1}
+                                    <!-- Only the last card shows actions like search/trash -->
+                                    <div class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <IconButton icon="search" on:click={() => { selectedCard = cardObject; showCardModal = true; }} />
+                                        <IconButton icon="trash" on:click={() => removeCard({detail: cardObject.card})} />
+                                    </div>
+                                {/if}
                             </div>
                         {/if}
                     {/each}
@@ -227,7 +171,7 @@
     {/each}
 </div>
 
-<Modal bind:showModal={showCardModal} closeText="Close" on:success={() => showCardModal = false} fullWidth={selectedCard?.card?.layout === 'transform'}>
+<Modal bind:showModal={showCardModal} closeText="Close" on:success={() => showCardModal = false} fullWidth={selectedCard?.card?.layout === 'transform'} on:open={() => setTimeout(() => console.log(selectedCard), 1000)}>
     <Subtitle slot="header">{selectedCard?.card?.translation?.name}</Subtitle>
     <div class="flex items-center justify-center gap-3 {selectedCard?.card?.layout === 'transform' ? 'flex-row' : 'flex-col'} mx-auto">
         {#if selectedCard?.card?.layout === 'transform'}
