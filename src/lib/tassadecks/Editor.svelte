@@ -135,7 +135,10 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
     {#each deck.categories as categoryObject}
         {#if categoryObject.cards.length}
-            <div class="shadow-md rounded-lg p-4 relative">
+            <div
+                class="shadow-md rounded-lg p-4 relative"
+                style={displayingMode === 'grid' ? `height: ${268 + 50 + 30 * categoryObject.cards.length - 1}px;` : ''}
+            > <!-- 268 => height of the stack's last card, 50 => height of Subtitle, 30 => stacked card's height -->
                 <Subtitle>{categoryObject.category.name} ({categoryObject.cards.length})</Subtitle>
                 <ul class="flex flex-col gap-1 mt-3">
                     {#each categoryObject.cards as cardObject, index (cardObject.card.scryfallId)}
@@ -149,14 +152,13 @@
                                 </div>
                             </li>
                         {:else}
-                            <div class="absolute" style="top: {index * 30}px; z-index: {index + 1};">
+                            <div class="absolute" style="top: {index * 30 + 50}px; z-index: {index + 1};">
                                 <img
                                         src={cardObject.card.imageUri?.normal}
                                         alt={cardObject.card.translation?.name}
                                         class="{index === categoryObject.cards.length - 1 ? 'w-48' : 'w-48 opacity-90'}"
                                 />
                                 {#if index === categoryObject.cards.length - 1}
-                                    <!-- Only the last card shows actions like search/trash -->
                                     <div class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         <IconButton icon="search" on:click={() => { selectedCard = cardObject; showCardModal = true; }} />
                                         <IconButton icon="trash" on:click={() => removeCard({detail: cardObject.card})} />
