@@ -22,6 +22,8 @@
     let cardsLength = 0;
     let deck = {name: 'Deck editor', cards: [], description: '', categories: [], updatedAt, enabled: false, public: false};
     let selectedCard = {card: {}};
+    let hoveredCardIndex = -1;
+    let hoveredCategoryIndex = -1;
 
     let showCardModal = false;
     let showSearchModal = false;
@@ -34,14 +36,28 @@
         try {
             const {data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
             deck = deckData;
+            for (const categoryObject of deck.categories) {
+                for (const cardObject of categoryObject.cards) {
+                    if (cardObject.card.layout === 'transform') {
+                        console.log(cardObject.card);
+                    }
+
+                }
+            }
         } catch (e) {
             showToast('Error while loading the deck', 'error');
             window.location = '/decks/new';
         }
     });
 
-    const handleCardHover = (cardObject) => {
-        selectedCard = cardObject;
+    const handleCardHover = (cardIndex, categoryIndex) => {
+        hoveredCardIndex = cardIndex;
+        hoveredCategoryIndex = categoryIndex;
+    };
+
+    const handleCardUnhover = () => {
+        hoveredCardIndex = -1;
+        hoveredCategoryIndex = -1;
     };
 
     const handleSearch = async (query) => {
@@ -133,16 +149,16 @@
 </Panel>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    {#each deck.categories as categoryObject}
+    {#each deck.categories as categoryObject, categoryIndex}
         {#if categoryObject.cards.length}
             <div
                 class="shadow-md rounded-lg p-4 relative"
                 style={displayingMode === 'grid' ? `height: ${268 + 50 + 30 * categoryObject.cards.length - 1}px;` : ''}
             > <!-- 268 => height of the stack's last card, 50 => height of Subtitle, 30 => stacked card's height -->
                 <Subtitle>{categoryObject.category.name} ({categoryObject.cards.length})</Subtitle>
-                <ul class="flex flex-col gap-1 mt-3">
-                    {#each categoryObject.cards as cardObject, index (cardObject.card.scryfallId)}
-                        {#if displayingMode === 'list'}
+                {#if displayingMode === 'list'}
+                    <ul class="flex flex-col gap-1 mt-3">
+                        {#each categoryObject.cards as cardObject, index (cardObject.card.scryfallId)}
                             <li class="flex flex-row gap-1">
                                 <Button customStyle={true} class="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.card.legality?.commander === 'legal' ? '' : 'text-red-700'}" on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
                                     {cardObject.card.translation?.name}
@@ -151,23 +167,32 @@
                                     <IconButton icon="minus" on:click={() => removeCard({detail: cardObject.card})} />
                                 </div>
                             </li>
-                        {:else}
-                            <div class="absolute" style="top: {index * 30 + 50}px; z-index: {index + 1};">
-                                <img
-                                        src={cardObject.card.imageUri?.normal}
-                                        alt={cardObject.card.translation?.name}
-                                        class="{index === categoryObject.cards.length - 1 ? 'w-48' : 'w-48 opacity-90'}"
-                                />
-                                {#if index === categoryObject.cards.length - 1}
-                                    <div class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <IconButton icon="search" on:click={() => { selectedCard = cardObject; showCardModal = true; }} />
-                                        <IconButton icon="trash" on:click={() => removeCard({detail: cardObject.card})} />
-                                    </div>
-                                {/if}
+                        {/each}
+                    </ul>
+                {:else}
+                    {#each categoryObject.cards as cardObject, index (cardObject.card.scryfallId)}
+                        <Button
+                            customStyle={true}
+                            className="absolute group transition-transform duration-300"
+                            style="transform: translateY({((index - 1) * 30) + (categoryIndex === hoveredCategoryIndex && index > hoveredCardIndex ? 268 : 50)}px); z-index: {index + 1};"
+                            on:mouseover={() => handleCardHover(index, categoryIndex)}
+                            on:mouseout={handleCardUnhover}
+                            on:focus={() => handleCardHover(index, categoryIndex)}
+                            on:blur={handleCardUnhover}
+                        >
+                            <div class="absolute inset-0 bg-gray-950 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <img
+                                src={cardObject?.card?.layout === 'transform' ? cardObject?.card?.cardFaces[0]?.imageUri?.normal : cardObject?.card?.imageUri?.normal}
+                                alt={cardObject.card.translation?.name}
+                                class="w-48 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"
+                            />
+                            <div class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <IconButton icon="search" on:click={() => { selectedCard = cardObject; showCardModal = true; }} />
+                                <IconButton icon="trash" on:click={() => removeCard({detail: cardObject.card})} />
                             </div>
-                        {/if}
+                        </Button>
                     {/each}
-                </ul>
+                {/if}
             </div>
         {/if}
     {/each}
