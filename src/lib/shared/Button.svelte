@@ -20,5 +20,5 @@
         on:mouseout
         class="{customStyle ? className : `cursor-pointer rounded text-gray-800 dark:text-primary-500 ${disabled ? '' : 'hover:text-gray-700 hover:dark:text-primary-400'} transition-colors duration-300`} {additionalStyle}"
 >
-    <slot/>
+    <slot />
 </button>
