@@ -14,14 +14,25 @@
     import CardSearchItem from "./CardSearchItem.svelte";
     import Icon from "../shared/Icon.svelte";
     import DisplayingMode from "../shared/DisplayingMode.svelte";
+    import { asDroppable, asDropZone } from 'svelte-drag-and-drop-actions'
 
     export let deckId = "";
 
     let updatedAt = new Date();
     let createdAt = new Date();
     let cardsLength = 0;
-    let deck = {name: 'Deck editor', cards: [], description: '', categories: [], updatedAt, enabled: false, public: false};
+    let deck = {
+        name: 'Deck editor',
+        cards: [],
+        description: '',
+        categories: [],
+        updatedAt,
+        enabled: false,
+        public: false
+    };
     let selectedCard = {card: {}};
+    let draggedCard = {card: {}};
+    let draggedCategory = null;
     let hoveredCardIndex = -1;
     let hoveredCategoryIndex = -1;
 
@@ -34,7 +45,7 @@
 
     onMount(async () => {
         try {
-            const {data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
+            const {data: deckData} = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
             deck = deckData;
             for (const categoryObject of deck.categories) {
                 for (const cardObject of categoryObject.cards) {
@@ -67,6 +78,19 @@
         } catch (e) {
             showToast('Error while searching', 'error');
         }
+    };
+
+    const handleDrop = (categoryObject) => {
+        if (categoryObject.id === draggedCategory.id) {
+            return;
+        }
+        categoryObject.cards = [...categoryObject.cards, draggedCard];
+        draggedCategory.cards = draggedCategory.cards.filter(cardObject => cardObject.card.scryfallId !== draggedCard.card.scryfallId);
+    };
+
+    const handleDragStart = (cardObject, categoryObject) => {
+        draggedCard = cardObject;
+        draggedCategory = categoryObject
     };
 
     const addCard = (e) => {
@@ -110,16 +134,16 @@
     }
 </script>
 
-<Menu />
-<Title bind:title={deck.name} />
+<Menu/>
+<Title bind:title={deck.name}/>
 
 <Panel>
     <div class="grid grid-cols-3 gap-4 text-center">
         <div class="m-auto">
-            <Switch size=4 bind:value={deck.enabled} label="Enabled" on:change={() => save()} />
+            <Switch size=4 bind:value={deck.enabled} label="Enabled" on:change={() => save()}/>
         </div>
         <div class="m-auto">
-            <Switch size=4 bind:value={deck.public} label="Public" on:change={() => save()} />
+            <Switch size=4 bind:value={deck.public} label="Public" on:change={() => save()}/>
         </div>
         <p>{cardsLength} cards</p>
         <p>Updated on {updatedAt}</p>
@@ -132,80 +156,105 @@
     <div class="flex flex-row gap-5">
         <Button on:click={save}>
             <div class="flex flex-row gap-1">
-                <Icon name="save" />
+                <Icon name="save"/>
                 <p>Save</p>
             </div>
         </Button>
         <Button on:click={() => showSearchModal = true}>
             <div class="flex flex-row gap-1">
-                <Icon name="search" />
+                <Icon name="search"/>
                 <p>Search</p>
             </div>
         </Button>
         <div class="flex justify-end w-full">
-            <DisplayingMode bind:displayingMode />
+            <DisplayingMode bind:displayingMode/>
         </div>
     </div>
 </Panel>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
     {#each deck.categories as categoryObject, categoryIndex}
-        {#if categoryObject.cards.length}
-            <div
-                class="shadow-md rounded-lg p-4 relative"
-                style={displayingMode === 'grid' ? `height: ${268 + 50 + 30 * categoryObject.cards.length - 1}px;` : ''}
-            > <!-- 268 => height of the stack's last card, 50 => height of Subtitle, 30 => stacked card's height -->
-                <Subtitle>{categoryObject.category.name} ({categoryObject.cards.length})</Subtitle>
-                {#if displayingMode === 'list'}
-                    <ul class="flex flex-col gap-1 mt-3">
-                        {#each categoryObject.cards as cardObject, index (cardObject.card.scryfallId)}
-                            <li class="flex flex-row gap-1">
-                                <Button customStyle={true} class="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.card.legality?.commander === 'legal' ? '' : 'text-red-700'}" on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
-                                    {cardObject.card.translation?.name}
-                                </Button>
-                                <div class="mt-2">
-                                    <IconButton icon="minus" on:click={() => removeCard({detail: cardObject.card})} />
-                                </div>
-                            </li>
-                        {/each}
-                    </ul>
-                {:else}
+        <div
+            role="listbox"
+            tabindex="0"
+            class="shadow-md rounded-lg p-4 relative"
+            style={displayingMode === 'grid' ? `height: ${268 + 50 + 30 * categoryObject.cards.length - 1}px;` : ''}
+            on:drop={handleDrop(categoryObject)}
+            use:asDropZone={{
+                TypesToAccept:{ 'card':'copy' },
+                onDroppableEnter: (e) => console.log('TODO: damier'),
+                onDroppableLeave: (e) => console.log('TODO: remove damier'),
+              }}
+            data-dropzone-id={categoryIndex}
+        > <!-- 268 => height of the stack's last card, 50 => height of Subtitle, 30 => stacked card's height -->
+            <Subtitle>{categoryObject.category.name} ({categoryObject.cards.length})</Subtitle>
+            {#if displayingMode === 'list'}
+                <ul class="flex flex-col gap-1 mt-3">
                     {#each categoryObject.cards as cardObject, index (cardObject.card.scryfallId)}
-                        <Button
-                            customStyle={true}
-                            className="absolute group transition-transform duration-300"
-                            style="transform: translateY({((index - 1) * 30) + (categoryIndex === hoveredCategoryIndex && index > hoveredCardIndex ? 268 : 50)}px); z-index: {index + 1};"
-                            on:mouseover={() => handleCardHover(index, categoryIndex)}
-                            on:mouseout={handleCardUnhover}
-                            on:focus={() => handleCardHover(index, categoryIndex)}
-                            on:blur={handleCardUnhover}
-                        >
-                            <div class="absolute inset-0 bg-gray-950 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            <img
-                                src={cardObject?.card?.layout === 'transform' ? cardObject?.card?.cardFaces[0]?.imageUri?.normal : cardObject?.card?.imageUri?.normal}
-                                alt={cardObject.card.translation?.name}
-                                class="w-48 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"
-                            />
-                            <div class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <IconButton icon="search" on:click={() => { selectedCard = cardObject; showCardModal = true; }} />
-                                <IconButton icon="trash" on:click={() => removeCard({detail: cardObject.card})} />
+                        <li class="flex flex-row gap-1">
+                            <Button customStyle={true}
+                                class="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.card.legality?.commander === 'legal' ? '' : 'text-red-700'}"
+                                on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
+                                {cardObject.card.translation?.name}
+                            </Button>
+                            <div class="mt-2">
+                                <IconButton icon="minus" on:click={() => removeCard({detail: cardObject.card})}/>
                             </div>
-                        </Button>
+                        </li>
                     {/each}
-                {/if}
-            </div>
-        {/if}
+                </ul>
+            {:else}
+                {#each categoryObject.cards as cardObject, index (cardObject.card.scryfallId)}
+                    <div
+                        role="button"
+                        tabindex="0"
+                        class="absolute group transition-transform duration-300"
+                        style="transform: translateY({((index - 1) * 30) + (categoryIndex === hoveredCategoryIndex && index > hoveredCardIndex ? 268 : 50)}px); z-index: {index + 1};"
+                        on:mouseover={() => handleCardHover(index, categoryIndex)}
+                        on:mouseout={handleCardUnhover}
+                        on:focus={() => handleCardHover(index, categoryIndex)}
+                        on:blur={handleCardUnhover}
+                        on:dragstart={() => handleDragStart(cardObject, categoryObject)}
+                        use:asDroppable={{
+                            DataToOffer:{ 'card': cardObject },
+                            Operations:'copy',
+                          }}
+                    >
+                        <div class="absolute inset-0 bg-gray-950 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <img
+                            src={cardObject?.card?.layout === 'transform' ? cardObject?.card?.cardFaces[0]?.imageUri?.normal : cardObject?.card?.imageUri?.normal}
+                            alt={cardObject.card.translation?.name}
+                            class="w-48 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"
+                        />
+                        <div class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <IconButton
+                                icon="search"
+                                on:click={() => { selectedCard = cardObject; showCardModal = true; }}
+                            />
+                            <IconButton
+                                icon="trash"
+                                on:click={() => removeCard({detail: cardObject.card})}
+                            />
+                        </div>
+                    </div>
+                {/each}
+            {/if}
+        </div>
     {/each}
 </div>
 
-<Modal bind:showModal={showCardModal} closeText="Close" on:success={() => showCardModal = false} fullWidth={selectedCard?.card?.layout === 'transform'} on:open={() => setTimeout(() => console.log(selectedCard), 1000)}>
+<Modal bind:showModal={showCardModal} closeText="Close" on:success={() => showCardModal = false}
+       fullWidth={selectedCard?.card?.layout === 'transform'}
+       on:open={() => setTimeout(() => console.log(selectedCard), 1000)}>
     <Subtitle slot="header">{selectedCard?.card?.translation?.name}</Subtitle>
     <div class="flex items-center justify-center gap-3 {selectedCard?.card?.layout === 'transform' ? 'flex-row' : 'flex-col'} mx-auto">
         {#if selectedCard?.card?.layout === 'transform'}
-            <img class="w-64" src={selectedCard?.card?.cardFaces[0]?.imageUri.normal} alt={selectedCard?.card?.cardFaces[0]?.translation?.name} />
-            <img class="w-64" src={selectedCard?.card?.cardFaces[1]?.imageUri.normal} alt={selectedCard?.card?.cardFaces[1]?.translation?.name} />
+            <img class="w-64" src={selectedCard?.card?.cardFaces[0]?.imageUri.normal}
+                 alt={selectedCard?.card?.cardFaces[0]?.translation?.name}/>
+            <img class="w-64" src={selectedCard?.card?.cardFaces[1]?.imageUri.normal}
+                 alt={selectedCard?.card?.cardFaces[1]?.translation?.name}/>
         {:else}
-            <img class="w-64" src={selectedCard?.card?.imageUri?.normal} alt={selectedCard?.card?.translation?.name} />
+            <img class="w-64" src={selectedCard?.card?.imageUri?.normal} alt={selectedCard?.card?.translation?.name}/>
         {/if}
     </div>
 </Modal>
@@ -213,11 +262,12 @@
 <Modal bind:showModal={showSearchModal} closeText="Close" on:success={() => null} fullWidth={true} on:open={() => null}>
     <Subtitle slot="header">Search cards</Subtitle>
 
-    <Search bind:selectedObserver={showSearchModal} selected={true} bind:results={searchedCards} placeholder="Forest" label="Search cards by name" name={searchBarName} {handleSearch} />
+    <Search bind:selectedObserver={showSearchModal} selected={true} bind:results={searchedCards} placeholder="Forest"
+            label="Search cards by name" name={searchBarName} {handleSearch}/>
 
     <div class="flex flex-col items-center gap-2">
         {#each searchedCards as card}
-            <CardSearchItem bind:deck bind:card on:add={addCard} on:delete={removeCard} />
+            <CardSearchItem bind:deck bind:card on:add={addCard} on:delete={removeCard}/>
         {/each}
     </div>
 </Modal>
