@@ -6,7 +6,6 @@
     import Pagination from '../shared/Pagination.svelte';
     import Subtitle from '../shared/Subtitle.svelte';
     import DecksTable from '../tables/deck/DecksTable.svelte';
-    import IconButton from '../shared/IconButton.svelte';
     import DecksGrid from './DecksGrid.svelte';
     import DisplayingMode from "../shared/DisplayingMode.svelte";
 

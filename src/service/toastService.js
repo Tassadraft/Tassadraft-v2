@@ -29,7 +29,7 @@ const showToast = (text, status = 'success', duration = 5000) => {
         duration,
         style,
     }).showToast();
-}
+};
 
 const storeToast = (text, status = 'success', duration = 5000) => {
     const storedToast = localStorage.getItem('toasts');
@@ -39,7 +39,7 @@ const storeToast = (text, status = 'success', duration = 5000) => {
     }
     toasts.push({ text, status, duration });
     localStorage.setItem('toasts', JSON.stringify(toasts));
-}
+};
 
 const showStoredToasts = () => {
     const storedToast = localStorage.getItem('toasts');
@@ -50,6 +50,6 @@ const showStoredToasts = () => {
         });
         localStorage.removeItem('toasts');
     }
-}
+};
 
 export { showToast, storeToast, showStoredToasts };

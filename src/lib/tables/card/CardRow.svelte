@@ -39,7 +39,7 @@
 
     const handleDelete = () => {
         dispatch('delete', card);
-    }
+    };
 </script>
 
 <tr class="h-10">

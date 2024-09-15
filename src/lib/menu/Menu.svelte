@@ -39,7 +39,11 @@
             <Icon name="burger" />
         </Button>
 
-        <nav id="menu" class="z-50 fixed top-0 left-0 w-64 h-full bg-gray-700 dark:bg-gray-800 text-white transform transition-transform duration-300 ease-in-out {isOpen ? '' : '-translate-x-full'}">
+        <nav
+            id="menu"
+            class="fixed top-0 left-0 w-64 h-full bg-gray-700 dark:bg-gray-800 text-white transform transition-transform duration-300 ease-in-out {isOpen ? '' : '-translate-x-full'}"
+            style="z-index: 10000"
+        >
             <div class="flex justify-end p-4">
                 <Button on:click={closeMenu}>
                     <Icon name="close" />

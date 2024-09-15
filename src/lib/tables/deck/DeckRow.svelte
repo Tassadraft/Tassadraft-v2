@@ -1,14 +1,15 @@
 <script>
     import Switch from '../../shared/Switch.svelte';
-    import { createEventDispatcher } from 'svelte';
-
-    const dispatch = createEventDispatcher();
 
     export let deck;
     export let displayOwner = false;
+
+    const handleClick = () => {
+        window.location.href = `/decks/edit/${deck.id}`;
+    };
 </script>
 
-<tr class="h-10">
+<tr class="h-10 hover:bg-gray-300 hover:dark:bg-gray-800 transition-colors duration-300" role="button" tabindex="0" on:click={handleClick}>
     <td class="tr-first text-left border-r border-primary-700">
         <p class="text-xs truncate">{deck.name}</p>
     </td>

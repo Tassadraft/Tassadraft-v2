@@ -37,6 +37,8 @@
         'Plus',
         'Minus',
         'Save',
+        'Check',
+        'Exchange',
     ];
 
     const toCamelCase = (str) => {

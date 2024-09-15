@@ -35,7 +35,7 @@
             <Button disabled={!canGoBack} on:click={() => handleClick(paginatedObject.currentPage - 1, paginatedObject.perPage)}>
                 <Icon name="chevronLeft" />
             </Button>
-            <p>{paginatedObject.currentPage ?? 1}</p>
+            <p class="dark:text-white">{paginatedObject.currentPage ?? 1}</p>
             <Button disabled={!canGoForward} on:click={() => handleClick(paginatedObject.currentPage + 1, paginatedObject.perPage)}>
                 <Icon name="chevronRight" />
             </Button>

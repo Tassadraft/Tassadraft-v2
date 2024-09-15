@@ -14,7 +14,11 @@
     import CardSearchItem from "./CardSearchItem.svelte";
     import Icon from "../shared/Icon.svelte";
     import DisplayingMode from "../shared/DisplayingMode.svelte";
-    import { asDroppable, asDropZone } from 'svelte-drag-and-drop-actions'
+    import { asDropZone } from 'svelte-drag-and-drop-actions'
+    import EditorCardDetails from "./EditorCardDetails.svelte";
+    import EditorCategoryTitle from "./EditorCategoryTitle.svelte";
+    import EditorCard from "./EditorCard.svelte";
+    import Pagination from "../shared/Pagination.svelte";
 
     export let deckId = "";
 
@@ -33,13 +37,15 @@
     let selectedCard = {card: {}};
     let draggedCard = {card: {}};
     let draggedCategory = null;
+    let dragging = false;
     let hoveredCardIndex = -1;
     let hoveredCategoryIndex = -1;
 
     let showCardModal = false;
     let showSearchModal = false;
 
-    let searchedCards = [];
+    let searchedCards = {cards: []};
+    let cardSearchBaseUrl = '';
     const searchBarName = 'searchCard';
     let displayingMode = 'grid';
 
@@ -47,17 +53,9 @@
         try {
             const {data: deckData} = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
             deck = deckData;
-            for (const categoryObject of deck.categories) {
-                for (const cardObject of categoryObject.cards) {
-                    if (cardObject.card.layout === 'transform') {
-                        console.log(cardObject.card);
-                    }
-
-                }
-            }
         } catch (e) {
             showToast('Error while loading the deck', 'error');
-            window.location = '/decks/new';
+            window.location = '/decks';
         }
     });
 
@@ -73,49 +71,54 @@
 
     const handleSearch = async (query) => {
         try {
-            const {data} = await axios.get(`/api/auth/reserved/cards/search?query=${query}&maxResults=10`);
-            searchedCards = data;
+            cardSearchBaseUrl = `/api/auth/reserved/cards/search?query=${query}&languageCode=${localStorage.getItem('languageCode')}`;
+            const {data: paginated} = await axios.get(cardSearchBaseUrl);
+            searchedCards = paginated;
         } catch (e) {
             showToast('Error while searching', 'error');
         }
     };
 
     const handleDrop = (categoryObject) => {
+        if (!dragging) {
+            return;
+        }
+        dragging = false;
         if (categoryObject.id === draggedCategory.id) {
             return;
         }
-        categoryObject.cards = [...categoryObject.cards, draggedCard];
+        categoryObject.cards.push(draggedCard);
+        categoryObject.cards.sort((a, b) => a.card.translation.name.localeCompare(b.card.translation.name));
         draggedCategory.cards = draggedCategory.cards.filter(cardObject => cardObject.card.scryfallId !== draggedCard.card.scryfallId);
+        deck = {...deck};
     };
 
     const handleDragStart = (cardObject, categoryObject) => {
         draggedCard = cardObject;
-        draggedCategory = categoryObject
+        draggedCategory = categoryObject;
+        dragging = true;
     };
 
-    const addCard = (e) => {
+    const handleDecrement = (e) => {
         for (const categoryObject of deck.categories) {
-            const card = e.detail;
-            if (categoryObject.category.name === card.translation.mainType) {
-                if (categoryObject.cards.find(cardObject => cardObject.card.scryfallId === card.scryfallId)) {
-                    showToast('Card already in the deck', 'error');
+            for (const cardObject of categoryObject.cards) {
+                if (cardObject.card.scryfallId === e.detail.scryfallId) {
+                    cardObject.quantity = (cardObject.quantity || 0) - 1;
+                    if (cardObject.quantity <= 0) {
+                        console.log('ici');
+                        categoryObject.cards = categoryObject.cards.filter(
+                            co => co.card.scryfallId !== e.detail.scryfallId
+                        );
+                        showToast(`${e.detail.translation.name} totally removed from the ${deck.name}`, 'success');
+                        showCardModal = false;
+                    } else {
+                        console.log('là');
+                        showToast(`1 ${e.detail.translation.name} removed from ${deck.name}`, 'success');
+                    }
+                    categoryObject.cards = [...categoryObject.cards];
+                    deck = {...deck};
                     return;
                 }
-                categoryObject.cards = [...categoryObject.cards, {card}];
-                showToast(`${card.translation?.name} added to the deck`, 'success');
-                deck = {...deck};
-                return;
-            }
-        }
-    };
-
-    const removeCard = (e) => {
-        for (const categoryObject of deck.categories) {
-            if (categoryObject.cards.find(cardObject => cardObject.card.scryfallId === e.detail.scryfallId)) {
-                categoryObject.cards = categoryObject.cards.filter(cardObject => cardObject.card.scryfallId !== e.detail.scryfallId);
-                showToast(`${e.detail.translation.name} removed from the deck`, 'success');
-                deck = {...deck};
-                return;
             }
         }
     };
@@ -130,8 +133,14 @@
         const rawCreatedAt = new Date(deck.createdAt);
         updatedAt = rawUpdatedAt.toLocaleString();
         createdAt = rawCreatedAt.toLocaleString();
-        cardsLength = deck.categories?.reduce((acc, category) => acc + category.cards.length, 0) || 0;
+        cardsLength = deck.categories?.reduce((acc, categoryObject) => {
+            return acc + categoryObject.cards.reduce((a, cardObject) => {
+                return a + cardObject.quantity
+            }, 0)
+        }, 0);
     }
+
+    $: console.log(showCardModal);
 </script>
 
 <Menu/>
@@ -179,95 +188,76 @@
             tabindex="0"
             class="shadow-md rounded-lg p-4 relative"
             style={displayingMode === 'grid' ? `height: ${268 + 50 + 30 * categoryObject.cards.length - 1}px;` : ''}
-            on:drop={handleDrop(categoryObject)}
+            on:drop={() => handleDrop(categoryObject)}
             use:asDropZone={{
                 TypesToAccept:{ 'card':'copy' },
-                onDroppableEnter: (e) => console.log('TODO: damier'),
-                onDroppableLeave: (e) => console.log('TODO: remove damier'),
               }}
             data-dropzone-id={categoryIndex}
-        > <!-- 268 => height of the stack's last card, 50 => height of Subtitle, 30 => stacked card's height -->
-            <Subtitle>{categoryObject.category.name} ({categoryObject.cards.length})</Subtitle>
+        >
+            <EditorCategoryTitle bind:categoryObject />
             {#if displayingMode === 'list'}
                 <ul class="flex flex-col gap-1 mt-3">
-                    {#each categoryObject.cards as cardObject, index (cardObject.card.scryfallId)}
+                    {#each categoryObject.cards as cardObject}
                         <li class="flex flex-row gap-1">
                             <Button customStyle={true}
-                                class="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.card.legality?.commander === 'legal' ? '' : 'text-red-700'}"
-                                on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
+                                    class="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.card.legality?.commander === 'legal' ? '' : 'text-red-700'}"
+                                    on:click={() => {selectedCard = cardObject; showCardModal = true;}}>
                                 {cardObject.card.translation?.name}
                             </Button>
                             <div class="mt-2">
-                                <IconButton icon="minus" on:click={() => removeCard({detail: cardObject.card})}/>
+                                <IconButton icon="minus" on:click={() => handleDecrement({detail: cardObject.card})}/>
                             </div>
                         </li>
                     {/each}
                 </ul>
             {:else}
                 {#each categoryObject.cards as cardObject, index (cardObject.card.scryfallId)}
-                    <div
-                        role="button"
-                        tabindex="0"
-                        class="absolute group transition-transform duration-300"
-                        style="transform: translateY({((index - 1) * 30) + (categoryIndex === hoveredCategoryIndex && index > hoveredCardIndex ? 268 : 50)}px); z-index: {index + 1};"
-                        on:mouseover={() => handleCardHover(index, categoryIndex)}
-                        on:mouseout={handleCardUnhover}
-                        on:focus={() => handleCardHover(index, categoryIndex)}
-                        on:blur={handleCardUnhover}
-                        on:dragstart={() => handleDragStart(cardObject, categoryObject)}
-                        use:asDroppable={{
-                            DataToOffer:{ 'card': cardObject },
-                            Operations:'copy',
-                          }}
-                    >
-                        <div class="absolute inset-0 bg-gray-950 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <img
-                            src={cardObject?.card?.layout === 'transform' ? cardObject?.card?.cardFaces[0]?.imageUri?.normal : cardObject?.card?.imageUri?.normal}
-                            alt={cardObject.card.translation?.name}
-                            class="w-48 group-hover:opacity-50 transition-opacity duration-300 rounded-lg"
-                        />
-                        <div class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <IconButton
-                                icon="search"
-                                on:click={() => { selectedCard = cardObject; showCardModal = true; }}
-                            />
-                            <IconButton
-                                icon="trash"
-                                on:click={() => removeCard({detail: cardObject.card})}
-                            />
-                        </div>
-                    </div>
+                    <EditorCard
+                        {index}
+                        {categoryIndex}
+                        {cardObject}
+                        bind:showCardModal
+                        bind:selectedCard
+                        on:hover={() => handleCardHover(index, categoryIndex)}
+                        on:unHover={handleCardUnhover}
+                        on:dragStart={() => handleDragStart(cardObject, categoryObject)}
+                        bind:draggedCard
+                        bind:hoveredCategoryIndex
+                        bind:hoveredCardIndex
+                        bind:deck
+                        on:cardRemoved={handleDecrement}
+                    />
                 {/each}
+            {/if}
+            {#if dragging && draggedCategory.id !== categoryObject.id}
+                <div class="absolute inset-0 bg-cover"
+                     style="z-index: 2000; background-size: 20px 20px; background-image:
+                         linear-gradient(45deg, #A5371B 25%, transparent 25%),
+                         linear-gradient(-45deg, #A5371B 25%, transparent 25%),
+                         linear-gradient(45deg, transparent 75%, #A5371B 75%),
+                         linear-gradient(-45deg, transparent 75%, #A5371B 75%);
+                     ">
+                </div>
             {/if}
         </div>
     {/each}
 </div>
 
-<Modal bind:showModal={showCardModal} closeText="Close" on:success={() => showCardModal = false}
-       fullWidth={selectedCard?.card?.layout === 'transform'}
-       on:open={() => setTimeout(() => console.log(selectedCard), 1000)}>
+<Modal bind:showModal={showCardModal} closeText="Close" on:success={() => showCardModal = false}>
     <Subtitle slot="header">{selectedCard?.card?.translation?.name}</Subtitle>
-    <div class="flex items-center justify-center gap-3 {selectedCard?.card?.layout === 'transform' ? 'flex-row' : 'flex-col'} mx-auto">
-        {#if selectedCard?.card?.layout === 'transform'}
-            <img class="w-64" src={selectedCard?.card?.cardFaces[0]?.imageUri.normal}
-                 alt={selectedCard?.card?.cardFaces[0]?.translation?.name}/>
-            <img class="w-64" src={selectedCard?.card?.cardFaces[1]?.imageUri.normal}
-                 alt={selectedCard?.card?.cardFaces[1]?.translation?.name}/>
-        {:else}
-            <img class="w-64" src={selectedCard?.card?.imageUri?.normal} alt={selectedCard?.card?.translation?.name}/>
-        {/if}
-    </div>
+    <EditorCardDetails bind:selectedCard bind:deck on:cardRemoved={() => showCardModal = false} />
 </Modal>
 
-<Modal bind:showModal={showSearchModal} closeText="Close" on:success={() => null} fullWidth={true} on:open={() => null}>
+<Modal bind:showModal={showSearchModal} closeText="Close" fullWidth={true}>
     <Subtitle slot="header">Search cards</Subtitle>
 
-    <Search bind:selectedObserver={showSearchModal} selected={true} bind:results={searchedCards} placeholder="Forest"
+    <Search bind:selectedObserver={showSearchModal} selected={true} bind:results={searchedCards.cards} placeholder="Forest"
             label="Search cards by name" name={searchBarName} {handleSearch}/>
 
-    <div class="flex flex-col items-center gap-2">
-        {#each searchedCards as card}
-            <CardSearchItem bind:deck bind:card on:add={addCard} on:delete={removeCard}/>
+    <div class="flex flex-row flex-wrap gap-5 justify-center">
+        {#each searchedCards.cards as card}
+            <CardSearchItem bind:deck {card}/>
         {/each}
     </div>
+    <Pagination bind:paginatedObject={searchedCards} bind:baseUrl={cardSearchBaseUrl} />
 </Modal>
