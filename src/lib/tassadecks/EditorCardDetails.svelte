@@ -10,6 +10,7 @@
 
     let cardFace = 0;
     let isBasicLand = false;
+    let isTransforming = false;
     let isCardInDeck = true;
 
     const handleIncrement = () => {
@@ -41,20 +42,23 @@
         }
         deck = {...deck};
     };
-
-    $: isBasicLand = selectedCard?.card?.keyWords?.includes('Basic') && selectedCard?.card?.keyWords?.includes('Land');
-    $: isCardInDeck = deck.categories.some(categoryObject => categoryObject.cards.some(deckCard => deckCard.card.scryfallId === selectedCard.card.scryfallId));
+    
+    $: {
+        isBasicLand = selectedCard?.card?.keyWords?.includes('Basic') && selectedCard?.card?.keyWords?.includes('Land');
+        isTransforming = selectedCard?.card?.layout === 'transform';
+        isCardInDeck = deck.categories.some(categoryObject => categoryObject.cards.some(deckCard => deckCard.card.scryfallId === selectedCard.card.scryfallId));
+    }
 </script>
 
 {#if selectedCard?.card?.translation}
     <div class="flex flex-col gap-3">
         <div class="flex flex-row justify-center">
             <div class="relative group">
-                <img class="w-64 {selectedCard.card.layout === 'transform' ? 'group-hover:opacity-50 transition-opacity duration-300' : ''} rounded-lg"
-                     src={selectedCard.card.layout === 'transform' ? selectedCard.card.cardFaces[cardFace]?.imageUri?.normal : selectedCard.card.imageUri?.normal}
-                     alt={selectedCard.card.layout === 'transform' ? selectedCard.card.cardFaces[cardFace]?.translation.name : selectedCard.card.translation.name}
+                <img class="w-64 {isTransforming ? 'group-hover:opacity-50 transition-opacity duration-300' : ''} rounded-lg"
+                     src={isTransforming ? selectedCard.card.cardFaces[cardFace]?.imageUri?.normal : selectedCard.card.imageUri?.normal}
+                     alt={isTransforming ? selectedCard.card.cardFaces[cardFace]?.translation.name : selectedCard.card.translation.name}
                 />
-                {#if selectedCard.card.layout === 'transform'}
+                {#if isTransforming}
                     <div class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div class="absolute top-3 right-3">
                             <IconButton
@@ -68,7 +72,7 @@
             </div>
         </div>
         <div class="flex flex-col gap-2 justify-center">
-            {#if selectedCard.card.layout === 'transform'}
+            {#if isTransforming}
                 <div class="sm:hidden flex justify-center">
                     <IconButton
                         icon="exchange"
