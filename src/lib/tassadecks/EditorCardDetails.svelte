@@ -9,7 +9,7 @@
     let cardFace = 0;
     let isBasicLand = false;
     let isTransforming = false;
-    
+
     $: {
         isBasicLand = selectedCard?.card?.keyWords?.includes('Basic') && selectedCard?.card?.keyWords?.includes('Land');
         isTransforming = selectedCard?.card?.layout === 'transform';

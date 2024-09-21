@@ -53,6 +53,10 @@
         try {
             const {data: deckData} = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
             deck = deckData;
+            const rawUpdatedAt = new Date(deck.updatedAt);
+            const rawCreatedAt = new Date(deck.createdAt);
+            updatedAt = rawUpdatedAt.toLocaleString();
+            createdAt = rawCreatedAt.toLocaleString();
         } catch (e) {
             storeToast('Error while loading the deck', 'error');
             window.location = '/decks';
@@ -225,10 +229,6 @@
     };
 
     $: {
-        const rawUpdatedAt = new Date(deck.updatedAt);
-        const rawCreatedAt = new Date(deck.createdAt);
-        updatedAt = rawUpdatedAt.toLocaleString();
-        createdAt = rawCreatedAt.toLocaleString();
         cardsLength = deck.categories?.reduce((acc, categoryObject) => {
             return acc + categoryObject.cards.reduce((a, cardObject) => {
                 return a + cardObject.quantity

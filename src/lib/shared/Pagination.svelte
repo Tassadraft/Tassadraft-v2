@@ -4,7 +4,6 @@
     import axios from '../../axiosConfig.js';
     import Loader from './Loader.svelte';
 
-    let isFetched = false;
     let canGoBack = false;
     let canGoForward = false;
     let loading = false;
@@ -20,14 +19,13 @@
     }
 
     $: {
-        isFetched = paginatedObject.currentPage !== undefined;
-        canGoBack = !isFetched || paginatedObject.currentPage !== paginatedObject.firstPage;
-        canGoForward = !isFetched || paginatedObject.currentPage !== paginatedObject.lastPage;
+        canGoBack = !paginatedObject.currentPage || paginatedObject.currentPage !== paginatedObject.firstPage;
+        canGoForward = !paginatedObject.currentPage || paginatedObject.currentPage !== paginatedObject.lastPage;
     }
 </script>
 
 <div class="my-2 flex flex-row gap-3 justify-center {paginatedObject.lastPage === 1 ? 'hidden' : ''}">
-    {#if isFetched}
+    {#if paginatedObject.currentPage}
         {#if !loading}
             <Button disabled={!canGoBack} on:click={() => handleClick(paginatedObject.firstPage, paginatedObject.perPage)}>
                 <Icon name="doubleArrowLeft" />
