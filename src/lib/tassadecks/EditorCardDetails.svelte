@@ -1,52 +1,18 @@
 <script>
     import IconButton from "../shared/IconButton.svelte";
-    import { showToast } from "../../service/toastService.js";
     import { createEventDispatcher } from "svelte";
 
     const dispatch = createEventDispatcher();
 
     export let selectedCard = null;
-    export let deck;
 
     let cardFace = 0;
     let isBasicLand = false;
     let isTransforming = false;
-    let isCardInDeck = true;
-
-    const handleIncrement = () => {
-        if (!isCardInDeck) {
-            deck.categories = deck.categories.map(categoryObject => {
-                if (categoryObject.category.name === selectedCard.card.translation.mainType) {
-                    categoryObject.cards = [...categoryObject.cards, selectedCard];
-                }
-                return categoryObject;
-            });
-        }
-        selectedCard.quantity++;
-        showToast(`1 ${selectedCard.card.translation.name} added to ${deck.name}`, 'success');
-        deck = {...deck};
-    };
-
-    const handleDecrement = () => {
-        if (selectedCard.quantity === 1) {
-            selectedCard.quantity = 0;
-            deck.categories = deck.categories.map(categoryObject => {
-                categoryObject.cards = categoryObject.cards.filter(deckCard => deckCard.card.scryfallId !== selectedCard.card.scryfallId);
-                return categoryObject;
-            });
-            showToast(`${selectedCard.card.translation.name} totally removed from the deck`, 'success');
-            dispatch('cardRemoved');
-        } else {
-            selectedCard.quantity--;
-            showToast(`1 ${selectedCard.card.translation.name} removed from the deck`, 'success');
-        }
-        deck = {...deck};
-    };
     
     $: {
         isBasicLand = selectedCard?.card?.keyWords?.includes('Basic') && selectedCard?.card?.keyWords?.includes('Land');
         isTransforming = selectedCard?.card?.layout === 'transform';
-        isCardInDeck = deck.categories.some(categoryObject => categoryObject.cards.some(deckCard => deckCard.card.scryfallId === selectedCard.card.scryfallId));
     }
 </script>
 
@@ -86,14 +52,14 @@
                     <IconButton
                         icon="minus"
                         size={32}
-                        on:click={handleDecrement}
+                        on:click={() => dispatch('cardDecrement', selectedCard)}
                     />
                     <p class="dark:text-white">{selectedCard.quantity}</p>
                     <IconButton
                         icon="plus"
                         size={32}
                         disabled={!isBasicLand}
-                        on:click={handleIncrement}
+                        on:click={() => dispatch('cardIncrement', selectedCard)}
                     />
                 </div>
             {:else}
@@ -101,7 +67,7 @@
                     <IconButton
                         icon="trash"
                         size={32}
-                        on:click={handleDecrement}
+                        on:click={() => dispatch('cardDecrement', selectedCard)}
                     />
                 </div>
             {/if}

@@ -5,6 +5,8 @@
 
         export let deck = {};
         export let card = {};
+        export let addCardRequest = async () => {};
+        export let removeCardRequest = async () => {};
 
         let cardObject = null;
         let cardFace = 0;
@@ -22,9 +24,13 @@
             return null;
         };
 
-        const handleIncrement = () => {
+        const handleIncrement = async () => {
             cardObject = checkIfCardIsInDeck(card);
             if (cardObject) {
+                const added = await addCardRequest(card);
+                if (!added) {
+                    return;
+                }
                 cardObject.quantity = (cardObject.quantity ?? 0) + 1;
             } else {
                 cardObject = {card, quantity: 1};
@@ -36,25 +42,35 @@
                             showToast('Card already in the deck', 'error');
                             return;
                         }
+                        const added = await addCardRequest(card);
+                        if (!added) {
+                            return;
+                        }
                         categoryObject.cards = [...categoryObject.cards, {card, quantity: 1}];
-                        showToast(`${card?.translation?.name} added to the deck`, 'success');
                         cardObject = {...cardObject};
                         deck = {...deck};
                         return;
                     }
                 }
                 if (!foundCategory) {
+                    const added = await addCardRequest(card);
+                    if (!added) {
+                        return;
+                    }
                     deck.categories = [...deck.categories, {category: {name: card?.translation.mainType}, cards: [{card, quantity: 1}]}];
-                    showToast(`${card?.translation?.name} added to the deck`, 'success');
                 }
             }
             cardObject = {...cardObject};
             deck = {...deck};
         };
 
-        const handleDecrement = () => {
+        const handleDecrement = async () => {
             cardObject = checkIfCardIsInDeck(card);
             if (cardObject === null) {
+                return;
+            }
+            const removed = await removeCardRequest(card);
+            if (!removed) {
                 return;
             }
             if (cardObject.quantity === 1) {
@@ -62,13 +78,11 @@
                     const index = categoryObject.cards.findIndex(deckCard => deckCard?.card?.scryfallId === card?.scryfallId);
                     if (index !== -1) {
                         categoryObject.cards.splice(index, 1);
-                        showToast(`${card?.translation?.name} removed from the deck`, 'success');
                         break;
                     }
                 }
             } else {
                 cardObject.quantity = cardObject.quantity - 1;
-                showToast(`${card?.translation?.name} removed from the deck`, 'success');
             }
             deck = {...deck};
         };

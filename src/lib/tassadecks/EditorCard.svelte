@@ -1,7 +1,6 @@
 <script>
     import IconButton from "../shared/IconButton.svelte";
     import { asDroppable } from 'svelte-drag-and-drop-actions';
-    import { showToast } from "../../service/toastService.js";
     import { createEventDispatcher } from "svelte";
 
     const dispatch = createEventDispatcher();
@@ -15,22 +14,25 @@
     export let hoveredCategoryIndex = -1;
     export let hoveredCardIndex = -1;
     export let deck = {};
+    export let addCardRequest = async () => {};
 
     let cardFace = 0;
     let isBasicLand = cardObject?.card?.keyWords?.includes('Basic') && cardObject?.card?.keyWords?.includes('Land');
     let isTransforming = cardObject?.card?.layout === 'transform';
 
-    const handleIncrement = (e) => {
+    const handleIncrement = async (e) => {
         e.stopPropagation();
+        const added = await addCardRequest(cardObject.card);
+        if (!added) {
+            return;
+        }
         cardObject.quantity++;
-        showToast(`1 ${cardObject.card.translation.name} added to the deck`, 'success');
         deck = {...deck};
     };
 
-    const handleDecrement = (e) => {
+    const handleDecrement = async (e) => {
         e.stopPropagation();
         dispatch('cardRemoved', cardObject);
-        deck = {...deck};
     };
 
     const handleTransform = (e) => {
