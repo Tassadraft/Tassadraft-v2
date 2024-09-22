@@ -1,34 +1,46 @@
 <script>
-    import Switch from '../../shared/Switch.svelte';
+  import Switch from '../../shared/Switch.svelte';
 
-    export let deck;
-    export let displayOwner = false;
+  export let deck;
+  export let displayOwner = false;
 
-    const handleClick = () => {
-        window.location.href = `/decks/edit/${deck.id}`;
-    };
+  const handleClick = () => {
+    window.location.href = `/decks/edit/${deck.id}`;
+  };
 </script>
 
-<tr class="h-10 hover:bg-gray-300 hover:dark:bg-gray-800 transition-colors duration-300" role="button" tabindex="0" on:click={handleClick}>
-    <td class="tr-first text-left border-r border-primary-700">
-        <p class="text-xs truncate">{deck.name}</p>
+<tr
+  class="h-10 hover:bg-gray-300 hover:dark:bg-gray-800 transition-colors duration-300"
+  role="button"
+  tabindex="0"
+  on:click={handleClick}
+>
+  <td class="tr-first text-left border-r border-primary-700">
+    <p class="text-xs truncate">{deck.name}</p>
+  </td>
+  <td class="text-center border-r border-primary-700">
+    <p class="text-xs truncate">
+      {deck.categories?.reduce(
+        (acc, category) => acc + category.cards.length,
+        0,
+      ) || 0}
+    </p>
+  </td>
+  <td class="text-center border-r border-primary-700">
+    <div class="mt-2 flex justify-center">
+      <Switch disabled={true} size="4" bind:value={deck.enabled} />
+    </div>
+  </td>
+  <td
+    class={`text-center ${displayOwner ? 'border-r border-primary-700' : ''}`}
+  >
+    <div class="mt-2 flex justify-center">
+      <Switch disabled={true} size="4" bind:value={deck.public} />
+    </div>
+  </td>
+  {#if displayOwner}
+    <td class="text-center">
+      <p class="text-xs truncate">{deck.owner}</p>
     </td>
-    <td class="text-center border-r border-primary-700">
-        <p class="text-xs truncate">{deck.categories?.reduce((acc, category) => acc + category.cards.length, 0) || 0}</p>
-    </td>
-    <td class="text-center border-r border-primary-700">
-        <div class="mt-2 flex justify-center">
-            <Switch disabled={true} size="4" bind:value={deck.enabled} />
-        </div>
-    </td>
-    <td class={`text-center ${displayOwner ? 'border-r border-primary-700' : ''}`}>
-        <div class="mt-2 flex justify-center">
-            <Switch disabled={true} size="4" bind:value={deck.public} />
-        </div>
-    </td>
-    {#if displayOwner}
-        <td class="text-center">
-            <p class="text-xs truncate">{deck.owner}</p>
-        </td>
-    {/if}
+  {/if}
 </tr>

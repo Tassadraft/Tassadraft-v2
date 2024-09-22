@@ -20,11 +20,8 @@ if (fs.existsSync(envLocalPath)) {
 }
 
 export default defineConfig({
-  plugins: [
-    svelte(),
-    envCompatible()
-  ],
+  plugins: [svelte(), envCompatible()],
   define: {
-    'process.env': process.env
-  }
+    'process.env': process.env,
+  },
 });

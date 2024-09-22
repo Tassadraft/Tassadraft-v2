@@ -1,0 +1,20 @@
+{
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "plugins": ["prettier-plugin-svelte"],
+  "overrides": [
+    {
+      "files": "*.svelte",
+      "options": {
+        "singleQuote": true,
+        "trailingComma": "all",
+        "svelteSortOrder": "scripts-markup-styles-options",
+        "svelteStrictMode": false,
+        "svelteAllowShorthand": true,
+        "svelteBracketNewLine": false,
+        "semi": true
+      }
+    }
+  ]
+}

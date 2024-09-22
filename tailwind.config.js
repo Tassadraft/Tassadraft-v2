@@ -3,11 +3,11 @@ export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     screens: {
-        'xs': '320px',
-        'sm': '640px',
-        'md': '768px',
-        'lg': '1024px',
-        'xl': '1280px',
+      xs: '320px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
     },
     extend: {
       colors: {
@@ -21,10 +21,10 @@ export default {
           600: '#EF562F',
           700: '#EB4F27',
           800: '#CC4522',
-          900: '#A5371B'
-        }
+          900: '#A5371B',
+        },
       },
-    }
+    },
   },
-  plugins: []
+  plugins: [],
 };

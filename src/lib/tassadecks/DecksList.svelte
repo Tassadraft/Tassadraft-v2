@@ -1,3 +1,3 @@
 <script>
-    export let paginatedDecks;
+  export let paginatedDecks;
 </script>
