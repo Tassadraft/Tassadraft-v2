@@ -7,11 +7,7 @@
     ".env",
     ".env.local"
   ],
-  "exclude": [
-    "node_modules",
-    "public",
-    "dist"
-  ],
+  "exclude": ["node_modules", "public", "dist"],
   "compilerOptions": {
     "strict": true,
     "moduleResolution": "node",
