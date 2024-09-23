@@ -20,7 +20,7 @@
   let isBasicLand =
     cardObject?.card?.keyWords?.includes('Basic') &&
     cardObject?.card?.keyWords?.includes('Land');
-  let isTransforming = cardObject?.card?.layout === 'transform';
+  let isTransforming = cardObject?.card?.cardFaces.length > 0;
 
   const handleIncrement = async (e) => {
     e.stopPropagation();

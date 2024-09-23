@@ -110,7 +110,7 @@
 
   $: {
     cardObject = checkIfCardIsInDeck(card);
-    isTransforming = card?.layout === 'transform';
+    isTransforming = card?.cardFaces.length > 0;
     isBasicLand =
       card?.keyWords?.includes('Basic') && card?.keyWords?.includes('Land');
     icon = cardObject ? 'minus' : 'plus';
