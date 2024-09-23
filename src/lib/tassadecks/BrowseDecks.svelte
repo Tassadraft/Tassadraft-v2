@@ -30,9 +30,9 @@
 {#if allDecks}
   <Subtitle>{allDecks.total ?? 0} public decks</Subtitle>
   {#if displayingMode === 'grid'}
-    <DecksGrid bind:decks={allDecks.decks} displayOwner={false} />
+    <DecksGrid bind:decks={allDecks.decks} displayOwner={true} />
   {:else if displayingMode === 'list'}
-    <DecksTable bind:decks={allDecks.decks} displayOwner={false} />
+    <DecksTable bind:decks={allDecks.decks} displayOwner={true} />
   {/if}
   <Pagination
     bind:paginatedObject={allDecks}
@@ -42,9 +42,9 @@
 {#if myDecks}
   <Subtitle>{myDecks.total ?? 0} decks owned</Subtitle>
   {#if displayingMode === 'grid'}
-    <DecksGrid bind:decks={myDecks.decks} displayOwner={true} />
+    <DecksGrid bind:decks={myDecks.decks} />
   {:else if displayingMode === 'list'}
-    <DecksTable bind:decks={myDecks.decks} displayOwner={true} />
+    <DecksTable bind:decks={myDecks.decks} />
   {/if}
   <Pagination
     bind:paginatedObject={myDecks}
