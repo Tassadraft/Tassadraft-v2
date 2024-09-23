@@ -15,10 +15,7 @@
     >
       <h2 class="text-xl font-bold">{deck.name}</h2>
       <p>
-        {deck.categories?.reduce(
-          (acc, category) => acc + category.cards.length,
-          0,
-        ) || 0} cards
+        {deck.cards} cards
       </p>
       <p>Enabled: {deck.enabled ? 'Yes' : 'No'}</p>
       <p>Public: {deck.public ? 'Yes' : 'No'}</p>
