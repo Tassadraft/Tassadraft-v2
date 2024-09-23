@@ -5,9 +5,11 @@
   import Form from '../shared/Form.svelte';
   import Input from '../shared/Input.svelte';
   import Title from '../shared/Title.svelte';
+  import Link from '../shared/Link.svelte';
 
   let username = '';
   let email = '';
+  let role = '';
   let subscriptionEndsOn = '';
   let subscriptionCreatedOn = '';
   let subscriptionName = '';
@@ -51,5 +53,9 @@
       bind:value={subscriptionCreatedOn}
       disabled={true}
     />
+  {:else if role === 'user'}
+    <Link href="https://api.tassadraft.com/subscribe" target="_blank">
+      Subscribe
+    </Link>
   {/if}
 </Form>
