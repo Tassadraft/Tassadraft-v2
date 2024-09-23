@@ -16,11 +16,13 @@
   export let deck = {};
   export let addCardRequest = async () => {};
 
+  let flipped = false;
   let cardFace = 0;
   let isBasicLand =
     cardObject?.card?.keyWords?.includes('Basic') &&
     cardObject?.card?.keyWords?.includes('Land');
   let isTransforming = cardObject?.card?.layout !== 'flip' && cardObject?.card?.cardFaces?.length > 0;
+  let isFlip = cardObject?.card?.layout === 'flip';
 
   const handleIncrement = async (e) => {
     e.stopPropagation();
@@ -39,7 +41,11 @@
 
   const handleTransform = (e) => {
     e.stopPropagation();
-    cardFace = cardFace === 0 ? 1 : 0;
+    if (isTransforming) {
+        cardFace = cardFace === 0 ? 1 : 0;
+    } else if (isFlip) {
+        flipped = !flipped;
+    }
   };
 
   const handleClick = () => {
@@ -70,7 +76,7 @@
     Operations: 'copy',
   }}
 >
-  {#if isBasicLand || isTransforming}
+  {#if isBasicLand || isTransforming || isFlip}
     <div
       class="absolute inset-0 bg-gray-950 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
     />
@@ -80,14 +86,14 @@
       ? cardObject?.card?.cardFaces[cardFace]?.imageUri?.normal
       : cardObject?.card?.imageUri?.normal}
     alt={cardObject.card.translation?.name}
-    class="w-48 rounded-lg {isBasicLand || isTransforming
+    class="w-48 rounded-lg {isBasicLand || isTransforming || isFlip
       ? 'group-hover:opacity-50 transition-opacity duration-300'
-      : ''}"
+      : ''} {flipped ? 'transform rotate-180' : ''}"
   />
   <div
     class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
   >
-    {#if isTransforming}
+    {#if isTransforming || isFlip}
       <div class="absolute top-8 right-3">
         <IconButton icon="exchange" on:click={handleTransform} />
       </div>

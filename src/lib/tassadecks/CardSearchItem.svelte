@@ -12,6 +12,8 @@
   let cardFace = 0;
   let isTransforming = false;
   let isBasicLand = false;
+  let isFlip = false;
+  let flipped = false;
   let icon = 'plus';
 
   const checkIfCardIsInDeck = (card) => {
@@ -105,7 +107,11 @@
   };
 
   const handleTransform = () => {
-    cardFace = cardFace === 0 ? 1 : 0;
+    if (isTransforming) {
+      cardFace = cardFace === 0 ? 1 : 0;
+    } else if (isFlip) {
+      flipped = !flipped;
+    }
   };
 
   $: {
@@ -114,7 +120,7 @@
     isBasicLand =
       card?.keyWords?.includes('Basic') && card?.keyWords?.includes('Land');
     icon = cardObject ? 'minus' : 'plus';
-    console.log(isTransforming);
+    isFlip = card?.layout === 'flip';
   }
 </script>
 
@@ -125,7 +131,7 @@
         ? card?.cardFaces[cardFace]?.imageUri?.normal
         : card?.imageUri?.normal}
       alt={card?.translation?.name}
-      class="w-48 rounded-lg group-hover:opacity-50 transition-opacity duration-300"
+      class="w-48 rounded-lg group-hover:opacity-50 transition-opacity duration-300 {flipped ? 'transform rotate-180' : ''}"
     />
     {#if cardObject !== null}
       <CardSearchItemInDeckBadge />
@@ -133,7 +139,7 @@
     <div
       class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
     >
-      {#if isTransforming}
+      {#if isTransforming || isFlip}
         <div class="absolute top-8 right-3">
           <IconButton icon="exchange" on:click={handleTransform} />
         </div>
