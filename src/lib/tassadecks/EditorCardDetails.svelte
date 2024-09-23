@@ -14,7 +14,7 @@
     isBasicLand =
       selectedCard?.card?.keyWords?.includes('Basic') &&
       selectedCard?.card?.keyWords?.includes('Land');
-    isTransforming = selectedCard?.card?.cardFaces.length > 0;
+    isTransforming = selectedCard?.card?.cardFaces?.length > 0;
   }
 </script>
 
