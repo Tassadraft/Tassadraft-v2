@@ -11,7 +11,7 @@
 
   let allDecks = {};
   let myDecks = {};
-  let displayingMode = 'grid';
+  let displayingMode = 'list';
 
   onMount(async () => {
     const { data } = await axios.get(
