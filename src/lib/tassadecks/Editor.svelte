@@ -324,7 +324,7 @@
         tabindex="0"
         class="shadow-md rounded-lg p-4 relative"
         style={displayingMode === 'grid'
-          ? `height: ${268 + 50 + 30 * categoryObject.cards.length - 1}px;`
+          ? `height: ${268 + 80 + 30 * categoryObject.cards.length - 1}px;`
           : ''}
         on:drop={() => handleDrop(categoryObject)}
         use:asDropZone={{
