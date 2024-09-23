@@ -333,7 +333,7 @@
         data-dropzone-id={categoryIndex}
       >
         <div
-          class="relative flex flex-row gap-3 bg-gray-900 rounded-xl px-3 pt-3"
+          class="relative flex flex-row gap-3 bg-gray-200 dark:bg-gray-900 rounded-xl px-3 pt-3"
           style="z-index: 5000"
         >
           <Editable
