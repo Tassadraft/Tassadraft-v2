@@ -6,10 +6,12 @@
   const dispatch = createEventDispatcher();
 
   export let cardObject = { card: {} };
+  export let categoryObject = { category: {} };
   export let showCardModal = false;
   export let index = -1;
   export let categoryIndex = -1;
   export let selectedCard = {};
+  export let selectedCategory = {};
   export let draggedCard = { card: {} };
   export let hoveredCategoryIndex = -1;
   export let hoveredCardIndex = -1;
@@ -21,7 +23,9 @@
   let isBasicLand =
     cardObject?.card?.keyWords?.includes('Basic') &&
     cardObject?.card?.keyWords?.includes('Land');
-  let isTransforming = cardObject?.card?.layout !== 'flip' && cardObject?.card?.cardFaces?.length > 0;
+  let isTransforming =
+    cardObject?.card?.layout !== 'flip' &&
+    cardObject?.card?.cardFaces?.length > 0;
   let isFlip = cardObject?.card?.layout === 'flip';
 
   const handleIncrement = async (e) => {
@@ -42,14 +46,15 @@
   const handleTransform = (e) => {
     e.stopPropagation();
     if (isTransforming) {
-        cardFace = cardFace === 0 ? 1 : 0;
+      cardFace = cardFace === 0 ? 1 : 0;
     } else if (isFlip) {
-        flipped = !flipped;
+      flipped = !flipped;
     }
   };
 
   const handleClick = () => {
     selectedCard = cardObject;
+    selectedCategory = categoryObject;
     showCardModal = true;
   };
 </script>

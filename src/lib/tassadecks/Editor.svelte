@@ -35,11 +35,14 @@
     public: false,
   };
   let selectedCard = { card: {} };
+  let selectedCategory = { category: {} };
   let draggedCard = { card: {} };
   let draggedCategory = null;
   let dragging = false;
   let hoveredCardIndex = -1;
   let hoveredCategoryIndex = -1;
+
+  let categoryOptions = [];
 
   let showCardModal = false;
   let showSearchModal = false;
@@ -59,6 +62,12 @@
       const rawCreatedAt = new Date(deck.createdAt);
       updatedAt = rawUpdatedAt.toLocaleString();
       createdAt = rawCreatedAt.toLocaleString();
+      categoryOptions = deck.categories.map((categoryObject) => {
+        return {
+          value: categoryObject.id,
+          label: categoryObject.category.name,
+        };
+      });
     } catch (e) {
       storeToast('Error while loading the deck', 'error');
       window.location = '/decks';
@@ -251,6 +260,26 @@
     }
   };
 
+  const handleChangeCategory = async (e) => {
+    const categoryObject = deck.categories.find(
+      (co) => co.id === e.detail.value,
+    );
+    const moved = await moveCardRequest(selectedCard, categoryObject);
+    if (!moved) {
+      return;
+    }
+    categoryObject.cards.push(selectedCard);
+    categoryObject.cards.sort((a, b) =>
+            a.card.translation.name.localeCompare(b.card.translation.name),
+    );
+    selectedCategory.cards = selectedCategory.cards.filter(
+            (cardObject) =>
+                    cardObject.card.scryfallId !== selectedCard.card.scryfallId,
+    );
+
+    deck = { ...deck };
+  };
+
   $: {
     cardsLength = deck.categories?.reduce((acc, categoryObject) => {
       return (
@@ -357,6 +386,7 @@
                     : 'text-red-700'}"
                   on:click={() => {
                     selectedCard = cardObject;
+                    selectedCategory = categoryObject;
                     showCardModal = true;
                   }}
                 >
@@ -377,8 +407,10 @@
               {index}
               {categoryIndex}
               {cardObject}
+              {categoryObject}
               bind:showCardModal
               bind:selectedCard
+              bind:selectedCategory
               on:hover={() => handleCardHover(index, categoryIndex)}
               on:unHover={handleCardUnhover}
               on:dragStart={() => handleDragStart(cardObject, categoryObject)}
@@ -393,7 +425,7 @@
         {/if}
         {#if dragging && draggedCategory.id !== categoryObject.id}
           <div
-            class="absolute inset-0 bg-cover"
+            class="absolute inset-0 bg-cover hidden md:block"
             style="z-index: 2000; background-size: 20px 20px; background-image:
                          linear-gradient(45deg, #A5371B 25%, transparent 25%),
                          linear-gradient(-45deg, #A5371B 25%, transparent 25%),
@@ -415,8 +447,11 @@
   <Subtitle slot="header">{selectedCard?.card?.translation?.name}</Subtitle>
   <EditorCardDetails
     bind:selectedCard
+    bind:options={categoryOptions}
+    bind:selectedCategory
     on:cardDecrement={handleDecrement}
     on:cardIncrement={handleIncrement}
+    on:changeCategory={handleChangeCategory}
   />
 </Modal>
 
