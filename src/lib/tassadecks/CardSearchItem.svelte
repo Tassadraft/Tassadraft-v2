@@ -131,7 +131,9 @@
         ? card?.cardFaces[cardFace]?.imageUri?.normal
         : card?.imageUri?.normal}
       alt={card?.translation?.name}
-      class="w-48 rounded-lg group-hover:opacity-50 transition-opacity duration-300 {flipped ? 'transform rotate-180' : ''}"
+      class="w-48 rounded-lg group-hover:opacity-50 transition-opacity duration-300 {flipped
+        ? 'transform rotate-180'
+        : ''}"
     />
     {#if cardObject !== null}
       <CardSearchItemInDeckBadge />

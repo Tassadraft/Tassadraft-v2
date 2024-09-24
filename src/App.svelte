@@ -15,6 +15,7 @@
   import NewDeckScratch from './lib/tassadecks/NewDeckScratch.svelte';
   import NewDeckUpload from './lib/tassadecks/NewDeckUpload.svelte';
   import BrowseDecks from './lib/tassadecks/BrowseDecks.svelte';
+  import ResetPassword from './lib/pages/ResetPassword.svelte';
 
   export let url = '';
 
@@ -50,6 +51,7 @@
       <Route path="/tassadecks"><Tassadecks /></Route>
       <Route path="/settings"><Settings /></Route>
       <Route path="/account"><Account /></Route>
+      <Route path="/reset-password"><ResetPassword /></Route>
       <Route path="/login"><Login /></Route>
       <Route path="/logout"><Logout /></Route>
 

@@ -1,23 +1,27 @@
 <script>
   import IconButton from '../shared/IconButton.svelte';
-  import { createEventDispatcher } from 'svelte';
+  import {createEventDispatcher, onMount} from 'svelte';
+  import Select from "../shared/Select.svelte";
 
   const dispatch = createEventDispatcher();
 
   export let selectedCard = null;
+  export let selectedCategory = null;
+  export let options = [];
 
   let cardFace = 0;
   let isBasicLand = false;
   let isTransforming = false;
   let isFlip = false;
-    let flipped = false;
+  let flipped = false;
+  let selectedOption = null;
 
   const handleTransform = (e) => {
     e.stopPropagation();
     if (isTransforming) {
-        cardFace = cardFace === 0 ? 1 : 0;
+      cardFace = cardFace === 0 ? 1 : 0;
     } else if (isFlip) {
-        flipped = !flipped;
+      flipped = !flipped;
     }
   };
 
@@ -25,8 +29,11 @@
     isBasicLand =
       selectedCard?.card?.keyWords?.includes('Basic') &&
       selectedCard?.card?.keyWords?.includes('Land');
-    isTransforming = selectedCard?.card?.layout !== 'flip' && selectedCard?.card?.cardFaces?.length > 0;
+    isTransforming =
+      selectedCard?.card?.layout !== 'flip' &&
+      selectedCard?.card?.cardFaces?.length > 0;
     isFlip = selectedCard?.card?.layout === 'flip';
+    selectedOption = { value: selectedCategory.id, label: selectedCategory.category.name };
   }
 </script>
 
@@ -61,13 +68,12 @@
       </div>
     </div>
     <div class="flex flex-col gap-2 justify-center">
+      <div class="md:hidden">
+        <Select bind:options bind:selectedOption name="category" on:change={() => dispatch('changeCategory', selectedOption)} />
+      </div>
       {#if isTransforming || isFlip}
         <div class="sm:hidden flex justify-center">
-          <IconButton
-            icon="exchange"
-            size={32}
-            on:click={handleTransform}
-          />
+          <IconButton icon="exchange" size={32} on:click={handleTransform} />
         </div>
       {/if}
       {#if isBasicLand}

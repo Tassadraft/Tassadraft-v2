@@ -9,15 +9,13 @@ if (token) {
     .get('/api/auth')
     .then((response) => {
       if (response.status !== 200) {
-        console.log('ici');
-        localStorage.removeItem('apiToken');
-        axios.defaults.headers.common['Authorization'] = '';
         throw new Error('Invalid token');
       }
     })
     .catch((error) => {
       localStorage.removeItem('apiToken');
       axios.defaults.headers.common['Authorization'] = '';
+      document.location.href = '/login';
     });
   axios
     .get('/api/auth/reserved')
@@ -31,6 +29,8 @@ if (token) {
     .catch((error) => {
       localStorage.setItem('subscribed', 'false');
     });
+} else if (document.location.pathname !== '/login') {
+  document.location.href = '/login';
 }
 
 export default axios;
