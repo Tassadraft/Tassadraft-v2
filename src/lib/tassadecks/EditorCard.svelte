@@ -12,7 +12,6 @@
   export let categoryIndex = -1;
   export let selectedCard = {};
   export let selectedCategory = {};
-  export let draggedCard = { card: {} };
   export let hoveredCategoryIndex = -1;
   export let hoveredCardIndex = -1;
   export let deck = {};
@@ -66,9 +65,7 @@
   style="transform: translateY({(index - 1) * 30 +
     (categoryIndex === hoveredCategoryIndex && index > hoveredCardIndex
       ? 288
-      : 50)}px); z-index: {draggedCard.card.id === cardObject.card.id
-    ? 2500
-    : index + 1};"
+      : 50)}px); z-index: {categoryIndex === hoveredCategoryIndex && index >= hoveredCardIndex ? 9999999 : 0}"
   on:mouseover={() => dispatch('hover')}
   on:mouseout={() => dispatch('unHover')}
   on:focus={() => dispatch('hover')}

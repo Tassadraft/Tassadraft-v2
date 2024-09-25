@@ -363,7 +363,7 @@
       >
         <div
           class="relative flex flex-row gap-3 bg-gray-200 dark:bg-gray-900 rounded-xl px-3 pt-3"
-          style="z-index: 5000"
+          style="z-index: {categoryIndex * 1000 + 1}"
         >
           <Editable
             bind:value={categoryObject.category.name}
@@ -414,7 +414,6 @@
               on:hover={() => handleCardHover(index, categoryIndex)}
               on:unHover={handleCardUnhover}
               on:dragStart={() => handleDragStart(cardObject, categoryObject)}
-              bind:draggedCard
               bind:hoveredCategoryIndex
               bind:hoveredCardIndex
               bind:deck
@@ -426,7 +425,7 @@
         {#if dragging && draggedCategory.id !== categoryObject.id}
           <div
             class="absolute inset-0 bg-cover hidden md:block"
-            style="z-index: 2000; background-size: 20px 20px; background-image:
+            style="z-index: {categoryIndex * 1000}; background-size: 20px 20px; background-image:
                          linear-gradient(45deg, #A5371B 25%, transparent 25%),
                          linear-gradient(-45deg, #A5371B 25%, transparent 25%),
                          linear-gradient(45deg, transparent 75%, #A5371B 75%),
