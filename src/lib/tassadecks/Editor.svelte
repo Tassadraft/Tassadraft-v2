@@ -345,9 +345,7 @@
   </div>
 </Panel>
 
-<div
-  class="flex flex-row justify-center flex-wrap gap-4"
->
+<div class="flex flex-row justify-center flex-wrap gap-4">
   {#each deck.categories as categoryObject, categoryIndex}
     {#if categoryObject.cards.length > 0 || categoryObject.category.name === 'Commander'}
       <div
@@ -413,7 +411,8 @@
               bind:showCardModal
               bind:selectedCard
               bind:selectedCategory
-              on:hover={() => handleCardHover(index, categoryIndex, categoryObject)}
+              on:hover={() =>
+                handleCardHover(index, categoryIndex, categoryObject)}
               on:unHover={handleCardUnhover}
               on:dragStart={() => handleDragStart(cardObject, categoryObject)}
               bind:hoveredCategoryIndex

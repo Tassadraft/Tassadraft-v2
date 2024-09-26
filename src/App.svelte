@@ -16,6 +16,7 @@
   import NewDeckUpload from './lib/tassadecks/NewDeckUpload.svelte';
   import BrowseDecks from './lib/tassadecks/BrowseDecks.svelte';
   import ResetPassword from './lib/pages/ResetPassword.svelte';
+  import ConfirmResetPassword from './lib/pages/ConfirmResetPassword.svelte';
 
   export let url = '';
 
@@ -52,6 +53,9 @@
       <Route path="/settings"><Settings /></Route>
       <Route path="/account"><Account /></Route>
       <Route path="/reset-password"><ResetPassword /></Route>
+      <Route path="/reset-password/confirm/:token" let:params
+        ><ConfirmResetPassword {...params} /></Route
+      >
       <Route path="/login"><Login /></Route>
       <Route path="/logout"><Logout /></Route>
 

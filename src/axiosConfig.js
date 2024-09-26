@@ -29,7 +29,10 @@ if (token) {
     .catch((error) => {
       localStorage.setItem('subscribed', 'false');
     });
-} else if (document.location.pathname !== '/login') {
+} else if (
+  document.location.pathname !== '/login' &&
+  !document.location.pathname.includes('/reset-password')
+) {
   document.location.href = '/login';
 }
 

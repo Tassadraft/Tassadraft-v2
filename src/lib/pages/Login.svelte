@@ -7,6 +7,7 @@
   import { showToast, storeToast } from '../../service/toastService.js';
   import axios from '../../axiosConfig.js';
   import Title from '../shared/Title.svelte';
+  import Link from "../shared/Link.svelte";
 
   onMount(() => {
     if (localStorage.getItem('apiToken')) {
@@ -49,4 +50,7 @@
     required={true}
   />
   <PasswordInput value={password} required={true} />
+  <div class="w-full mb-3">
+    <Link href="/reset-password" className="text-primary-500 hover:text-white duration-300 transition-colors">Forgot password ?</Link>
+  </div>
 </Form>
