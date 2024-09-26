@@ -162,7 +162,10 @@
     }
   };
 
-  const handleCardHover = (cardIndex, categoryIndex) => {
+  const handleCardHover = (cardIndex, categoryIndex, categoryObject) => {
+    if (cardIndex === categoryObject.cards.length - 1) {
+      return;
+    }
     hoveredCardIndex = cardIndex;
     hoveredCategoryIndex = categoryIndex;
   };
@@ -411,7 +414,7 @@
               bind:showCardModal
               bind:selectedCard
               bind:selectedCategory
-              on:hover={() => handleCardHover(index, categoryIndex)}
+              on:hover={() => handleCardHover(index, categoryIndex, categoryObject)}
               on:unHover={handleCardUnhover}
               on:dragStart={() => handleDragStart(cardObject, categoryObject)}
               bind:hoveredCategoryIndex
