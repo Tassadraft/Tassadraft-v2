@@ -270,11 +270,11 @@
     }
     categoryObject.cards.push(selectedCard);
     categoryObject.cards.sort((a, b) =>
-            a.card.translation.name.localeCompare(b.card.translation.name),
+      a.card.translation.name.localeCompare(b.card.translation.name),
     );
     selectedCategory.cards = selectedCategory.cards.filter(
-            (cardObject) =>
-                    cardObject.card.scryfallId !== selectedCard.card.scryfallId,
+      (cardObject) =>
+        cardObject.card.scryfallId !== selectedCard.card.scryfallId,
     );
 
     deck = { ...deck };
@@ -351,7 +351,7 @@
       <div
         role="listbox"
         tabindex="0"
-        class="shadow-md rounded-lg p-4 relative"
+        class="shadow-md rounded-lg p-4 relative transition-all duration-300"
         style={displayingMode === 'grid'
           ? `height: ${268 + 80 + 30 * categoryObject.cards.length + (hoveredCategoryIndex === categoryIndex ? 235 : 0)}px;`
           : ''}

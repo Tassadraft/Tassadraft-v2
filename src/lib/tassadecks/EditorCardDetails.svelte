@@ -1,7 +1,7 @@
 <script>
   import IconButton from '../shared/IconButton.svelte';
-  import {createEventDispatcher, onMount} from 'svelte';
-  import Select from "../shared/Select.svelte";
+  import { createEventDispatcher, onMount } from 'svelte';
+  import Select from '../shared/Select.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -33,7 +33,10 @@
       selectedCard?.card?.layout !== 'flip' &&
       selectedCard?.card?.cardFaces?.length > 0;
     isFlip = selectedCard?.card?.layout === 'flip';
-    selectedOption = { value: selectedCategory.id, label: selectedCategory.category.name };
+    selectedOption = {
+      value: selectedCategory.id,
+      label: selectedCategory.category.name,
+    };
   }
 </script>
 
@@ -69,7 +72,12 @@
     </div>
     <div class="flex flex-col gap-2 justify-center">
       <div class="w-full flex flex-row">
-        <Select bind:options bind:selectedOption name="category" on:change={() => dispatch('changeCategory', selectedOption)} />
+        <Select
+          bind:options
+          bind:selectedOption
+          name="category"
+          on:change={() => dispatch('changeCategory', selectedOption)}
+        />
       </div>
       {#if isTransforming || isFlip}
         <div class="sm:hidden flex justify-center">
