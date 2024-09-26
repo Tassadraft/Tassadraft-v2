@@ -353,7 +353,7 @@
         tabindex="0"
         class="shadow-md rounded-lg p-4 relative"
         style={displayingMode === 'grid'
-          ? `height: ${268 + 80 + 30 * categoryObject.cards.length - 1}px;`
+          ? `height: ${268 + 80 + 30 * categoryObject.cards.length + (hoveredCategoryIndex === categoryIndex ? 235 : 0)}px;`
           : ''}
         on:drop={() => handleDrop(categoryObject)}
         use:asDropZone={{
@@ -363,7 +363,7 @@
       >
         <div
           class="relative flex flex-row gap-3 bg-gray-200 dark:bg-gray-900 rounded-xl px-3 pt-3"
-          style="z-index: {categoryIndex * 1000 + 1}"
+          style="z-index: 1001"
         >
           <Editable
             bind:value={categoryObject.category.name}
@@ -425,7 +425,7 @@
         {#if dragging && draggedCategory.id !== categoryObject.id}
           <div
             class="absolute inset-0 bg-cover hidden md:block"
-            style="z-index: {categoryIndex * 1000}; background-size: 20px 20px; background-image:
+            style="z-index: 1000; background-size: 20px 20px; background-image:
                          linear-gradient(45deg, #A5371B 25%, transparent 25%),
                          linear-gradient(-45deg, #A5371B 25%, transparent 25%),
                          linear-gradient(45deg, transparent 75%, #A5371B 75%),

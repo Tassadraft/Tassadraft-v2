@@ -65,7 +65,7 @@
   style="transform: translateY({(index - 1) * 30 +
     (categoryIndex === hoveredCategoryIndex && index > hoveredCardIndex
       ? 288
-      : 50)}px); z-index: {categoryIndex === hoveredCategoryIndex && index >= hoveredCardIndex ? 9999999 : 0}"
+      : 50)}px); z-index: 1001;"
   on:mouseover={() => dispatch('hover')}
   on:mouseout={() => dispatch('unHover')}
   on:focus={() => dispatch('hover')}
