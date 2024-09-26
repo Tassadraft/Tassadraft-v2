@@ -122,7 +122,6 @@
   };
 
   const renameCategoryRequest = async (categoryObject) => {
-    console.log(categoryObject);
     try {
       await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
         actionType: 'renameCategory',
@@ -347,14 +346,14 @@
 </Panel>
 
 <div
-  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+  class="flex flex-row justify-center flex-wrap gap-4"
 >
   {#each deck.categories as categoryObject, categoryIndex}
     {#if categoryObject.cards.length > 0 || categoryObject.category.name === 'Commander'}
       <div
         role="listbox"
         tabindex="0"
-        class="shadow-md rounded-lg p-4 relative transition-all duration-300"
+        class="shadow-md rounded-lg p-4 relative transition-all duration-300 min-w-56"
         style={displayingMode === 'grid'
           ? `height: ${268 + 80 + 30 * categoryObject.cards.length + (hoveredCategoryIndex === categoryIndex ? 235 : 0)}px;`
           : ''}
