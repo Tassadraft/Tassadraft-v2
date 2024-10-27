@@ -39,6 +39,7 @@
     'Save',
     'Check',
     'Exchange',
+    'PaperClip',
   ];
 
   const toCamelCase = (str) => {

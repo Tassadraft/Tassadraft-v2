@@ -29,7 +29,7 @@
   method="POST"
   action={`/api/auth/reserved/decks/${deck.id > 0 ? `edit/${deck.id}` : 'new'}?languageCode=${localStorage.getItem('languageCode')}`}
   {handleSuccess}
-  {handleError}
+  handleFailure={handleError}
 >
   <Input
     label="Name"

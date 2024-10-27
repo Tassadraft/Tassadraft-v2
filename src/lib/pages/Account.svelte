@@ -41,7 +41,11 @@
 <Form submittable={false}>
   <Input label="Username" bind:value={username} disabled={true} />
   <Input label="Email" bind:value={email} disabled={true} />
-  <Link href="/reset-password" className="text-primary-500 hover:text-white duration-300 transition-colors">Reset password</Link>
+  <Link
+    href="/reset-password"
+    className="text-primary-500 hover:text-white duration-300 transition-colors"
+    >Reset password</Link
+  >
   {#if subscriptionName && subscriptionEndsOn && subscriptionCreatedOn}
     <Input label="Subscription" bind:value={subscriptionName} disabled={true} />
     <Input
