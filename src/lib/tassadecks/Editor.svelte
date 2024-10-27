@@ -19,6 +19,10 @@
   import EditorCard from './EditorCard.svelte';
   import Pagination from '../shared/Pagination.svelte';
   import Editable from '../shared/Editable.svelte';
+  import Photo from '../shared/Photo.svelte';
+  import getBase64Strings from '../../service/base64Service.js';
+  import Loader from '../shared/Loader.svelte';
+  import { capitalizeFirstChar } from '../../service/stringService.js';
 
   export let deckId = '';
 
@@ -33,6 +37,8 @@
     updatedAt,
     enabled: false,
     public: false,
+    enableDetailedCategories: false,
+    format: 'Commander',
   };
   let selectedCard = { card: {} };
   let selectedCategory = { category: {} };
@@ -51,6 +57,8 @@
   let cardSearchBaseUrl = '';
   const searchBarName = 'searchCard';
   let displayingMode = 'grid';
+
+  let loading = false;
 
   onMount(async () => {
     try {
@@ -241,20 +249,22 @@
 
   const handleDecrement = async (e) => {
     for (const categoryObject of deck.categories) {
-      for (const cardObject of categoryObject.cards) {
+      for (let cardObject of categoryObject.cards) {
         if (cardObject.card.scryfallId === e.detail.card.scryfallId) {
           const removed = await removeCardRequest(cardObject.card);
           if (!removed) {
             return;
           }
-          cardObject.quantity = (cardObject.quantity || 0) - 1;
+          console.log(cardObject.card.translation.name, cardObject.quantity);
+          console.log(selectedCard.card.translation.name, selectedCard.quantity);
+          cardObject.quantity = cardObject.quantity - 1;
           if (cardObject.quantity <= 0) {
             categoryObject.cards = categoryObject.cards.filter(
               (co) => co.card.scryfallId !== cardObject.card.scryfallId,
             );
             showCardModal = false;
           }
-          categoryObject.cards = [...categoryObject.cards];
+          selectedCard = { ...selectedCard };
           deck = { ...deck };
           return;
         }
@@ -282,6 +292,59 @@
     deck = { ...deck };
   };
 
+  const handleProcessPhoto = async (e) => {
+    try {
+      loading = true;
+      const base64Strings = await getBase64Strings([
+        { uri: e.detail.photo.webPath },
+      ]);
+      const response = await axios.post(
+        `/api/auth/reserved/process?languageCode=${localStorage.getItem('languageCode')}`,
+        {
+          photos: base64Strings,
+        },
+      );
+      for (const cardObject of response.data.cards) {
+        const isCardInDeck = deck.categories.some((categoryObject) => {
+          return categoryObject.cards.some(
+            (co) => co.card.scryfallId === cardObject.card.scryfallId,
+          );
+        });
+        if (!isCardInDeck) {
+          deck.categories = deck.categories.map((categoryObject) => {
+            if (
+              categoryObject.category.name ===
+              cardObject.card.translation.mainType
+            ) {
+              categoryObject.cards = [...categoryObject.cards, cardObject];
+            }
+            return categoryObject;
+          });
+        } else {
+          deck.categories = deck.categories.map((categoryObject) => {
+            categoryObject.cards = categoryObject.cards.map((co) => {
+              if (co.card.scryfallId === cardObject.card.scryfallId) {
+                co.quantity++;
+              }
+              return co;
+            });
+            return categoryObject;
+          });
+        }
+      }
+      deck = { ...deck };
+      loading = false;
+    } catch (error) {
+      loading = false;
+      console.log(error);
+      if (error.response?.status === 401) {
+        showToast('You are not authorized to process photos', 'error');
+      } else {
+        showToast('An error occurred while processing photos', 'error');
+      }
+    }
+  };
+
   $: {
     cardsLength = deck.categories?.reduce((acc, categoryObject) => {
       return (
@@ -304,6 +367,8 @@
   <Title bind:title={deck.name} />
 </Editable>
 
+<Loader bind:loading />
+
 <Panel>
   <div class="grid grid-cols-3 gap-4 text-center">
     <div class="m-auto">
@@ -323,11 +388,23 @@
       />
     </div>
     <p>{cardsLength} cards</p>
-    <p>Updated on {updatedAt}</p>
-    <p>Created on {createdAt}</p>
+    <Subtitle>{capitalizeFirstChar(deck.format)}</Subtitle>
+    <div class="m-auto">
+      <Switch
+        size="4"
+        bind:value={deck.enableDetailedCategories}
+        label="Detailed categories"
+        on:change={metadataRequest}
+        disabled={true}
+      />
+    </div>
     <Editable bind:value={deck.description} on:rename={metadataRequest}>
       <p>{deck.description}</p>
     </Editable>
+  </div>
+  <div class="grid grid-cols-2 text-center mt-4">
+    <p>Updated on {updatedAt}</p>
+    <p>Created on {createdAt}</p>
   </div>
 </Panel>
 
@@ -438,6 +515,8 @@
     {/if}
   {/each}
 </div>
+
+<Photo on:photo={handleProcessPhoto} />
 
 <Modal
   bind:showModal={showCardModal}

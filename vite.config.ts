@@ -24,4 +24,7 @@ export default defineConfig({
   define: {
     'process.env': process.env,
   },
+  optimizeDeps: {
+    include: ['@ionic/pwa-elements/loader'],
+  },
 });

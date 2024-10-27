@@ -17,10 +17,13 @@
   import BrowseDecks from './lib/tassadecks/BrowseDecks.svelte';
   import ResetPassword from './lib/pages/ResetPassword.svelte';
   import ConfirmResetPassword from './lib/pages/ConfirmResetPassword.svelte';
+  import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
   export let url = '';
 
   onMount(async () => {
+    await defineCustomElements(window);
+
     const theme = localStorage.getItem('theme');
     if (theme !== 'light' && theme !== 'dark') {
       localStorage.setItem('theme', 'light');

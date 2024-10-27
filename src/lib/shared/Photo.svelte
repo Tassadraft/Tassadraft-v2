@@ -6,13 +6,15 @@
   const dispatch = createEventDispatcher();
 
   const takePhoto = async () => {
-    const photo = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
-      source: CameraSource.Camera,
-      quality: 90,
-    });
+    try {
+      const photo = await Camera.getPhoto({
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera,
+        quality: 90,
+      });
 
-    dispatch('photo', { photo });
+      dispatch('photo', { photo });
+    } catch (error) {}
   };
 </script>
 
