@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 @media (min-width: 320px) {
-  .tr-first {
-    padding-left: 8px;
-  }
+    .tr-first {
+        padding-left: 8px;
+    }
 
-  td p {
-    font-size: 10px;
-  }
+    td p {
+        font-size: 10px;
+    }
 }
 
 pwa-camera-modal-instance,
 pwa-camera-modal {
-  z-index: 9999;
+    z-index: 9999;
 }

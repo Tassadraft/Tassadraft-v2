@@ -1,25 +1,25 @@
 <script>
-  import TableColumnTitle from './TableColumnTitle.svelte';
-  import { createEventDispatcher } from 'svelte';
+    import TableColumnTitle from './TableColumnTitle.svelte';
+    import { createEventDispatcher } from 'svelte';
 
-  export let columns = [];
-  export let sortBy = '';
-  export let sortDirection = 'asc';
+    export let columns = [];
+    export let sortBy = '';
+    export let sortDirection = 'asc';
 
-  const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher();
 </script>
 
 <thead>
-  <tr class="h-10 border-b border-primary-700">
-    {#each columns as column, index (column)}
-      <TableColumnTitle
-        first={index === 0}
-        last={index === columns.length - 1}
-        {column}
-        bind:sortBy
-        bind:sortDirection
-        on:sort={(e) => dispatch('sort', e.detail.column)}
-      />
-    {/each}
-  </tr>
+    <tr class="h-10 border-b border-primary-700">
+        {#each columns as column, index (column)}
+            <TableColumnTitle
+                first={index === 0}
+                last={index === columns.length - 1}
+                {column}
+                bind:sortBy
+                bind:sortDirection
+                on:sort={(e) => dispatch('sort', e.detail.column)}
+            />
+        {/each}
+    </tr>
 </thead>
