@@ -1,7 +1,7 @@
 <script>
     import IconButton from '../shared/IconButton.svelte';
-    import CardSearchItemInDeckBadge from './CardSearchItemInDeckBadge.svelte';
     import { showToast } from '../../service/toastService.js';
+    import CardBadge from "./CardBadge.svelte";
 
     export let deck = {};
     export let card = {};
@@ -120,7 +120,7 @@
             class="w-48 rounded-lg group-hover:opacity-50 transition-opacity duration-300 {flipped ? 'transform rotate-180' : ''}"
         />
         {#if cardObject !== null}
-            <CardSearchItemInDeckBadge />
+            <CardBadge>In deck</CardBadge>
         {/if}
         <div
             class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"

@@ -2,12 +2,14 @@
     import IconButton from '../shared/IconButton.svelte';
     import { createEventDispatcher, onMount } from 'svelte';
     import Select from '../shared/Select.svelte';
+    import Button from "../shared/Button.svelte";
 
     const dispatch = createEventDispatcher();
 
     export let selectedCard = null;
     export let selectedCategory = null;
     export let options = [];
+    export let switching = false;
 
     let cardFace = 0;
     let isBasicLand = false;
@@ -73,9 +75,13 @@
                     <p class="dark:text-white">{selectedCard.quantity}</p>
                     <IconButton icon="plus" size={32} disabled={!isBasicLand} on:click={() => dispatch('cardIncrement', selectedCard)} />
                 </div>
-            {:else}
                 <div class="flex justify-center">
+                    <Button ariaLabel="Switch print" on:click={() => switching = true}>Switch print</Button>
+                </div>
+            {:else}
+                <div class="flex justify-center gap-10">
                     <IconButton icon="trash" size={32} on:click={() => dispatch('cardDecrement', selectedCard)} />
+                    <Button ariaLabel="Switch print" on:click={() => switching = true}>Switch print</Button>
                 </div>
             {/if}
         </div>

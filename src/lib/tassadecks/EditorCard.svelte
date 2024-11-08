@@ -52,10 +52,6 @@
         selectedCategory = categoryObject;
         showCardModal = true;
     };
-
-    if (cardObject.card.scryfallId === '9ec6cbb4-7182-48fe-87fe-9ce9f3a51032') {
-        console.log(cardObject.card);
-    }
 </script>
 
 <div

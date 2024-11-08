@@ -23,6 +23,7 @@
     import getBase64Strings from '../../service/base64Service.js';
     import Loader from '../shared/Loader.svelte';
     import { capitalizeFirstChar } from '../../service/stringService.js';
+    import CardPrintItem from "./CardPrintItem.svelte";
 
     export let deckId = '';
 
@@ -42,6 +43,7 @@
     };
     let selectedCard = { card: {} };
     let selectedCategory = { category: {} };
+    let isSelectedCardSwitchingPrint = false;
     let draggedCard = { card: {} };
     let draggedCategory = null;
     let dragging = false;
@@ -53,10 +55,15 @@
     let showCardModal = false;
     let showSearchModal = false;
 
-    let searchedCards = { cards: [] };
+    let paginatedSearchedCards = { cards: [] };
     let cardSearchBaseUrl = '';
     const searchBarName = 'searchCard';
     let displayingMode = 'grid';
+
+    let paginatedCardPrints = { cards: [] };
+    let switchCardPrintBaseUrl = '';
+
+    let cardDetailsContainerRef;
 
     let loading = false;
 
@@ -167,16 +174,6 @@
     const handleCardUnhover = () => {
         hoveredCardIndex = -1;
         hoveredCategoryIndex = -1;
-    };
-
-    const handleSearch = async (query) => {
-        try {
-            cardSearchBaseUrl = `/api/auth/reserved/cards/search?query=${query}&languageCode=${localStorage.getItem('languageCode')}`;
-            const { data: paginated } = await axios.get(cardSearchBaseUrl);
-            searchedCards = paginated;
-        } catch (e) {
-            showToast('Error while searching', 'error');
-        }
     };
 
     const handleDrop = async (categoryObject) => {
@@ -303,6 +300,28 @@
         }
     };
 
+    const handleSearch = async (query) => {
+        try {
+            cardSearchBaseUrl = `/api/auth/reserved/cards/search?query=${query}&languageCode=${localStorage.getItem('languageCode')}`;
+            const { data: paginated } = await axios.get(cardSearchBaseUrl);
+            paginatedSearchedCards = paginated;
+        } catch (e) {
+            showToast('Error while searching', 'error');
+        }
+    };
+
+    const handleCardPrintSelection = async () => {
+        if (selectedCard.card?.scryfallId) {
+            try {
+                switchCardPrintBaseUrl = `/api/auth/reserved/cards/prints/${selectedCard.card.scryfallId}?`;
+                const { data: paginated } = await axios.get(switchCardPrintBaseUrl);
+                paginatedCardPrints = paginated;
+            } catch (e) {
+                showToast('Error while fetching card prints', 'error');
+            }
+        }
+    };
+
     $: {
         cardsLength = deck.categories?.reduce((acc, categoryObject) => {
             return (
@@ -312,6 +331,12 @@
                 }, 0)
             );
         }, 0);
+    }
+
+    $: {
+        if (selectedCard.card?.scryfallId) {
+            handleCardPrintSelection();
+        }
     }
 </script>
 
@@ -448,16 +473,26 @@
 
 <Photo on:photo={handleProcessPhoto} />
 
-<Modal bind:showModal={showCardModal} closeText="Close" on:success={() => (showCardModal = false)}>
+<Modal bind:showModal={showCardModal} closeText="Close" on:success={() => { showCardModal = false; isSelectedCardSwitchingPrint = false }}>
     <Subtitle slot="header">{selectedCard?.card?.translation?.name}</Subtitle>
-    <EditorCardDetails
-        bind:selectedCard
-        bind:options={categoryOptions}
-        bind:selectedCategory
-        on:cardDecrement={handleDecrement}
-        on:cardIncrement={handleIncrement}
-        on:changeCategory={handleChangeCategory}
-    />
+    {#if isSelectedCardSwitchingPrint}
+        <div bind:this={cardDetailsContainerRef} class="flex flex-row flex-wrap gap-5 justify-center overflow-y-auto max-h-[75vh]">
+            {#each paginatedCardPrints.cards as print}
+                <CardPrintItem card={print} bind:selectedCard />
+            {/each}
+        </div>
+        <Pagination bind:paginatedObject={paginatedCardPrints} baseUrl={switchCardPrintBaseUrl} containerRef={cardDetailsContainerRef} />
+            {:else}
+         <EditorCardDetails
+            bind:selectedCard
+            bind:options={categoryOptions}
+            bind:selectedCategory
+            bind:switching={isSelectedCardSwitchingPrint}
+            on:cardDecrement={handleDecrement}
+            on:cardIncrement={handleIncrement}
+            on:changeCategory={handleChangeCategory}
+        />
+    {/if}
 </Modal>
 
 <Modal bind:showModal={showSearchModal} closeText="Close" fullWidth={true}>
@@ -466,7 +501,7 @@
     <Search
         bind:selectedObserver={showSearchModal}
         selected={true}
-        bind:results={searchedCards.cards}
+        bind:results={paginatedSearchedCards.cards}
         placeholder="Forest"
         label="Search cards by name"
         name={searchBarName}
@@ -474,9 +509,9 @@
     />
 
     <div class="flex flex-row flex-wrap gap-5 justify-center">
-        {#each searchedCards.cards as card}
+        {#each paginatedSearchedCards.cards as card}
             <CardSearchItem bind:deck {card} {addCardRequest} {removeCardRequest} />
         {/each}
     </div>
-    <Pagination bind:paginatedObject={searchedCards} bind:baseUrl={cardSearchBaseUrl} />
+    <Pagination bind:paginatedObject={paginatedSearchedCards} bind:baseUrl={cardSearchBaseUrl} />
 </Modal>

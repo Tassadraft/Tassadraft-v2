@@ -10,36 +10,49 @@
 
     export let baseUrl = '';
     export let paginatedObject = {};
+    export let containerRef = window;
 
     const handleClick = async (page, perPage) => {
-        loading = true;
-        const { data } = await axios.get(`${baseUrl}&page=${page}&per_page=${perPage}`);
-        paginatedObject = data;
-        loading = false;
+        try {
+            loading = true;
+            const { data } = await axios.get(`${baseUrl}&page=${page}&per_page=${perPage}`);
+            paginatedObject = data;
+        } catch (error) {
+            console.error('Failed to fetch paginated data:', error);
+        } finally {
+            loading = false;
+            containerRef.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
     };
 
-    $: {
-        canGoBack = !paginatedObject.currentPage || paginatedObject.currentPage !== paginatedObject.firstPage;
-        canGoForward = !paginatedObject.currentPage || paginatedObject.currentPage !== paginatedObject.lastPage;
-        console.log(canGoBack, canGoForward, paginatedObject);
-    }
+    $: canGoBack = paginatedObject.currentPage > paginatedObject.firstPage;
+    $: canGoForward = paginatedObject.currentPage < paginatedObject.lastPage;
+    $: console.log(containerRef);
 </script>
 
-<div class="my-2 flex flex-row gap-3 justify-center {paginatedObject.lastPage === 1 ? 'hidden' : ''}">
+<div class="my-2 flex flex-row gap-3 justify-center" class:hidden={paginatedObject.lastPage === 1}>
     {#if paginatedObject.currentPage}
         {#if !loading}
+            <!-- First Page Button -->
             <Button disabled={!canGoBack} on:click={() => handleClick(paginatedObject.firstPage, paginatedObject.perPage)}>
                 <Icon name="doubleArrowLeft" />
             </Button>
+            <!-- Previous Page Button -->
             <Button disabled={!canGoBack} on:click={() => handleClick(paginatedObject.currentPage - 1, paginatedObject.perPage)}>
                 <Icon name="chevronLeft" />
             </Button>
+            <!-- Page Indicator -->
             <p class="dark:text-white">
-                {paginatedObject.currentPage ?? 1} / {paginatedObject.lastPage}
+                {paginatedObject.currentPage} / {paginatedObject.lastPage}
             </p>
+            <!-- Next Page Button -->
             <Button disabled={!canGoForward} on:click={() => handleClick(paginatedObject.currentPage + 1, paginatedObject.perPage)}>
                 <Icon name="chevronRight" />
             </Button>
+            <!-- Last Page Button -->
             <Button disabled={!canGoForward} on:click={() => handleClick(paginatedObject.lastPage, paginatedObject.perPage)}>
                 <Icon name="doubleArrowRight" />
             </Button>

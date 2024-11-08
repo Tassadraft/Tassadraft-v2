@@ -8,7 +8,7 @@
     export let closeText = 'Close';
     export let successText = '';
     export let fullWidth = false;
-    let dialog;
+    export let dialog;
 
     const handleSuccess = () => {
         dispatch('success');
@@ -25,7 +25,11 @@
     }
 </script>
 
-<dialog bind:this={dialog} on:close={() => (showModal = false)} class="rounded-lg border-none p-0 {fullWidth ? 'w-9/10' : 'max-w-lg'}">
+<dialog
+    bind:this={dialog}
+    on:close={() => (showModal = false)}
+    class="rounded-lg border-none p-0 {fullWidth ? 'w-9/10' : 'max-w-lg'}"
+>
     <Button
         type="button"
         ariaLabel="Close modal"
@@ -57,6 +61,7 @@
         </div>
     </div>
 </dialog>
+
 
 <style>
     dialog::backdrop {
