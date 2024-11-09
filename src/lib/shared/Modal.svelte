@@ -12,6 +12,10 @@
 
     const handleSuccess = () => {
         dispatch('success');
+    };
+
+    const handleClose = () => {
+        dispatch('close');
         dialog.close();
     };
 
@@ -20,7 +24,7 @@
             dialog.showModal();
             dispatch('open');
         } else {
-            dialog.close();
+            handleClose();
         }
     }
 </script>
@@ -35,7 +39,7 @@
         ariaLabel="Close modal"
         className="fixed inset-0 w-full h-full cursor-default"
         customStyle={true}
-        on:click={() => dialog.close()}
+        on:click={handleClose}
     />
 
     <div class="p-4 bg-white dark:bg-gray-700 rounded-lg relative">
@@ -49,12 +53,12 @@
                     <Button on:click={handleSuccess}>
                         {successText}
                     </Button>
-                    <Button on:click={() => dialog.close()}>
+                    <Button on:click={handleClose}>
                         {closeText}
                     </Button>
                 </div>
             {:else}
-                <Button className="mx-auto" on:click={() => dialog.close()}>
+                <Button className="mx-auto" on:click={handleClose}>
                     {closeText}
                 </Button>
             {/if}

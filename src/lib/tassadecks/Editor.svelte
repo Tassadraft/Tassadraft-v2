@@ -300,6 +300,11 @@
         }
     };
 
+    const handleCloseCardDetails = () => {
+        showCardModal = false;
+        isSelectedCardSwitchingPrint = false;
+    };
+
     const handleSearch = async (query) => {
         try {
             cardSearchBaseUrl = `/api/auth/reserved/cards/search?query=${query}&languageCode=${localStorage.getItem('languageCode')}`;
@@ -473,7 +478,7 @@
 
 <Photo on:photo={handleProcessPhoto} />
 
-<Modal bind:showModal={showCardModal} closeText="Close" on:success={() => { showCardModal = false; isSelectedCardSwitchingPrint = false }}>
+<Modal bind:showModal={showCardModal} closeText="Close" on:close={handleCloseCardDetails} fullWidth={true}>
     <Subtitle slot="header">{selectedCard?.card?.translation?.name}</Subtitle>
     {#if isSelectedCardSwitchingPrint}
         <div bind:this={cardDetailsContainerRef} class="flex flex-row flex-wrap gap-5 justify-center overflow-y-auto max-h-[75vh]">

@@ -30,7 +30,6 @@
 
     $: canGoBack = paginatedObject.currentPage > paginatedObject.firstPage;
     $: canGoForward = paginatedObject.currentPage < paginatedObject.lastPage;
-    $: console.log(containerRef);
 </script>
 
 <div class="my-2 flex flex-row gap-3 justify-center" class:hidden={paginatedObject.lastPage === 1}>
