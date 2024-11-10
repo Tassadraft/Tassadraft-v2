@@ -40,7 +40,7 @@
             for (const categoryObject of deck?.categories) {
                 if (categoryObject.category.name === card?.translation.mainType) {
                     foundCategory = true;
-                    if (categoryObject.cards.find((cardObject) => cardObject.card?.scryfallId === card?.scryfallId)) {
+                    if (categoryObject.cards.find((cardObject) => cardObject.print?.scryfallId === card?.scryfallId)) {
                         showToast('Card already in the deck', 'error');
                         return;
                     }

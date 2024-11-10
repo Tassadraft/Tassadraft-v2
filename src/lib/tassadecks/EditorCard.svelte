@@ -1,16 +1,14 @@
 <script>
     import IconButton from '../shared/IconButton.svelte';
-    import { asDroppable } from 'svelte-drag-and-drop-actions';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();
 
-    export let cardObject = { card: {} };
+    export let cardObject = { print: {} };
     export let categoryObject = { category: {} };
     export let showCardModal = false;
     export let index = -1;
     export let categoryIndex = -1;
-    export let selectedCard = {};
     export let selectedCategory = {};
     export let hoveredCategoryIndex = -1;
     export let hoveredCardIndex = -1;
@@ -19,13 +17,13 @@
 
     let flipped = false;
     let cardFace = 0;
-    let isBasicLand = cardObject?.card?.keyWords?.includes('Basic') && cardObject?.card?.keyWords?.includes('Land');
-    let isTransforming = cardObject?.card?.layout !== 'flip' && cardObject?.card?.faces?.length > 0;
-    let isFlip = cardObject?.card?.layout === 'flip';
+    let isBasicLand = cardObject?.print?.keyWords?.includes('Basic') && cardObject?.print?.keyWords?.includes('Land');
+    let isTransforming = cardObject?.print?.layout !== 'flip' && cardObject?.print?.faces?.length > 0;
+    let isFlip = cardObject?.print?.layout === 'flip';
 
     const handleIncrement = async (e) => {
         e.stopPropagation();
-        const added = await addCardRequest(cardObject.card);
+        const added = await addCardRequest(cardObject.print);
         if (!added) {
             return;
         }
@@ -48,9 +46,9 @@
     };
 
     const handleClick = () => {
-        selectedCard = cardObject;
         selectedCategory = categoryObject;
         showCardModal = true;
+        dispatch('cardSelected', cardObject);
     };
 </script>
 
@@ -64,20 +62,15 @@
     on:mouseout={() => dispatch('unHover')}
     on:focus={() => dispatch('hover')}
     on:blur={() => dispatch('unHover')}
-    on:dragstart={() => dispatch('dragStart')}
     on:click={handleClick}
     on:keydown={(e) => e.key === 'Enter' && handleClick()}
-    use:asDroppable={{
-        DataToOffer: { card: cardObject },
-        Operations: 'copy',
-    }}
 >
     {#if isBasicLand || isTransforming || isFlip}
         <div class="absolute inset-0 bg-gray-950 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     {/if}
     <img
-        src={isTransforming ? cardObject?.card?.faces[cardFace]?.imageUri?.normal : cardObject?.card?.imageUri?.normal}
-        alt={cardObject.card.translation?.name}
+        src={isTransforming ? cardObject?.print?.faces[cardFace]?.imageUri?.normal : cardObject?.print?.imageUri?.normal}
+        alt={cardObject.print.translation?.name}
         class="w-48 rounded-lg {isBasicLand || isTransforming || isFlip ? 'group-hover:opacity-50 transition-opacity duration-300' : ''} {flipped
             ? 'transform rotate-180'
             : ''}"

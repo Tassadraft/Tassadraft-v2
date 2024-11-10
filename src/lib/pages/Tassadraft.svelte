@@ -15,9 +15,9 @@
     const handleProcessed = (e) => {
         const unprocessedPhotos = photos.filter((photo) => !photo.processed);
         e.detail?.cards?.forEach((cardObject) => {
-            let savedCard = cards.find((c) => c.scryfallId === cardObject.card.scryfallId);
+            let savedCard = cards.find((c) => c.scryfallId === cardObject.print.scryfallId);
             if (!savedCard) {
-                savedCard = { ...cardObject.card, photos: [] };
+                savedCard = { ...cardObject.print, photos: [] };
             }
             unprocessedPhotos.forEach((photo, index) => {
                 if (cardObject.images.includes(index)) {

@@ -28,9 +28,9 @@
     };
 
     $: {
-        isBasicLand = selectedCard?.card?.keyWords?.includes('Basic') && selectedCard?.card?.keyWords?.includes('Land');
-        isTransforming = selectedCard?.card?.layout !== 'flip' && selectedCard?.card?.faces?.length > 0;
-        isFlip = selectedCard?.card?.layout === 'flip';
+        isBasicLand = selectedCard?.print?.keyWords?.includes('Basic') && selectedCard?.print?.keyWords?.includes('Land');
+        isTransforming = selectedCard?.print?.layout !== 'flip' && selectedCard?.print?.faces?.length > 0;
+        isFlip = selectedCard?.print?.layout === 'flip';
         selectedOption = {
             value: selectedCategory.id,
             label: selectedCategory.category.name,
@@ -38,7 +38,7 @@
     }
 </script>
 
-{#if selectedCard?.card?.translation}
+{#if selectedCard?.print?.translation}
     <div class="flex flex-col gap-3">
         <div class="flex flex-row justify-center">
             <div class="relative group">
@@ -46,8 +46,8 @@
                     class="w-64 {isTransforming || isFlip ? 'group-hover:opacity-50 transition-opacity duration-300' : ''} rounded-lg {flipped
                         ? 'transform rotate-180'
                         : ''}"
-                    src={isTransforming ? selectedCard.card.faces[cardFace]?.imageUri?.normal : selectedCard.card.imageUri?.normal}
-                    alt={isTransforming ? selectedCard.card.faces[cardFace]?.translation.name : selectedCard.card.translation.name}
+                    src={isTransforming ? selectedCard.print.faces[cardFace]?.imageUri?.normal : selectedCard.print.imageUri?.normal}
+                    alt={isTransforming ? selectedCard.print.faces[cardFace]?.translation.name : selectedCard.print.translation.name}
                 />
                 {#if isTransforming || isFlip}
                     <div

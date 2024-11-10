@@ -14,7 +14,6 @@
     import CardSearchItem from './CardSearchItem.svelte';
     import Icon from '../shared/Icon.svelte';
     import DisplayingMode from '../shared/DisplayingMode.svelte';
-    import { asDropZone } from 'svelte-drag-and-drop-actions';
     import EditorCardDetails from './EditorCardDetails.svelte';
     import EditorCard from './EditorCard.svelte';
     import Pagination from '../shared/Pagination.svelte';
@@ -41,12 +40,9 @@
         enableDetailedCategories: false,
         format: 'Commander',
     };
-    let selectedCard = { card: {} };
+    let selectedCard = { print: {} };
     let selectedCategory = { category: {} };
     let isSelectedCardSwitchingPrint = false;
-    let draggedCard = { card: {} };
-    let draggedCategory = null;
-    let dragging = false;
     let hoveredCardIndex = -1;
     let hoveredCategoryIndex = -1;
 
@@ -91,7 +87,7 @@
         try {
             await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
                 actionType: 'addCard',
-                cardId: card.scryfallId,
+                printId: card.scryfallId,
             });
             showToast(`1 ${card?.translation?.name} added to the deck`);
             return true;
@@ -105,7 +101,7 @@
         try {
             await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
                 actionType: 'removeCard',
-                cardId: card.scryfallId,
+                printId: card.scryfallId,
             });
             showToast(`1 ${card.translation.name} removed from ${deck.name}`);
             return true;
@@ -153,15 +149,28 @@
                 actionType: 'moveCard',
                 deckId: deck.id,
                 categoryId: categoryObject.id,
-                cardId: cardObject.card.scryfallId,
+                printId: cardObject.print.scryfallId,
             });
-            showToast(`${cardObject.card.translation.name} moved to ${categoryObject.category.name}`);
+            showToast(`${cardObject.print.translation.name} moved to ${categoryObject.category.name}`);
             return true;
         } catch (e) {
-            showToast(`Error while moving ${cardObject.card.translation.name} to ${categoryObject.category.name}`, 'error');
+            showToast(`Error while moving ${cardObject.print.translation.name} to ${categoryObject.category.name}`, 'error');
             return false;
         }
     };
+
+    const changeCardPrintRequest = async (cardObject, print) => {
+        try {
+            await axios.post(`/api/auth/reserved/cards/prints/${cardObject.id}/change`, {
+                printId: print.scryfallId,
+            });
+            showToast(`${cardObject.print.translation.name} print changed to ${print.set.name}`);
+            return true;
+        } catch (e) {
+            showToast(`Error while changing ${cardObject.print.translation.name} print`, 'error');
+            return false;
+        }
+    }
 
     const handleCardHover = (cardIndex, categoryIndex, categoryObject) => {
         if (cardIndex === categoryObject.cards.length - 1) {
@@ -176,42 +185,17 @@
         hoveredCategoryIndex = -1;
     };
 
-    const handleDrop = async (categoryObject) => {
-        if (!dragging) {
-            return;
-        }
-        dragging = false;
-        if (categoryObject.id === draggedCategory.id) {
-            return;
-        }
-        const moved = await moveCardRequest(draggedCard, categoryObject);
-        if (!moved) {
-            return;
-        }
-        categoryObject.cards.push(draggedCard);
-        categoryObject.cards.sort((a, b) => a.card.translation.name.localeCompare(b.card.translation.name));
-        draggedCategory.cards = draggedCategory.cards.filter((cardObject) => cardObject.card.scryfallId !== draggedCard.card.scryfallId);
-
-        deck = { ...deck };
-    };
-
-    const handleDragStart = (cardObject, categoryObject) => {
-        draggedCard = cardObject;
-        draggedCategory = categoryObject;
-        dragging = true;
-    };
-
     const handleIncrement = (e) => {
-        const added = addCardRequest(e.detail.card);
+        const added = addCardRequest(e.detail.print);
         if (!added) {
             return;
         }
         const isCardInDeck = deck.categories.some((categoryObject) => {
-            return categoryObject.cards.some((cardObject) => cardObject.card.scryfallId === e.detail.card.scryfallId);
+            return categoryObject.cards.some((cardObject) => cardObject.print.scryfallId === e.detail.print.scryfallId);
         });
         if (!isCardInDeck) {
             deck.categories = deck.categories.map((categoryObject) => {
-                if (categoryObject.category.name === selectedCard.card.translation.mainType) {
+                if (categoryObject.category.name === selectedCard.print.translation.mainType) {
                     categoryObject.cards = [...categoryObject.cards, selectedCard];
                 }
                 return categoryObject;
@@ -221,19 +205,18 @@
         deck = { ...deck };
     };
 
+    //TODO: fix this
     const handleDecrement = async (e) => {
         for (const categoryObject of deck.categories) {
             for (let cardObject of categoryObject.cards) {
-                if (cardObject.card.scryfallId === e.detail.card.scryfallId) {
-                    const removed = await removeCardRequest(cardObject.card);
+                if (cardObject.print.scryfallId === e.detail.print.scryfallId) {
+                    const removed = await removeCardRequest(cardObject.print);
                     if (!removed) {
                         return;
                     }
-                    console.log(cardObject.card.translation.name, cardObject.quantity);
-                    console.log(selectedCard.card.translation.name, selectedCard.quantity);
                     cardObject.quantity = cardObject.quantity - 1;
                     if (cardObject.quantity <= 0) {
-                        categoryObject.cards = categoryObject.cards.filter((co) => co.card.scryfallId !== cardObject.card.scryfallId);
+                        categoryObject.cards = categoryObject.cards.filter((co) => co.id !== co.id);
                         showCardModal = false;
                     }
                     selectedCard = { ...selectedCard };
@@ -251,12 +234,14 @@
             return;
         }
         categoryObject.cards.push(selectedCard);
-        categoryObject.cards.sort((a, b) => a.card.translation.name.localeCompare(b.card.translation.name));
-        selectedCategory.cards = selectedCategory.cards.filter((cardObject) => cardObject.card.scryfallId !== selectedCard.card.scryfallId);
+        categoryObject.cards.sort((a, b) => a.print.translation.name.localeCompare(b.print.translation.name));
+        selectedCategory.cards = selectedCategory.cards.filter((cardObject) => cardObject.id !== selectedCard.id);
 
         deck = { ...deck };
+        console.log('ici');
     };
 
+    // TODO: check if this works
     const handleProcessPhoto = async (e) => {
         try {
             loading = true;
@@ -266,11 +251,11 @@
             });
             for (const cardObject of response.data.cards) {
                 const isCardInDeck = deck.categories.some((categoryObject) => {
-                    return categoryObject.cards.some((co) => co.card.scryfallId === cardObject.card.scryfallId);
+                    return categoryObject.cards.some((co) => co.id === cardObject.id);
                 });
                 if (!isCardInDeck) {
                     deck.categories = deck.categories.map((categoryObject) => {
-                        if (categoryObject.category.name === cardObject.card.translation.mainType) {
+                        if (categoryObject.category.name === cardObject.print.translation.mainType) {
                             categoryObject.cards = [...categoryObject.cards, cardObject];
                         }
                         return categoryObject;
@@ -278,7 +263,7 @@
                 } else {
                     deck.categories = deck.categories.map((categoryObject) => {
                         categoryObject.cards = categoryObject.cards.map((co) => {
-                            if (co.card.scryfallId === cardObject.card.scryfallId) {
+                            if (co.id === cardObject.id) {
                                 co.quantity++;
                             }
                             return co;
@@ -315,10 +300,10 @@
         }
     };
 
-    const handleCardPrintSelection = async () => {
-        if (selectedCard.card?.scryfallId) {
+    const handleCardPrintsDisplay = async (selectedCard) => {
+        if (selectedCard.print?.scryfallId) {
             try {
-                switchCardPrintBaseUrl = `/api/auth/reserved/cards/prints/${selectedCard.card.scryfallId}?`;
+                switchCardPrintBaseUrl = `/api/auth/reserved/cards/prints/${selectedCard.print.scryfallId}?`;
                 const { data: paginated } = await axios.get(switchCardPrintBaseUrl);
                 paginatedCardPrints = paginated;
             } catch (e) {
@@ -326,6 +311,27 @@
             }
         }
     };
+
+    const handleCardPrintChoice = async (e) => {
+        if (await changeCardPrintRequest(selectedCard, e.detail)) {
+            selectedCard = { ...selectedCard, print: e.detail };
+            deck.categories = deck.categories.map((categoryObject) => {
+                categoryObject.cards = categoryObject.cards.map((cardObject) => {
+                    if (cardObject.id === selectedCard.id) {
+                        cardObject.print = selectedCard.print;
+                    }
+                    return cardObject;
+                });
+                return categoryObject;
+            });
+            isSelectedCardSwitchingPrint = false;
+        }
+    };
+
+    const handleUpdateSelectedCard = async (e) => {
+        selectedCard = { ...e.detail};
+        await handleCardPrintsDisplay(selectedCard);
+    }
 
     $: {
         cardsLength = deck.categories?.reduce((acc, categoryObject) => {
@@ -336,12 +342,6 @@
                 }, 0)
             );
         }, 0);
-    }
-
-    $: {
-        if (selectedCard.card?.scryfallId) {
-            handleCardPrintSelection();
-        }
     }
 </script>
 
@@ -399,11 +399,6 @@
                 style={displayingMode === 'grid'
                     ? `height: ${268 + 80 + 30 * categoryObject.cards.length + (hoveredCategoryIndex === categoryIndex ? 235 : 0)}px;`
                     : ''}
-                on:drop={() => handleDrop(categoryObject)}
-                use:asDropZone={{
-                    TypesToAccept: { card: 'copy' },
-                }}
-                data-dropzone-id={categoryIndex}
             >
                 <div class="relative flex flex-row gap-3 bg-gray-200 dark:bg-gray-900 rounded-xl px-3 pt-3" style="z-index: 1001">
                     <Editable
@@ -421,7 +416,7 @@
                             <li class="flex flex-row gap-1">
                                 <Button
                                     customStyle={true}
-                                    class="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.card.legality?.commander ===
+                                    class="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.print.legality?.commander ===
                                     'legal'
                                         ? ''
                                         : 'text-red-700'}"
@@ -431,7 +426,7 @@
                                         showCardModal = true;
                                     }}
                                 >
-                                    {cardObject.card.translation?.name}
+                                    {cardObject.print.translation?.name}
                                 </Button>
                                 <div class="mt-2">
                                     <IconButton icon="minus" on:click={() => handleDecrement({ detail: cardObject })} />
@@ -440,36 +435,23 @@
                         {/each}
                     </ul>
                 {:else}
-                    {#each categoryObject.cards as cardObject, index (cardObject.card.scryfallId)}
+                    {#each categoryObject.cards as cardObject, index (cardObject.print.scryfallId)}
                         <EditorCard
                             {index}
                             {categoryIndex}
-                            {cardObject}
+                            bind:cardObject
                             {categoryObject}
                             bind:showCardModal
-                            bind:selectedCard
                             bind:selectedCategory
                             on:hover={() => handleCardHover(index, categoryIndex, categoryObject)}
                             on:unHover={handleCardUnhover}
-                            on:dragStart={() => handleDragStart(cardObject, categoryObject)}
                             bind:hoveredCategoryIndex
                             bind:hoveredCardIndex
                             bind:deck
                             on:cardRemoved={handleDecrement}
-                            {addCardRequest}
+                            on:cardSelected={handleUpdateSelectedCard}
                         />
                     {/each}
-                {/if}
-                {#if dragging && draggedCategory.id !== categoryObject.id}
-                    <div
-                        class="absolute inset-0 bg-cover hidden md:block"
-                        style="z-index: 1000; background-size: 20px 20px; background-image:
-                         linear-gradient(45deg, #A5371B 25%, transparent 25%),
-                         linear-gradient(-45deg, #A5371B 25%, transparent 25%),
-                         linear-gradient(45deg, transparent 75%, #A5371B 75%),
-                         linear-gradient(-45deg, transparent 75%, #A5371B 75%);
-                     "
-                    ></div>
                 {/if}
             </div>
         {/if}
@@ -478,12 +460,12 @@
 
 <Photo on:photo={handleProcessPhoto} />
 
-<Modal bind:showModal={showCardModal} closeText="Close" on:close={handleCloseCardDetails} fullWidth={true}>
-    <Subtitle slot="header">{selectedCard?.card?.translation?.name}</Subtitle>
+<Modal bind:showModal={showCardModal} on:close={handleCloseCardDetails} fullWidth={true}>
+    <Subtitle slot="header">{selectedCard?.print?.translation?.name}</Subtitle>
     {#if isSelectedCardSwitchingPrint}
         <div bind:this={cardDetailsContainerRef} class="flex flex-row flex-wrap gap-5 justify-center overflow-y-auto max-h-[75vh]">
             {#each paginatedCardPrints.cards as print}
-                <CardPrintItem card={print} bind:selectedCard />
+                <CardPrintItem bind:card={print} bind:selectedCard on:choosePrint={handleCardPrintChoice} />
             {/each}
         </div>
         <Pagination bind:paginatedObject={paginatedCardPrints} baseUrl={switchCardPrintBaseUrl} containerRef={cardDetailsContainerRef} />
@@ -500,7 +482,7 @@
     {/if}
 </Modal>
 
-<Modal bind:showModal={showSearchModal} closeText="Close" fullWidth={true}>
+<Modal bind:showModal={showSearchModal} fullWidth={true}>
     <Subtitle slot="header">Search cards</Subtitle>
 
     <Search
