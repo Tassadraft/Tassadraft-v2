@@ -6,5 +6,5 @@
 
 ### Links
 
-- [Changelog](/doc/CHANGELOG.md)
-- [Download](https://api.tassadraft.com)
+-   [Changelog](/doc/CHANGELOG.md)
+-   [Download](https://api.tassadraft.com)

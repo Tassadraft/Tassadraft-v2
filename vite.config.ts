@@ -10,21 +10,21 @@ dotenv.config();
 // Load .env.local if it exists
 const envLocalPath = '.env.local';
 if (fs.existsSync(envLocalPath)) {
-  const envLocalConfig = dotenv.parse(fs.readFileSync(envLocalPath));
-  // Override only variables present in both .env and .env.local
-  for (const k in envLocalConfig) {
-    if (process.env[k] !== undefined) {
-      process.env[k] = envLocalConfig[k];
+    const envLocalConfig = dotenv.parse(fs.readFileSync(envLocalPath));
+    // Override only variables present in both .env and .env.local
+    for (const k in envLocalConfig) {
+        if (process.env[k] !== undefined) {
+            process.env[k] = envLocalConfig[k];
+        }
     }
-  }
 }
 
 export default defineConfig({
-  plugins: [svelte(), envCompatible()],
-  define: {
-    'process.env': process.env,
-  },
-  optimizeDeps: {
-    include: ['@ionic/pwa-elements/loader'],
-  },
+    plugins: [svelte(), envCompatible()],
+    define: {
+        'process.env': process.env,
+    },
+    optimizeDeps: {
+        include: ['@ionic/pwa-elements/loader'],
+    },
 });

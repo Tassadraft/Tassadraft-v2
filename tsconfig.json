@@ -1,21 +1,15 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
-  "include": [
-    "src/**/*",
-    "vite.config.ts",
-    "svelte.config.js",
-    ".env",
-    ".env.local"
-  ],
-  "exclude": ["node_modules", "public", "dist"],
-  "compilerOptions": {
-    "strict": true,
-    "moduleResolution": "node",
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "types": ["node", "vite/client"]
-  }
+    "extends": "@tsconfig/svelte/tsconfig.json",
+    "include": ["src/**/*", "vite.config.ts", "svelte.config.js", ".env", ".env.local"],
+    "exclude": ["node_modules", "public", "dist"],
+    "compilerOptions": {
+        "strict": true,
+        "moduleResolution": "node",
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "types": ["node", "vite/client"]
+    }
 }
