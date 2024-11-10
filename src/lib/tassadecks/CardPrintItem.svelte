@@ -1,8 +1,8 @@
 <script>
     import IconButton from '../shared/IconButton.svelte';
     import CardBadge from './CardBadge.svelte';
-    import Button from "../shared/Button.svelte";
-    import { createEventDispatcher, onMount } from "svelte";
+    import Button from '../shared/Button.svelte';
+    import { createEventDispatcher, onMount } from 'svelte';
 
     const dispatch = createEventDispatcher();
 

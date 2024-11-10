@@ -22,7 +22,7 @@
     import getBase64Strings from '../../service/base64Service.js';
     import Loader from '../shared/Loader.svelte';
     import { capitalizeFirstChar } from '../../service/stringService.js';
-    import CardPrintItem from "./CardPrintItem.svelte";
+    import CardPrintItem from './CardPrintItem.svelte';
 
     export let deckId = '';
 
@@ -170,7 +170,7 @@
             showToast(`Error while changing ${cardObject.print.translation.name} print`, 'error');
             return false;
         }
-    }
+    };
 
     const handleCardHover = (cardIndex, categoryIndex, categoryObject) => {
         if (cardIndex === categoryObject.cards.length - 1) {
@@ -329,9 +329,9 @@
     };
 
     const handleUpdateSelectedCard = async (e) => {
-        selectedCard = { ...e.detail};
+        selectedCard = { ...e.detail };
         await handleCardPrintsDisplay(selectedCard);
-    }
+    };
 
     $: {
         cardsLength = deck.categories?.reduce((acc, categoryObject) => {
@@ -469,8 +469,8 @@
             {/each}
         </div>
         <Pagination bind:paginatedObject={paginatedCardPrints} baseUrl={switchCardPrintBaseUrl} containerRef={cardDetailsContainerRef} />
-            {:else}
-         <EditorCardDetails
+    {:else}
+        <EditorCardDetails
             bind:selectedCard
             bind:options={categoryOptions}
             bind:selectedCategory

@@ -2,7 +2,7 @@
     import IconButton from '../shared/IconButton.svelte';
     import { createEventDispatcher, onMount } from 'svelte';
     import Select from '../shared/Select.svelte';
-    import Button from "../shared/Button.svelte";
+    import Button from '../shared/Button.svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -76,12 +76,12 @@
                     <IconButton icon="plus" size={32} disabled={!isBasicLand} on:click={() => dispatch('cardIncrement', selectedCard)} />
                 </div>
                 <div class="flex justify-center">
-                    <Button ariaLabel="Switch print" on:click={() => switching = true}>Switch print</Button>
+                    <Button ariaLabel="Switch print" on:click={() => (switching = true)}>Switch print</Button>
                 </div>
             {:else}
                 <div class="flex justify-center gap-10">
                     <IconButton icon="trash" size={32} on:click={() => dispatch('cardDecrement', selectedCard)} />
-                    <Button ariaLabel="Switch print" on:click={() => switching = true}>Switch print</Button>
+                    <Button ariaLabel="Switch print" on:click={() => (switching = true)}>Switch print</Button>
                 </div>
             {/if}
         </div>

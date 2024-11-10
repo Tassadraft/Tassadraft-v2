@@ -1,7 +1,7 @@
 <script>
     import IconButton from '../shared/IconButton.svelte';
     import { showToast } from '../../service/toastService.js';
-    import CardBadge from "./CardBadge.svelte";
+    import CardBadge from './CardBadge.svelte';
 
     export let deck = {};
     export let card = {};

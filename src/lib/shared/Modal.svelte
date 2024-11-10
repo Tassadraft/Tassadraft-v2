@@ -29,18 +29,8 @@
     }
 </script>
 
-<dialog
-    bind:this={dialog}
-    on:close={() => (showModal = false)}
-    class="rounded-lg border-none p-0 {fullWidth ? 'w-9/10' : 'max-w-lg'}"
->
-    <Button
-        type="button"
-        ariaLabel="Close modal"
-        className="fixed inset-0 w-full h-full cursor-default"
-        customStyle={true}
-        on:click={handleClose}
-    />
+<dialog bind:this={dialog} on:close={() => (showModal = false)} class="rounded-lg border-none p-0 {fullWidth ? 'w-9/10' : 'max-w-lg'}">
+    <Button type="button" ariaLabel="Close modal" className="fixed inset-0 w-full h-full cursor-default" customStyle={true} on:click={handleClose} />
 
     <div class="p-4 bg-white dark:bg-gray-700 rounded-lg relative">
         <slot name="header" />
@@ -65,7 +55,6 @@
         </div>
     </div>
 </dialog>
-
 
 <style>
     dialog::backdrop {
