@@ -238,7 +238,6 @@
         selectedCategory.cards = selectedCategory.cards.filter((cardObject) => cardObject.id !== selectedCard.id);
 
         deck = { ...deck };
-        console.log('ici');
     };
 
     // TODO: check if this works

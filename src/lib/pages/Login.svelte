@@ -20,7 +20,6 @@
     let password = '';
 
     const handleSuccess = async (response) => {
-        console.log(response);
         localStorage.setItem('apiToken', response.token.token);
         localStorage.setItem('apiTokenExpiration', response.token.expiresAt);
         try {
