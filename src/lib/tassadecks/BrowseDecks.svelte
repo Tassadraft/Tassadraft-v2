@@ -8,15 +8,28 @@
     import DecksTable from '../tables/deck/DecksTable.svelte';
     import DecksGrid from './DecksGrid.svelte';
     import DisplayingMode from '../shared/DisplayingMode.svelte';
+    import Panel from "../shared/Panel.svelte";
 
     let allDecks = {};
-    let myDecks = {};
+    let myDecks = {
+        total: 1,
+        decks: [
+            {
+                id: 0,
+                name: 'test',
+                cards: 0,
+                enabled: false,
+                public: false,
+                owner: ''
+            }
+        ],
+    };
     let displayingMode = 'list';
 
     onMount(async () => {
         const { data } = await axios.get(`/api/decks?languageCode=${localStorage.getItem('languageCode')}`);
         allDecks = data.allDecks;
-        myDecks = data.myDecks;
+        // myDecks = data.myDecks;
     });
 </script>
 
@@ -25,21 +38,25 @@
 
 <DisplayingMode bind:displayingMode />
 
-{#if allDecks}
-    <Subtitle>{allDecks.total ?? 0} public decks</Subtitle>
-    {#if displayingMode === 'grid'}
-        <DecksGrid bind:decks={allDecks.decks} displayOwner={true} />
-    {:else if displayingMode === 'list'}
-        <DecksTable bind:decks={allDecks.decks} displayOwner={true} />
-    {/if}
-    <Pagination bind:paginatedObject={allDecks} baseUrl={`/api/auth/reserved/decks/public?languageCode=${localStorage.getItem('languageCode')}`} />
+{#if allDecks.total}
+    <Panel>
+        <Subtitle>{allDecks.total ?? 0} public {allDecks.total > 1 ? 'decks' : 'deck'}</Subtitle>
+        {#if displayingMode === 'grid'}
+            <DecksGrid bind:decks={allDecks.decks} displayOwner={true} />
+        {:else if displayingMode === 'list'}
+            <DecksTable bind:decks={allDecks.decks} displayOwner={true} />
+        {/if}
+        <Pagination bind:paginatedObject={allDecks} baseUrl={`/api/auth/reserved/decks/public?languageCode=${localStorage.getItem('languageCode')}`} />
+    </Panel>
 {/if}
-{#if myDecks}
-    <Subtitle>{myDecks.total ?? 0} decks owned</Subtitle>
-    {#if displayingMode === 'grid'}
-        <DecksGrid bind:decks={myDecks.decks} />
-    {:else if displayingMode === 'list'}
-        <DecksTable bind:decks={myDecks.decks} />
-    {/if}
-    <Pagination bind:paginatedObject={myDecks} baseUrl={`/api/auth/reserved/decks/me?languageCode=${localStorage.getItem('languageCode')}`} />
+{#if myDecks.total}
+    <Panel>
+        <Subtitle>{myDecks.total ?? 0} {myDecks.total > 1 ? 'decks' : 'deck'} owned</Subtitle>
+        {#if displayingMode === 'grid'}
+            <DecksGrid bind:decks={myDecks.decks} />
+        {:else if displayingMode === 'list'}
+            <DecksTable bind:decks={myDecks.decks} />
+        {/if}
+<!--        <Pagination bind:paginatedObject={myDecks} baseUrl={`/api/auth/reserved/decks/me?languageCode=${localStorage.getItem('languageCode')}`} />-->
+    </Panel>
 {/if}

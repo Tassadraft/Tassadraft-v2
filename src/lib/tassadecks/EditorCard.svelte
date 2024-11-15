@@ -18,8 +18,9 @@
     let flipped = false;
     let cardFace = 0;
     let isBasicLand = cardObject?.print?.keyWords?.includes('Basic') && cardObject?.print?.keyWords?.includes('Land');
-    let isTransforming = cardObject?.print?.layout !== 'flip' && cardObject?.print?.faces?.length > 0;
+    let isTransforming = cardObject?.print?.layout !== 'flip' && cardObject?.print?.faces?.length > 1;
     let isFlip = cardObject?.print?.layout === 'flip';
+    let isLegal = cardObject.print.legality[deck.format] === 'legal';
 
     const handleIncrement = async (e) => {
         e.stopPropagation();
@@ -68,13 +69,18 @@
     {#if isBasicLand || isTransforming || isFlip}
         <div class="absolute inset-0 bg-gray-950 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     {/if}
-    <img
-        src={isTransforming ? cardObject?.print?.faces[cardFace]?.imageUri?.normal : cardObject?.print?.imageUri?.normal}
-        alt={cardObject.print.translation?.name}
-        class="w-48 rounded-lg {isBasicLand || isTransforming || isFlip ? 'group-hover:opacity-50 transition-opacity duration-300' : ''} {flipped
-            ? 'transform rotate-180'
-            : ''}"
-    />
+    <div class="relative w-48 rounded-lg">
+        <img
+            src={isTransforming ? cardObject?.print?.faces[cardFace]?.imageUri?.normal : cardObject?.print?.imageUri?.normal}
+            alt={cardObject.print.translation?.name}
+            class="w-full h-auto rounded-lg {isBasicLand || isTransforming || isFlip ? 'group-hover:opacity-50 transition-opacity duration-300' : ''} {flipped ? 'transform rotate-180' : ''}"
+        />
+
+        {#if !isLegal}
+            <div class="absolute inset-0 bg-red-600 opacity-60 pointer-events-none rounded-lg"></div>
+        {/if}
+    </div>
+
     <div
         class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
     >

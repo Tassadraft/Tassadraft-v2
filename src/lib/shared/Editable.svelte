@@ -1,6 +1,6 @@
 <script>
     import IconButton from './IconButton.svelte';
-    import { createEventDispatcher } from 'svelte';
+    import {createEventDispatcher} from 'svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -9,6 +9,7 @@
     export let value = '';
     export let min = 3;
     export let max = 100;
+    export let editable = true;
 
     let editing = false;
     let icon = 'pen';
@@ -43,9 +44,11 @@
     };
 
     const handleIconClick = () => {
-        editing = !editing;
-        if (editing) {
-            initialValue = value;
+        if (editable) {
+            editing = !editing;
+            if (editing) {
+                initialValue = value;
+            }
         }
     };
 
@@ -67,11 +70,14 @@
                 on:blur={handleBlur}
             />
         {:else}
-            <slot />
+            <slot/>
         {/if}
-        <div class={iconClassName}>
-            <IconButton bind:icon on:click={handleIconClick} />
-        </div>
+
+        {#if editable}
+            <div class={iconClassName}>
+                <IconButton bind:icon on:click={handleIconClick}/>
+            </div>
+        {/if}
     </div>
     <p class="text-primary-500 text-xs">{message}</p>
 </div>

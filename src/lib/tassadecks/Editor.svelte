@@ -85,12 +85,12 @@
 
     const addCardRequest = async (card) => {
         try {
-            await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
+            const response = await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
                 actionType: 'addCard',
-                printId: card.scryfallId,
+                cardId: card.oracleId,
             });
             showToast(`1 ${card?.translation?.name} added to the deck`);
-            return true;
+            return response.data;
         } catch (e) {
             showToast('Error adding card to the deck', 'error');
             return false;
@@ -99,12 +99,12 @@
 
     const removeCardRequest = async (card) => {
         try {
-            await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
+            const response = await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
                 actionType: 'removeCard',
-                printId: card.scryfallId,
+                cardId: card.oracleId,
             });
             showToast(`1 ${card.translation.name} removed from ${deck.name}`);
-            return true;
+            return response.data;
         } catch (e) {
             showToast(`Error deleting ${card.translation.name} from the ${deck.name}`, 'error');
             return false;
@@ -149,7 +149,7 @@
                 actionType: 'moveCard',
                 deckId: deck.id,
                 categoryId: categoryObject.id,
-                printId: cardObject.print.scryfallId,
+                cardId: cardObject.print.oracleId,
             });
             showToast(`${cardObject.print.translation.name} moved to ${categoryObject.category.name}`);
             return true;
@@ -191,7 +191,7 @@
             return;
         }
         const isCardInDeck = deck.categories.some((categoryObject) => {
-            return categoryObject.cards.some((cardObject) => cardObject.print.scryfallId === e.detail.print.scryfallId);
+            return categoryObject.cards.some((cardObject) => cardObject.print.oracleId === e.detail.print.oracleId);
         });
         if (!isCardInDeck) {
             deck.categories = deck.categories.map((categoryObject) => {
@@ -209,7 +209,7 @@
     const handleDecrement = async (e) => {
         for (const categoryObject of deck.categories) {
             for (let cardObject of categoryObject.cards) {
-                if (cardObject.print.scryfallId === e.detail.print.scryfallId) {
+                if (cardObject.print.oracleId === e.detail.print.oracleId) {
                     const removed = await removeCardRequest(cardObject.print);
                     if (!removed) {
                         return;
@@ -302,7 +302,7 @@
     const handleCardPrintsDisplay = async (selectedCard) => {
         if (selectedCard.print?.scryfallId) {
             try {
-                switchCardPrintBaseUrl = `/api/auth/reserved/cards/prints/${selectedCard.print.scryfallId}?`;
+                switchCardPrintBaseUrl = `/api/auth/reserved/cards/prints/${selectedCard.print.oracleId}?`;
                 const { data: paginated } = await axios.get(switchCardPrintBaseUrl);
                 paginatedCardPrints = paginated;
             } catch (e) {
@@ -352,23 +352,27 @@
 <Loader bind:loading />
 
 <Panel>
-    <div class="grid grid-cols-3 gap-4 text-center">
+    <div class="flex flex-row flex-wrap gap-5 justify-center mb-3">
         <div class="m-auto">
             <Switch size="4" bind:value={deck.enabled} label="Enabled" on:change={metadataRequest} />
         </div>
         <div class="m-auto">
             <Switch size="4" bind:value={deck.public} label="Public" on:change={metadataRequest} />
         </div>
-        <p>{cardsLength} cards</p>
-        <Subtitle>{capitalizeFirstChar(deck.format)}</Subtitle>
-        <div class="m-auto">
+        <div class="mb-4 m-auto">
             <Switch size="4" bind:value={deck.enableDetailedCategories} label="Detailed categories" on:change={metadataRequest} disabled={true} />
         </div>
+    </div>
+    <div class="flex flex-row flex-wrap gap-20 justify-center mb-3">
+        <p>{cardsLength} cards</p>
+        <Subtitle>{capitalizeFirstChar(deck.format)}</Subtitle>
+    </div>
+    <div class="flex justify-center mb-3">
         <Editable bind:value={deck.description} on:rename={metadataRequest}>
             <p>{deck.description}</p>
         </Editable>
     </div>
-    <div class="grid grid-cols-2 text-center mt-4">
+    <div class="grid grid-cols-2 text-center">
         <p>Updated on {updatedAt}</p>
         <p>Created on {createdAt}</p>
     </div>
@@ -404,6 +408,7 @@
                         bind:value={categoryObject.category.name}
                         className="text-xl font-bold text-black dark:text-white relative"
                         on:rename={() => renameCategoryRequest(categoryObject)}
+                        editable={categoryObject.category.name !== 'Commander'}
                     >
                         <Subtitle>{categoryObject.category.name}</Subtitle>
                     </Editable>
@@ -474,6 +479,7 @@
             bind:options={categoryOptions}
             bind:selectedCategory
             bind:switching={isSelectedCardSwitchingPrint}
+            format={deck?.format}
             on:cardDecrement={handleDecrement}
             on:cardIncrement={handleIncrement}
             on:changeCategory={handleChangeCategory}

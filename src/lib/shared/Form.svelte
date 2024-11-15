@@ -1,6 +1,7 @@
 <script>
     import axios from '../../axiosConfig.js';
     import Button from './Button.svelte';
+    import Loader from "./Loader.svelte";
 
     export let method = 'GET';
     export let action = '';
@@ -8,8 +9,11 @@
     export let handleFailure = () => {};
     export let submittable = true;
 
+    let loading = false;
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+        loading = true;
         const form = event.target;
         const formData = new FormData(form);
 
@@ -28,8 +32,10 @@
                 params: method === 'GET' ? formDataObj : null,
                 headers: method !== 'GET' ? { 'Content-Type': 'multipart/form-data' } : {},
             });
+            loading = false;
             handleSuccess(response.data);
         } catch (error) {
+            loading = false;
             handleFailure(error.message);
         }
     };
@@ -40,4 +46,5 @@
     {#if submittable}
         <Button type="submit">Submit</Button>
     {/if}
+    <Loader bind:loading />
 </form>
