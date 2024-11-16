@@ -31,6 +31,9 @@
             : 'text-gray-500 bottom-2.5 left-3'}"
     >
         {label}
+        {#if required}
+            <span class="text-red-500">*</span>
+        {/if}
     </label>
 
     {#if realType !== 'password'}

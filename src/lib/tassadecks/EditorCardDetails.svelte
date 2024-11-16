@@ -3,7 +3,7 @@
     import { createEventDispatcher, onMount } from 'svelte';
     import Select from '../shared/Select.svelte';
     import Button from '../shared/Button.svelte';
-    import CardBadge from "./CardBadge.svelte";
+    import CardBadge from './CardBadge.svelte';
 
     const dispatch = createEventDispatcher();
 

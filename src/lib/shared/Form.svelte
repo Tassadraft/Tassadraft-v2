@@ -1,7 +1,9 @@
 <script>
     import axios from '../../axiosConfig.js';
     import Button from './Button.svelte';
-    import Loader from "./Loader.svelte";
+    import Loader from './Loader.svelte';
+    import IconButton from './IconButton.svelte';
+    import Icon from './Icon.svelte';
 
     export let method = 'GET';
     export let action = '';
@@ -44,7 +46,14 @@
 <form {action} on:submit={handleSubmit} {method} class="bg-gray-200 dark:bg-gray-700 rounded-2xl p-3 shadow">
     <slot />
     {#if submittable}
-        <Button type="submit">Submit</Button>
+        <div class="w-full flex justify-end">
+            <Button type="submit" additionalStyle="bg-green-700 hover:bg-green-800 rounded-md p-2">
+                <div class="flex flex-row items-center gap-3">
+                    <p class="text-white">Submit</p>
+                    <Icon name="send" />
+                </div>
+            </Button>
+        </div>
     {/if}
     <Loader bind:loading />
 </form>

@@ -1,8 +1,8 @@
 <script>
     import Switch from '../../shared/Switch.svelte';
     import Link from '../../shared/Link.svelte';
-    import IconButton from "../../shared/IconButton.svelte";
-    import { createEventDispatcher } from "svelte";
+    import IconButton from '../../shared/IconButton.svelte';
+    import { createEventDispatcher } from 'svelte';
 
     export let deck;
     export let displayOwner = false;

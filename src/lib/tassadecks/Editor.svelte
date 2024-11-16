@@ -62,6 +62,7 @@
     let cardDetailsContainerRef;
 
     let loading = false;
+    let isLegal = false;
 
     onMount(async () => {
         try {
@@ -83,17 +84,19 @@
         }
     });
 
-    const addCardRequest = async (card) => {
+    const addCardRequest = async (print) => {
         try {
             const response = await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
                 actionType: 'addCard',
-                cardId: card.oracleId,
+                cardId: print.oracleId,
             });
-            showToast(`1 ${card?.translation?.name} added to the deck`);
+            showToast(`1 ${print?.translation?.name} added to the deck`);
             return response.data;
         } catch (e) {
             showToast('Error adding card to the deck', 'error');
             return false;
+        } finally {
+            await updateLegalityRequest();
         }
     };
 
@@ -108,6 +111,8 @@
         } catch (e) {
             showToast(`Error deleting ${card.translation.name} from the ${deck.name}`, 'error');
             return false;
+        } finally {
+            await updateLegalityRequest();
         }
     };
 
@@ -172,6 +177,15 @@
         }
     };
 
+    const updateLegalityRequest = async () => {
+        try {
+            const { data } = await axios.get(`/api/auth/reserved/decks/${deckId}/is-legal`);
+            isLegal = data;
+        } catch (e) {
+            showToast('Error while fetching deck legality', 'error');
+        }
+    };
+
     const handleCardHover = (cardIndex, categoryIndex, categoryObject) => {
         if (cardIndex === categoryObject.cards.length - 1) {
             return;
@@ -185,8 +199,8 @@
         hoveredCategoryIndex = -1;
     };
 
-    const handleIncrement = (e) => {
-        const added = addCardRequest(e.detail.print);
+    const handleIncrement = async (e) => {
+        const added = await addCardRequest(e.detail.print);
         if (!added) {
             return;
         }
@@ -200,12 +214,21 @@
                 }
                 return categoryObject;
             });
+        } else {
+            deck.categories = deck.categories.map((categoryObject) => {
+                categoryObject.cards = categoryObject.cards.map((cardObject) => {
+                    if (cardObject.print.oracleId === e.detail.print.oracleId) {
+                        cardObject.quantity++;
+                    }
+                    return cardObject;
+                });
+                return categoryObject;
+            });
         }
-        selectedCard.quantity++;
+        selectedCard = { ...selectedCard, quantity: selectedCard.quantity + 1 };
         deck = { ...deck };
     };
 
-    //TODO: fix this
     const handleDecrement = async (e) => {
         for (const categoryObject of deck.categories) {
             for (let cardObject of categoryObject.cards) {
@@ -219,7 +242,7 @@
                         categoryObject.cards = categoryObject.cards.filter((co) => co.id !== co.id);
                         showCardModal = false;
                     }
-                    selectedCard = { ...selectedCard };
+                    selectedCard = { ...selectedCard, quantity: selectedCard.quantity - 1 };
                     deck = { ...deck };
                     return;
                 }
@@ -275,7 +298,7 @@
             loading = false;
         } catch (error) {
             loading = false;
-            console.log(error);
+            console.error(error);
             if (error.response?.status === 401) {
                 showToast('You are not authorized to process photos', 'error');
             } else {
@@ -365,6 +388,7 @@
     </div>
     <div class="flex flex-row flex-wrap gap-20 justify-center mb-3">
         <p>{cardsLength} cards</p>
+        <p>{isLegal ? 'Legal' : 'Not legal'}</p>
         <Subtitle>{capitalizeFirstChar(deck.format)}</Subtitle>
     </div>
     <div class="flex justify-center mb-3">
@@ -453,6 +477,7 @@
                             bind:hoveredCardIndex
                             bind:deck
                             on:cardRemoved={handleDecrement}
+                            on:cardAdded={handleIncrement}
                             on:cardSelected={handleUpdateSelectedCard}
                         />
                     {/each}

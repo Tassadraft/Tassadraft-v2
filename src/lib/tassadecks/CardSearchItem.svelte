@@ -16,9 +16,8 @@
     let icon = 'plus';
 
     const checkIfCardIsInDeck = (deck, card) => {
-        console.log(deck);
         for (const categoryObject of deck.categories) {
-            const deckCard = categoryObject.cards.find(deckCard => deckCard?.print?.oracleId === card?.oracleId);
+            const deckCard = categoryObject.cards.find((deckCard) => deckCard?.print?.oracleId === card?.oracleId);
             if (deckCard) {
                 return deckCard;
             }
@@ -39,7 +38,7 @@
             for (const categoryObject of deck.categories) {
                 if (categoryObject.category.name === card?.translation.mainType) {
                     foundCategory = true;
-                    if (categoryObject.cards.some(deckCard => deckCard.print?.oracleId === card?.oracleId)) {
+                    if (categoryObject.cards.some((deckCard) => deckCard.print?.oracleId === card?.oracleId)) {
                         showToast('Card already in the deck', 'error');
                         return;
                     }
@@ -61,7 +60,7 @@
 
                 deck.categories = [
                     ...deck.categories,
-                    { category: { name: card?.translation.mainType }, cards: [{ ...responseCard.card, quantity: 1 }] }
+                    { category: { name: card?.translation.mainType }, cards: [{ ...responseCard.card, quantity: 1 }] },
                 ];
             }
         }
@@ -77,7 +76,7 @@
 
         if (cardObject.quantity === 1) {
             for (const categoryObject of deck.categories) {
-                const index = categoryObject.cards.findIndex(deckCard => deckCard?.print?.oracleId === card?.oracleId);
+                const index = categoryObject.cards.findIndex((deckCard) => deckCard?.print?.oracleId === card?.oracleId);
                 if (index !== -1) {
                     categoryObject.cards.splice(index, 1);
                     break;

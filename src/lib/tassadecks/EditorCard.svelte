@@ -13,7 +13,6 @@
     export let hoveredCategoryIndex = -1;
     export let hoveredCardIndex = -1;
     export let deck = {};
-    export let addCardRequest = async () => {};
 
     let flipped = false;
     let cardFace = 0;
@@ -22,21 +21,6 @@
     let isFlip = cardObject?.print?.layout === 'flip';
     let isLegal = cardObject.print.legality[deck.format] === 'legal';
 
-    const handleIncrement = async (e) => {
-        e.stopPropagation();
-        const added = await addCardRequest(cardObject.print);
-        if (!added) {
-            return;
-        }
-        cardObject.quantity++;
-        deck = { ...deck };
-    };
-
-    const handleDecrement = async (e) => {
-        e.stopPropagation();
-        dispatch('cardRemoved', cardObject);
-    };
-
     const handleTransform = (e) => {
         e.stopPropagation();
         if (isTransforming) {
@@ -44,6 +28,16 @@
         } else if (isFlip) {
             flipped = !flipped;
         }
+    };
+
+    const handleIncrement = (e) => {
+        e.stopPropagation();
+        dispatch('cardAdded', cardObject);
+    };
+
+    const handleDecrement = (e) => {
+        e.stopPropagation();
+        dispatch('cardRemoved', cardObject);
     };
 
     const handleClick = () => {
@@ -73,7 +67,9 @@
         <img
             src={isTransforming ? cardObject?.print?.faces[cardFace]?.imageUri?.normal : cardObject?.print?.imageUri?.normal}
             alt={cardObject.print.translation?.name}
-            class="w-full h-auto rounded-lg {isBasicLand || isTransforming || isFlip ? 'group-hover:opacity-50 transition-opacity duration-300' : ''} {flipped ? 'transform rotate-180' : ''}"
+            class="w-full h-auto rounded-lg {isBasicLand || isTransforming || isFlip
+                ? 'group-hover:opacity-50 transition-opacity duration-300'
+                : ''} {flipped ? 'transform rotate-180' : ''}"
         />
 
         {#if !isLegal}

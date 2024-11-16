@@ -15,7 +15,7 @@
     };
 </script>
 
-<select {name} class="w-full p-2 border border-gray-300 rounded-lg" on:change={handleSelect}>
+<select {name} class="w-full px-3 py-2 mt-3 border border-gray-300 rounded-lg text-gray-800" on:change={handleSelect}>
     {#each options as option}
         <option value={option.value} selected={selectedOption.value === option.value}>{option.label}</option>
     {/each}

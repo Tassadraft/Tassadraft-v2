@@ -1,6 +1,6 @@
 <script>
     import IconButton from './IconButton.svelte';
-    import {createEventDispatcher} from 'svelte';
+    import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -70,12 +70,12 @@
                 on:blur={handleBlur}
             />
         {:else}
-            <slot/>
+            <slot />
         {/if}
 
         {#if editable}
             <div class={iconClassName}>
-                <IconButton bind:icon on:click={handleIconClick}/>
+                <IconButton bind:icon on:click={handleIconClick} />
             </div>
         {/if}
     </div>

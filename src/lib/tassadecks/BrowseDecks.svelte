@@ -8,29 +8,22 @@
     import DecksTable from '../tables/deck/DecksTable.svelte';
     import DecksGrid from './DecksGrid.svelte';
     import DisplayingMode from '../shared/DisplayingMode.svelte';
-    import Panel from "../shared/Panel.svelte";
+    import Panel from '../shared/Panel.svelte';
 
     let allDecks = {};
-    let myDecks = {
-        total: 1,
-        decks: [
-            {
-                id: 0,
-                name: 'test',
-                cards: 0,
-                enabled: false,
-                public: false,
-                owner: ''
-            }
-        ],
-    };
+    let myDecks = {};
     let displayingMode = 'list';
 
     onMount(async () => {
         const { data } = await axios.get(`/api/decks?languageCode=${localStorage.getItem('languageCode')}`);
         allDecks = data.allDecks;
-        // myDecks = data.myDecks;
+        myDecks = data.myDecks;
     });
+
+    const handleDeletedDeck = () => {
+        myDecks.total -= 1;
+        myDecks = { ...myDecks };
+    };
 </script>
 
 <Menu />
@@ -46,7 +39,10 @@
         {:else if displayingMode === 'list'}
             <DecksTable bind:decks={allDecks.decks} displayOwner={true} />
         {/if}
-        <Pagination bind:paginatedObject={allDecks} baseUrl={`/api/auth/reserved/decks/public?languageCode=${localStorage.getItem('languageCode')}`} />
+        <Pagination
+            bind:paginatedObject={allDecks}
+            baseUrl={`/api/auth/reserved/decks/public?languageCode=${localStorage.getItem('languageCode')}`}
+        />
     </Panel>
 {/if}
 {#if myDecks.total}
@@ -55,8 +51,8 @@
         {#if displayingMode === 'grid'}
             <DecksGrid bind:decks={myDecks.decks} />
         {:else if displayingMode === 'list'}
-            <DecksTable bind:decks={myDecks.decks} />
+            <DecksTable bind:decks={myDecks.decks} on:deckDeleted={handleDeletedDeck} />
         {/if}
-<!--        <Pagination bind:paginatedObject={myDecks} baseUrl={`/api/auth/reserved/decks/me?languageCode=${localStorage.getItem('languageCode')}`} />-->
+        <Pagination bind:paginatedObject={myDecks} baseUrl={`/api/auth/reserved/decks/me?languageCode=${localStorage.getItem('languageCode')}`} />
     </Panel>
 {/if}
