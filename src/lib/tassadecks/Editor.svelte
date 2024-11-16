@@ -23,6 +23,7 @@
     import Loader from '../shared/Loader.svelte';
     import { capitalizeFirstChar } from '../../service/stringService.js';
     import CardPrintItem from './CardPrintItem.svelte';
+    import IconInfo from '../shared/IconInfo.svelte';
 
     export let deckId = '';
 
@@ -418,7 +419,7 @@
 
 <div class="flex flex-row justify-center flex-wrap gap-4">
     {#each deck.categories as categoryObject, categoryIndex}
-        {#if categoryObject.cards.length > 0 || categoryObject.category.name === 'Commander'}
+        {#if categoryObject.cards.length > 0 || (deck.format === 'commander' && categoryObject.category.name === 'Commander')}
             <div
                 role="listbox"
                 tabindex="0"
@@ -432,11 +433,17 @@
                         bind:value={categoryObject.category.name}
                         className="text-xl font-bold text-black dark:text-white relative"
                         on:rename={() => renameCategoryRequest(categoryObject)}
-                        editable={categoryObject.category.name !== 'Commander'}
+                        editable={categoryObject.category.name !== 'Commander' && categoryObject.category.name !== 'Visual representation'}
                     >
                         <Subtitle>{categoryObject.category.name}</Subtitle>
                     </Editable>
                     ({categoryObject.cards.length})
+                    {#if categoryObject.category.name === 'Visual representation'}
+                        <IconInfo
+                            >This category is used to pick deck illustrations in addition to commanders : if multiple cards are present, a random will
+                            be picked</IconInfo
+                        >
+                    {/if}
                 </div>
                 {#if displayingMode === 'list'}
                     <ul class="flex flex-col gap-1 mt-3">

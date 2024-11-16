@@ -10,7 +10,7 @@
     const currencies = [
         {
             value: 'fr',
-            label: 'French',
+            label: 'Français',
             selected: 'fr' === radioValue,
         },
         {

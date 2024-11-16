@@ -3,6 +3,7 @@
     import Link from '../../shared/Link.svelte';
     import IconButton from '../../shared/IconButton.svelte';
     import { createEventDispatcher } from 'svelte';
+    import { capitalizeFirstChar } from '../../../service/stringService.js';
 
     export let deck;
     export let displayOwner = false;
@@ -11,21 +12,24 @@
 </script>
 
 <tr class="group h-10 hover:bg-gray-300 hover:dark:bg-gray-900 transition-colors duration-300 border border-primary-700">
-    <!-- Name Column with Link -->
-    <td class="text-left border-r border-primary-700">
+    <td class="text-center border-r border-primary-700">
         <Link href={`/decks/edit/${deck.id}`} ariaLabel="Edit deck">
             <p class="text-xs truncate">{deck.name}</p>
         </Link>
     </td>
 
-    <!-- Cards Column with Link -->
+    <td class="text-center border-r border-primary-700">
+        <Link href={`/decks/edit/${deck.id}`} ariaLabel="Edit deck">
+            <p class="text-xs truncate">{capitalizeFirstChar(deck.format)}</p>
+        </Link>
+    </td>
+
     <td class="text-center border-r border-primary-700">
         <Link href={`/decks/edit/${deck.id}`} ariaLabel="Edit deck">
             <p class="text-xs truncate">{deck.cards}</p>
         </Link>
     </td>
 
-    <!-- Enabled Column with Link -->
     <td class="text-center border-r border-primary-700">
         <Link href={`/decks/edit/${deck.id}`} ariaLabel="Edit deck">
             <div class="flex justify-center">
@@ -34,7 +38,6 @@
         </Link>
     </td>
 
-    <!-- Public Column with Link -->
     <td class="text-center border-r border-primary-700">
         <Link href={`/decks/edit/${deck.id}`} ariaLabel="Edit deck">
             <div class="flex justify-center">
@@ -43,7 +46,6 @@
         </Link>
     </td>
 
-    <!-- Actions Column without Link, no hover effect -->
     {#if displayOwner}
         <td class="text-center border-primary-700">
             <Link href={`/decks/edit/${deck.id}`} ariaLabel="Edit deck">

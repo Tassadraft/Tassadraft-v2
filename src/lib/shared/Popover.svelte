@@ -6,18 +6,18 @@
     let y = 0;
 
     $: {
-        if (target) {
-            const { left, top, width } = target.getBoundingClientRect();
+        if (target && show) {
+            const { left, top, width, height } = target.getBoundingClientRect();
             x = left + width / 2;
-            y = top + 25;
+            y = top + height + 10;
         }
     }
 </script>
 
 {#if show}
     <div
-        class="absolute text-center text-primary-500 bg-white border border-gray-300 p-2 rounded-md shadow-md w-4/12"
-        style="left: {x}px; top: {y}px; transform: translate(-50%, -100%);"
+        class="absolute text-center text-primary-500 bg-white border border-gray-300 p-2 rounded-md shadow-md w-4/12 z-50"
+        style="position: fixed; left: {x}px; top: {y}px; transform: translate(-50%, 0);"
     >
         <slot />
     </div>

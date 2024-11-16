@@ -12,12 +12,11 @@
     import Deck from './lib/tassadecks/Editor.svelte';
     import NewDeck from './lib/tassadecks/NewDeck.svelte';
     import MyDecks from './lib/tassadecks/MyDecks.svelte';
-    import NewDeckScratch from './lib/tassadecks/NewDeckScratch.svelte';
-    import NewDeckUpload from './lib/tassadecks/NewDeckUpload.svelte';
     import BrowseDecks from './lib/tassadecks/BrowseDecks.svelte';
     import ResetPassword from './lib/pages/ResetPassword.svelte';
     import ConfirmResetPassword from './lib/pages/ConfirmResetPassword.svelte';
     import { defineCustomElements } from '@ionic/pwa-elements/loader';
+    import Subscribe from './lib/pages/Subscribe.svelte';
 
     export let url = '';
 
@@ -54,11 +53,10 @@
             <Route path="/reset-password/confirm/:token" let:params><ConfirmResetPassword {...params} /></Route>
             <Route path="/login"><Login /></Route>
             <Route path="/logout"><Logout /></Route>
+            <Route path="/subscribe"><Subscribe /></Route>
 
             <Route path="/decks/edit/:deckId" let:params><Deck {...params} /></Route>
             <Route path="/decks/new"><NewDeck /></Route>
-            <Route path="/decks/new/scratch"><NewDeckScratch /></Route>
-            <Route path="/decks/new/upload"><NewDeckUpload /></Route>
             <Route path="/decks/me"><MyDecks /></Route>
             <Route path="/decks"><BrowseDecks /></Route>
         </div>

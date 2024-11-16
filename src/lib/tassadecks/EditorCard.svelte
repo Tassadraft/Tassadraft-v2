@@ -52,7 +52,7 @@
     tabindex="0"
     class="absolute group transition-transform duration-300"
     style="transform: translateY({(index - 1) * 30 +
-        (categoryIndex === hoveredCategoryIndex && index > hoveredCardIndex ? 288 : 50)}px); z-index: 1001;"
+        (categoryIndex === hoveredCategoryIndex && index > hoveredCardIndex ? 288 : 50)}px); z-index: 1000;"
     on:mouseover={() => dispatch('hover')}
     on:mouseout={() => dispatch('unHover')}
     on:focus={() => dispatch('hover')}

@@ -51,12 +51,7 @@
     <Input label="Description" type="text" name="description" bind:value={deck.description} />
     {#if supportedFormats.length}
         <div class="mb-5">
-            <Select
-                bind:options={supportedFormats}
-                bind:selectedOption={selectedFormat}
-                name="format"
-                on:change={() => console.log(selectedFormat)}
-            />
+            <Select bind:options={supportedFormats} bind:selectedOption={selectedFormat} name="format" />
         </div>
     {/if}
     <Switch size="6" name="public" bind:value={deck.public} label="Public" />
