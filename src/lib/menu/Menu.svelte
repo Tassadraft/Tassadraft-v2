@@ -54,7 +54,6 @@
                 <IconButton icon="close" on:click={closeMenu} />
             </div>
 
-
             <ul class="space-y-4 p-4">
                 <MenuItem iconLeft="home" href="/" onClick={closeMenu}>Home</MenuItem>
                 <MenuItem iconLeft="camera" href="/tassadraft" onClick={closeMenu}>Tassadraft</MenuItem>

@@ -3,7 +3,7 @@
     import Link from '../../shared/Link.svelte';
     import IconButton from '../../shared/IconButton.svelte';
     import { createEventDispatcher } from 'svelte';
-    import {capitalizeFirstChar} from "../../../service/stringService.js";
+    import { capitalizeFirstChar } from '../../../service/stringService.js';
 
     export let deck;
     export let displayOwner = false;

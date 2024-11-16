@@ -12,7 +12,7 @@
 
     const dispatch = createEventDispatcher();
 
-    let columns = [{ name: 'Name', key: 'name' }, { name: 'Format', key: 'format'}, { name: 'Cards' }, { name: 'Enabled' }, { name: 'Public' }];
+    let columns = [{ name: 'Name', key: 'name' }, { name: 'Format', key: 'format' }, { name: 'Cards' }, { name: 'Enabled' }, { name: 'Public' }];
     let sortBy = '';
     let sortDirection = 'asc';
     let selectedDeck = {};

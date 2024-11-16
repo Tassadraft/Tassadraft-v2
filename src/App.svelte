@@ -16,7 +16,7 @@
     import ResetPassword from './lib/pages/ResetPassword.svelte';
     import ConfirmResetPassword from './lib/pages/ConfirmResetPassword.svelte';
     import { defineCustomElements } from '@ionic/pwa-elements/loader';
-    import Subscribe from "./lib/pages/Subscribe.svelte";
+    import Subscribe from './lib/pages/Subscribe.svelte';
 
     export let url = '';
 

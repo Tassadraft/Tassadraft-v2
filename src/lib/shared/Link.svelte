@@ -6,13 +6,6 @@
     export let style = '';
 </script>
 
-<a
-    {href}
-    aria-label={ariaLabel}
-    {target}
-    class={className}
-    {style}
-    on:click
->
+<a {href} aria-label={ariaLabel} {target} class={className} {style} on:click>
     <slot />
 </a>

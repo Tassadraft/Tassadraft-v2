@@ -11,17 +11,15 @@
         tabindex="0"
         class="flex items-center justify-center bg-blue-500 text-white rounded-full w-8 h-8 cursor-pointer"
         bind:this={iconElement}
-        on:mouseover={() => show = true}
-        on:focus={() => show = true}
-        on:mouseleave={() => show = false}
-        on:blur={() => show = false}
+        on:mouseover={() => (show = true)}
+        on:focus={() => (show = true)}
+        on:mouseleave={() => (show = false)}
+        on:blur={() => (show = false)}
     >
         i
     </div>
 
-    <Popover
-        {show}
-        target={iconElement}>
+    <Popover {show} target={iconElement}>
         <slot />
     </Popover>
 </div>

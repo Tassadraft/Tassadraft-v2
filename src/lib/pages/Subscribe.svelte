@@ -1,8 +1,7 @@
 <script>
-
-import Menu from "../menu/Menu.svelte";
-import Title from "../shared/Title.svelte";
-import Subtitle from "../shared/Subtitle.svelte";
+    import Menu from '../menu/Menu.svelte';
+    import Title from '../shared/Title.svelte';
+    import Subtitle from '../shared/Subtitle.svelte';
 </script>
 
 <Menu />
