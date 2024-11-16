@@ -9,7 +9,7 @@
         if (target && show) {
             const { left, top, width, height } = target.getBoundingClientRect();
             x = left + width / 2;
-            y = top + height + 10; // Adjust for popover distance below the target
+            y = top + height + 10;
         }
     }
 </script>
