@@ -36,7 +36,9 @@
 
 <div class="flex justify-start">
     <div class="mt-3">
-        <IconButton icon="burger" idName="menu-button" additionalClasses={isOpen ? 'opacity-0' : ''} on:click={() => (isOpen = !isOpen)} />
+        <Button idName="menu-button" className={isOpen ? 'opacity-0' : ''} on:click={() => (isOpen = !isOpen)}>
+            <Icon name="burger" />
+        </Button>
 
         <nav
             id="menu"

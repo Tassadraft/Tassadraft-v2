@@ -392,7 +392,7 @@
         <Subtitle>{capitalizeFirstChar(deck.format)}</Subtitle>
     </div>
     <div class="flex justify-center mb-3">
-        <Editable bind:value={deck.description} on:rename={metadataRequest}>
+        <Editable bind:value={deck.description} on:rename={metadataRequest} min={0}>
             <p>{deck.description}</p>
         </Editable>
     </div>
