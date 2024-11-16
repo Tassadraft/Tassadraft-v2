@@ -47,9 +47,14 @@
                 : '-translate-x-full'}"
             style="z-index: 10000"
         >
-            <div class="flex justify-end p-4">
+            <div class="flex justify-between items-center p-4">
+                <div class="flex items-center space-x-0">
+                    <ThemeSwitch />
+                </div>
                 <IconButton icon="close" on:click={closeMenu} />
             </div>
+
+
             <ul class="space-y-4 p-4">
                 <MenuItem iconLeft="home" href="/" onClick={closeMenu}>Home</MenuItem>
                 <MenuItem iconLeft="camera" href="/tassadraft" onClick={closeMenu}>Tassadraft</MenuItem>
@@ -62,7 +67,6 @@
                 {:else}
                     <MenuItem iconLeft="user" href="/login" onClick={closeMenu}>Login</MenuItem>
                 {/if}
-                <ThemeSwitch />
             </ul>
         </nav>
     </div>

@@ -19,6 +19,7 @@
             const { data: response } = await axios.get('/api/auth/account');
             username = response.username;
             email = response.email;
+            role = response.role;
             if (response.subscription) {
                 subscriptionEndsOn = new Date(response.subscription.endAt).toLocaleDateString();
                 subscriptionCreatedOn = new Date(response.subscription.createdAt).toLocaleDateString();
@@ -43,6 +44,6 @@
         <Input label="Subscription ends on" bind:value={subscriptionEndsOn} disabled={true} />
         <Input label="Subscription created on" bind:value={subscriptionCreatedOn} disabled={true} />
     {:else if role === 'user'}
-        <Link href="https://api.tassadraft.com/subscribe" target="_blank">Subscribe</Link>
+        <Link href="/subscribe" target="_blank">Subscribe</Link>
     {/if}
 </Form>

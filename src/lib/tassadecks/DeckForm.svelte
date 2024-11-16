@@ -55,7 +55,6 @@
                 bind:options={supportedFormats}
                 bind:selectedOption={selectedFormat}
                 name="format"
-                on:change={() => console.log(selectedFormat)}
             />
         </div>
     {/if}
