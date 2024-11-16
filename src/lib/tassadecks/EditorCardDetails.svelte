@@ -3,6 +3,7 @@
     import { createEventDispatcher, onMount } from 'svelte';
     import Select from '../shared/Select.svelte';
     import Button from '../shared/Button.svelte';
+    import CardBadge from './CardBadge.svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -10,11 +11,13 @@
     export let selectedCategory = null;
     export let options = [];
     export let switching = false;
+    export let format = '';
 
     let cardFace = 0;
     let isBasicLand = false;
     let isTransforming = false;
     let isFlip = false;
+    let isLegal = false;
     let flipped = false;
     let selectedOption = null;
 
@@ -29,8 +32,11 @@
 
     $: {
         isBasicLand = selectedCard?.print?.keyWords?.includes('Basic') && selectedCard?.print?.keyWords?.includes('Land');
-        isTransforming = selectedCard?.print?.layout !== 'flip' && selectedCard?.print?.faces?.length > 0;
+        isTransforming = selectedCard?.print?.layout !== 'flip' && selectedCard?.print?.faces?.length > 1;
         isFlip = selectedCard?.print?.layout === 'flip';
+        if (selectedCard?.print?.legality) {
+            isLegal = selectedCard?.print?.legality[format] === 'legal';
+        }
         selectedOption = {
             value: selectedCategory.id,
             label: selectedCategory.category.name,
@@ -57,6 +63,9 @@
                             <IconButton icon="exchange" size={32} on:click={handleTransform} />
                         </div>
                     </div>
+                {/if}
+                {#if !isLegal}
+                    <CardBadge type="error">Banned</CardBadge>
                 {/if}
             </div>
         </div>

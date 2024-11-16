@@ -48,7 +48,7 @@
             dispatch('processed', response.data);
         } catch (error) {
             loading = false;
-            console.log(error);
+            console.error(error);
             if (error.response?.status === 401) {
                 showToast('You are not authorized to process photos', 'error');
             } else {

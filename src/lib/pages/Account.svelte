@@ -25,7 +25,7 @@
                 subscriptionName = response.subscription.productName;
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     });
 </script>

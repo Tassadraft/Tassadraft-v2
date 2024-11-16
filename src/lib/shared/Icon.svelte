@@ -1,5 +1,4 @@
 <script>
-    import { onMount } from 'svelte';
     export let name = '';
     export let size = 24;
     export let color = 'gray';
@@ -40,6 +39,7 @@
         'Check',
         'Exchange',
         'PaperClip',
+        'Send',
     ];
 
     const toCamelCase = (str) => {

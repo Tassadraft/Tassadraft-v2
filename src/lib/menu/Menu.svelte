@@ -4,6 +4,7 @@
     import Icon from '../shared/Icon.svelte';
     import ThemeSwitch from '../shared/ThemeSwitch.svelte';
     import Button from '../shared/Button.svelte';
+    import IconButton from '../shared/IconButton.svelte';
 
     let isOpen = false;
     let connected = false;
@@ -47,9 +48,7 @@
             style="z-index: 10000"
         >
             <div class="flex justify-end p-4">
-                <Button on:click={closeMenu}>
-                    <Icon name="close" />
-                </Button>
+                <IconButton icon="close" on:click={closeMenu} />
             </div>
             <ul class="space-y-4 p-4">
                 <MenuItem iconLeft="home" href="/" onClick={closeMenu}>Home</MenuItem>

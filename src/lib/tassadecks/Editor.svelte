@@ -62,6 +62,7 @@
     let cardDetailsContainerRef;
 
     let loading = false;
+    let isLegal = false;
 
     onMount(async () => {
         try {
@@ -83,31 +84,35 @@
         }
     });
 
-    const addCardRequest = async (card) => {
+    const addCardRequest = async (print) => {
         try {
-            await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
+            const response = await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
                 actionType: 'addCard',
-                printId: card.scryfallId,
+                cardId: print.oracleId,
             });
-            showToast(`1 ${card?.translation?.name} added to the deck`);
-            return true;
+            showToast(`1 ${print?.translation?.name} added to the deck`);
+            return response.data;
         } catch (e) {
             showToast('Error adding card to the deck', 'error');
             return false;
+        } finally {
+            await updateLegalityRequest();
         }
     };
 
     const removeCardRequest = async (card) => {
         try {
-            await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
+            const response = await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
                 actionType: 'removeCard',
-                printId: card.scryfallId,
+                cardId: card.oracleId,
             });
             showToast(`1 ${card.translation.name} removed from ${deck.name}`);
-            return true;
+            return response.data;
         } catch (e) {
             showToast(`Error deleting ${card.translation.name} from the ${deck.name}`, 'error');
             return false;
+        } finally {
+            await updateLegalityRequest();
         }
     };
 
@@ -149,7 +154,7 @@
                 actionType: 'moveCard',
                 deckId: deck.id,
                 categoryId: categoryObject.id,
-                printId: cardObject.print.scryfallId,
+                cardId: cardObject.print.oracleId,
             });
             showToast(`${cardObject.print.translation.name} moved to ${categoryObject.category.name}`);
             return true;
@@ -172,6 +177,15 @@
         }
     };
 
+    const updateLegalityRequest = async () => {
+        try {
+            const { data } = await axios.get(`/api/auth/reserved/decks/${deckId}/is-legal`);
+            isLegal = data;
+        } catch (e) {
+            showToast('Error while fetching deck legality', 'error');
+        }
+    };
+
     const handleCardHover = (cardIndex, categoryIndex, categoryObject) => {
         if (cardIndex === categoryObject.cards.length - 1) {
             return;
@@ -185,13 +199,13 @@
         hoveredCategoryIndex = -1;
     };
 
-    const handleIncrement = (e) => {
-        const added = addCardRequest(e.detail.print);
+    const handleIncrement = async (e) => {
+        const added = await addCardRequest(e.detail.print);
         if (!added) {
             return;
         }
         const isCardInDeck = deck.categories.some((categoryObject) => {
-            return categoryObject.cards.some((cardObject) => cardObject.print.scryfallId === e.detail.print.scryfallId);
+            return categoryObject.cards.some((cardObject) => cardObject.print.oracleId === e.detail.print.oracleId);
         });
         if (!isCardInDeck) {
             deck.categories = deck.categories.map((categoryObject) => {
@@ -200,16 +214,25 @@
                 }
                 return categoryObject;
             });
+        } else {
+            deck.categories = deck.categories.map((categoryObject) => {
+                categoryObject.cards = categoryObject.cards.map((cardObject) => {
+                    if (cardObject.print.oracleId === e.detail.print.oracleId) {
+                        cardObject.quantity++;
+                    }
+                    return cardObject;
+                });
+                return categoryObject;
+            });
         }
-        selectedCard.quantity++;
+        selectedCard = { ...selectedCard, quantity: selectedCard.quantity + 1 };
         deck = { ...deck };
     };
 
-    //TODO: fix this
     const handleDecrement = async (e) => {
         for (const categoryObject of deck.categories) {
             for (let cardObject of categoryObject.cards) {
-                if (cardObject.print.scryfallId === e.detail.print.scryfallId) {
+                if (cardObject.print.oracleId === e.detail.print.oracleId) {
                     const removed = await removeCardRequest(cardObject.print);
                     if (!removed) {
                         return;
@@ -219,7 +242,7 @@
                         categoryObject.cards = categoryObject.cards.filter((co) => co.id !== co.id);
                         showCardModal = false;
                     }
-                    selectedCard = { ...selectedCard };
+                    selectedCard = { ...selectedCard, quantity: selectedCard.quantity - 1 };
                     deck = { ...deck };
                     return;
                 }
@@ -275,7 +298,7 @@
             loading = false;
         } catch (error) {
             loading = false;
-            console.log(error);
+            console.error(error);
             if (error.response?.status === 401) {
                 showToast('You are not authorized to process photos', 'error');
             } else {
@@ -302,7 +325,7 @@
     const handleCardPrintsDisplay = async (selectedCard) => {
         if (selectedCard.print?.scryfallId) {
             try {
-                switchCardPrintBaseUrl = `/api/auth/reserved/cards/prints/${selectedCard.print.scryfallId}?`;
+                switchCardPrintBaseUrl = `/api/auth/reserved/cards/prints/${selectedCard.print.oracleId}?`;
                 const { data: paginated } = await axios.get(switchCardPrintBaseUrl);
                 paginatedCardPrints = paginated;
             } catch (e) {
@@ -352,23 +375,28 @@
 <Loader bind:loading />
 
 <Panel>
-    <div class="grid grid-cols-3 gap-4 text-center">
+    <div class="flex flex-row flex-wrap gap-5 justify-center mb-3">
         <div class="m-auto">
             <Switch size="4" bind:value={deck.enabled} label="Enabled" on:change={metadataRequest} />
         </div>
         <div class="m-auto">
             <Switch size="4" bind:value={deck.public} label="Public" on:change={metadataRequest} />
         </div>
-        <p>{cardsLength} cards</p>
-        <Subtitle>{capitalizeFirstChar(deck.format)}</Subtitle>
-        <div class="m-auto">
+        <div class="mb-4 m-auto">
             <Switch size="4" bind:value={deck.enableDetailedCategories} label="Detailed categories" on:change={metadataRequest} disabled={true} />
         </div>
-        <Editable bind:value={deck.description} on:rename={metadataRequest}>
+    </div>
+    <div class="flex flex-row flex-wrap gap-20 justify-center mb-3">
+        <p>{cardsLength} cards</p>
+        <p>{isLegal ? 'Legal' : 'Not legal'}</p>
+        <Subtitle>{capitalizeFirstChar(deck.format)}</Subtitle>
+    </div>
+    <div class="flex justify-center mb-3">
+        <Editable bind:value={deck.description} on:rename={metadataRequest} min={0}>
             <p>{deck.description}</p>
         </Editable>
     </div>
-    <div class="grid grid-cols-2 text-center mt-4">
+    <div class="grid grid-cols-2 text-center">
         <p>Updated on {updatedAt}</p>
         <p>Created on {createdAt}</p>
     </div>
@@ -404,6 +432,7 @@
                         bind:value={categoryObject.category.name}
                         className="text-xl font-bold text-black dark:text-white relative"
                         on:rename={() => renameCategoryRequest(categoryObject)}
+                        editable={categoryObject.category.name !== 'Commander'}
                     >
                         <Subtitle>{categoryObject.category.name}</Subtitle>
                     </Editable>
@@ -448,6 +477,7 @@
                             bind:hoveredCardIndex
                             bind:deck
                             on:cardRemoved={handleDecrement}
+                            on:cardAdded={handleIncrement}
                             on:cardSelected={handleUpdateSelectedCard}
                         />
                     {/each}
@@ -474,6 +504,7 @@
             bind:options={categoryOptions}
             bind:selectedCategory
             bind:switching={isSelectedCardSwitchingPrint}
+            format={deck?.format}
             on:cardDecrement={handleDecrement}
             on:cardIncrement={handleIncrement}
             on:changeCategory={handleChangeCategory}

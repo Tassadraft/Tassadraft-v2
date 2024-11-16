@@ -16,7 +16,7 @@
     let flipped = false;
 
     onMount(() => {
-        isTransforming = card?.layout !== 'flip' && card?.faces?.length > 0;
+        isTransforming = card?.layout !== 'flip' && card?.faces?.length > 1;
         isFlip = card?.layout === 'flip';
     });
 

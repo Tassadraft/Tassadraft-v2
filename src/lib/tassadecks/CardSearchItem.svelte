@@ -11,14 +11,13 @@
     let cardObject = null;
     let cardFace = 0;
     let isTransforming = false;
-    let isBasicLand = false;
     let isFlip = false;
     let flipped = false;
     let icon = 'plus';
 
-    const checkIfCardIsInDeck = (card) => {
+    const checkIfCardIsInDeck = (deck, card) => {
         for (const categoryObject of deck.categories) {
-            const deckCard = categoryObject.cards.find((deckCard) => deckCard?.card?.scryfallId === card?.scryfallId);
+            const deckCard = categoryObject.cards.find((deckCard) => deckCard?.print?.oracleId === card?.oracleId);
             if (deckCard) {
                 return deckCard;
             }
@@ -27,70 +26,64 @@
     };
 
     const handleIncrement = async () => {
-        cardObject = checkIfCardIsInDeck(card);
+        let foundCategory = false;
+        cardObject = checkIfCardIsInDeck(deck, card);
+
         if (cardObject) {
             const added = await addCardRequest(card);
             if (!added) {
                 return;
             }
-            cardObject.quantity = (cardObject.quantity ?? 0) + 1;
         } else {
-            cardObject = { card, quantity: 1 };
-            let foundCategory = false;
-            for (const categoryObject of deck?.categories) {
+            for (const categoryObject of deck.categories) {
                 if (categoryObject.category.name === card?.translation.mainType) {
                     foundCategory = true;
-                    if (categoryObject.cards.find((cardObject) => cardObject.print?.scryfallId === card?.scryfallId)) {
+                    if (categoryObject.cards.some((deckCard) => deckCard.print?.oracleId === card?.oracleId)) {
                         showToast('Card already in the deck', 'error');
                         return;
                     }
-                    const added = await addCardRequest(card);
-                    if (!added) {
+                    const response = await addCardRequest(card);
+                    if (!response) {
                         return;
                     }
-                    categoryObject.cards = [...categoryObject.cards, { card, quantity: 1 }];
-                    cardObject = { ...cardObject };
+
+                    categoryObject.cards = [...categoryObject.cards, response.card];
+                    categoryObject.cards.sort((a, b) => a.print.translation.name.localeCompare(b.print.translation.name));
                     deck = { ...deck };
                     return;
                 }
             }
+
             if (!foundCategory) {
-                const added = await addCardRequest(card);
-                if (!added) {
-                    return;
-                }
+                const responseCard = await addCardRequest(card);
+                if (!responseCard) return;
+
                 deck.categories = [
                     ...deck.categories,
-                    {
-                        category: { name: card?.translation.mainType },
-                        cards: [{ card, quantity: 1 }],
-                    },
+                    { category: { name: card?.translation.mainType }, cards: [{ ...responseCard.card, quantity: 1 }] },
                 ];
             }
         }
-        cardObject = { ...cardObject };
         deck = { ...deck };
     };
 
     const handleDecrement = async () => {
-        cardObject = checkIfCardIsInDeck(card);
-        if (cardObject === null) {
-            return;
-        }
+        cardObject = checkIfCardIsInDeck(deck, card);
+        if (!cardObject) return;
+
         const removed = await removeCardRequest(card);
-        if (!removed) {
-            return;
-        }
+        if (!removed) return;
+
         if (cardObject.quantity === 1) {
             for (const categoryObject of deck.categories) {
-                const index = categoryObject.cards.findIndex((deckCard) => deckCard?.card?.scryfallId === card?.scryfallId);
+                const index = categoryObject.cards.findIndex((deckCard) => deckCard?.print?.oracleId === card?.oracleId);
                 if (index !== -1) {
                     categoryObject.cards.splice(index, 1);
                     break;
                 }
             }
         } else {
-            cardObject.quantity = cardObject.quantity - 1;
+            cardObject.quantity -= 1;
         }
         deck = { ...deck };
     };
@@ -104,9 +97,8 @@
     };
 
     $: {
-        cardObject = checkIfCardIsInDeck(card);
+        cardObject = checkIfCardIsInDeck(deck, card);
         isTransforming = card?.layout !== 'flip' && card?.faces?.length > 0;
-        isBasicLand = card?.keyWords?.includes('Basic') && card?.keyWords?.includes('Land');
         icon = cardObject ? 'minus' : 'plus';
         isFlip = card?.layout === 'flip';
     }
@@ -130,15 +122,7 @@
                     <IconButton icon="exchange" on:click={handleTransform} />
                 </div>
             {/if}
-            {#if isBasicLand}
-                <div class="flex flex-row gap-3 justify-center">
-                    <IconButton icon="minus" size={32} disabled={!cardObject?.quantity} on:click={handleDecrement} />
-                    <p class="dark:text-white">{cardObject?.quantity ?? 0}</p>
-                    <IconButton icon="plus" size={32} on:click={handleIncrement} />
-                </div>
-            {:else}
-                <IconButton bind:icon size={32} on:click={cardObject ? handleDecrement : handleIncrement} />
-            {/if}
+            <IconButton bind:icon size={32} on:click={cardObject ? handleDecrement : handleIncrement} />
         </div>
     </div>
 </div>
