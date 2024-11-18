@@ -286,7 +286,8 @@
                         }
                         return categoryObject;
                     });
-                } else { // if card is basic land, it'll be checked by server and addedCardObject.card will be undefined
+                } else {
+                    // if card is basic land, it'll be checked by server and addedCardObject.card will be undefined
                     deck.categories = deck.categories.map((categoryObject) => {
                         categoryObject.cards = categoryObject.cards.map((co) => {
                             if (co.print.oracleId === processedCard.print.oracleId) {

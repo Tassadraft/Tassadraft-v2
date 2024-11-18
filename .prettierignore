@@ -1,0 +1,11 @@
+# Ignore node_modules and any generated folders
+node_modules/
+dist/
+build/
+android/
+
+# Ignore all files in a specific folder
+public/assets/
+
+# Ignore test snapshots
+**/__snapshots__/**
