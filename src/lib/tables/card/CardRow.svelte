@@ -2,7 +2,7 @@
     import Switch from '../../shared/Switch.svelte';
     import Button from '../../shared/Button.svelte';
     import Icon from '../../shared/Icon.svelte';
-    import { createEventDispatcher } from 'svelte';
+    import {createEventDispatcher, onMount} from 'svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -10,9 +10,18 @@
     export let currency;
 
     let displayFoil = false;
+    let svgContent = '';
     card.displayedPrice = 0;
 
-    $: {
+    onMount(async () => {
+        try {
+            const response = await fetch(card.set.iconSvgUri);
+            if (!response.ok) throw new Error('Failed to fetch SVG');
+            svgContent = await response.text();
+        } catch (error) {
+            console.error('Error loading SVG:', error);
+        }
+
         switch (displayFoil) {
             case true:
                 if (!!card.price.usdFoil) {
@@ -35,16 +44,30 @@
                 }
                 break;
         }
-    }
+    });
 
     const handleDelete = () => {
         dispatch('delete', card);
     };
+
+    $: console.log(card.set);
 </script>
 
 <tr class="h-10">
-    <td class="tr-first text-left border-r border-primary-700">
+    <td class="tr-first text-center border-r border-primary-700">
         <p class="text-xs truncate">{card.translation.name}</p>
+    </td>
+    <td class="text-center border-r border-primary-700">
+        {#if svgContent}
+            <div
+                class="text-primary-500 fill-current max-h-7 w-auto flex justify-center items-center overflow-visible"
+                aria-label={card.set.name}
+                title={card.set.name}
+                style="max-height: 1.75rem;"
+            >
+            {@html svgContent}
+            </div>
+        {/if}
     </td>
     <td class="text-center border-r border-primary-700">
         <div class="mt-2">

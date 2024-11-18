@@ -20,7 +20,7 @@
     }
 </script>
 
-<th class="{first ? 'tr-first text-left' : 'text-center'} {last ? '' : 'border-r border-primary-700'}">
+<th class="{first ? 'tr-first' : ''} {last ? '' : 'border-r border-primary-700'} text-center">
     <Button customStyle={true} on:click={() => dispatch('sort', { column })} disabled={!column.key}>
         <p class="text-sm truncate flex items-center">
             {column.name}

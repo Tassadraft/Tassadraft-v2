@@ -11,7 +11,7 @@
     let showModal = false;
     let currency = localStorage.getItem('currency');
     let deletingCard;
-    const columns = [{ name: 'Name', key: 'name' }, { name: 'Foil' }, { name: 'Price', key: 'displayedPrice', icon: currency }, { name: 'Delete' }];
+    const columns = [{ name: 'Name', key: 'name' }, { name: 'Set' }, { name: 'Foil' }, { name: 'Price', key: 'displayedPrice', icon: currency }, { name: 'Delete' }];
     let sortBy = '';
     let sortDirection = 'asc';
 

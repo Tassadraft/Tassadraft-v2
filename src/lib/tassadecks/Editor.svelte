@@ -92,12 +92,11 @@
                 cardId: print.oracleId,
             });
             showToast(`1 ${print?.translation?.name} added to the deck`);
+            await updateLegalityRequest();
             return response.data;
         } catch (e) {
             showToast('Error adding card to the deck', 'error');
-            return false;
-        } finally {
-            await updateLegalityRequest();
+            return null;
         }
     };
 
@@ -108,12 +107,11 @@
                 cardId: card.oracleId,
             });
             showToast(`1 ${card.translation.name} removed from ${deck.name}`);
+            await updateLegalityRequest();
             return response.data;
         } catch (e) {
             showToast(`Error deleting ${card.translation.name} from the ${deck.name}`, 'error');
             return false;
-        } finally {
-            await updateLegalityRequest();
         }
     };
 
@@ -264,7 +262,6 @@
         deck = { ...deck };
     };
 
-    // TODO: check if this works
     const handleProcessPhoto = async (e) => {
         try {
             loading = true;
@@ -272,21 +269,27 @@
             const response = await axios.post(`/api/auth/reserved/process?languageCode=${localStorage.getItem('languageCode')}`, {
                 photos: base64Strings,
             });
-            for (const cardObject of response.data.cards) {
+            for (const processedCard of response.data.cards) {
+                let addedCardObject = await addCardRequest(processedCard.print);
+                if (!addedCardObject) {
+                    continue;
+                }
+                console.log(addedCardObject.card);
                 const isCardInDeck = deck.categories.some((categoryObject) => {
-                    return categoryObject.cards.some((co) => co.id === cardObject.id);
+                    return categoryObject.cards.some((co) => co.print.oracleId === addedCardObject.card.print.oracleId);
                 });
                 if (!isCardInDeck) {
                     deck.categories = deck.categories.map((categoryObject) => {
-                        if (categoryObject.category.name === cardObject.print.translation.mainType) {
-                            categoryObject.cards = [...categoryObject.cards, cardObject];
+                        if (categoryObject.category.name === addedCardObject.card.print.translation.mainType) {
+                            categoryObject.cards = [...categoryObject.cards, addedCardObject.card];
+                            categoryObject.cards.sort((a, b) => a.print.translation.name.localeCompare(b.print.translation.name));
                         }
                         return categoryObject;
                     });
-                } else {
+                } else { // if card is basic land, it'll be checked by server and addedCardObject.card will be undefined
                     deck.categories = deck.categories.map((categoryObject) => {
                         categoryObject.cards = categoryObject.cards.map((co) => {
-                            if (co.id === cardObject.id) {
+                            if (co.print.oracleId === processedCard.print.oracleId) {
                                 co.quantity++;
                             }
                             return co;
