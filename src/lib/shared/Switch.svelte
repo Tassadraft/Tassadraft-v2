@@ -19,7 +19,7 @@
     <input type="hidden" {name} value={value ? '1' : '0'} />
 {/if}
 <div class="flex flex-row gap-3">
-    <label class="inline-flex items-center {disabled ? '' : 'cursor-pointer'}">
+    <label class="inline-flex items-center m-auto {disabled ? '' : 'cursor-pointer'}">
         <input type="checkbox" on:change={handleToggleChange} class="sr-only peer" checked={value} {disabled} />
         <span
             class="relative bg-gray-400 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-500 peer-checked:bg-primary-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white dark:border-gray-600 toggle-circle"

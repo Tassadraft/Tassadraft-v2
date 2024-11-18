@@ -2,7 +2,7 @@
     import Switch from '../../shared/Switch.svelte';
     import Button from '../../shared/Button.svelte';
     import Icon from '../../shared/Icon.svelte';
-    import {createEventDispatcher, onMount} from 'svelte';
+    import { createEventDispatcher, onMount } from 'svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -17,40 +17,55 @@
         try {
             const response = await fetch(card.set.iconSvgUri);
             if (!response.ok) throw new Error('Failed to fetch SVG');
-            svgContent = await response.text();
+            let rawSvg = await response.text();
+
+            const parser = new DOMParser();
+            const svgDoc = parser.parseFromString(rawSvg, 'image/svg+xml');
+            const svgElement = svgDoc.querySelector('svg');
+
+            if (svgElement) {
+                svgElement.querySelectorAll('*').forEach((el) => {
+                    el.removeAttribute('fill');
+                    el.removeAttribute('stroke');
+                    el.removeAttribute('fill-rule');
+                });
+
+                svgContent = new XMLSerializer().serializeToString(svgElement);
+            } else {
+                svgContent = rawSvg;
+            }
         } catch (error) {
             console.error('Error loading SVG:', error);
         }
 
-        switch (displayFoil) {
-            case true:
-                if (!!card.price.usdFoil) {
-                    card.displayedPrice = card.price.usdFoil;
-                } else if (!!card.price.eurFoil) {
-                    card.displayedPrice = card.price.eurFoil;
-                } else {
-                    card.displayedPrice = card.price.usd;
-                    displayFoil = false;
-                }
-                break;
-            case false:
-                switch (currency) {
-                    case 'usd':
-                        card.displayedPrice = card.price.usd;
-                        break;
-                    case 'euro':
-                        card.displayedPrice = card.price.eur;
-                        break;
-                }
-                break;
-        }
+        updateDisplayedPrice();
     });
+
+    const updateDisplayedPrice = () => {
+        if (displayFoil) {
+            if (card.price.usdFoil) {
+                card.displayedPrice = card.price.usdFoil;
+            } else if (card.price.eurFoil) {
+                card.displayedPrice = card.price.eurFoil;
+            } else {
+                card.displayedPrice = card.price.usd;
+                displayFoil = false;
+            }
+        } else {
+            switch (currency) {
+                case 'usd':
+                    card.displayedPrice = card.price.usd;
+                    break;
+                case 'euro':
+                    card.displayedPrice = card.price.eur;
+                    break;
+            }
+        }
+    };
 
     const handleDelete = () => {
         dispatch('delete', card);
     };
-
-    $: console.log(card.set);
 </script>
 
 <tr class="h-10">
@@ -65,14 +80,14 @@
                 title={card.set.name}
                 style="max-height: 1.75rem;"
             >
-            {@html svgContent}
+                {@html svgContent}
             </div>
         {/if}
     </td>
     <td class="text-center border-r border-primary-700">
         <div class="mt-2">
             {#if !!card.price.usdFoil}
-                <Switch size="4" bind:value={displayFoil} />
+                <Switch size="4" bind:value={displayFoil} on:change={updateDisplayedPrice} />
             {/if}
         </div>
     </td>
