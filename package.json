@@ -10,7 +10,9 @@
         "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
         "preinstall": "node install.js",
         "format": "npx prettier --write .",
-        "windows:build:android": "npm run build && npx cap copy android && cd android && gradlew assembleRelease -Pandroid.injected.signing.store.file=C:/Users/33780/Documents/Tassadraft-v2/android/app/my-release-key.jks -Pandroid.injected.signing.store.password=KHwCR3TSMxjOxWD -Pandroid.injected.signing.key.alias=my-key-alias -Pandroid.injected.signing.key.password=KHwCR3TSMxjOxWD"
+        "build:android:base": "npm run build && npx cap copy android && npx cap sync android",
+        "build:android:debug": " npm run build:android:base && cd android && ./gradlew assembleDebug",
+        "build:android": " npm run build:android:base && cd android && ./gradlew assembleRelease"
     },
     "optionalDependencies": {
         "@rollup/rollup-linux-x64-gnu": "^4.19.0"
