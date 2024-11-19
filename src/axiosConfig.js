@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.TASSADAPI_BASE_URL;
+axios.defaults.baseURL = process.env.VITE_TASSADAPI_BASE_URL;
 
 const token = localStorage.getItem('apiToken');
 if (token) {

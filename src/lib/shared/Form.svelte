@@ -27,6 +27,7 @@
         });
 
         try {
+            console.log(axios.defaults.baseURL, process.env.VITE_TASSADAPI_BASE_URL)
             const response = await axios({
                 method,
                 url: `${axios.defaults.baseURL}${action}`,

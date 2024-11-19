@@ -1,30 +1,40 @@
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
-import envCompatible from 'vite-plugin-env-compatible';
 import dotenv from 'dotenv';
 import fs from 'fs';
 
-// Load environment variables from .env file
-dotenv.config();
+const isDev = process.env.NODE_ENV !== 'production';
+const baseEnv = dotenv.parse(fs.readFileSync('.env', 'utf8'));
+let envVariables = { ...baseEnv };
 
-// Load .env.local if it exists
-const envLocalPath = '.env.local';
-if (fs.existsSync(envLocalPath)) {
-    const envLocalConfig = dotenv.parse(fs.readFileSync(envLocalPath));
-    // Override only variables present in both .env and .env.local
-    for (const k in envLocalConfig) {
-        if (process.env[k] !== undefined) {
-            process.env[k] = envLocalConfig[k];
-        }
+if (isDev) {
+    const localEnvPath = '.env.local';
+    if (fs.existsSync(localEnvPath)) {
+        const localEnv = dotenv.parse(fs.readFileSync(localEnvPath, 'utf8'));
+        envVariables = { ...envVariables, ...localEnv };
+    }
+}
+
+const viteEnv: Record<string, string> = {};
+for (const [key, value] of Object.entries(envVariables)) {
+    if (key.startsWith('VITE_')) {
+        viteEnv[`process.env.${key}`] = JSON.stringify(value);
     }
 }
 
 export default defineConfig({
-    plugins: [svelte(), envCompatible()],
+    plugins: [svelte()],
     define: {
-        'process.env': process.env,
+        ...viteEnv,
     },
     optimizeDeps: {
         include: ['@ionic/pwa-elements/loader'],
+    },
+    build: {
+        rollupOptions: {
+            output: {
+                assetFileNames: '[name].[hash].[ext]',
+            },
+        },
     },
 });
