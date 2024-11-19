@@ -6,10 +6,15 @@
 -   Improved performance through shadow-dom
 -   Lighter components
 -   Prepared Tassadecks & Tassacards for the future (routing is already in place)
+-   Capacitor build now ignores .env.local file, to avoid the previous common problem where .env.local was built and so app was requesting on localhost on mobile
 
 ### New features
 
+- Deck manager & editor
+
 ### Processing
+
+- Added card processing into editor to upload cards by taking photos
 
 ### Code quality
 
