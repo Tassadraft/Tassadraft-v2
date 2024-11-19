@@ -7,4 +7,4 @@
 ### Links
 
 -   [Changelog](/doc/CHANGELOG.md)
--   [Download](https://api.tassadraft.com)
+-   [MIT Licence](/doc/LICENCE.md)
