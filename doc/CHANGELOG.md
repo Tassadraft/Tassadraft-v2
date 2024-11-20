@@ -10,7 +10,7 @@
 
 ### New features
 
-- Deck manager & editor
+- Deck manager & edito
 
 ### Processing
 
