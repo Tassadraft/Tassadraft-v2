@@ -3,6 +3,7 @@
     import CardBadge from './CardBadge.svelte';
     import Button from '../shared/Button.svelte';
     import { createEventDispatcher, onMount } from 'svelte';
+    import { t } from 'svelte-i18n';
 
     const dispatch = createEventDispatcher();
 
@@ -43,7 +44,7 @@
             class="w-48 rounded-lg group-hover:opacity-50 transition-opacity duration-300 {flipped ? 'transform rotate-180' : ''}"
         />
         {#if isActivePrint}
-            <CardBadge>Current</CardBadge>
+            <CardBadge>{$t('badge.current')}</CardBadge>
         {/if}
         <div
             class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -54,7 +55,9 @@
                 </div>
             {/if}
             <div class="flex flex-row gap-3 justify-center">
-                <Button ariaLabel="Choose print" on:click={() => dispatch('choosePrint', card)}>Choose print</Button>
+                <Button ariaLabel={$t('tassadecks.editor.print.choose')} on:click={() => dispatch('choosePrint', card)}
+                    >{$t('tassadecks.editor.print.choose')}</Button
+                >
             </div>
         </div>
     </div>

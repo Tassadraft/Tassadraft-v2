@@ -7,11 +7,12 @@
     import getBase64Strings from '../../service/base64Service.js';
     import { showToast } from '../../service/toastService.js';
     import Loader from '../shared/Loader.svelte';
+    import { t } from 'svelte-i18n';
 
     const dispatch = createEventDispatcher();
 
     export let photos = [];
-    export let selectedOption = 'Photos';
+    export let selectedOption;
 
     let showModal = false;
     let options = [];
@@ -19,17 +20,17 @@
 
     $: {
         options = [
-            { name: 'Photos', disabled: selectedOption === 'Photos' },
+            { name: $t('tassadraft.photos'), disabled: selectedOption === $t('tassadraft.photos') },
             {
-                name: 'Cards',
-                disabled: selectedOption === 'Cards' || photos.length === 0,
-                disabledMessage: photos.length ? '' : 'No photos available',
+                name: $t('tassadraft.cards'),
+                disabled: selectedOption === $t('tassadraft.cards') || photos.length === 0,
+                disabledMessage: photos.length ? '' : $t('tassadraft.no-photo'),
             },
         ];
     }
 
     const handleSegmentChange = async (event) => {
-        if (selectedOption === 'Photos' && photos.filter((photo) => !photo.processed).length !== 0) {
+        if (selectedOption === $t('tassadraft.cards') && photos.filter((photo) => !photo.processed).length !== 0) {
             showModal = true;
         } else {
             selectedOption = event.detail.value;
@@ -44,15 +45,14 @@
                 photos: base64Strings,
             });
             loading = false;
-            selectedOption = 'Cards';
+            selectedOption = $t('tassadraft.cards');
             dispatch('processed', response.data);
         } catch (error) {
             loading = false;
-            console.error(error);
             if (error.response?.status === 401) {
-                showToast('You are not authorized to process photos', 'error');
+                showToast($t('toast.photo.unauthorized'), 'error');
             } else {
-                showToast('An error occurred while processing photos', 'error');
+                showToast($t('toast.photo.error'), 'error');
             }
         }
     };
@@ -61,8 +61,8 @@
 <Segment bind:selected={selectedOption} {options} on:change={handleSegmentChange} />
 <Loader bind:loading />
 
-<Modal bind:showModal successText="Yes" closeText="No" on:success={handleSuccess}>
-    <Subtitle slot="header">Photos processing</Subtitle>
-    <p class="text-black dark:text-white">Some photos seem not to be processed yet.</p>
-    <p class="text-black dark:text-white">Do you want to process them ?</p>
+<Modal bind:showModal successText={$t('common.yes')} closeText={$t('common.no')} on:success={handleSuccess}>
+    <Subtitle slot="header">{$t('tassadraft.process.modal.title')}</Subtitle>
+    <p class="text-black dark:text-white">{$t('tassadraft.process.modal.text')}</p>
+    <p class="text-black dark:text-white">{$t('tassadraft.process.modal.question')}</p>
 </Modal>

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { navigate } from 'svelte-routing';
 
 axios.defaults.baseURL = process.env.VITE_TASSADAPI_BASE_URL;
 
@@ -9,7 +10,7 @@ if (token) {
         localStorage.removeItem('apiToken');
         localStorage.removeItem('apiTokenExpiration');
         localStorage.removeItem('subscribed');
-        document.location.href = '/login';
+        navigate('/login');
     }
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     axios
@@ -22,7 +23,7 @@ if (token) {
         .catch((error) => {
             localStorage.removeItem('apiToken');
             axios.defaults.headers.common['Authorization'] = '';
-            document.location.href = '/login';
+            navigate('/login');
         });
     axios
         .get('/api/auth/reserved')
@@ -37,7 +38,7 @@ if (token) {
             localStorage.setItem('subscribed', 'false');
         });
 } else if (document.location.pathname !== '/login' && !document.location.pathname.includes('/reset-password')) {
-    document.location.href = '/login';
+    navigate('/login');
 }
 
 export default axios;

@@ -2,8 +2,8 @@
     import axios from '../../axiosConfig.js';
     import Button from './Button.svelte';
     import Loader from './Loader.svelte';
-    import IconButton from './IconButton.svelte';
     import Icon from './Icon.svelte';
+    import { t } from 'svelte-i18n';
 
     export let method = 'GET';
     export let action = '';
@@ -27,7 +27,6 @@
         });
 
         try {
-            console.log(axios.defaults.baseURL, process.env.VITE_TASSADAPI_BASE_URL)
             const response = await axios({
                 method,
                 url: `${axios.defaults.baseURL}${action}`,
@@ -50,7 +49,7 @@
         <div class="w-full flex justify-end">
             <Button type="submit" additionalStyle="bg-green-700 hover:bg-green-800 rounded-md p-2">
                 <div class="flex flex-row items-center gap-3">
-                    <p class="text-white">Submit</p>
+                    <p class="text-white">{$t('common.submit')}</p>
                     <Icon name="send" />
                 </div>
             </Button>

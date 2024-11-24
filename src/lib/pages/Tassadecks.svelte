@@ -2,31 +2,34 @@
     import Card from '../shared/Card.svelte';
     import Menu from '../menu/Menu.svelte';
     import Title from '../shared/Title.svelte';
+    import { t } from 'svelte-i18n';
 
-    const choices = [
+    let choices = [];
+
+    $: choices = [
         {
             href: '/decks/new',
-            title: 'New deck',
+            title: $t('tassadecks.new.card.title'),
             icon: 'upload',
-            description: 'Create a new deck from zero or by importing a file',
+            description: $t('tassadecks.new.card.description'),
         },
         {
             href: '/decks/me',
-            title: 'Edit a deck',
+            title: $t('tassadecks.my-decks.card.title'),
             icon: 'pen',
-            description: 'Edit one of your decks, or one shared with you',
+            description: $t('tassadecks.my-decks.card.description'),
         },
         {
             href: '/decks',
-            title: 'Browse all decks',
+            title: $t('tassadecks.browse.card.title'),
             icon: 'search',
-            description: 'Browse all public, shared with you, and your decks',
+            description: $t('tassadecks.browse.card.description'),
         },
     ];
 </script>
 
 <Menu />
-<Title title="Tassadecks" />
+<Title title={$t('common.tassadecks')} />
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
     {#each choices as choice}

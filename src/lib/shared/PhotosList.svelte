@@ -4,6 +4,7 @@
     import Subtitle from './Subtitle.svelte';
     import Fab from './Fab.svelte';
     import { showToast } from '../../service/toastService.js';
+    import { t } from 'svelte-i18n';
 
     export let photos = [];
     export let cards = [];
@@ -26,7 +27,7 @@
         });
         deletedPhotos = [...deletedPhotos, photo];
         photos = photos.filter((photo) => photo.uri !== selectedPhotoUri);
-        showToast('Photo deleted', 'success');
+        showToast($t('toast.photo.deleted'), 'success');
     };
 
     const handleUndo = () => {
@@ -40,7 +41,7 @@
                 cards = [...cards, card];
             }
         });
-        showToast('Photo restored', 'success');
+        showToast($t('toast.photo.restored'), 'success');
     };
 </script>
 
@@ -51,7 +52,7 @@
         </Button>
     {/each}
 
-    <Modal bind:showModal successText="Yes" closeText="No" on:success={handleDelete}>
+    <Modal bind:showModal successText={$t('common.yes')} closeText={$t('common.no')} on:success={handleDelete}>
         <Subtitle>Are you sure you want to delete this photo ?</Subtitle>
     </Modal>
 </div>

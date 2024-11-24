@@ -9,6 +9,7 @@
     import DecksGrid from './DecksGrid.svelte';
     import DisplayingMode from '../shared/DisplayingMode.svelte';
     import Panel from '../shared/Panel.svelte';
+    import { t } from 'svelte-i18n';
 
     let allDecks = {};
     let myDecks = {};
@@ -33,7 +34,7 @@
 
 {#if allDecks.total}
     <Panel>
-        <Subtitle>{allDecks.total ?? 0} public {allDecks.total > 1 ? 'decks' : 'deck'}</Subtitle>
+        <Subtitle>{allDecks.total} {$t(`tassadecks.public-decks.${allDecks.total === 1 ? 'one' : 'other'}`)}</Subtitle>
         {#if displayingMode === 'grid'}
             <DecksGrid bind:decks={allDecks.decks} displayOwner={true} />
         {:else if displayingMode === 'list'}
@@ -47,7 +48,7 @@
 {/if}
 {#if myDecks.total}
     <Panel>
-        <Subtitle>{myDecks.total ?? 0} {myDecks.total > 1 ? 'decks' : 'deck'} owned</Subtitle>
+        <Subtitle>{myDecks.total} {$t(`tassadecks.owned-decks.${myDecks.total === 1 ? 'one' : 'other'}`)}</Subtitle>
         {#if displayingMode === 'grid'}
             <DecksGrid bind:decks={myDecks.decks} />
         {:else if displayingMode === 'list'}

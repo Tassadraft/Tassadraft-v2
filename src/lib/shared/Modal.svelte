@@ -1,11 +1,12 @@
 <script>
     import Button from './Button.svelte';
     import { createEventDispatcher } from 'svelte';
+    import { t } from 'svelte-i18n';
 
     const dispatch = createEventDispatcher();
 
     export let showModal = false;
-    export let closeText = 'Close';
+    export let closeText;
     export let successText = '';
     export let fullWidth = false;
     export let dialog;
@@ -30,7 +31,13 @@
 </script>
 
 <dialog bind:this={dialog} on:close={() => (showModal = false)} class="rounded-lg border-none p-0 {fullWidth ? 'w-9/10' : 'max-w-lg'}">
-    <Button type="button" ariaLabel="Close modal" className="fixed inset-0 w-full h-full cursor-default" customStyle={true} on:click={handleClose} />
+    <Button
+        type="button"
+        ariaLabel={$t('common.close-modal')}
+        className="fixed inset-0 w-full h-full cursor-default"
+        customStyle={true}
+        on:click={handleClose}
+    />
 
     <div class="p-4 bg-white dark:bg-gray-700 rounded-lg relative">
         <slot name="header" />
@@ -41,15 +48,15 @@
             {#if successText}
                 <div class="flex flex-row justify-center space-x-12 w-full">
                     <Button on:click={handleSuccess}>
-                        {successText}
+                        {successText || $t('common.yes')}
                     </Button>
                     <Button on:click={handleClose}>
-                        {closeText}
+                        {closeText || $t('common.no')}
                     </Button>
                 </div>
             {:else}
                 <Button className="mx-auto" on:click={handleClose}>
-                    {closeText}
+                    {closeText || $t('common.close')}
                 </Button>
             {/if}
         </div>

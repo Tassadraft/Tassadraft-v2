@@ -1,0 +1,224 @@
+{
+    "common": {
+        "tassadraft": "Tassadraft",
+        "tassacards": "Tassacards",
+        "tassadecks": "Tassadecks",
+        "yes": "Yes",
+        "no": "No",
+        "coming-soon": "Coming soon ...",
+        "close": "Close",
+        "close-modal": "Close modal",
+        "delete": "Delete",
+        "public": "Public",
+        "enabled": "Enabled",
+        "actions": "Actions",
+        "legal": "Legal",
+        "not-legal": "Not legal",
+        "updated-on": "Updated on",
+        "created-on": "Created on",
+        "card": {
+            "one": "card",
+            "other": "cards"
+        },
+        "search": "Search",
+        "name": "Name",
+        "username": {
+            "label": "Username",
+            "placeholder": "John123"
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "john.smith@gmail.com"
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "xxx"
+        },
+        "confirm-password": {
+            "label": "Confirm password",
+            "placeholder": "xxx"
+        },
+        "reset-password": "Reset password",
+        "submit": "Submit",
+        "file": {
+            "title": "Select a file",
+            "description": "Drag & drop or click to select a file."
+        },
+        "edit-deck": "Edit deck"
+    },
+    "toast": {
+        "photo": {
+            "deleted": "Photo deleted",
+            "restored": "Photo restored",
+            "unauthorized": "You are not authorized to process photos",
+            "error": "An error occurred while processing photos"
+        },
+        "reset-password": {
+            "mail": {
+                "success": "An email has been sent to reset your password",
+                "error": "An error occurred while sending email. Retry later."
+            }
+        },
+        "account": {
+            "error": "An error occurred while fetching your profile"
+        },
+        "editor": {
+            "load": {
+                "error": "Error while loading the deck"
+            },
+            "legality": {
+                "error": "Error while fetching deck legality"
+            },
+            "search": {
+                "error": "Error while searching"
+            },
+            "card-prints": {
+                "error": "Error while fetching card prints"
+            }
+        }
+    },
+    "badge": {
+        "in-deck": "In deck",
+        "banned": "Banned",
+        "current": "Current"
+    },
+    "table": {
+        "card": {
+            "set": "Set",
+            "foil": "Foil",
+            "price": "Price"
+        },
+        "deck": {
+            "format": "Format",
+            "cards": "Cards",
+            "owner": "Owner"
+        }
+    },
+    "menu": {
+        "home": "Home",
+        "settings": "Settings",
+        "account": "Account",
+        "logout": "Logout",
+        "login": "Login"
+    },
+    "settings": {
+        "title": "Settings",
+        "theme": "Theme",
+        "currency": {
+            "title": "Currency",
+            "euro": "Euro (€)",
+            "dollar": "Dollar ($)"
+        },
+        "language": {
+            "title": "Preferred language",
+            "english": "English",
+            "french": "Français"
+        }
+    },
+    "account": {
+        "title": "Account",
+        "subscription": "Subscription",
+        "subscription-ends": "Subscription ends on",
+        "subscribed-on": "Subscribed on",
+        "subscribe": "Subscribe"
+    },
+    "reset-password": {
+        "title": "Reset password",
+        "confirm": {
+            "title": "Finish reset password",
+            "password": {
+                "match": "Passwords do not match",
+                "length": "Password must be at least 8 characters long",
+                "lowercase": "Password must contain at least one lowercase letter",
+                "uppercase": "Password must contain at least one uppercase letter",
+                "number": "Password must contain at least one number",
+                "special-character": "Password must contain at least one special character",
+                "success": "Password reset successfully"
+            }
+        }
+    },
+    "subscribe": {
+        "title": "Subscribe"
+    },
+    "home": {
+        "title": "Home",
+        "tassadraft": {
+            "description": "Your batch card recognition tool"
+        },
+        "tassacards": {
+            "description": "Coming soon ..."
+        },
+        "tassadecks": {
+            "description": "Your dedicated deck editor"
+        }
+    },
+    "tassadraft": {
+        "photos": "Photos",
+        "cards": "Cards",
+        "no-photo": "No photos are available",
+        "process": {
+            "modal": {
+                "title": "Photos processing",
+                "text": "Some photos seem not to be processed yet.",
+                "question": "Do you want to process them ?"
+            }
+        }
+    },
+    "tassadecks": {
+        "owned-decks": {
+            "one": "deck owned",
+            "other": "decks owned"
+        },
+        "public-decks": {
+            "one": "public deck",
+            "other": "public decks"
+        },
+        "delete-deck": "Are you sure you want to delete ",
+        "new": {
+            "card": {
+                "title": "New deck",
+                "description": "Create a new deck from zero or by importing a file"
+            },
+            "form": {
+                "name": {
+                    "label": "Name",
+                    "placeholder": "Mono red aggro"
+                },
+                "description": {
+                    "label": "Description",
+                    "placeholder": "This is a aggro deck that's supposed to win in 5 turns."
+                },
+                "file": {
+                    "title": "Import deck list file"
+                }
+            }
+        },
+        "my-decks": {
+            "title": "Choose a deck to edit",
+            "card": {
+                "title": "Edit a deck",
+                "description": "Edit one of your decks, or one shared with you"
+            }
+        },
+        "browse": {
+            "title": "Browse all decks",
+            "card": {
+                "title": "Browse all decks",
+                "description": "Browse all public, shared with you, and your decks"
+            }
+        },
+        "editor": {
+            "detailed-categories": "Detailed categories",
+            "search": {
+                "title": "Search cards",
+                "label": "Search cards by name",
+                "placeholder": "Forest",
+                "already": "Card already in the deck"
+            },
+            "print": {
+                "switch": "Switch print",
+                "choose": "Choose print"
+            }
+        }
+    }
+}

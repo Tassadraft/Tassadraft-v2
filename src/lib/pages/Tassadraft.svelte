@@ -5,10 +5,11 @@
     import Title from '../shared/Title.svelte';
     import PhotosList from '../shared/PhotosList.svelte';
     import CardsTable from '../tables/card/CardsTable.svelte';
+    import { t } from 'svelte-i18n';
 
     let photos = [];
     let cards = [];
-    let state = 'Photos';
+    let state;
     let deletedPhotos = [];
     let deletedCards = [];
 
@@ -32,15 +33,17 @@
 
         photos = photos.map((photo) => ({ ...photo, processed: true }));
     };
+
+    $: state = $t('tassadraft.photos');
 </script>
 
 <Menu />
-<Title title="Tassadraft" />
+<Title title={$t('common.tassadraft')} />
 <TassadraftSegment bind:selectedOption={state} bind:photos on:processed={handleProcessed} />
 
-{#if state === 'Photos'}
+{#if state === $t('tassadraft.photos')}
     <PhotosList bind:deletedPhotos bind:cards bind:photos />
     <Photo on:photo={(e) => (photos = [...photos, { uri: e.detail.photo.webPath, cards: [], processed: false }])} />
-{:else if state === 'Cards'}
+{:else if state === $t('tassadraft.cards')}
     <CardsTable bind:deletedCards bind:cards />
 {/if}

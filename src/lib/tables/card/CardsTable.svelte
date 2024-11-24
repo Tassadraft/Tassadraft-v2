@@ -4,6 +4,7 @@
     import { showToast } from '../../../service/toastService.js';
     import Fab from '../../shared/Fab.svelte';
     import TableHeader from '../TableHeader.svelte';
+    import { t } from 'svelte-i18n';
 
     export let cards = [];
     export let deletedCards = [];
@@ -11,13 +12,7 @@
     let showModal = false;
     let currency = localStorage.getItem('currency');
     let deletingCard;
-    const columns = [
-        { name: 'Name', key: 'name' },
-        { name: 'Set' },
-        { name: 'Foil' },
-        { name: 'Price', key: 'displayedPrice', icon: currency },
-        { name: 'Delete' },
-    ];
+    let columns = [];
     let sortBy = '';
     let sortDirection = 'asc';
 
@@ -53,6 +48,14 @@
             });
         }
     };
+
+    $: columns = [
+        { name: $t('common.name'), key: 'name' },
+        { name: $t('table.card.set') },
+        { name: $t('table.card.foil') },
+        { name: $t('table.card.price'), key: 'displayedPrice', icon: currency },
+        { name: $t('common.delete') },
+    ];
 </script>
 
 <div class="overflow-hidden rounded-lg border border-primary-700 mt-5">
@@ -66,7 +69,7 @@
     </table>
 </div>
 
-<Modal bind:showModal closeText="No" successText="Yes" on:success={handleDeleteSuccess}>
+<Modal bind:showModal successText={$t('common.yes')} closeText={$t('common.no')} on:success={handleDeleteSuccess}>
     <p class="text-black dark:text-white">
         Delete {deletingCard?.translation.name} ?
     </p>

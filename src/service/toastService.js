@@ -31,25 +31,4 @@ const showToast = (text, status = 'success', duration = 5000) => {
     }).showToast();
 };
 
-const storeToast = (text, status = 'success', duration = 5000) => {
-    const storedToast = localStorage.getItem('toasts');
-    let toasts = [];
-    if (storedToast) {
-        toasts = JSON.parse(storedToast);
-    }
-    toasts.push({ text, status, duration });
-    localStorage.setItem('toasts', JSON.stringify(toasts));
-};
-
-const showStoredToasts = () => {
-    const storedToast = localStorage.getItem('toasts');
-    if (storedToast) {
-        const toasts = JSON.parse(storedToast);
-        toasts.forEach((toast) => {
-            showToast(toast.text, toast.status, toast.duration);
-        });
-        localStorage.removeItem('toasts');
-    }
-};
-
-export { showToast, storeToast, showStoredToasts };
+export { showToast };

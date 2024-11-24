@@ -10,11 +10,11 @@
 
 ### New features
 
-- Deck manager & edito
+-   Deck manager & edito
 
 ### Processing
 
-- Added card processing into editor to upload cards by taking photos
+-   Added card processing into editor to upload cards by taking photos
 
 ### Code quality
 

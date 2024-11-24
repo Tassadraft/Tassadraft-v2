@@ -1,24 +1,27 @@
 <script>
     import Radio from '../shared/Radio.svelte';
+    import { locale, t } from 'svelte-i18n';
 
-    let radioValue = localStorage.getItem('languageCode') || 'euro';
+    let radioValue = localStorage.getItem('languageCode');
+    let languages = [];
 
     const handleChange = (event) => {
         localStorage.setItem('languageCode', event);
+        locale.set(event);
     };
 
-    const currencies = [
-        {
-            value: 'fr',
-            label: 'Français',
-            selected: 'fr' === radioValue,
-        },
+    $: languages = [
         {
             value: 'en',
-            label: 'English',
+            label: $t('settings.language.english'),
             selected: 'en' === radioValue,
+        },
+        {
+            value: 'fr',
+            label: $t('settings.language.french'),
+            selected: 'fr' === radioValue,
         },
     ];
 </script>
 
-<Radio {handleChange} options={currencies} fontSize={16} legend="Preferred language" bind:userSelected={radioValue} />
+<Radio {handleChange} options={languages} fontSize={16} legend={$t('settings.language.title')} bind:userSelected={radioValue} />

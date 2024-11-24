@@ -1,5 +1,6 @@
 <script>
     import Link from '../shared/Link.svelte';
+    import { t } from 'svelte-i18n';
 
     export let decks = [];
     export let displayOwner = false;
@@ -17,12 +18,13 @@
             <div class="bg-black/50 p-4 rounded-lg">
                 <h2 class="text-xl font-bold">{deck.name}</h2>
                 <p>
-                    {deck.cards} cards
+                    {deck.cards}
+                    {$t(`common.card.${deck.cards === 1 ? 'one' : 'other'}`)}
                 </p>
-                <p>Enabled: {deck.enabled ? 'Yes' : 'No'}</p>
-                <p>Public: {deck.public ? 'Yes' : 'No'}</p>
+                <p>{$t('common.enabled')}: {$t(`common.${deck.enabled ? 'yes' : 'no'}`)}</p>
+                <p>{$t('common.public')}: {$t(`common.${deck.public ? 'yes' : 'no'}`)}</p>
                 {#if displayOwner}
-                    <p>Owner: {deck.owner}</p>
+                    <p>{$t('table.deck.owner')}: {deck.owner}</p>
                 {/if}
             </div>
         </Link>
