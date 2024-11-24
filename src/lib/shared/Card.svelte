@@ -1,5 +1,6 @@
 <script>
     import Icon from './Icon.svelte';
+    import Link from "./Link.svelte";
 
     export let title = '';
     export let icon = '';
@@ -9,7 +10,7 @@
     let hovering = false;
 </script>
 
-<a {href} on:mouseenter={() => (hovering = true)} on:mouseleave={() => (hovering = false)} class="block">
+<Link {href} on:mouseenter={() => (hovering = true)} on:mouseleave={() => (hovering = false)}>
     <div class="flex flex-col md:flex-row items-center p-6 rounded-lg shadow-lg dark:bg-gray-700 h-40">
         <div
             class="flex flex-col items-center justify-center order-1 md:order-2 text-center transition-opacity duration-300 {description && hovering
@@ -30,4 +31,4 @@
             <p>{description}</p>
         </div>
     </div>
-</a>
+</Link>

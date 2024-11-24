@@ -13,9 +13,11 @@
     $: document.body.classList.toggle('dark', checked);
 </script>
 
-<div class="legend font-bold mb-2">
-    {title}
-</div>
+{#if title}
+    <div class="legend font-bold mb-2">
+        {title}
+    </div>
+{/if}
 
 <div class="flex flex-row items-center gap-0.5">
     <Icon name="sun" size={iconSize} color={checked ? '' : 'primary'} />

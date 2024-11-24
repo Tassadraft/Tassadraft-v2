@@ -2,37 +2,41 @@
     import Card from '../shared/Card.svelte';
     import { onMount } from 'svelte';
     import Menu from '../menu/Menu.svelte';
+    import { t } from 'svelte-i18n';
 
-    onMount(() => {
-        document.title = 'Home';
-    });
+    let products = [];
 
-    const products = [
-        {
-            href: '/tassadraft',
-            title: 'Tassadraft',
-            icon: 'camera',
-            description: 'Your batch card recognition tool',
-        },
-        {
-            href: '#',
-            title: 'Tassacards',
-            icon: 'book',
-            description: 'Coming soon',
-        },
-        {
-            href: '/tassadecks',
-            title: 'Tassadecks',
-            icon: 'camera',
-            description: 'Your dedicated deck editor',
-        },
-    ];
+    $: {
+        document.title = $t('home.title');
+        products = [
+            {
+                href: '/tassadraft',
+                title: $t('common.tassadraft'),
+                icon: 'camera',
+                description: $t('home.tassadraft.description'),
+            },
+            {
+                href: '#',
+                title: $t('common.tassacards'),
+                icon: 'book',
+                description: $t('home.tassacards.description'),
+            },
+            {
+                href: '/tassadecks',
+                title: $t('common.tassadecks'),
+                icon: 'camera',
+                description: $t('home.tassadecks.description'),
+            },
+        ];
+    }
 </script>
 
 <Menu />
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
-    {#each products as product}
-        <Card title={product.title} icon={product.icon} href={product.href} description={product.description} />
-    {/each}
+    {#if products}
+        {#each products as product}
+            <Card title={product.title} icon={product.icon} href={product.href} description={product.description} />
+        {/each}
+    {/if}
 </div>

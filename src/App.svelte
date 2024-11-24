@@ -1,13 +1,13 @@
 <script>
     import { onMount } from 'svelte';
     import { Router, Route } from 'svelte-routing';
+    import { locale, t } from 'svelte-i18n';
     import Homepage from './lib/pages/Home.svelte';
     import Tassadraft from './lib/pages/Tassadraft.svelte';
     import Settings from './lib/pages/Settings.svelte';
     import Login from './lib/pages/Login.svelte';
     import Account from './lib/pages/Account.svelte';
     import Logout from './lib/pages/Logout.svelte';
-    import { showStoredToasts } from './service/toastService.js';
     import Tassadecks from './lib/pages/Tassadecks.svelte';
     import Deck from './lib/tassadecks/Editor.svelte';
     import NewDeck from './lib/tassadecks/NewDeck.svelte';
@@ -17,8 +17,18 @@
     import ConfirmResetPassword from './lib/pages/ConfirmResetPassword.svelte';
     import { defineCustomElements } from '@ionic/pwa-elements/loader';
     import Subscribe from './lib/pages/Subscribe.svelte';
+    import {updateAccount} from "./stores/authStore.js";
+    import {showToast} from "./service/toastService.js";
 
     export let url = '';
+
+    const languageCode = localStorage.getItem('languageCode');
+    if (languageCode !== 'en' && languageCode !== 'fr') {
+        localStorage.setItem('languageCode', 'en');
+    }
+    if (!$locale) {
+        locale.set(localStorage.getItem('languageCode'));
+    }
 
     onMount(async () => {
         await defineCustomElements(window);
@@ -31,14 +41,15 @@
         if (currency !== 'dollar' && currency !== 'euro') {
             localStorage.setItem('currency', 'euro');
         }
-        const languageCode = localStorage.getItem('languageCode');
-        if (languageCode !== 'en' && languageCode !== 'fr') {
-            localStorage.setItem('languageCode', 'en');
-        }
-        showStoredToasts();
-    });
 
-    document.body.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
+        if (localStorage.getItem('apiToken')) {
+            try {
+                await updateAccount();
+            } catch(e) {
+                showToast($t('toast.account.error'), 'error');
+            }
+        }
+    });
 </script>
 
 <main class="bg-gray-200 dark:bg-gray-900 text-black dark:text-white min-h-screen min-w-screen px-3.5">

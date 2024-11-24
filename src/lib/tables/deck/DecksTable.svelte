@@ -1,31 +1,25 @@
 <script>
     import TableHeader from '../TableHeader.svelte';
     import DeckRow from './DeckRow.svelte';
-    import { createEventDispatcher, onMount } from 'svelte';
+    import { createEventDispatcher } from 'svelte';
     import Subtitle from '../../shared/Subtitle.svelte';
     import Modal from '../../shared/Modal.svelte';
     import axios from '../../../axiosConfig.js';
     import Loader from '../../shared/Loader.svelte';
+    import { t } from 'svelte-i18n';
+    import { deleteDeck } from "../../../stores/deckStore.js";
 
     export let decks = [];
     export let displayOwner = false;
 
     const dispatch = createEventDispatcher();
 
-    let columns = [{ name: 'Name', key: 'name' }, { name: 'Format', key: 'format' }, { name: 'Cards' }, { name: 'Enabled' }, { name: 'Public' }];
+    let columns = [];
     let sortBy = '';
     let sortDirection = 'asc';
     let selectedDeck = {};
     let showModal = false;
     let loading = false;
-
-    onMount(() => {
-        if (displayOwner) {
-            columns.push({ name: 'Owner', key: 'owner' });
-        } else {
-            columns.push({ name: 'Actions' });
-        }
-    });
 
     const handleSort = (e) => {
         if (sortBy === e.detail.name) {
@@ -53,6 +47,7 @@
             loading = true;
             const response = await axios.delete(`/api/auth/reserved/decks/${selectedDeck.id}`);
             if (response.status === 200) {
+                deleteDeck(selectedDeck);
                 dispatch('deckDeleted');
                 decks = decks.filter((deck) => deck.id !== selectedDeck.id);
             }
@@ -63,6 +58,21 @@
             showModal = false;
         }
     };
+
+    $: {
+        columns = [
+            { name: $t('common.name'), key: 'name' },
+            { name: $t('table.deck.format'), key: 'format' },
+            { name: $t('table.deck.cards') },
+            { name: $t('common.enabled') },
+            { name: $t('common.public') }
+        ];
+        if (displayOwner) {
+            columns.push({ name: $t('table.deck.owner'), key: 'owner' });
+        } else {
+            columns.push({ name: $t('common.actions') });
+        }
+    }
 </script>
 
 <div class="overflow-hidden rounded-lg border border-primary-700 mt-5">
@@ -78,6 +88,6 @@
 
 <Loader bind:loading />
 
-<Modal bind:showModal successText="Yes" closeText="No" on:success={handleDelete}>
-    <Subtitle>Are you sure you want to delete {selectedDeck.name} ?</Subtitle>
+<Modal bind:showModal successText={$t('common.yes')} closeText={$t('common.no')} on:success={handleDelete}>
+    <Subtitle>{`${$t('tassadecks.delete-deck')}`} {selectedDeck.name} ?</Subtitle>
 </Modal>

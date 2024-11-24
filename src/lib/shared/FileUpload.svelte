@@ -1,8 +1,9 @@
 <script>
     import Icon from './Icon.svelte';
+    import { t } from 'svelte-i18n';
 
     export let name = '';
-    export let description = 'Drag & drop or click to select a file.';
+    export let description;
     export let title = null;
     export let width = '64';
     export let accept = '';
@@ -47,6 +48,11 @@
         if (event.key === 'Enter' || event.key === ' ') {
             document.getElementById('file-upload').click();
         }
+    }
+
+    $: {
+        title ? title = $t('common.file.description') : '';
+        description ? description = $t('common.file.description') : '';
     }
 </script>
 

@@ -3,7 +3,9 @@
     import PasswordInput from '../shared/PasswordInput.svelte';
     import Title from '../shared/Title.svelte';
     import Menu from '../menu/Menu.svelte';
-    import { showToast, storeToast } from '../../service/toastService.js';
+    import { showToast } from '../../service/toastService.js';
+    import {navigate} from "svelte-routing";
+    import { t } from 'svelte-i18n';
 
     export let token = '';
 
@@ -14,25 +16,25 @@
 
     const checkPassword = () => {
         if (password !== confirmPassword) {
-            return 'Passwords do not match';
+            return $t('reset-password.confirm.password.match');
         } else if (password.length < 8) {
-            return 'Password must be at least 8 characters long';
+            return $t('reset-password.confirm.password.length');
         } else if (!password.match(/[a-z]/)) {
-            return 'Password must contain at least one lowercase letter';
+            return $t('reset-password.confirm.password.lowercase');
         } else if (!password.match(/[A-Z]/)) {
-            return 'Password must contain at least one uppercase letter';
+            return $t('reset-password.confirm.password.uppercase');
         } else if (!password.match(/[0-9]/)) {
-            return 'Password must contain at least one number';
+            return $t('reset-password.confirm.password.number');
         } else if (!password.match(/[^a-zA-Z0-9]/)) {
-            return 'Password must contain at least one special character';
+            return $t('reset-password.confirm.password.special-character');
         } else {
             return '';
         }
     };
 
     const handleSuccess = () => {
-        storeToast('Password reset successfully');
-        window.location.href = '/login';
+        showToast($t('reset-password.confirm.password.success'));
+        navigate('/login');
     };
 
     const handleFailure = (response) => {
@@ -47,11 +49,11 @@
 
 <Menu />
 
-<Title title="Reset Password" />
+<Title title={$t('reset-password.confirm.title')} />
 
 <Form action={`/api/reset-password/confirm/${token}`} method="POST" {handleSuccess} {handleFailure} bind:submittable={canSubmit}>
-    <PasswordInput name="password" label="Password" bind:value={password} />
-    <PasswordInput name="confirmPassword" label="Confirm Password" bind:value={confirmPassword} />
+    <PasswordInput name="password" bind:value={password} />
+    <PasswordInput name="confirmPassword" label={$t('common.confirm-password.label')} bind:value={confirmPassword} />
 </Form>
 
 {#if message}

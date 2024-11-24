@@ -2,6 +2,7 @@
     import IconButton from '../shared/IconButton.svelte';
     import { showToast } from '../../service/toastService.js';
     import CardBadge from './CardBadge.svelte';
+    import { t } from 'svelte-i18n';
 
     export let deck = {};
     export let card = {};
@@ -39,7 +40,7 @@
                 if (categoryObject.category.name === card?.translation.mainType) {
                     foundCategory = true;
                     if (categoryObject.cards.some((deckCard) => deckCard.print?.oracleId === card?.oracleId)) {
-                        showToast('Card already in the deck', 'error');
+                        showToast($t('tassadecks.editor.search.already'), 'error');
                         return;
                     }
                     const response = await addCardRequest(card);
@@ -112,7 +113,7 @@
             class="w-48 rounded-lg group-hover:opacity-50 transition-opacity duration-300 {flipped ? 'transform rotate-180' : ''}"
         />
         {#if cardObject !== null}
-            <CardBadge>In deck</CardBadge>
+            <CardBadge>{$t('badge.in-deck')}</CardBadge>
         {/if}
         <div
             class="absolute inset-0 flex justify-center items-center flex-col gap-5 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"

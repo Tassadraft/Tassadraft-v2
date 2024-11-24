@@ -6,33 +6,36 @@
     import axios from '../../axiosConfig.js';
     import Menu from '../menu/Menu.svelte';
     import { showToast } from '../../service/toastService.js';
+    import { t } from 'svelte-i18n';
 
     let email = '';
     let readonly = false;
 
     onMount(async () => {
-        try {
-            const { data } = await axios.get('/api/auth/get-email');
-            email = data.email;
-            readonly = true;
-        } catch (error) {
-            console.error(error);
+        if (localStorage.getItem('apiToken')) {
+            try {
+                const {data} = await axios.get('/api/auth/get-email');
+                email = data.email;
+                readonly = true;
+            } catch (error) {
+                console.error(error);
+            }
         }
     });
 
     const handleSuccess = () => {
-        showToast('An email has been sent to reset your password');
+        showToast($t('toast.reset-password.mail.success'));
     };
 
     const handleFailure = () => {
-        showToast('An error occurred', 'error');
+        showToast($t('toast.reset-password.mail.error'), 'error');
     };
 </script>
 
 <Menu />
 
-<Title title="Reset Password" />
+<Title title={$t('reset-password.title')} />
 
 <Form {handleSuccess} {handleFailure} action="/api/reset-password/send-mail" method="POST">
-    <Input label="Enter your email" type="email" name="email" bind:value={email} placeholder="toto@gmail.com" required={true} {readonly} />
+    <Input label={$t('common.email.label')} placeholder={$t('common.email.placeholder')} type="email" name="email" bind:value={email} required={true} {readonly} />
 </Form>

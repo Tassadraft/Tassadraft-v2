@@ -5,6 +5,7 @@
     import ThemeSwitch from '../shared/ThemeSwitch.svelte';
     import Button from '../shared/Button.svelte';
     import IconButton from '../shared/IconButton.svelte';
+    import { t } from 'svelte-i18n';
 
     let isOpen = false;
     let connected = false;
@@ -55,16 +56,16 @@
             </div>
 
             <ul class="space-y-4 p-4">
-                <MenuItem iconLeft="home" href="/" onClick={closeMenu}>Home</MenuItem>
-                <MenuItem iconLeft="camera" href="/tassadraft" onClick={closeMenu}>Tassadraft</MenuItem>
-                <MenuItem iconLeft="book" href="/tassadecks" onClick={closeMenu}>Tassadecks</MenuItem>
-                <MenuItem iconLeft="camera" href="#" onClick={closeMenu}>Tassacards</MenuItem>
-                <MenuItem iconLeft="settings" href="/settings" onClick={closeMenu}>Settings</MenuItem>
+                <MenuItem iconLeft="home" href="/">{$t('menu.home')}</MenuItem>
+                <MenuItem iconLeft="camera" href="/tassadraft">Tassadraft</MenuItem>
+                <MenuItem iconLeft="book" href="/tassadecks">Tassadecks</MenuItem>
+                <MenuItem iconLeft="camera" href="#">Tassacards</MenuItem>
+                <MenuItem iconLeft="settings" href="/settings">{$t('menu.settings')}</MenuItem>
                 {#if connected}
-                    <MenuItem iconLeft="user" href="/account" onClick={closeMenu}>Account</MenuItem>
-                    <MenuItem iconLeft="userRemove" href="/logout" onClick={closeMenu}>Logout</MenuItem>
+                    <MenuItem iconLeft="user" href="/account">{$t('menu.account')}</MenuItem>
+                    <MenuItem iconLeft="userRemove" href="/logout">{$t('menu.logout')}</MenuItem>
                 {:else}
-                    <MenuItem iconLeft="user" href="/login" onClick={closeMenu}>Login</MenuItem>
+                    <MenuItem iconLeft="user" href="/login">{$t('menu.login')}</MenuItem>
                 {/if}
             </ul>
         </nav>

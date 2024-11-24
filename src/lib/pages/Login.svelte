@@ -4,15 +4,18 @@
     import Form from '../shared/Form.svelte';
     import Input from '../shared/Input.svelte';
     import PasswordInput from '../shared/PasswordInput.svelte';
-    import { showToast, storeToast } from '../../service/toastService.js';
+    import { showToast } from '../../service/toastService.js';
     import axios from '../../axiosConfig.js';
     import Title from '../shared/Title.svelte';
     import Link from '../shared/Link.svelte';
+    import { navigate } from "svelte-routing";
+    import {updateAccount} from "../../stores/authStore.js";
+    import { t } from 'svelte-i18n';
 
     onMount(() => {
         if (localStorage.getItem('apiToken')) {
-            storeToast('You are already logged in', 'warning');
-            window.location.href = '/';
+            showToast('You are already logged in', 'warning');
+            navigate('/');
         }
     });
 
@@ -22,14 +25,24 @@
     const handleSuccess = async (response) => {
         localStorage.setItem('apiToken', response.token.token);
         localStorage.setItem('apiTokenExpiration', response.token.expiresAt);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.token.token}`;
+
+        // Account
+        try {
+            await updateAccount();
+        } catch(e) {
+            showToast($t('toast.account.error'));
+        }
+
+        // Subscription
         try {
             await axios.get('/api/auth/reserved');
             localStorage.setItem('subscribed', 'true');
         } catch (error) {
             localStorage.setItem('subscribed', 'false');
         }
-        storeToast('You are now logged in');
-        window.location.href = '/';
+        showToast('You are now logged in');
+        navigate('/');
     };
 
     const handleFailure = (response) => {

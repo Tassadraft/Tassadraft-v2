@@ -9,6 +9,7 @@
     import Subtitle from '../shared/Subtitle.svelte';
     import DisplayingMode from '../shared/DisplayingMode.svelte';
     import Panel from '../shared/Panel.svelte';
+    import { t } from 'svelte-i18n';
 
     let myDecks = {};
     let displayingMode = 'list';
@@ -25,7 +26,7 @@
 </script>
 
 <Menu />
-<Title title="Choose a deck" />
+<Title title={$t('tassadecks.my-decks.title')} />
 
 <Panel>
     <div class="flex flex-row gap-5">
@@ -36,7 +37,7 @@
 </Panel>
 
 <Panel>
-    <Subtitle>{myDecks.total ?? 0} decks owned</Subtitle>
+    <Subtitle>{myDecks.total} {$t(`tassadecks.owned-decks.${myDecks.total === 1 ? 'one' : 'other'}`)}</Subtitle>
     {#if displayingMode === 'grid'}
         <DecksGrid bind:decks={myDecks.decks} />
     {:else if displayingMode === 'list'}

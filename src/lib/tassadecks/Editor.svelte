@@ -6,7 +6,7 @@
     import Panel from '../shared/Panel.svelte';
     import Switch from '../shared/Switch.svelte';
     import Subtitle from '../shared/Subtitle.svelte';
-    import { showToast, storeToast } from '../../service/toastService.js';
+    import { showToast } from '../../service/toastService.js';
     import Modal from '../shared/Modal.svelte';
     import Button from '../shared/Button.svelte';
     import Search from '../shared/Search.svelte';
@@ -24,6 +24,9 @@
     import { capitalizeFirstChar } from '../../service/stringService.js';
     import CardPrintItem from './CardPrintItem.svelte';
     import IconInfo from '../shared/IconInfo.svelte';
+    import {navigate} from "svelte-routing";
+    import {setDeck, decks} from "../../stores/deckStore.js";
+    import { t } from "svelte-i18n";
 
     export let deckId = '';
 
@@ -66,23 +69,28 @@
     let isLegal = false;
 
     onMount(async () => {
-        try {
-            const { data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
-            deck = deckData;
-            const rawUpdatedAt = new Date(deck.updatedAt);
-            const rawCreatedAt = new Date(deck.createdAt);
-            updatedAt = rawUpdatedAt.toLocaleString();
-            createdAt = rawCreatedAt.toLocaleString();
-            categoryOptions = deck.categories.map((categoryObject) => {
-                return {
-                    value: categoryObject.id,
-                    label: categoryObject.category.name,
-                };
-            });
-        } catch (e) {
-            storeToast('Error while loading the deck', 'error');
-            window.location = '/decks';
+        if ($decks[deckId]) {
+            deck = $decks[deckId];
+        } else {
+            try {
+                const {data: deckData} = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
+                deck = deckData;
+                setDeck(deck);
+            } catch (e) {
+                showToast($t('toast.editor.load.error'), 'error');
+                navigate('/decks');
+            }
         }
+        const rawUpdatedAt = new Date(deck.updatedAt);
+        const rawCreatedAt = new Date(deck.createdAt);
+        updatedAt = rawUpdatedAt.toLocaleString();
+        createdAt = rawCreatedAt.toLocaleString();
+        categoryOptions = deck.categories.map((categoryObject) => {
+            return {
+                value: categoryObject.id,
+                label: categoryObject.category.name,
+            };
+        });
     });
 
     const addCardRequest = async (print) => {
@@ -91,11 +99,11 @@
                 actionType: 'addCard',
                 cardId: print.oracleId,
             });
-            showToast(`1 ${print?.translation?.name} added to the deck`);
+            showToast(`1 ${print?.translation?.name} added to ${deck.name}`);
             await updateLegalityRequest();
             return response.data;
         } catch (e) {
-            showToast('Error adding card to the deck', 'error');
+            showToast(`Error adding ${print?.translation?.name} to ${deck.name}`, 'error');
             return null;
         }
     };
@@ -110,7 +118,7 @@
             await updateLegalityRequest();
             return response.data;
         } catch (e) {
-            showToast(`Error deleting ${card.translation.name} from the ${deck.name}`, 'error');
+            showToast(`Error deleting ${card.translation.name} from ${deck.name}`, 'error');
             return false;
         }
     };
@@ -181,7 +189,7 @@
             const { data } = await axios.get(`/api/auth/reserved/decks/${deckId}/is-legal`);
             isLegal = data;
         } catch (e) {
-            showToast('Error while fetching deck legality', 'error');
+            showToast($t('toast.editor.legality.error'), 'error');
         }
     };
 
@@ -274,7 +282,6 @@
                 if (!addedCardObject) {
                     continue;
                 }
-                console.log(addedCardObject.card);
                 const isCardInDeck = deck.categories.some((categoryObject) => {
                     return categoryObject.cards.some((co) => co.print.oracleId === addedCardObject.card.print.oracleId);
                 });
@@ -303,11 +310,10 @@
             loading = false;
         } catch (error) {
             loading = false;
-            console.error(error);
             if (error.response?.status === 401) {
-                showToast('You are not authorized to process photos', 'error');
+                showToast($t('toast.photo.unauthorized'), 'error');
             } else {
-                showToast('An error occurred while processing photos', 'error');
+                showToast($t('toast.photo.error'), 'error');
             }
         }
     };
@@ -323,7 +329,7 @@
             const { data: paginated } = await axios.get(cardSearchBaseUrl);
             paginatedSearchedCards = paginated;
         } catch (e) {
-            showToast('Error while searching', 'error');
+            showToast($t('toast.editor.search.error'), 'error');
         }
     };
 
@@ -334,7 +340,7 @@
                 const { data: paginated } = await axios.get(switchCardPrintBaseUrl);
                 paginatedCardPrints = paginated;
             } catch (e) {
-                showToast('Error while fetching card prints', 'error');
+                showToast($t('toast.editor.card-prints.error'), 'error');
             }
         }
     };
@@ -382,18 +388,18 @@
 <Panel>
     <div class="flex flex-row flex-wrap gap-5 justify-center mb-3">
         <div class="m-auto">
-            <Switch size="4" bind:value={deck.enabled} label="Enabled" on:change={metadataRequest} />
+            <Switch size="4" bind:value={deck.enabled} label={$t('common.enabled')} on:change={metadataRequest} />
         </div>
         <div class="m-auto">
-            <Switch size="4" bind:value={deck.public} label="Public" on:change={metadataRequest} />
+            <Switch size="4" bind:value={deck.public} label={$t('common.public')} on:change={metadataRequest} />
         </div>
-        <div class="mb-4 m-auto">
-            <Switch size="4" bind:value={deck.enableDetailedCategories} label="Detailed categories" on:change={metadataRequest} disabled={true} />
+        <div class="m-auto">
+            <Switch size="4" bind:value={deck.enableDetailedCategories} label={$t('tassadecks.editor.detailed-categories')} on:change={metadataRequest} disabled={true} />
         </div>
     </div>
     <div class="flex flex-row flex-wrap gap-20 justify-center mb-3">
         <p>{cardsLength} cards</p>
-        <p>{isLegal ? 'Legal' : 'Not legal'}</p>
+        <p>{$t(`common.${isLegal ? 'legal' : 'not-legal'}`)}</p>
         <Subtitle>{capitalizeFirstChar(deck.format)}</Subtitle>
     </div>
     <div class="flex justify-center mb-3">
@@ -402,8 +408,8 @@
         </Editable>
     </div>
     <div class="grid grid-cols-2 text-center">
-        <p>Updated on {updatedAt}</p>
-        <p>Created on {createdAt}</p>
+        <p>{$t('common.updated-on')} {updatedAt}</p>
+        <p>{$t('common.created-on')} {createdAt}</p>
     </div>
 </Panel>
 
@@ -412,7 +418,7 @@
         <Button on:click={() => (showSearchModal = true)}>
             <div class="flex flex-row gap-1">
                 <Icon name="search" />
-                <p>Search</p>
+                <p>{$t('common.search')}</p>
             </div>
         </Button>
         <div class="flex justify-end w-full">
@@ -524,14 +530,14 @@
 </Modal>
 
 <Modal bind:showModal={showSearchModal} fullWidth={true}>
-    <Subtitle slot="header">Search cards</Subtitle>
+    <Subtitle slot="header">{$t('tassadecks.editor.search.title')}</Subtitle>
 
     <Search
         bind:selectedObserver={showSearchModal}
         selected={true}
         bind:results={paginatedSearchedCards.cards}
-        placeholder="Forest"
-        label="Search cards by name"
+        placeholder={$t('tassadecks.editor.search.placeholder')}
+        label={$t('tassadecks.editor.search.label')}
         name={searchBarName}
         {handleSearch}
     />

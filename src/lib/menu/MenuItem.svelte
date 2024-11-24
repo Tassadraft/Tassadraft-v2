@@ -3,7 +3,6 @@
     import Icon from '../shared/Icon.svelte';
 
     export let href = '';
-    export let onClick;
     export let iconLeft = '';
     export let iconRight = 'chevronRight';
     const notClickable = href === window.location.pathname;
@@ -12,7 +11,6 @@
 <Link
     href={notClickable ? null : href}
     className={`hover:bg-gray-600 dark:hover:bg-gray-500 cursor-pointer flex flex-row transition-colors duration-300 rounded ${notClickable ? 'cursor-not-allowed opacity-50' : ''}`}
-    on:click={notClickable ? null : onClick}
 >
     <div class="mt-2.5">
         <Icon name={iconLeft} color="primary-500" />

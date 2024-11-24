@@ -3,11 +3,13 @@
     import Input from '../shared/Input.svelte';
     import Switch from '../shared/Switch.svelte';
     import FileUpload from '../shared/FileUpload.svelte';
-    import { showToast, storeToast } from '../../service/toastService.js';
+    import { showToast } from '../../service/toastService.js';
     import { onMount } from 'svelte';
     import axios from '../../axiosConfig.js';
     import Select from '../shared/Select.svelte';
     import { capitalizeFirstChar } from '../../service/stringService.js';
+    import {navigate} from "svelte-routing";
+    import { t } from 'svelte-i18n';
 
     export let scratch = true;
     export let deck = {
@@ -32,8 +34,8 @@
     });
 
     const handleSuccess = (response) => {
-        storeToast(response.message, 'success');
-        window.location = `/decks/edit/${response.deckId}`;
+        showToast(response.message, 'success');
+        navigate(`/decks/edit/${response.deckId}`);
     };
 
     const handleError = (error) => {
@@ -47,18 +49,18 @@
     {handleSuccess}
     handleFailure={handleError}
 >
-    <Input label="Name" type="text" name="name" bind:value={deck.name} required={true} />
-    <Input label="Description" type="text" name="description" bind:value={deck.description} />
+    <Input label={$t('tassadecks.new.form.name.label')} placeholder={$t('tassadecks.new.form.name.placeholder')} type="text" name="name" bind:value={deck.name} required={true} />
+    <Input label={$t('tassadecks.new.form.description.label')} placeholder={$t('tassadecks.new.form.description.placeholder')} type="text" name="description" bind:value={deck.description} />
     {#if supportedFormats.length}
         <div class="mb-5">
             <Select bind:options={supportedFormats} bind:selectedOption={selectedFormat} name="format" />
         </div>
     {/if}
-    <Switch size="6" name="public" bind:value={deck.public} label="Public" />
+    <Switch size="6" name="public" bind:value={deck.public} label={$t('common.public')} />
     <div class="mt-3 mb-3">
-        <Switch size="6" name="enabled" bind:value={deck.enabled} label="Enabled" />
+        <Switch size="6" name="enabled" bind:value={deck.enabled} label={$t('common.enabled')} />
     </div>
     {#if !scratch}
-        <FileUpload name="file" title="Import deck list file" accept="txt" />
+        <FileUpload name="file" title={$t('tassadecks.new.form.file.title')} description={$t('tassadecks.new.form.file.description')} accept="txt" />
     {/if}
 </Form>

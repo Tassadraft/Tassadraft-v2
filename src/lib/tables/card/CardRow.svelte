@@ -16,7 +16,9 @@
     onMount(async () => {
         try {
             const response = await fetch(card.set.iconSvgUri);
-            if (!response.ok) throw new Error('Failed to fetch SVG');
+            if (!response.ok) {
+                throw new Error();
+            }
             let rawSvg = await response.text();
 
             const parser = new DOMParser();
@@ -35,7 +37,7 @@
                 svgContent = rawSvg;
             }
         } catch (error) {
-            console.error('Error loading SVG:', error);
+            console.error('Error loading SVG :', error);
         }
 
         updateDisplayedPrice();
