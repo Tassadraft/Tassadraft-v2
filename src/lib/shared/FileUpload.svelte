@@ -51,8 +51,8 @@
     }
 
     $: {
-        title ? title = $t('common.file.description') : '';
-        description ? description = $t('common.file.description') : '';
+        title ? (title = $t('common.file.description')) : '';
+        description ? (description = $t('common.file.description')) : '';
     }
 </script>
 

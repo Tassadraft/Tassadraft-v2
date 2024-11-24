@@ -1,8 +1,8 @@
 <script>
     import { onMount } from 'svelte';
     import { showToast } from '../../service/toastService.js';
-    import {navigate} from "svelte-routing";
-    import {clearCurrentAccount} from "../../stores/authStore.js";
+    import { navigate } from 'svelte-routing';
+    import { clearCurrentAccount } from '../../stores/authStore.js';
 
     onMount(() => {
         document.title = 'Logout';

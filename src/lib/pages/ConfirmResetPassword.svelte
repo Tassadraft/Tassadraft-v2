@@ -4,7 +4,7 @@
     import Title from '../shared/Title.svelte';
     import Menu from '../menu/Menu.svelte';
     import { showToast } from '../../service/toastService.js';
-    import {navigate} from "svelte-routing";
+    import { navigate } from 'svelte-routing';
     import { t } from 'svelte-i18n';
 
     export let token = '';

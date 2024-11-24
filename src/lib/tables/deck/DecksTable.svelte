@@ -7,7 +7,7 @@
     import axios from '../../../axiosConfig.js';
     import Loader from '../../shared/Loader.svelte';
     import { t } from 'svelte-i18n';
-    import { deleteDeck } from "../../../stores/deckStore.js";
+    import { deleteDeck } from '../../../stores/deckStore.js';
 
     export let decks = [];
     export let displayOwner = false;
@@ -65,7 +65,7 @@
             { name: $t('table.deck.format'), key: 'format' },
             { name: $t('table.deck.cards') },
             { name: $t('common.enabled') },
-            { name: $t('common.public') }
+            { name: $t('common.public') },
         ];
         if (displayOwner) {
             columns.push({ name: $t('table.deck.owner'), key: 'owner' });

@@ -17,8 +17,8 @@
     import ConfirmResetPassword from './lib/pages/ConfirmResetPassword.svelte';
     import { defineCustomElements } from '@ionic/pwa-elements/loader';
     import Subscribe from './lib/pages/Subscribe.svelte';
-    import {updateAccount} from "./stores/authStore.js";
-    import {showToast} from "./service/toastService.js";
+    import { updateAccount } from './stores/authStore.js';
+    import { showToast } from './service/toastService.js';
 
     export let url = '';
 
@@ -45,7 +45,7 @@
         if (localStorage.getItem('apiToken')) {
             try {
                 await updateAccount();
-            } catch(e) {
+            } catch (e) {
                 showToast($t('toast.account.error'), 'error');
             }
         }

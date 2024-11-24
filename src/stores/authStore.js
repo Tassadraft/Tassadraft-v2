@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import axios from "../axiosConfig.js";
+import axios from '../axiosConfig.js';
 
 export const currentAccount = writable(null);
 
@@ -9,10 +9,10 @@ export function setCurrentAccount(user) {
 
 export async function updateAccount() {
     try {
-        const {data: account} = await axios.get('/api/auth/account');
+        const { data: account } = await axios.get('/api/auth/account');
         setCurrentAccount(account);
-    } catch(e) {
-        throw new Error()
+    } catch (e) {
+        throw new Error();
     }
 }
 

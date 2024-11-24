@@ -4,7 +4,7 @@
     import Subtitle from './Subtitle.svelte';
     import Fab from './Fab.svelte';
     import { showToast } from '../../service/toastService.js';
-    import { t } from "svelte-i18n";
+    import { t } from 'svelte-i18n';
 
     export let photos = [];
     export let cards = [];

@@ -55,7 +55,9 @@
                 </div>
             {/if}
             <div class="flex flex-row gap-3 justify-center">
-                <Button ariaLabel={$t('tassadecks.editor.print.choose')} on:click={() => dispatch('choosePrint', card)}>{$t('tassadecks.editor.print.choose')}</Button>
+                <Button ariaLabel={$t('tassadecks.editor.print.choose')} on:click={() => dispatch('choosePrint', card)}
+                    >{$t('tassadecks.editor.print.choose')}</Button
+                >
             </div>
         </div>
     </div>

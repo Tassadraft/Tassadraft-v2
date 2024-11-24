@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 export const decks = writable({});
 
 export function setDeck(deck) {
-    decks.update(currentDecks => {
+    decks.update((currentDecks) => {
         const updatedDecks = { ...currentDecks };
         updatedDecks[deck.id] = deck;
         return updatedDecks;
@@ -11,7 +11,7 @@ export function setDeck(deck) {
 }
 
 export function deleteDeck(deck) {
-    decks.update(currentDecks => {
+    decks.update((currentDecks) => {
         const updatedDecks = { ...currentDecks };
         delete updatedDecks[deck.id];
         return updatedDecks;

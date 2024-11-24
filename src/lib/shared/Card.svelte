@@ -1,6 +1,6 @@
 <script>
     import Icon from './Icon.svelte';
-    import Link from "./Link.svelte";
+    import Link from './Link.svelte';
 
     export let title = '';
     export let icon = '';

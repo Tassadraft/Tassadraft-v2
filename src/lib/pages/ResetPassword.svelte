@@ -14,7 +14,7 @@
     onMount(async () => {
         if (localStorage.getItem('apiToken')) {
             try {
-                const {data} = await axios.get('/api/auth/get-email');
+                const { data } = await axios.get('/api/auth/get-email');
                 email = data.email;
                 readonly = true;
             } catch (error) {
@@ -37,5 +37,13 @@
 <Title title={$t('reset-password.title')} />
 
 <Form {handleSuccess} {handleFailure} action="/api/reset-password/send-mail" method="POST">
-    <Input label={$t('common.email.label')} placeholder={$t('common.email.placeholder')} type="email" name="email" bind:value={email} required={true} {readonly} />
+    <Input
+        label={$t('common.email.label')}
+        placeholder={$t('common.email.placeholder')}
+        type="email"
+        name="email"
+        bind:value={email}
+        required={true}
+        {readonly}
+    />
 </Form>

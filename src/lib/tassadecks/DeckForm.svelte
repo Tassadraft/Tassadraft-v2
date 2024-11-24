@@ -8,7 +8,7 @@
     import axios from '../../axiosConfig.js';
     import Select from '../shared/Select.svelte';
     import { capitalizeFirstChar } from '../../service/stringService.js';
-    import {navigate} from "svelte-routing";
+    import { navigate } from 'svelte-routing';
     import { t } from 'svelte-i18n';
 
     export let scratch = true;
@@ -49,8 +49,21 @@
     {handleSuccess}
     handleFailure={handleError}
 >
-    <Input label={$t('tassadecks.new.form.name.label')} placeholder={$t('tassadecks.new.form.name.placeholder')} type="text" name="name" bind:value={deck.name} required={true} />
-    <Input label={$t('tassadecks.new.form.description.label')} placeholder={$t('tassadecks.new.form.description.placeholder')} type="text" name="description" bind:value={deck.description} />
+    <Input
+        label={$t('tassadecks.new.form.name.label')}
+        placeholder={$t('tassadecks.new.form.name.placeholder')}
+        type="text"
+        name="name"
+        bind:value={deck.name}
+        required={true}
+    />
+    <Input
+        label={$t('tassadecks.new.form.description.label')}
+        placeholder={$t('tassadecks.new.form.description.placeholder')}
+        type="text"
+        name="description"
+        bind:value={deck.description}
+    />
     {#if supportedFormats.length}
         <div class="mb-5">
             <Select bind:options={supportedFormats} bind:selectedOption={selectedFormat} name="format" />

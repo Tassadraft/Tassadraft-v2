@@ -24,9 +24,9 @@
     import { capitalizeFirstChar } from '../../service/stringService.js';
     import CardPrintItem from './CardPrintItem.svelte';
     import IconInfo from '../shared/IconInfo.svelte';
-    import {navigate} from "svelte-routing";
-    import {setDeck, decks} from "../../stores/deckStore.js";
-    import { t } from "svelte-i18n";
+    import { navigate } from 'svelte-routing';
+    import { setDeck, decks } from '../../stores/deckStore.js';
+    import { t } from 'svelte-i18n';
 
     export let deckId = '';
 
@@ -73,7 +73,7 @@
             deck = $decks[deckId];
         } else {
             try {
-                const {data: deckData} = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
+                const { data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
                 deck = deckData;
                 setDeck(deck);
             } catch (e) {
@@ -394,7 +394,13 @@
             <Switch size="4" bind:value={deck.public} label={$t('common.public')} on:change={metadataRequest} />
         </div>
         <div class="m-auto">
-            <Switch size="4" bind:value={deck.enableDetailedCategories} label={$t('tassadecks.editor.detailed-categories')} on:change={metadataRequest} disabled={true} />
+            <Switch
+                size="4"
+                bind:value={deck.enableDetailedCategories}
+                label={$t('tassadecks.editor.detailed-categories')}
+                on:change={metadataRequest}
+                disabled={true}
+            />
         </div>
     </div>
     <div class="flex flex-row flex-wrap gap-20 justify-center mb-3">

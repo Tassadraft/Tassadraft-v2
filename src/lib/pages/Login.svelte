@@ -8,8 +8,8 @@
     import axios from '../../axiosConfig.js';
     import Title from '../shared/Title.svelte';
     import Link from '../shared/Link.svelte';
-    import { navigate } from "svelte-routing";
-    import {updateAccount} from "../../stores/authStore.js";
+    import { navigate } from 'svelte-routing';
+    import { updateAccount } from '../../stores/authStore.js';
     import { t } from 'svelte-i18n';
 
     onMount(() => {
@@ -30,7 +30,7 @@
         // Account
         try {
             await updateAccount();
-        } catch(e) {
+        } catch (e) {
             showToast($t('toast.account.error'));
         }
 

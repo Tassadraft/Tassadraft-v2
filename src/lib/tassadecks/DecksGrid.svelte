@@ -18,7 +18,8 @@
             <div class="bg-black/50 p-4 rounded-lg">
                 <h2 class="text-xl font-bold">{deck.name}</h2>
                 <p>
-                    {deck.cards} {$t(`common.card.${deck.cards === 1 ? 'one': 'other'}`)}
+                    {deck.cards}
+                    {$t(`common.card.${deck.cards === 1 ? 'one' : 'other'}`)}
                 </p>
                 <p>{$t('common.enabled')}: {$t(`common.${deck.enabled ? 'yes' : 'no'}`)}</p>
                 <p>{$t('common.public')}: {$t(`common.${deck.public ? 'yes' : 'no'}`)}</p>
