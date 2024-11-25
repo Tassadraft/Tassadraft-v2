@@ -27,7 +27,7 @@
     import { navigate } from 'svelte-routing';
     import { setDeck, decks } from '../../stores/deckStore.js';
     import { t } from 'svelte-i18n';
-    import EditorDeckPrint from "./EditorDeckPrint.svelte";
+    import EditorDeckPrint from './EditorDeckPrint.svelte';
 
     export let deckId = '';
 

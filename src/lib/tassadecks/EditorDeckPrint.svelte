@@ -1,9 +1,9 @@
 <script>
-    import { jsPDF } from "jspdf";
-    import slugify from "../../service/slugifyService.js";
+    import { jsPDF } from 'jspdf';
+    import slugify from '../../service/slugifyService.js';
     import { t } from 'svelte-i18n';
-    import Button from "../shared/Button.svelte";
-    import Icon from "../shared/Icon.svelte";
+    import Button from '../shared/Button.svelte';
+    import Icon from '../shared/Icon.svelte';
 
     export let deck;
 
@@ -36,9 +36,11 @@
         const pageWidth = doc.internal.pageSize.width; // Page width in mm
         const pageHeight = doc.internal.pageSize.height; // Page height in mm
         const cardsPerRow = Math.floor((pageWidth - 2 * margin) / (cardWidth + margin)); // Max cards per row
+        const initialX = 2;
+        const initialY = 8.5;
 
-        let currentX = margin + 2; // Initial X position
-        let currentY = margin + 8.5; // Initial Y position
+        let currentX = margin + initialX; // Initial X position
+        let currentY = margin + initialY; // Initial Y position
         let cardsInRow = 0; // Cards in the current row
 
         const addAndPositionCard = async (imageUri) => {
@@ -57,8 +59,8 @@
             // Check if we need a new page
             if (currentY + cardHeight > pageHeight) {
                 doc.addPage();
-                currentX = margin + 2;
-                currentY = margin + 8.5;
+                currentX = margin + initialX;
+                currentY = margin + initialY;
                 cardsInRow = 0;
             }
         };
@@ -85,12 +87,11 @@
 
         doc.save(`${slugify(deck.name)}.pdf`);
     };
-
 </script>
 
 <Button on:click={exportDeck}>
     <div class="flex flex-row gap-1">
-        <Icon name="download"/>
+        <Icon name="download" />
         <p>{$t('common.download')}</p>
     </div>
 </Button>
