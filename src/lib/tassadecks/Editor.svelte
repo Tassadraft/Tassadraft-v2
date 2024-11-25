@@ -27,6 +27,7 @@
     import { navigate } from 'svelte-routing';
     import { setDeck, decks } from '../../stores/deckStore.js';
     import { t } from 'svelte-i18n';
+    import EditorDeckPrint from "./EditorDeckPrint.svelte";
 
     export let deckId = '';
 
@@ -427,6 +428,7 @@
                 <p>{$t('common.search')}</p>
             </div>
         </Button>
+        <EditorDeckPrint bind:deck />
         <div class="flex justify-end w-full">
             <DisplayingMode bind:displayingMode />
         </div>
