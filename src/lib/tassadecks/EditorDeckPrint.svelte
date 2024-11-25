@@ -7,66 +7,85 @@
 
     export let deck;
 
+    const addCardImage = async (doc, imageUri, currentX, currentY, cardWidth, cardHeight) => {
+        return fetch(imageUri)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch image: ${imageUri}`);
+                }
+                return res.blob();
+            })
+            .then((blob) => {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        doc.addImage(reader.result, 'JPEG', currentX, currentY, cardWidth, cardHeight);
+                        resolve();
+                    };
+                    reader.readAsDataURL(blob);
+                });
+            });
+    };
+
     const exportDeck = async () => {
         const doc = new jsPDF();
 
-        const cardWidth = 63.5;
-        const cardHeight = 88.9;
-        const margin = 3.85;
-        const pageWidth = doc.internal.pageSize.width;
-        const pageHeight = doc.internal.pageSize.height;
-        const cardsPerRow = Math.floor((pageWidth - 2 * margin) / (cardWidth + margin));
+        const cardWidth = 63.5; // MTG card width in mm
+        const cardHeight = 88.9; // MTG card height in mm
+        const margin = 3.85; // Margin between cards in mm
+        const pageWidth = doc.internal.pageSize.width; // Page width in mm
+        const pageHeight = doc.internal.pageSize.height; // Page height in mm
+        const cardsPerRow = Math.floor((pageWidth - 2 * margin) / (cardWidth + margin)); // Max cards per row
 
-        let currentX = margin + 2;
-        let currentY = margin + 2;
-        let cardsInRow = 0;
+        let currentX = margin + 2; // Initial X position
+        let currentY = margin + 8.5; // Initial Y position
+        let cardsInRow = 0; // Cards in the current row
 
-        const cardPromises = deck.categories.flatMap((categoryObject) =>
-            categoryObject.cards.map((cardObject) => {
-                if (cardObject && cardObject.print && cardObject.print.imageUri.normal) {
-                    return fetch(cardObject.print.imageUri.normal)
-                        .then((res) => {
-                            if (!res.ok) {
-                                throw new Error(`Failed to fetch image: ${cardObject.print.imageUri.normal}`);
-                            }
-                            return res.blob();
-                        })
-                        .then((blob) => {
-                            return new Promise((resolve) => {
-                                const reader = new FileReader();
-                                reader.onload = () => {
-                                    doc.addImage(reader.result, 'JPEG', currentX, currentY, cardWidth, cardHeight);
-                                    cardsInRow++;
+        const addAndPositionCard = async (imageUri) => {
+            await addCardImage(doc, imageUri, currentX, currentY, cardWidth, cardHeight);
+            cardsInRow++;
 
-                                    if (cardsInRow === cardsPerRow) {
-                                        currentX = margin + 2;
-                                        currentY += cardHeight + margin;
-                                        cardsInRow = 0;
-                                    } else {
-                                        currentX += cardWidth + margin;
-                                    }
+            // Move to the next position
+            if (cardsInRow === cardsPerRow) {
+                currentX = margin + 2;
+                currentY += cardHeight + margin;
+                cardsInRow = 0;
+            } else {
+                currentX += cardWidth + margin;
+            }
 
-                                    if (currentY + cardHeight > pageHeight) {
-                                        doc.addPage();
-                                        currentX = margin + 2;
-                                        currentY = margin + 2;
-                                        cardsInRow = 0;
-                                    }
-                                    resolve();
-                                };
-                                reader.readAsDataURL(blob);
-                            });
-                        })
-                        .catch((error) => {
-                            console.error(`Error processing card: ${cardObject.print.imageUri.normal}`, error);
-                        });
+            // Check if we need a new page
+            if (currentY + cardHeight > pageHeight) {
+                doc.addPage();
+                currentX = margin + 2;
+                currentY = margin + 8.5;
+                cardsInRow = 0;
+            }
+        };
+
+        for (const categoryObject of deck.categories) {
+            for (const cardObject of categoryObject.cards) {
+                // Handle transforming cards with multiple faces
+                if (cardObject.print.layout !== 'flip' && cardObject.print.faces?.length > 1) {
+                    for (let i = 0; i < cardObject.quantity; i++) {
+                        for (const face of cardObject.print.faces) {
+                            await addAndPositionCard(face.imageUri.normal);
+                        }
+                    }
                 }
-            })
-        );
-        await Promise.all(cardPromises);
+
+                // Handle regular cards
+                if (cardObject.print.imageUri) {
+                    for (let i = 0; i < cardObject.quantity; i++) {
+                        await addAndPositionCard(cardObject.print.imageUri.normal);
+                    }
+                }
+            }
+        }
 
         doc.save(`${slugify(deck.name)}.pdf`);
     };
+
 </script>
 
 <Button on:click={exportDeck}>
