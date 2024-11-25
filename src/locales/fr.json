@@ -1,3 +1,225 @@
 {
-    "test": "coucou fr"
+    "common": {
+        "tassadraft": "Tassadraft",
+        "tassacards": "Tassacards",
+        "tassadecks": "Tassadecks",
+        "yes": "Oui",
+        "no": "Non",
+        "coming-soon": "Bientôt disponible ...",
+        "close": "Fermer",
+        "close-modal": "Fermer la fenêtre",
+        "delete": "Supprimer",
+        "public": "Public",
+        "enabled": "Activé",
+        "actions": "Actions",
+        "download": "Télécharger",
+        "legal": "Légal",
+        "not-legal": "Non légal",
+        "updated-on": "Mis à jour le",
+        "created-on": "Créé le",
+        "card": {
+            "one": "carte",
+            "other": "cartes"
+        },
+        "search": "Rechercher",
+        "name": "Nom",
+        "username": {
+            "label": "Nom d'utilisateur",
+            "placeholder": "John123"
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "john.smith@gmail.com"
+        },
+        "password": {
+            "label": "Mot de passe",
+            "placeholder": "xxx"
+        },
+        "confirm-password": {
+            "label": "Confirmer le mot de passe",
+            "placeholder": "xxx"
+        },
+        "reset-password": "Réinitialiser le mot de passe",
+        "submit": "Envoyer",
+        "file": {
+            "title": "Sélectionnez un fichier",
+            "description": "Glissez-déposez ou cliquez pour sélectionner un fichier."
+        },
+        "edit-deck": "Modifier le deck"
+    },
+    "toast": {
+        "photo": {
+            "deleted": "Photo supprimée",
+            "restored": "Photo restaurée",
+            "unauthorized": "Vous n'êtes pas autorisé à traiter les photos",
+            "error": "Une erreur s'est produite lors du traitement des photos"
+        },
+        "reset-password": {
+            "mail": {
+                "success": "Un email a été envoyé pour réinitialiser votre mot de passe",
+                "error": "Une erreur s'est produite lors de l'envoi de l'email. Réessayez plus tard."
+            }
+        },
+        "account": {
+            "error": "Une erreur s'est produite lors de la récupération de votre profil"
+        },
+        "editor": {
+            "load": {
+                "error": "Erreur lors du chargement du deck"
+            },
+            "legality": {
+                "error": "Erreur lors de la vérification de la légalité du deck"
+            },
+            "search": {
+                "error": "Erreur lors de la recherche"
+            },
+            "card-prints": {
+                "error": "Erreur lors de la récupération des versions de la carte"
+            }
+        }
+    },
+    "badge": {
+        "in-deck": "Dans le deck",
+        "banned": "Banni",
+        "current": "Actuel"
+    },
+    "table": {
+        "card": {
+            "set": "Édition",
+            "foil": "Brillante",
+            "price": "Prix"
+        },
+        "deck": {
+            "format": "Format",
+            "cards": "Cartes",
+            "owner": "Propriétaire"
+        }
+    },
+    "menu": {
+        "home": "Accueil",
+        "settings": "Paramètres",
+        "account": "Compte",
+        "logout": "Déconnexion",
+        "login": "Connexion"
+    },
+    "settings": {
+        "title": "Paramètres",
+        "theme": "Thème",
+        "currency": {
+            "title": "Devise",
+            "euro": "Euro (€)",
+            "dollar": "Dollar ($)"
+        },
+        "language": {
+            "title": "Langue préférée",
+            "english": "Anglais",
+            "french": "Français"
+        }
+    },
+    "account": {
+        "title": "Compte",
+        "subscription": "Abonnement",
+        "subscription-ends": "Abonnement se termine le",
+        "subscribed-on": "Abonné le",
+        "subscribe": "S'abonner"
+    },
+    "reset-password": {
+        "title": "Réinitialiser le mot de passe",
+        "confirm": {
+            "title": "Finaliser la réinitialisation du mot de passe",
+            "password": {
+                "match": "Les mots de passe ne correspondent pas",
+                "length": "Le mot de passe doit contenir au moins 8 caractères",
+                "lowercase": "Le mot de passe doit contenir au moins une lettre minuscule",
+                "uppercase": "Le mot de passe doit contenir au moins une lettre majuscule",
+                "number": "Le mot de passe doit contenir au moins un chiffre",
+                "special-character": "Le mot de passe doit contenir au moins un caractère spécial",
+                "success": "Mot de passe réinitialisé avec succès"
+            }
+        }
+    },
+    "subscribe": {
+        "title": "S'abonner"
+    },
+    "home": {
+        "title": "Accueil",
+        "tassadraft": {
+            "description": "Votre outil de reconnaissance de cartes en lot"
+        },
+        "tassacards": {
+            "description": "Bientôt disponible ..."
+        },
+        "tassadecks": {
+            "description": "Votre éditeur de deck dédié"
+        }
+    },
+    "tassadraft": {
+        "photos": "Photos",
+        "cards": "Cartes",
+        "no-photo": "Aucune photo disponible",
+        "process": {
+            "modal": {
+                "title": "Traitement des photos",
+                "text": "Certaines photos semblent ne pas encore être traitées.",
+                "question": "Voulez-vous les traiter ?"
+            }
+        }
+    },
+    "tassadecks": {
+        "owned-decks": {
+            "one": "deck possédé",
+            "other": "decks possédés"
+        },
+        "public-decks": {
+            "one": "deck public",
+            "other": "decks publics"
+        },
+        "delete-deck": "Êtes-vous sûr de vouloir supprimer ",
+        "new": {
+            "card": {
+                "title": "Nouveau deck",
+                "description": "Créez un nouveau deck à partir de zéro ou en important un fichier"
+            },
+            "form": {
+                "name": {
+                    "label": "Nom",
+                    "placeholder": "Mono rouge aggro"
+                },
+                "description": {
+                    "label": "Description",
+                    "placeholder": "Ceci est un deck aggro censé gagner en 5 tours."
+                },
+                "file": {
+                    "title": "Importer un fichier de liste de deck"
+                }
+            }
+        },
+        "my-decks": {
+            "title": "Choisissez un deck à modifier",
+            "card": {
+                "title": "Modifier un deck",
+                "description": "Modifiez l'un de vos decks, ou un qui a été partagé avec vous"
+            }
+        },
+        "browse": {
+            "title": "Parcourir tous les decks",
+            "card": {
+                "title": "Parcourir tous les decks",
+                "description": "Parcourez tous les decks publics, partagés avec vous, et vos propres decks"
+            }
+        },
+        "editor": {
+            "detailed-categories": "Catégories détaillées",
+            "search": {
+                "title": "Rechercher des cartes",
+                "label": "Rechercher des cartes par nom",
+                "placeholder": "Forêt",
+                "already": "Carte déjà dans le deck"
+            },
+            "print": {
+                "switch": "Changer d'impression",
+                "choose": "Choisir une impression"
+            }
+        }
+    }
 }
