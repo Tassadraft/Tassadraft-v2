@@ -6,7 +6,7 @@
     const dispatch = createEventDispatcher();
 
     export let showModal = false;
-    export let closeText;
+    export let closeText = null;
     export let successText = '';
     export let fullWidth = false;
     export let dialog;
