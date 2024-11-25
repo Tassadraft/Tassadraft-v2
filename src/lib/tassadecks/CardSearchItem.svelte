@@ -99,7 +99,7 @@
 
     $: {
         cardObject = checkIfCardIsInDeck(deck, card);
-        isTransforming = card?.layout !== 'flip' && card?.faces?.length > 0;
+        isTransforming = card?.layout !== 'flip' && card?.faces?.length > 1;
         icon = cardObject ? 'minus' : 'plus';
         isFlip = card?.layout === 'flip';
     }
