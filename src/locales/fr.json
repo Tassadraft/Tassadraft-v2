@@ -208,6 +208,10 @@
         },
         "editor": {
             "detailed-categories": "Catégories détaillées",
+            "batch": {
+                "photo": "Ajout multiple (photo)",
+                "text": "Ajout multiple (texte)"
+            },
             "search": {
                 "title": "Rechercher des cartes",
                 "label": "Rechercher des cartes par nom",

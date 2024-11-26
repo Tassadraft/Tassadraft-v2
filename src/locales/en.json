@@ -208,6 +208,10 @@
         },
         "editor": {
             "detailed-categories": "Detailed categories",
+            "batch": {
+                "photo": "Batch add (photo)",
+                "text": "Batch add (text)"
+            },
             "search": {
                 "title": "Search cards",
                 "label": "Search cards by name",
