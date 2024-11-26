@@ -20,6 +20,7 @@
                     const reader = new FileReader();
                     reader.onload = () => {
                         doc.addImage(reader.result, 'JPEG', currentX, currentY, cardWidth, cardHeight);
+                        doc.rect(currentX, currentY, cardWidth, cardHeight, 'S').setDrawColor(31, 41, 55);
                         resolve();
                     };
                     reader.readAsDataURL(blob);

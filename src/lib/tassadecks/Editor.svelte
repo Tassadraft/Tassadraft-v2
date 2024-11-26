@@ -429,6 +429,7 @@
             </div>
         </Button>
         <EditorDeckPrint bind:deck />
+        <Photo mode="inline" on:photo={handleProcessPhoto}>{$t('tassadecks.editor.batch.photo')}</Photo>
         <div class="flex justify-end w-full">
             <DisplayingMode bind:displayingMode />
         </div>
@@ -511,8 +512,6 @@
         {/if}
     {/each}
 </div>
-
-<Photo on:photo={handleProcessPhoto} />
 
 <Modal bind:showModal={showCardModal} on:close={handleCloseCardDetails} fullWidth={true}>
     <Subtitle slot="header">{selectedCard?.print?.translation?.name}</Subtitle>
