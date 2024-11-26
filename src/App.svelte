@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import { Router, Route } from 'svelte-routing';
-    import { locale, t } from 'svelte-i18n';
+    import { t, locale } from 'svelte-i18n';
     import Homepage from './lib/pages/Home.svelte';
     import Tassadraft from './lib/pages/Tassadraft.svelte';
     import Settings from './lib/pages/Settings.svelte';
@@ -21,14 +21,6 @@
     import { showToast } from './service/toastService.js';
 
     export let url = '';
-
-    const languageCode = localStorage.getItem('languageCode');
-    if (languageCode !== 'en' && languageCode !== 'fr') {
-        localStorage.setItem('languageCode', 'en');
-    }
-    if (!$locale) {
-        locale.set(localStorage.getItem('languageCode'));
-    }
 
     onMount(async () => {
         await defineCustomElements(window);

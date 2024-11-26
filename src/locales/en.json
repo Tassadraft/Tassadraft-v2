@@ -111,9 +111,7 @@
             "dollar": "Dollar ($)"
         },
         "language": {
-            "title": "Preferred language",
-            "english": "English",
-            "french": "Français"
+            "title": "Preferred language"
         }
     },
     "account": {

@@ -13,12 +13,12 @@
     $: languages = [
         {
             value: 'en',
-            label: $t('settings.language.english'),
+            label: 'English',
             selected: 'en' === radioValue,
         },
         {
             value: 'fr',
-            label: $t('settings.language.french'),
+            label: 'Français',
             selected: 'fr' === radioValue,
         },
     ];
