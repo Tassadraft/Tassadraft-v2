@@ -20,17 +20,21 @@
 
     $: {
         options = [
-            { name: $t('tassadraft.photos'), disabled: selectedOption === $t('tassadraft.photos') },
+            {
+                name: $t('tassadraft.photos'),
+                value: 'photos',
+                disabled: selectedOption === 'photos' },
             {
                 name: $t('tassadraft.cards'),
-                disabled: selectedOption === $t('tassadraft.cards') || photos.length === 0,
+                value: 'cards',
+                disabled: selectedOption === 'cards' || photos.length === 0,
                 disabledMessage: photos.length ? '' : $t('tassadraft.no-photo'),
             },
         ];
     }
 
     const handleSegmentChange = async (event) => {
-        if (selectedOption === $t('tassadraft.cards') && photos.filter((photo) => !photo.processed).length !== 0) {
+        if (selectedOption === 'photos' && photos.filter((photo) => !photo.processed).length !== 0) {
             showModal = true;
         } else {
             selectedOption = event.detail.value;
@@ -38,6 +42,7 @@
     };
 
     const handleSuccess = async () => {
+        showModal = false;
         try {
             loading = true;
             const base64Strings = await getBase64Strings(photos.filter((photo) => !photo.processed));
@@ -45,7 +50,7 @@
                 photos: base64Strings,
             });
             loading = false;
-            selectedOption = $t('tassadraft.cards');
+            selectedOption = 'cards';
             dispatch('processed', response.data);
         } catch (error) {
             loading = false;

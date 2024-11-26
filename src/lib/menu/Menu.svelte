@@ -57,9 +57,9 @@
 
             <ul class="space-y-4 p-4">
                 <MenuItem iconLeft="home" href="/">{$t('menu.home')}</MenuItem>
-                <MenuItem iconLeft="camera" href="/tassadraft">Tassadraft</MenuItem>
-                <MenuItem iconLeft="book" href="/tassadecks">Tassadecks</MenuItem>
-                <MenuItem iconLeft="camera" href="#">Tassacards</MenuItem>
+                <MenuItem iconLeft="camera" href="/tassadraft">{$t('common.tassadraft')}</MenuItem>
+                <MenuItem iconLeft="book" href="/tassadecks">{$t('common.tassadecks')}</MenuItem>
+                <MenuItem iconLeft="camera" href="#">{$t('common.tassacards')}</MenuItem>
                 <MenuItem iconLeft="settings" href="/settings">{$t('menu.settings')}</MenuItem>
                 {#if connected}
                     <MenuItem iconLeft="user" href="/account">{$t('menu.account')}</MenuItem>

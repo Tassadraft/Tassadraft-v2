@@ -9,7 +9,7 @@
 
     let photos = [];
     let cards = [];
-    let state;
+    let state = 'photos';
     let deletedPhotos = [];
     let deletedCards = [];
 
@@ -33,17 +33,15 @@
 
         photos = photos.map((photo) => ({ ...photo, processed: true }));
     };
-
-    $: state = $t('tassadraft.photos');
 </script>
 
 <Menu />
 <Title title={$t('common.tassadraft')} />
 <TassadraftSegment bind:selectedOption={state} bind:photos on:processed={handleProcessed} />
 
-{#if state === $t('tassadraft.photos')}
+{#if state === 'photos'}
     <PhotosList bind:deletedPhotos bind:cards bind:photos />
     <Photo on:photo={(e) => (photos = [...photos, { uri: e.detail.photo.webPath, cards: [], processed: false }])} />
-{:else if state === $t('tassadraft.cards')}
+{:else if state === 'cards'}
     <CardsTable bind:deletedCards bind:cards />
 {/if}
