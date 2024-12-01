@@ -41,6 +41,7 @@
         'PaperClip',
         'Send',
         'Download',
+        'Help',
     ];
 
     const toCamelCase = (str) => {

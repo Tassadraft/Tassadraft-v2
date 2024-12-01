@@ -173,15 +173,15 @@
         }
     };
 
-    const changeCardPrintRequest = async (cardObject, print) => {
+    const switchCardPrintRequest = async (cardObject, print) => {
         try {
-            await axios.post(`/api/auth/reserved/cards/prints/${cardObject.id}/change`, {
+            await axios.post(`/api/auth/reserved/cards/prints/${cardObject.id}/switch`, {
                 printId: print.scryfallId,
             });
-            showToast(`${cardObject.print.translation.name} print changed to ${print.set.name}`);
+            showToast(`${cardObject.print.translation.name} print switched to ${print.set.name}`);
             return true;
         } catch (e) {
-            showToast(`Error while changing ${cardObject.print.translation.name} print`, 'error');
+            showToast(`Error while switching ${cardObject.print.translation.name} print`, 'error');
             return false;
         }
     };
@@ -336,7 +336,7 @@
     };
 
     const handleCardPrintsDisplay = async (selectedCard) => {
-        if (selectedCard.print?.oracleId) {
+        if (selectedCard?.print?.oracleId) {
             try {
                 switchCardPrintBaseUrl = `/api/auth/reserved/cards/prints/${selectedCard.print.oracleId}?`;
                 const {data: paginated} = await axios.get(switchCardPrintBaseUrl);
@@ -348,7 +348,7 @@
     };
 
     const handleCardPrintChoice = async (e) => {
-        if (await changeCardPrintRequest(selectedCard, e.detail)) {
+        if (await switchCardPrintRequest(selectedCard, e.detail)) {
             selectedCard = {...selectedCard, print: e.detail};
             deck.categories = deck.categories.map((categoryObject) => {
                 categoryObject.cards = categoryObject.cards.map((cardObject) => {
@@ -448,7 +448,7 @@
                     ? `height: ${268 + 80 + 30 * categoryObject.cards.length + (hoveredCategoryIndex === categoryIndex ? 235 : 0)}px;`
                     : ''}
             >
-                <div class="relative flex flex-row gap-3 bg-gray-200 dark:bg-gray-900 rounded-xl px-3 pt-3"
+                <div class="flex flex-row justify-center items-center gap-3 bg-gray-200 dark:bg-gray-900 rounded-xl"
                      style="z-index: 1001">
                     <Editable
                         bind:value={categoryObject.category.name}
@@ -458,14 +458,9 @@
                     >
                         <Subtitle>{categoryObject.category.name}</Subtitle>
                     </Editable>
-                    ({categoryObject.cards.length})
+                    <p>({categoryObject.cards.length})</p>
                     {#if categoryObject.category.name === 'Visual representation'}
-                        <IconInfo
-                        >This category is used to pick deck illustrations in addition to commanders : if multiple cards
-                            are present, a random will
-                            be picked
-                        </IconInfo
-                        >
+                        <IconInfo>{$t('tassadecks.editor.visuals.help')}</IconInfo>
                     {/if}
                 </div>
                 {#if displayingMode === 'list'}

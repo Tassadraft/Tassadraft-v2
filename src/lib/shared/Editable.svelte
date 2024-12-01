@@ -1,6 +1,6 @@
 <script>
     import IconButton from './IconButton.svelte';
-    import { createEventDispatcher } from 'svelte';
+    import {createEventDispatcher} from 'svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -58,26 +58,24 @@
     }
 </script>
 
-<div class="flex flex-col gap-3">
-    <div class="flex flex-row gap-3">
-        {#if editing}
-            <input
-                bind:this={inputElement}
-                class={`${className} bg-transparent`}
-                type="text"
-                bind:value
-                on:keydown={handleKeyDown}
-                on:blur={handleBlur}
-            />
-        {:else}
-            <slot />
-        {/if}
+<div class="flex flex-row gap-3">
+    {#if editing}
+        <input
+            bind:this={inputElement}
+            class={`${className} bg-transparent`}
+            type="text"
+            bind:value
+            on:keydown={handleKeyDown}
+            on:blur={handleBlur}
+        />
+    {:else}
+        <slot/>
+    {/if}
 
-        {#if editable}
-            <div class={iconClassName}>
-                <IconButton bind:icon on:click={handleIconClick} />
-            </div>
-        {/if}
-    </div>
-    <p class="text-primary-500 text-xs">{message}</p>
+    {#if editable}
+        <div class={iconClassName}>
+            <IconButton bind:icon on:click={handleIconClick}/>
+        </div>
+    {/if}
 </div>
+<p class="text-primary-500 text-xs">{message}</p>
