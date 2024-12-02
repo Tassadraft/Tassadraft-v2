@@ -4,11 +4,12 @@
     import Loader from './Loader.svelte';
     import Icon from './Icon.svelte';
     import { t } from 'svelte-i18n';
+    import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
 
     export let method = 'GET';
     export let action = '';
-    export let handleSuccess = () => {};
-    export let handleFailure = () => {};
     export let submittable = true;
 
     let loading = false;
@@ -35,10 +36,10 @@
                 headers: method !== 'GET' ? { 'Content-Type': 'multipart/form-data' } : {},
             });
             loading = false;
-            handleSuccess(response.data);
+            dispatch('success', response.data);
         } catch (error) {
             loading = false;
-            handleFailure(error.message);
+            dispatch('error', error.message);
         }
     };
 </script>

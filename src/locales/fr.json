@@ -8,6 +8,7 @@
         "coming-soon": "Bientôt disponible ...",
         "close": "Fermer",
         "close-modal": "Fermer la fenêtre",
+        "cancel": "Annuler",
         "delete": "Supprimer",
         "public": "Public",
         "enabled": "Activé",
@@ -75,6 +76,10 @@
             },
             "card-prints": {
                 "error": "Erreur lors de la récupération des versions de la carte"
+            },
+            "add-category": {
+                "success": "Catégorie créée",
+                "error": "Error lors de la création de la catégorie"
             }
         }
     },
@@ -174,6 +179,7 @@
         },
         "delete-deck": "Êtes-vous sûr de vouloir supprimer ",
         "new": {
+            "title": "Nouveau deck",
             "card": {
                 "title": "Nouveau deck",
                 "description": "Créez un nouveau deck à partir de zéro ou en important un fichier"
@@ -207,7 +213,22 @@
             }
         },
         "editor": {
+            "switch-print": "Changer édition",
+            "choose-print": "Choisir édition",
+            "new-category": {
+                "title": "Nouvelle catégorie",
+                "placeholder": "Stase",
+                "label": "Entrez un nom de catégorie"
+            },
             "detailed-categories": "Catégories détaillées",
+            "visuals": {
+                "help": "Cette catégorie sert à choisir une illustration au deck en addition des commandants : si plusieurs cartes sont présentes alors une aléatoire sera choisie"
+            },
+            "related-cards": {
+                "title": "Cartes liées",
+                "description": "Ces cartes ne sont pas comptabilisées dans les cartes du deck.",
+                "base-cards": "Cartes du deck liées"
+            },
             "batch": {
                 "photo": "Ajout multiple (photo)",
                 "text": "Ajout multiple (texte)"
@@ -218,9 +239,23 @@
                 "placeholder": "Forêt",
                 "already": "Carte déjà dans le deck"
             },
-            "print": {
-                "switch": "Changer d'impression",
-                "choose": "Choisir une impression"
+            "download": {
+                "modal": {
+                    "title": "Options de téléchargement",
+                    "confirm": "Continuer",
+                    "switch": {
+                        "title": "Sélectionnez ce que vous voulez télécharger",
+                        "deck-cards": "Cartes du deck",
+                        "related-cards": "Cartes liées",
+                        "tokens": "Jetons",
+                        "emblems": "Emblèmes",
+                        "other-cards": "Autres cartes liées"
+                    }
+                }
+            },
+            "clear-categories": {
+                "title": "Nettoyer catégories",
+                "text": "Êtes-vous sûr de vouloir supprimer les catégories sans cartes ? Cette action n'est pas réversible."
             }
         }
     }

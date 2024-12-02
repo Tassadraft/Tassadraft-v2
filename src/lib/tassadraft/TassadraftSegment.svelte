@@ -23,7 +23,8 @@
             {
                 name: $t('tassadraft.photos'),
                 value: 'photos',
-                disabled: selectedOption === 'photos' },
+                disabled: selectedOption === 'photos',
+            },
             {
                 name: $t('tassadraft.cards'),
                 value: 'cards',

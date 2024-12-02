@@ -33,21 +33,21 @@
         }
     });
 
-    const handleSuccess = (response) => {
-        showToast(response.message, 'success');
-        navigate(`/decks/edit/${response.deckId}`);
+    const handleSuccess = (event) => {
+        showToast(event.detail.message, 'success');
+        navigate(`/decks/edit/${event.detail.deckId}`);
     };
 
-    const handleError = (error) => {
-        showToast(error, 'error');
+    const handleError = (event) => {
+        showToast(event.detail, 'error');
     };
 </script>
 
 <Form
     method="POST"
     action={`/api/auth/reserved/decks/${deck.id > 0 ? `edit/${deck.id}` : 'new'}?languageCode=${localStorage.getItem('languageCode')}`}
-    {handleSuccess}
-    handleFailure={handleError}
+    on:success={handleSuccess}
+    on:error={handleError}
 >
     <Input
         label={$t('tassadecks.new.form.name.label')}

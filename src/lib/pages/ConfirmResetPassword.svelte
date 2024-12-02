@@ -37,8 +37,8 @@
         navigate('/login');
     };
 
-    const handleFailure = (response) => {
-        showToast(response, 'error');
+    const handleFailure = (event) => {
+        showToast(event.detail, 'error');
     };
 
     $: {
@@ -51,7 +51,7 @@
 
 <Title title={$t('reset-password.confirm.title')} />
 
-<Form action={`/api/reset-password/confirm/${token}`} method="POST" {handleSuccess} {handleFailure} bind:submittable={canSubmit}>
+<Form action={`/api/reset-password/confirm/${token}`} method="POST" on:success={handleSuccess} on:error={handleFailure} bind:submittable={canSubmit}>
     <PasswordInput name="password" bind:value={password} />
     <PasswordInput name="confirmPassword" label={$t('common.confirm-password.label')} bind:value={confirmPassword} />
 </Form>

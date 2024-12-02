@@ -1,33 +1,34 @@
 <script>
-    import Menu from '../menu/Menu.svelte';
-    import Title from '../shared/Title.svelte';
+    import Menu from '../../menu/Menu.svelte';
+    import Title from '../../shared/Title.svelte';
     import { onMount } from 'svelte';
-    import axios from '../../axiosConfig.js';
-    import Panel from '../shared/Panel.svelte';
-    import Switch from '../shared/Switch.svelte';
-    import Subtitle from '../shared/Subtitle.svelte';
-    import { showToast } from '../../service/toastService.js';
-    import Modal from '../shared/Modal.svelte';
-    import Button from '../shared/Button.svelte';
-    import Search from '../shared/Search.svelte';
-    import IconButton from '../shared/IconButton.svelte';
-    import CardSearchItem from './CardSearchItem.svelte';
-    import Icon from '../shared/Icon.svelte';
-    import DisplayingMode from '../shared/DisplayingMode.svelte';
+    import axios from '../../../axiosConfig.js';
+    import Panel from '../../shared/Panel.svelte';
+    import Switch from '../../shared/Switch.svelte';
+    import Subtitle from '../../shared/Subtitle.svelte';
+    import { showToast } from '../../../service/toastService.js';
+    import Modal from '../../shared/Modal.svelte';
+    import Button from '../../shared/Button.svelte';
+    import IconButton from '../../shared/IconButton.svelte';
+    import DisplayingMode from '../../shared/DisplayingMode.svelte';
     import EditorCardDetails from './EditorCardDetails.svelte';
     import EditorCard from './EditorCard.svelte';
-    import Pagination from '../shared/Pagination.svelte';
-    import Editable from '../shared/Editable.svelte';
-    import Photo from '../shared/Photo.svelte';
-    import getBase64Strings from '../../service/base64Service.js';
-    import Loader from '../shared/Loader.svelte';
-    import { capitalizeFirstChar } from '../../service/stringService.js';
-    import CardPrintItem from './CardPrintItem.svelte';
-    import IconInfo from '../shared/IconInfo.svelte';
+    import Pagination from '../../shared/Pagination.svelte';
+    import Editable from '../../shared/Editable.svelte';
+    import Photo from '../../shared/Photo.svelte';
+    import getBase64Strings from '../../../service/base64Service.js';
+    import Loader from '../../shared/Loader.svelte';
+    import { capitalizeFirstChar } from '../../../service/stringService.js';
+    import CardPrintItem from '../CardPrintItem.svelte';
+    import IconInfo from '../../shared/IconInfo.svelte';
     import { navigate } from 'svelte-routing';
-    import { setDeck, decks } from '../../stores/deckStore.js';
+    import { setDeck, decks } from '../../../stores/deckStore.js';
     import { t } from 'svelte-i18n';
     import EditorDeckPrint from './EditorDeckPrint.svelte';
+    import EditorRelatedCards from './EditorRelatedCards.svelte';
+    import EditorSearch from './EditorSearch.svelte';
+    import EditorNewCategory from './EditorNewCategory.svelte';
+    import EditorClearCategories from './EditorClearCategories.svelte';
 
     export let deckId = '';
 
@@ -54,17 +55,14 @@
     let categoryOptions = [];
 
     let showCardModal = false;
-    let showSearchModal = false;
 
-    let paginatedSearchedCards = { cards: [] };
-    let cardSearchBaseUrl = '';
-    const searchBarName = 'searchCard';
     let displayingMode = 'grid';
 
     let paginatedCardPrints = { cards: [] };
     let switchCardPrintBaseUrl = '';
 
     let cardDetailsContainerRef;
+    let relatedCards = [];
 
     let loading = false;
     let isLegal = false;
@@ -86,12 +84,6 @@
         const rawCreatedAt = new Date(deck.createdAt);
         updatedAt = rawUpdatedAt.toLocaleString();
         createdAt = rawCreatedAt.toLocaleString();
-        categoryOptions = deck.categories.map((categoryObject) => {
-            return {
-                value: categoryObject.id,
-                label: categoryObject.category.name,
-            };
-        });
     });
 
     const addCardRequest = async (print) => {
@@ -172,15 +164,15 @@
         }
     };
 
-    const changeCardPrintRequest = async (cardObject, print) => {
+    const switchCardPrintRequest = async (cardObject, print) => {
         try {
-            await axios.post(`/api/auth/reserved/cards/prints/${cardObject.id}/change`, {
+            await axios.post(`/api/auth/reserved/cards/prints/${cardObject.id}/switch`, {
                 printId: print.scryfallId,
             });
-            showToast(`${cardObject.print.translation.name} print changed to ${print.set.name}`);
+            showToast(`${cardObject.print.translation.name} print switched to ${print.set.name}`);
             return true;
         } catch (e) {
-            showToast(`Error while changing ${cardObject.print.translation.name} print`, 'error');
+            showToast(`Error while switching ${cardObject.print.translation.name} print`, 'error');
             return false;
         }
     };
@@ -239,7 +231,7 @@
 
     const handleDecrement = async (e) => {
         for (const categoryObject of deck.categories) {
-            for (let cardObject of categoryObject.cards) {
+            for (const cardObject of categoryObject.cards) {
                 if (cardObject.print.oracleId === e.detail.print.oracleId) {
                     const removed = await removeCardRequest(cardObject.print);
                     if (!removed) {
@@ -247,7 +239,7 @@
                     }
                     cardObject.quantity = cardObject.quantity - 1;
                     if (cardObject.quantity <= 0) {
-                        categoryObject.cards = categoryObject.cards.filter((co) => co.id !== co.id);
+                        categoryObject.cards = categoryObject.cards.filter((co) => co.id !== cardObject.id);
                         showCardModal = false;
                     }
                     selectedCard = { ...selectedCard, quantity: selectedCard.quantity - 1 };
@@ -324,22 +316,12 @@
         isSelectedCardSwitchingPrint = false;
     };
 
-    const handleSearch = async (query) => {
-        try {
-            cardSearchBaseUrl = `/api/auth/reserved/cards/search?query=${query}&languageCode=${localStorage.getItem('languageCode')}`;
-            const { data: paginated } = await axios.get(cardSearchBaseUrl);
-            paginatedSearchedCards = paginated;
-        } catch (e) {
-            showToast($t('toast.editor.search.error'), 'error');
-        }
-    };
-
     const handleCardPrintsDisplay = async (selectedCard) => {
-        if (selectedCard.print?.scryfallId) {
+        if (selectedCard?.print?.oracleId) {
             try {
                 switchCardPrintBaseUrl = `/api/auth/reserved/cards/prints/${selectedCard.print.oracleId}?`;
                 const { data: paginated } = await axios.get(switchCardPrintBaseUrl);
-                paginatedCardPrints = paginated;
+                return paginated;
             } catch (e) {
                 showToast($t('toast.editor.card-prints.error'), 'error');
             }
@@ -347,7 +329,7 @@
     };
 
     const handleCardPrintChoice = async (e) => {
-        if (await changeCardPrintRequest(selectedCard, e.detail)) {
+        if (await switchCardPrintRequest(selectedCard, e.detail)) {
             selectedCard = { ...selectedCard, print: e.detail };
             deck.categories = deck.categories.map((categoryObject) => {
                 categoryObject.cards = categoryObject.cards.map((cardObject) => {
@@ -364,7 +346,7 @@
 
     const handleUpdateSelectedCard = async (e) => {
         selectedCard = { ...e.detail };
-        await handleCardPrintsDisplay(selectedCard);
+        paginatedCardPrints = await handleCardPrintsDisplay(selectedCard);
     };
 
     $: {
@@ -376,6 +358,13 @@
                 }, 0)
             );
         }, 0);
+
+        categoryOptions = deck.categories.map((categoryObject) => {
+            return {
+                value: categoryObject.id,
+                label: categoryObject.category.name,
+            };
+        });
     }
 </script>
 
@@ -421,15 +410,13 @@
 </Panel>
 
 <Panel>
-    <div class="flex flex-row gap-5">
-        <Button on:click={() => (showSearchModal = true)}>
-            <div class="flex flex-row gap-1">
-                <Icon name="search" />
-                <p>{$t('common.search')}</p>
-            </div>
-        </Button>
-        <EditorDeckPrint bind:deck />
+    <div class="flex flex-row flex-wrap gap-5">
+        <EditorSearch bind:deck {addCardRequest} {removeCardRequest} />
+        <EditorDeckPrint bind:deck bind:relatedCards />
         <Photo mode="inline" on:photo={handleProcessPhoto}>{$t('tassadecks.editor.batch.photo')}</Photo>
+        <EditorNewCategory bind:deck />
+        <EditorClearCategories bind:deck />
+
         <div class="flex justify-end w-full">
             <DisplayingMode bind:displayingMode />
         </div>
@@ -447,7 +434,7 @@
                     ? `height: ${268 + 80 + 30 * categoryObject.cards.length + (hoveredCategoryIndex === categoryIndex ? 235 : 0)}px;`
                     : ''}
             >
-                <div class="relative flex flex-row gap-3 bg-gray-200 dark:bg-gray-900 rounded-xl px-3 pt-3" style="z-index: 1001">
+                <div class="flex flex-row justify-center items-center gap-3 bg-gray-200 dark:bg-gray-900 rounded-xl" style="z-index: 1001">
                     <Editable
                         bind:value={categoryObject.category.name}
                         className="text-xl font-bold text-black dark:text-white relative"
@@ -456,12 +443,9 @@
                     >
                         <Subtitle>{categoryObject.category.name}</Subtitle>
                     </Editable>
-                    ({categoryObject.cards.length})
+                    <p>({categoryObject.cards.length})</p>
                     {#if categoryObject.category.name === 'Visual representation'}
-                        <IconInfo
-                            >This category is used to pick deck illustrations in addition to commanders : if multiple cards are present, a random will
-                            be picked</IconInfo
-                        >
+                        <IconInfo>{$t('tassadecks.editor.visuals.help')}</IconInfo>
                     {/if}
                 </div>
                 {#if displayingMode === 'list'}
@@ -513,6 +497,9 @@
     {/each}
 </div>
 
+<EditorRelatedCards bind:deck bind:relatedCards {handleCardPrintsDisplay} />
+
+<!-- Editor card modal -->
 <Modal bind:showModal={showCardModal} on:close={handleCloseCardDetails} fullWidth={true}>
     <Subtitle slot="header">{selectedCard?.print?.translation?.name}</Subtitle>
     {#if isSelectedCardSwitchingPrint}
@@ -534,25 +521,4 @@
             on:changeCategory={handleChangeCategory}
         />
     {/if}
-</Modal>
-
-<Modal bind:showModal={showSearchModal} fullWidth={true}>
-    <Subtitle slot="header">{$t('tassadecks.editor.search.title')}</Subtitle>
-
-    <Search
-        bind:selectedObserver={showSearchModal}
-        selected={true}
-        bind:results={paginatedSearchedCards.cards}
-        placeholder={$t('tassadecks.editor.search.placeholder')}
-        label={$t('tassadecks.editor.search.label')}
-        name={searchBarName}
-        {handleSearch}
-    />
-
-    <div class="flex flex-row flex-wrap gap-5 justify-center">
-        {#each paginatedSearchedCards.cards as card}
-            <CardSearchItem bind:deck {card} {addCardRequest} {removeCardRequest} />
-        {/each}
-    </div>
-    <Pagination bind:paginatedObject={paginatedSearchedCards} bind:baseUrl={cardSearchBaseUrl} />
 </Modal>

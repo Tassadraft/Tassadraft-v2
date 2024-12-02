@@ -8,6 +8,7 @@
         "coming-soon": "Coming soon ...",
         "close": "Close",
         "close-modal": "Close modal",
+        "cancel": "Cancel",
         "delete": "Delete",
         "public": "Public",
         "enabled": "Enabled",
@@ -75,6 +76,10 @@
             },
             "card-prints": {
                 "error": "Error while fetching card prints"
+            },
+            "add-category": {
+                "success": "Category created",
+                "error": "Error while creating category"
             }
         }
     },
@@ -174,6 +179,7 @@
         },
         "delete-deck": "Are you sure you want to delete ",
         "new": {
+            "title": "New deck",
             "card": {
                 "title": "New deck",
                 "description": "Create a new deck from zero or by importing a file"
@@ -207,7 +213,22 @@
             }
         },
         "editor": {
+            "switch-print": "Switch print",
+            "choose-print": "Choose print",
+            "new-category": {
+                "title": "New category",
+                "placeholder": "Stasis",
+                "label": "Enter a category name"
+            },
             "detailed-categories": "Detailed categories",
+            "visuals": {
+                "help": "This category is used to pick deck illustrations in addition to commanders : if multiple cards are present, a random will be picked"
+            },
+            "related-cards": {
+                "title": "Related cards",
+                "description": "Those cards are not included into deck cards.",
+                "base-cards": "Related deck cards"
+            },
             "batch": {
                 "photo": "Batch add (photo)",
                 "text": "Batch add (text)"
@@ -218,9 +239,23 @@
                 "placeholder": "Forest",
                 "already": "Card already in the deck"
             },
-            "print": {
-                "switch": "Switch print",
-                "choose": "Choose print"
+            "download": {
+                "modal": {
+                    "title": "Download options",
+                    "confirm": "Continue download",
+                    "switch": {
+                        "title": "Select what to download",
+                        "deck-cards": "Deck cards",
+                        "related-cards": "Related cards",
+                        "tokens": "Tokens",
+                        "emblems": "Emblems",
+                        "other-cards": "Other related cards"
+                    }
+                }
+            },
+            "clear-categories": {
+                "title": "Clear categories",
+                "text": "Are you sure you want to clear empty categories ? This is not reversible."
             }
         }
     }

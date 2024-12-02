@@ -17,6 +17,6 @@
     };
 </script>
 
-<a {href} aria-label={ariaLabel} {target} class={className} {style} on:mouseenter on:mouseleave on:click={handleClick}>
+<a {href} aria-label={ariaLabel} {target} class={className} {style} on:mouseenter on:mouseleave on:focus on:blur on:click={handleClick}>
     <slot />
 </a>

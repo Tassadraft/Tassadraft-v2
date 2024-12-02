@@ -57,12 +57,20 @@
 
             if (!foundCategory) {
                 const responseCard = await addCardRequest(card);
-                if (!responseCard) return;
+                if (!responseCard) {
+                    return;
+                }
 
                 deck.categories = [
                     ...deck.categories,
                     { category: { name: card?.translation.mainType }, cards: [{ ...responseCard.card, quantity: 1 }] },
                 ];
+                deck.categories.sort((a, b) => {
+                    if (a.category.name === 'Commander' || b.category.name === 'Commander') {
+                        return -1;
+                    }
+                    return a.category.name.localeCompare(b.category.name);
+                });
             }
         }
         deck = { ...deck };
