@@ -8,7 +8,6 @@
     import Subtitle from '../../shared/Subtitle.svelte';
     import Switch from '../../shared/Switch.svelte';
     import Panel from '../../shared/Panel.svelte';
-    import EditorDeckPrintOptionsItem from './EditorDeckPrintOptionsItem.svelte';
     import EditorDeckPrintOptionsItemsList from './EditorDeckPrintOptionsItemsList.svelte';
 
     export let deck;
@@ -81,6 +80,7 @@
         let totalCards = 0; // Track total cards processed
         let deckCardsCount = 0; // Count total cards in the deck
 
+        // Calculate total cards count including related cards
         deckCardsCount = deck.categories.reduce((acc, deckCategory) => {
             return (
                 acc +
@@ -92,6 +92,18 @@
                 }, 0)
             );
         }, 0);
+
+        if (downloadRelatedPrints) {
+            if (downloadTokens) {
+                deckCardsCount += tokens.reduce((acc, card) => acc + card.quantity, 0);
+            }
+            if (downloadEmblems) {
+                deckCardsCount += emblems.reduce((acc, card) => acc + card.quantity, 0);
+            }
+            if (downloadOtherRelated) {
+                deckCardsCount += otherRelated.reduce((acc, card) => acc + card.quantity, 0);
+            }
+        }
 
         const addAndPositionCard = async (imageUri) => {
             totalCards++;
@@ -142,6 +154,27 @@
             }
         }
 
+        // Add related cards if enabled
+        if (downloadRelatedPrints) {
+            const addRelatedCards = async (cardsList) => {
+                for (const card of cardsList) {
+                    for (let i = 0; i < card.quantity; i++) {
+                        await addAndPositionCard(card.related.print.imageUri.normal);
+                    }
+                }
+            };
+
+            if (downloadTokens) {
+                await addRelatedCards(tokens);
+            }
+            if (downloadEmblems) {
+                await addRelatedCards(emblems);
+            }
+            if (downloadOtherRelated) {
+                await addRelatedCards(otherRelated);
+            }
+        }
+
         doc.save(`${slugify(deck.name)}.pdf`);
     };
 
@@ -156,21 +189,21 @@
             .filter((card) => card.related.print.layout === 'token')
             .map((card) => {
                 const existing = tokenMap.get(card.related.print.oracleId);
-                return existing ? existing : { ...card, quantity: 1 }; // Preserve or initialize
+                return existing ? existing : { ...card, quantity: 1 };
             });
 
         emblems = relatedCards
             .filter((card) => card.related.print.layout === 'emblem')
             .map((card) => {
                 const existing = emblemMap.get(card.related.print.oracleId);
-                return existing ? existing : { ...card, quantity: 1 }; // Preserve or initialize
+                return existing ? existing : { ...card, quantity: 1 };
             });
 
         otherRelated = relatedCards
             .filter((card) => !['token', 'emblem'].includes(card.related.print.layout))
             .map((card) => {
                 const existing = otherMap.get(card.related.print.oracleId);
-                return existing ? existing : { ...card, quantity: 1 }; // Preserve or initialize
+                return existing ? existing : { ...card, quantity: 1 };
             });
     }
 </script>
@@ -182,7 +215,13 @@
     </div>
 </Button>
 
-<Modal bind:showModal successText={$t('tassadecks.editor.download.modal.confirm')} closeText={$t('common.cancel')} on:success={exportDeck}>
+<Modal
+    bind:showModal
+    successText={$t('tassadecks.editor.download.modal.confirm')}
+    fullWidth={true}
+    closeText={$t('common.cancel')}
+    on:success={exportDeck}
+>
     <Subtitle slot="header">{$t('tassadecks.editor.download.modal.title')}</Subtitle>
     <div class="flex flex-col items-start gap-3 m-3">
         <Switch size="5" label={$t('tassadecks.editor.download.modal.switch.deck-cards')} bind:value={downloadDeckCards} />

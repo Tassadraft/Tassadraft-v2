@@ -10,9 +10,6 @@
     import axios from '../../../axiosConfig.js';
     import { showToast } from '../../../service/toastService.js';
     import IconInfo from '../../shared/IconInfo.svelte';
-    import { createEventDispatcher } from 'svelte';
-
-    const dispatch = createEventDispatcher();
 
     export let handleCardPrintsDisplay = () => {};
     export let deck;
@@ -59,19 +56,26 @@
 
     $: {
         relatedCards = [];
-        let count = 0;
         for (const categoryObject of deck.categories) {
             for (const cardObject of categoryObject.cards) {
                 for (const relatedPrint of cardObject.relatedPrints) {
-                    count++;
-                    if (
-                        !relatedCards.some(
-                            (pushedRelatedCard) =>
-                                pushedRelatedCard.base.print.oracleId === cardObject.print.oracleId &&
-                                pushedRelatedCard.related.print.oracleId === relatedPrint.print.oracleId
-                        )
-                    ) {
-                        relatedCards.push({ base: cardObject, related: relatedPrint });
+                    const alreadyExists = relatedCards.some(
+                        (pushedRelatedCard) => pushedRelatedCard.related.print.oracleId === relatedPrint.print.oracleId
+                    );
+
+                    if (!alreadyExists) {
+                        relatedCards.push({
+                            bases: [cardObject],
+                            related: relatedPrint,
+                        });
+                    } else {
+                        const existingEntry = relatedCards.find(
+                            (pushedRelatedCard) => pushedRelatedCard.related.print.oracleId === relatedPrint.print.oracleId
+                        );
+
+                        if (existingEntry) {
+                            existingEntry.bases.push(cardObject);
+                        }
                     }
                 }
             }
@@ -80,26 +84,24 @@
     }
 </script>
 
-<!-- TODO: replace by carousel after patch -->
+<!-- TODO: replace by carousel after component patch -->
 
 {#if relatedCards.length}
     <div class="flex flex-row gap-3">
         <Subtitle className="my-5 font-bold text-xl">{$t('tassadecks.editor.related-cards.title')}</Subtitle>
         <IconInfo>{$t('tassadecks.editor.related-cards.description')}</IconInfo>
     </div>
-    <div class="flex flex-row gap-3 flex-wrap pb-5">
+    <div class="flex flex-row gap-3 flex-wrap justify-center pb-5">
         {#each relatedCards as relatedCard}
-            <SplideSlide>
-                <div class="flex justify-center">
-                    <Button on:click={() => handleRelatedClicked(relatedCard)}>
-                        <img
-                            src={relatedCard.related.print.imageUri.normal}
-                            alt={relatedCard.related.print.translation?.name}
-                            class="h-auto rounded-lg w-48"
-                        />
-                    </Button>
-                </div>
-            </SplideSlide>
+            <div class="flex justify-center">
+                <Button on:click={() => handleRelatedClicked(relatedCard)}>
+                    <img
+                        src={relatedCard.related.print.imageUri.normal}
+                        alt={relatedCard.related.print.translation?.name}
+                        class="h-auto rounded-lg w-48"
+                    />
+                </Button>
+            </div>
         {/each}
     </div>
 {/if}
@@ -119,6 +121,6 @@
         </div>
         <Pagination bind:paginatedObject={paginatedCardPrints} baseUrl={switchCardPrintBaseUrl} containerRef={cardDetailsContainerRef} />
     {:else}
-        <EditorRelatedCardDetails bind:selectedRelatedCard bind:switching={isSelectedCardSwitchingPrint} />
+        <EditorRelatedCardDetails bind:selectedRelatedCard bind:switching={isSelectedCardSwitchingPrint} {deck} />
     {/if}
 </Modal>

@@ -226,7 +226,8 @@
             },
             "related-cards": {
                 "title": "Cartes liées",
-                "description": "Ces cartes ne sont pas comptabilisées dans les cartes du deck."
+                "description": "Ces cartes ne sont pas comptabilisées dans les cartes du deck.",
+                "base-cards": "Cartes du deck liées"
             },
             "batch": {
                 "photo": "Ajout multiple (photo)",
