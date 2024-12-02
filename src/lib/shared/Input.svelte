@@ -4,12 +4,13 @@
 
     export let type = 'text';
     export let value = '';
-    export let placeholder = '';
-    export let name = '';
+    export let placeholder;
+    export let name;
     export let required = false;
     export let disabled = false;
-    export let label = '';
+    export let label;
     export let readonly = false;
+    export let inputRef;
 
     const realType = type;
 
@@ -47,6 +48,7 @@
             {required}
             {disabled}
             {readonly}
+            bind:this={inputRef}
             class={classes}
         />
     {:else if type === 'password'}

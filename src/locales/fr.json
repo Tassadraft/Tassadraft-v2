@@ -75,6 +75,10 @@
             },
             "card-prints": {
                 "error": "Erreur lors de la récupération des versions de la carte"
+            },
+            "add-category": {
+                "success": "Catégorie créée",
+                "error": "Error lors de la création de la catégorie"
             }
         }
     },
@@ -208,6 +212,11 @@
             }
         },
         "editor": {
+            "new-category": {
+                "title": "Nouvelle catégorie",
+                "placeholder": "Stase",
+                "label": "Entrez un nom de catégorie"
+            },
             "detailed-categories": "Catégories détaillées",
             "visuals": {
                 "help": "Cette catégorie sert à choisir une illustration au deck en addition des commandants : si plusieurs cartes sont présentes alors une aléatoire sera choisie"
@@ -229,7 +238,8 @@
             "print": {
                 "switch": "Changer d'impression",
                 "choose": "Choisir une impression"
-            }
+            },
+            "clear-categories": "Nettoyer catégories"
         }
     }
 }

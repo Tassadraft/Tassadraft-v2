@@ -22,10 +22,10 @@
     let email = '';
     let password = '';
 
-    const handleSuccess = async (response) => {
-        localStorage.setItem('apiToken', response.token.token);
-        localStorage.setItem('apiTokenExpiration', response.token.expiresAt);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${response.token.token}`;
+    const handleSuccess = async (event) => {
+        localStorage.setItem('apiToken', event.detail.token.token);
+        localStorage.setItem('apiTokenExpiration', event.detail.token.expiresAt);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${event.detail.token.token}`;
 
         // Account
         try {
@@ -45,8 +45,8 @@
         navigate('/');
     };
 
-    const handleFailure = (response) => {
-        showToast(response, 'error');
+    const handleFailure = (event) => {
+        showToast(event.detail, 'error');
     };
 </script>
 
@@ -54,7 +54,7 @@
 
 <Title title="Login" />
 
-<Form action="/api/login" method="post" {handleSuccess} {handleFailure}>
+<Form action="/api/login" method="post" on:success={handleSuccess} on:error={handleFailure}>
     <Input type="email" name="email" placeholder="jean.dupont@gmail.com" label="Email" value={email} required={true} />
     <PasswordInput value={password} required={true} />
     <div class="w-full mb-3">

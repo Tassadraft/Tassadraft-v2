@@ -36,7 +36,7 @@
 
 <Title title={$t('reset-password.title')} />
 
-<Form {handleSuccess} {handleFailure} action="/api/reset-password/send-mail" method="POST">
+<Form action="/api/reset-password/send-mail" method="POST" on:success={handleSuccess} on:error={handleFailure}>
     <Input
         label={$t('common.email.label')}
         placeholder={$t('common.email.placeholder')}

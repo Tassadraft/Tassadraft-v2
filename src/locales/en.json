@@ -75,6 +75,10 @@
             },
             "card-prints": {
                 "error": "Error while fetching card prints"
+            },
+            "add-category": {
+                "success": "Category created",
+                "error": "Error while creating category"
             }
         }
     },
@@ -208,6 +212,11 @@
             }
         },
         "editor": {
+            "new-category": {
+                "title": "New category",
+                "placeholder": "Stasis",
+                "label": "Enter a category name"
+            },
             "detailed-categories": "Detailed categories",
             "visuals": {
                 "help": "This category is used to pick deck illustrations in addition to commanders : if multiple cards are present, a random will be picked"
@@ -229,7 +238,8 @@
             "print": {
                 "switch": "Switch print",
                 "choose": "Choose print"
-            }
+            },
+            "clear-categories": "Clear categories"
         }
     }
 }

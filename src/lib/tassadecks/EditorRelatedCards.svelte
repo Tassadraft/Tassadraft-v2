@@ -57,9 +57,11 @@
 
     $: {
         relatedCards = [];
+        let count = 0;
         for (const categoryObject of deck.categories) {
             for (const cardObject of categoryObject.cards) {
                 for (const relatedPrint of cardObject.relatedPrints) {
+                    count++;
                     if (!relatedCards.some((pushedRelatedCard) => (pushedRelatedCard.base.print.oracleId === cardObject.print.oracleId) && (pushedRelatedCard.related.print.oracleId === relatedPrint.print.oracleId))) {
                         relatedCards.push({base: cardObject, related: relatedPrint});
                     }
@@ -70,17 +72,18 @@
     }
 </script>
 
+<!-- TODO: replace by carousel after patch -->
+
 {#if relatedCards.length}
     <div class="flex flex-row gap-3">
         <Subtitle className="my-5 font-bold text-xl">{$t('tassadecks.editor.related-cards.title')}</Subtitle>
         <IconInfo>{$t('tassadecks.editor.related-cards.description')}</IconInfo>
     </div>
-    <Carousel ariaLabel={$t('tassadecks.editor.related-cards.title')} bind:itemsNumber={relatedCards.length}>
+    <div class="flex flex-row gap-3 flex-wrap pb-5">
         {#each relatedCards as relatedCard}
             <SplideSlide>
-                <div class="flex flex-row justify-center">
-                    <Button
-                        on:click={() => handleRelatedClicked(relatedCard)}>
+                <div class="flex justify-center">
+                    <Button on:click={() => handleRelatedClicked(relatedCard)}>
                         <img
                             src={relatedCard.related.print.imageUri.normal}
                             alt={relatedCard.related.print.translation?.name}
@@ -90,7 +93,7 @@
                 </div>
             </SplideSlide>
         {/each}
-    </Carousel>
+    </div>
 {/if}
 
 <!-- Related card modal -->

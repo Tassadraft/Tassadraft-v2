@@ -9,10 +9,7 @@
     import { showToast } from '../../service/toastService.js';
     import Modal from '../shared/Modal.svelte';
     import Button from '../shared/Button.svelte';
-    import Search from '../shared/Search.svelte';
     import IconButton from '../shared/IconButton.svelte';
-    import CardSearchItem from './CardSearchItem.svelte';
-    import Icon from '../shared/Icon.svelte';
     import DisplayingMode from '../shared/DisplayingMode.svelte';
     import EditorCardDetails from './EditorCardDetails.svelte';
     import EditorCard from './EditorCard.svelte';
@@ -29,6 +26,9 @@
     import { t } from 'svelte-i18n';
     import EditorDeckPrint from './EditorDeckPrint.svelte';
     import EditorRelatedCards from "./EditorRelatedCards.svelte";
+    import EditorSearch from "./EditorSearch.svelte";
+    import EditorNewCategory from "./EditorNewCategory.svelte";
+    import EditorClearCategories from "./EditorClearCategories.svelte";
 
     export let deckId = '';
 
@@ -55,11 +55,7 @@
     let categoryOptions = [];
 
     let showCardModal = false;
-    let showSearchModal = false;
 
-    let paginatedSearchedCards = {cards: []};
-    let cardSearchBaseUrl = '';
-    const searchBarName = 'searchCard';
     let displayingMode = 'grid';
 
     let paginatedCardPrints = {cards: []};
@@ -87,12 +83,6 @@
         const rawCreatedAt = new Date(deck.createdAt);
         updatedAt = rawUpdatedAt.toLocaleString();
         createdAt = rawCreatedAt.toLocaleString();
-        categoryOptions = deck.categories.map((categoryObject) => {
-            return {
-                value: categoryObject.id,
-                label: categoryObject.category.name,
-            };
-        });
     });
 
     const addCardRequest = async (print) => {
@@ -325,16 +315,6 @@
         isSelectedCardSwitchingPrint = false;
     };
 
-    const handleSearch = async (query) => {
-        try {
-            cardSearchBaseUrl = `/api/auth/reserved/cards/search?query=${query}&languageCode=${localStorage.getItem('languageCode')}`;
-            const {data: paginated} = await axios.get(cardSearchBaseUrl);
-            paginatedSearchedCards = paginated;
-        } catch (e) {
-            showToast($t('toast.editor.search.error'), 'error');
-        }
-    };
-
     const handleCardPrintsDisplay = async (selectedCard) => {
         if (selectedCard?.print?.oracleId) {
             try {
@@ -377,6 +357,13 @@
                 }, 0)
             );
         }, 0);
+
+        categoryOptions = deck.categories.map((categoryObject) => {
+            return {
+                value: categoryObject.id,
+                label: categoryObject.category.name,
+            };
+        });
     }
 </script>
 
@@ -422,15 +409,13 @@
 </Panel>
 
 <Panel>
-    <div class="flex flex-row gap-5">
-        <Button on:click={() => (showSearchModal = true)}>
-            <div class="flex flex-row gap-1">
-                <Icon name="search"/>
-                <p>{$t('common.search')}</p>
-            </div>
-        </Button>
-        <EditorDeckPrint bind:deck/>
+    <div class="flex flex-row flex-wrap gap-5">
+        <EditorSearch bind:deck {addCardRequest} {removeCardRequest} />
+        <EditorDeckPrint bind:deck />
         <Photo mode="inline" on:photo={handleProcessPhoto}>{$t('tassadecks.editor.batch.photo')}</Photo>
+        <EditorNewCategory bind:deck />
+        <EditorClearCategories bind:deck />
+
         <div class="flex justify-end w-full">
             <DisplayingMode bind:displayingMode/>
         </div>
@@ -538,25 +523,4 @@
             on:changeCategory={handleChangeCategory}
         />
     {/if}
-</Modal>
-
-<Modal bind:showModal={showSearchModal} fullWidth={true}>
-    <Subtitle slot="header">{$t('tassadecks.editor.search.title')}</Subtitle>
-
-    <Search
-        bind:selectedObserver={showSearchModal}
-        selected={true}
-        bind:results={paginatedSearchedCards.cards}
-        placeholder={$t('tassadecks.editor.search.placeholder')}
-        label={$t('tassadecks.editor.search.label')}
-        name={searchBarName}
-        {handleSearch}
-    />
-
-    <div class="flex flex-row flex-wrap gap-5 justify-center">
-        {#each paginatedSearchedCards.cards as card}
-            <CardSearchItem bind:deck {card} {addCardRequest} {removeCardRequest}/>
-        {/each}
-    </div>
-    <Pagination bind:paginatedObject={paginatedSearchedCards} bind:baseUrl={cardSearchBaseUrl}/>
 </Modal>

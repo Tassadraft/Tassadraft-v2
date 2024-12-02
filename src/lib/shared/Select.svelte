@@ -1,11 +1,11 @@
 <script>
     import { createEventDispatcher } from 'svelte';
 
+    const dispatch = createEventDispatcher();
+
     export let options = [];
     export let selectedOption = null;
     export let name = null;
-
-    const dispatch = createEventDispatcher();
 
     const handleSelect = (e) => {
         selectedOption = options.find((option) => {
