@@ -1,7 +1,7 @@
 <script>
-    import IconButton from "../shared/IconButton.svelte";
-    import Button from "../shared/Button.svelte";
-    import CardBadge from "./CardBadge.svelte";
+    import IconButton from '../shared/IconButton.svelte';
+    import Button from '../shared/Button.svelte';
+    import CardBadge from './CardBadge.svelte';
     import { t } from 'svelte-i18n';
 
     export let selectedRelatedCard;
@@ -34,10 +34,14 @@
             <div class="relative group">
                 <img
                     class="w-64 {isTransforming || isFlip ? 'group-hover:opacity-50 transition-opacity duration-300' : ''} rounded-lg {flipped
-                            ? 'transform rotate-180'
-                            : ''}"
-                    src={isTransforming ? selectedRelatedCard.related.print.faces[cardFace]?.imageUri?.normal : selectedRelatedCard.related.print.imageUri?.normal}
-                    alt={isTransforming ? selectedRelatedCard.related.print.faces[cardFace]?.translation.name : selectedRelatedCard.related.print.translation.name}
+                        ? 'transform rotate-180'
+                        : ''}"
+                    src={isTransforming
+                        ? selectedRelatedCard.related.print.faces[cardFace]?.imageUri?.normal
+                        : selectedRelatedCard.related.print.imageUri?.normal}
+                    alt={isTransforming
+                        ? selectedRelatedCard.related.print.faces[cardFace]?.translation.name
+                        : selectedRelatedCard.related.print.translation.name}
                 />
                 {#if isTransforming || isFlip}
                     <div
@@ -56,11 +60,11 @@
                     <IconButton icon="exchange" size={32} on:click={handleTransform} />
                 </div>
             {/if}
-                <div class="flex justify-center gap-10">
-                    <Button ariaLabel={$t('tassadecks.editor.print.switch')} on:click={() => (switching = true)}
+            <div class="flex justify-center gap-10">
+                <Button ariaLabel={$t('tassadecks.editor.print.switch')} on:click={() => (switching = true)}
                     >{$t('tassadecks.editor.print.switch')}</Button
-                    >
-                </div>
+                >
+            </div>
         </div>
     </div>
 {/if}

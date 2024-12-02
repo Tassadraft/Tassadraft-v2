@@ -1,6 +1,6 @@
 <script>
     import Popover from './Popover.svelte';
-    import Icon from "./Icon.svelte";
+    import Icon from './Icon.svelte';
 
     let show = false;
     let iconElement;
@@ -21,6 +21,6 @@
     </div>
 
     <Popover {show} target={iconElement}>
-        <slot/>
+        <slot />
     </Popover>
 </div>

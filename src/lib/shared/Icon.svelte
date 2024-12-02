@@ -85,5 +85,9 @@
 </script>
 
 {#if IconComponent}
-    <svelte:component this={IconComponent} {size} className={`transition-all duration-300 ${getTailwindColorClass(color) || 'text-gray-800 dark:text-white'}`} />
+    <svelte:component
+        this={IconComponent}
+        {size}
+        className={`transition-all duration-300 ${getTailwindColorClass(color) || 'text-gray-800 dark:text-white'}`}
+    />
 {/if}

@@ -25,10 +25,10 @@
     import { setDeck, decks } from '../../stores/deckStore.js';
     import { t } from 'svelte-i18n';
     import EditorDeckPrint from './EditorDeckPrint.svelte';
-    import EditorRelatedCards from "./EditorRelatedCards.svelte";
-    import EditorSearch from "./EditorSearch.svelte";
-    import EditorNewCategory from "./EditorNewCategory.svelte";
-    import EditorClearCategories from "./EditorClearCategories.svelte";
+    import EditorRelatedCards from './EditorRelatedCards.svelte';
+    import EditorSearch from './EditorSearch.svelte';
+    import EditorNewCategory from './EditorNewCategory.svelte';
+    import EditorClearCategories from './EditorClearCategories.svelte';
 
     export let deckId = '';
 
@@ -46,8 +46,8 @@
         enableDetailedCategories: false,
         format: 'Commander',
     };
-    let selectedCard = {print: {}};
-    let selectedCategory = {category: {}};
+    let selectedCard = { print: {} };
+    let selectedCategory = { category: {} };
     let isSelectedCardSwitchingPrint = false;
     let hoveredCardIndex = -1;
     let hoveredCategoryIndex = -1;
@@ -58,7 +58,7 @@
 
     let displayingMode = 'grid';
 
-    let paginatedCardPrints = {cards: []};
+    let paginatedCardPrints = { cards: [] };
     let switchCardPrintBaseUrl = '';
 
     let cardDetailsContainerRef;
@@ -71,7 +71,7 @@
             deck = $decks[deckId];
         } else {
             try {
-                const {data: deckData} = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
+                const { data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
                 deck = deckData;
                 setDeck(deck);
             } catch (e) {
@@ -178,7 +178,7 @@
 
     const updateLegalityRequest = async () => {
         try {
-            const {data} = await axios.get(`/api/auth/reserved/decks/${deckId}/is-legal`);
+            const { data } = await axios.get(`/api/auth/reserved/decks/${deckId}/is-legal`);
             isLegal = data;
         } catch (e) {
             showToast($t('toast.editor.legality.error'), 'error');
@@ -224,8 +224,8 @@
                 return categoryObject;
             });
         }
-        selectedCard = {...selectedCard, quantity: selectedCard.quantity + 1};
-        deck = {...deck};
+        selectedCard = { ...selectedCard, quantity: selectedCard.quantity + 1 };
+        deck = { ...deck };
     };
 
     const handleDecrement = async (e) => {
@@ -241,8 +241,8 @@
                         categoryObject.cards = categoryObject.cards.filter((co) => co.id !== co.id);
                         showCardModal = false;
                     }
-                    selectedCard = {...selectedCard, quantity: selectedCard.quantity - 1};
-                    deck = {...deck};
+                    selectedCard = { ...selectedCard, quantity: selectedCard.quantity - 1 };
+                    deck = { ...deck };
                     return;
                 }
             }
@@ -259,13 +259,13 @@
         categoryObject.cards.sort((a, b) => a.print.translation.name.localeCompare(b.print.translation.name));
         selectedCategory.cards = selectedCategory.cards.filter((cardObject) => cardObject.id !== selectedCard.id);
 
-        deck = {...deck};
+        deck = { ...deck };
     };
 
     const handleProcessPhoto = async (e) => {
         try {
             loading = true;
-            const base64Strings = await getBase64Strings([{uri: e.detail.photo.webPath}]);
+            const base64Strings = await getBase64Strings([{ uri: e.detail.photo.webPath }]);
             const response = await axios.post(`/api/auth/reserved/process?languageCode=${localStorage.getItem('languageCode')}`, {
                 photos: base64Strings,
             });
@@ -298,7 +298,7 @@
                     });
                 }
             }
-            deck = {...deck};
+            deck = { ...deck };
             loading = false;
         } catch (error) {
             loading = false;
@@ -319,7 +319,7 @@
         if (selectedCard?.print?.oracleId) {
             try {
                 switchCardPrintBaseUrl = `/api/auth/reserved/cards/prints/${selectedCard.print.oracleId}?`;
-                const {data: paginated} = await axios.get(switchCardPrintBaseUrl);
+                const { data: paginated } = await axios.get(switchCardPrintBaseUrl);
                 return paginated;
             } catch (e) {
                 showToast($t('toast.editor.card-prints.error'), 'error');
@@ -329,7 +329,7 @@
 
     const handleCardPrintChoice = async (e) => {
         if (await switchCardPrintRequest(selectedCard, e.detail)) {
-            selectedCard = {...selectedCard, print: e.detail};
+            selectedCard = { ...selectedCard, print: e.detail };
             deck.categories = deck.categories.map((categoryObject) => {
                 categoryObject.cards = categoryObject.cards.map((cardObject) => {
                     if (cardObject.id === selectedCard.id) {
@@ -344,7 +344,7 @@
     };
 
     const handleUpdateSelectedCard = async (e) => {
-        selectedCard = {...e.detail};
+        selectedCard = { ...e.detail };
         paginatedCardPrints = await handleCardPrintsDisplay(selectedCard);
     };
 
@@ -367,20 +367,20 @@
     }
 </script>
 
-<Menu/>
+<Menu />
 <Editable bind:value={deck.name} className="text-3xl font-bold mb-2" iconClassName="mt-1" on:rename={metadataRequest}>
-    <Title bind:title={deck.name}/>
+    <Title bind:title={deck.name} />
 </Editable>
 
-<Loader bind:loading/>
+<Loader bind:loading />
 
 <Panel>
     <div class="flex flex-row flex-wrap gap-5 justify-center mb-3">
         <div class="m-auto">
-            <Switch size="4" bind:value={deck.enabled} label={$t('common.enabled')} on:change={metadataRequest}/>
+            <Switch size="4" bind:value={deck.enabled} label={$t('common.enabled')} on:change={metadataRequest} />
         </div>
         <div class="m-auto">
-            <Switch size="4" bind:value={deck.public} label={$t('common.public')} on:change={metadataRequest}/>
+            <Switch size="4" bind:value={deck.public} label={$t('common.public')} on:change={metadataRequest} />
         </div>
         <div class="m-auto">
             <Switch
@@ -417,7 +417,7 @@
         <EditorClearCategories bind:deck />
 
         <div class="flex justify-end w-full">
-            <DisplayingMode bind:displayingMode/>
+            <DisplayingMode bind:displayingMode />
         </div>
     </div>
 </Panel>
@@ -433,8 +433,7 @@
                     ? `height: ${268 + 80 + 30 * categoryObject.cards.length + (hoveredCategoryIndex === categoryIndex ? 235 : 0)}px;`
                     : ''}
             >
-                <div class="flex flex-row justify-center items-center gap-3 bg-gray-200 dark:bg-gray-900 rounded-xl"
-                     style="z-index: 1001">
+                <div class="flex flex-row justify-center items-center gap-3 bg-gray-200 dark:bg-gray-900 rounded-xl" style="z-index: 1001">
                     <Editable
                         bind:value={categoryObject.category.name}
                         className="text-xl font-bold text-black dark:text-white relative"
@@ -467,7 +466,7 @@
                                     {cardObject.print.translation?.name}
                                 </Button>
                                 <div class="mt-2">
-                                    <IconButton icon="minus" on:click={() => handleDecrement({ detail: cardObject })}/>
+                                    <IconButton icon="minus" on:click={() => handleDecrement({ detail: cardObject })} />
                                 </div>
                             </li>
                         {/each}
@@ -503,14 +502,12 @@
 <Modal bind:showModal={showCardModal} on:close={handleCloseCardDetails} fullWidth={true}>
     <Subtitle slot="header">{selectedCard?.print?.translation?.name}</Subtitle>
     {#if isSelectedCardSwitchingPrint}
-        <div bind:this={cardDetailsContainerRef}
-             class="flex flex-row flex-wrap gap-5 justify-center overflow-y-auto max-h-[75vh]">
+        <div bind:this={cardDetailsContainerRef} class="flex flex-row flex-wrap gap-5 justify-center overflow-y-auto max-h-[75vh]">
             {#each paginatedCardPrints.cards as print}
-                <CardPrintItem bind:card={print} bind:selectedCard on:choosePrint={handleCardPrintChoice}/>
+                <CardPrintItem bind:card={print} bind:selectedCard on:choosePrint={handleCardPrintChoice} />
             {/each}
         </div>
-        <Pagination bind:paginatedObject={paginatedCardPrints} baseUrl={switchCardPrintBaseUrl}
-                    containerRef={cardDetailsContainerRef}/>
+        <Pagination bind:paginatedObject={paginatedCardPrints} baseUrl={switchCardPrintBaseUrl} containerRef={cardDetailsContainerRef} />
     {:else}
         <EditorCardDetails
             bind:selectedCard

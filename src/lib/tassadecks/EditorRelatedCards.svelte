@@ -1,16 +1,16 @@
 <script>
-    import Subtitle from "../shared/Subtitle.svelte";
-    import CardPrintItem from "./CardPrintItem.svelte";
-    import Pagination from "../shared/Pagination.svelte";
-    import Modal from "../shared/Modal.svelte";
-    import Button from "../shared/Button.svelte";
-    import { SplideSlide } from "@splidejs/svelte-splide";
-    import Carousel from "../shared/Carousel.svelte";
+    import Subtitle from '../shared/Subtitle.svelte';
+    import CardPrintItem from './CardPrintItem.svelte';
+    import Pagination from '../shared/Pagination.svelte';
+    import Modal from '../shared/Modal.svelte';
+    import Button from '../shared/Button.svelte';
+    import { SplideSlide } from '@splidejs/svelte-splide';
+    import Carousel from '../shared/Carousel.svelte';
     import { t } from 'svelte-i18n';
-    import EditorRelatedCardDetails from "./EditorRelatedCardDetails.svelte";
-    import axios from "../../axiosConfig.js";
-    import {showToast} from "../../service/toastService.js";
-    import IconInfo from "../shared/IconInfo.svelte";
+    import EditorRelatedCardDetails from './EditorRelatedCardDetails.svelte';
+    import axios from '../../axiosConfig.js';
+    import { showToast } from '../../service/toastService.js';
+    import IconInfo from '../shared/IconInfo.svelte';
 
     export let handleCardPrintsDisplay = () => {};
     export let deck;
@@ -19,7 +19,7 @@
     let cardDetailsContainerRef;
     let selectedRelatedCard;
     let showRelatedModal = false;
-    let paginatedCardPrints = {cards: []};
+    let paginatedCardPrints = { cards: [] };
     let isSelectedCardSwitchingPrint = true;
     let switchCardPrintBaseUrl = '';
 
@@ -50,7 +50,7 @@
     const handleSwitchRelatedCardPrint = async (print) => {
         if (await switchRelatedCardPrintRequest(print)) {
             selectedRelatedCard.related.print = print;
-            deck = {...deck};
+            deck = { ...deck };
         }
         isSelectedCardSwitchingPrint = false;
     };
@@ -62,8 +62,14 @@
             for (const cardObject of categoryObject.cards) {
                 for (const relatedPrint of cardObject.relatedPrints) {
                     count++;
-                    if (!relatedCards.some((pushedRelatedCard) => (pushedRelatedCard.base.print.oracleId === cardObject.print.oracleId) && (pushedRelatedCard.related.print.oracleId === relatedPrint.print.oracleId))) {
-                        relatedCards.push({base: cardObject, related: relatedPrint});
+                    if (
+                        !relatedCards.some(
+                            (pushedRelatedCard) =>
+                                pushedRelatedCard.base.print.oracleId === cardObject.print.oracleId &&
+                                pushedRelatedCard.related.print.oracleId === relatedPrint.print.oracleId
+                        )
+                    ) {
+                        relatedCards.push({ base: cardObject, related: relatedPrint });
                     }
                 }
             }
@@ -100,14 +106,16 @@
 <Modal bind:showModal={showRelatedModal} on:close={handleCloseRelatedCardDetails} fullWidth={true}>
     <Subtitle slot="header">{selectedRelatedCard?.related?.print?.translation?.name}</Subtitle>
     {#if isSelectedCardSwitchingPrint}
-        <div bind:this={cardDetailsContainerRef}
-             class="flex flex-row flex-wrap gap-5 justify-center overflow-y-auto max-h-[75vh]">
+        <div bind:this={cardDetailsContainerRef} class="flex flex-row flex-wrap gap-5 justify-center overflow-y-auto max-h-[75vh]">
             {#each paginatedCardPrints.cards as print}
-                <CardPrintItem bind:card={print} bind:selectedCard={selectedRelatedCard} on:choosePrint={(e) => handleSwitchRelatedCardPrint(e.detail)} />
+                <CardPrintItem
+                    bind:card={print}
+                    bind:selectedCard={selectedRelatedCard}
+                    on:choosePrint={(e) => handleSwitchRelatedCardPrint(e.detail)}
+                />
             {/each}
         </div>
-        <Pagination bind:paginatedObject={paginatedCardPrints} baseUrl={switchCardPrintBaseUrl}
-                    containerRef={cardDetailsContainerRef}/>
+        <Pagination bind:paginatedObject={paginatedCardPrints} baseUrl={switchCardPrintBaseUrl} containerRef={cardDetailsContainerRef} />
     {:else}
         <EditorRelatedCardDetails bind:selectedRelatedCard bind:switching={isSelectedCardSwitchingPrint} />
     {/if}

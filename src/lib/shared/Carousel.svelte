@@ -2,7 +2,7 @@
     import { Splide } from '@splidejs/svelte-splide';
     import '@splidejs/svelte-splide/css';
 
-    export let ariaLabel
+    export let ariaLabel;
     export let itemsNumber;
 
     let options = {};

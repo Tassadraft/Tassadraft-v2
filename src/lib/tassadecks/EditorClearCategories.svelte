@@ -1,15 +1,13 @@
 <script>
-    import Icon from "../shared/Icon.svelte";
-    import Button from "../shared/Button.svelte";
+    import Icon from '../shared/Icon.svelte';
+    import Button from '../shared/Button.svelte';
     import { t } from 'svelte-i18n';
     import axios from '../../axiosConfig.js';
-    import { showToast } from "../../service/toastService.js";
+    import { showToast } from '../../service/toastService.js';
 
     export let deck;
 
-    const handleClear = async () => {
-
-    };
+    const handleClear = async () => {};
 </script>
 
 <Button on:click={handleClear}>
