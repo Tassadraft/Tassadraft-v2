@@ -1,6 +1,6 @@
 <script>
-    import IconButton from "../../shared/IconButton.svelte";
-    import { createEventDispatcher } from "svelte";
+    import IconButton from '../../shared/IconButton.svelte';
+    import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();
 

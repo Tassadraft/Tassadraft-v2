@@ -1,6 +1,6 @@
 <script>
-    import Switch from "../../shared/Switch.svelte";
-    import EditorDeckPrintOptionsItem from "./EditorDeckPrintOptionsItem.svelte";
+    import Switch from '../../shared/Switch.svelte';
+    import EditorDeckPrintOptionsItem from './EditorDeckPrintOptionsItem.svelte';
 
     export let list;
     export let disabled;
@@ -34,13 +34,13 @@
     };
 </script>
 
-<Switch size="5" bind:disabled={disabled} {label} bind:value={switchValue}/>
+<Switch size="5" bind:disabled {label} bind:value={switchValue} />
 
 <div
     class="flex flex-col items-start gap-3 m-3 transition-all duration-300"
     style="overflow: hidden; max-height: {switchValue ? '1000px' : '0px'}; opacity: {switchValue ? '1' : '0'};"
 >
     {#each list as item}
-        <EditorDeckPrintOptionsItem bind:item on:decrement={handleDecrement} on:increment={handleIncrement}/>
+        <EditorDeckPrintOptionsItem bind:item on:decrement={handleDecrement} on:increment={handleIncrement} />
     {/each}
 </div>

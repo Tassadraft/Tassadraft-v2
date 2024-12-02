@@ -4,12 +4,12 @@
     import { t } from 'svelte-i18n';
     import Button from '../../shared/Button.svelte';
     import Icon from '../../shared/Icon.svelte';
-    import Modal from "../../shared/Modal.svelte";
-    import Subtitle from "../../shared/Subtitle.svelte";
-    import Switch from "../../shared/Switch.svelte";
-    import Panel from "../../shared/Panel.svelte";
-    import EditorDeckPrintOptionsItem from "./EditorDeckPrintOptionsItem.svelte";
-    import EditorDeckPrintOptionsItemsList from "./EditorDeckPrintOptionsItemsList.svelte";
+    import Modal from '../../shared/Modal.svelte';
+    import Subtitle from '../../shared/Subtitle.svelte';
+    import Switch from '../../shared/Switch.svelte';
+    import Panel from '../../shared/Panel.svelte';
+    import EditorDeckPrintOptionsItem from './EditorDeckPrintOptionsItem.svelte';
+    import EditorDeckPrintOptionsItemsList from './EditorDeckPrintOptionsItemsList.svelte';
 
     export let deck;
     export let relatedCards;
@@ -40,7 +40,7 @@
         disabledDownloadTokens = !downloadRelatedPrints;
         disabledDownloadEmblems = !downloadRelatedPrints;
         disabledDownloadOtherRelated = !downloadRelatedPrints;
-    }
+    };
 
     const addCardImage = async (doc, imageUri, currentX, currentY, cardWidth, cardHeight) => {
         return fetch(imageUri)
@@ -82,12 +82,15 @@
         let deckCardsCount = 0; // Count total cards in the deck
 
         deckCardsCount = deck.categories.reduce((acc, deckCategory) => {
-            return acc + deckCategory.cards.reduce((a, card) => {
-                if (card.print.layout !== 'flip' && card.print.faces?.length > 1) {
-                    return a + card.quantity + 1;
-                }
-                return a + card.quantity;
-            }, 0);
+            return (
+                acc +
+                deckCategory.cards.reduce((a, card) => {
+                    if (card.print.layout !== 'flip' && card.print.faces?.length > 1) {
+                        return a + card.quantity + 1;
+                    }
+                    return a + card.quantity;
+                }, 0)
+            );
         }, 0);
 
         const addAndPositionCard = async (imageUri) => {
@@ -144,36 +147,35 @@
 
     $: {
         // Create maps for quick lookup of existing cards and their quantities
-        const tokenMap = new Map(tokens.map(card => [card.related.print.oracleId, card]));
-        const emblemMap = new Map(emblems.map(card => [card.related.print.oracleId, card]));
-        const otherMap = new Map(otherRelated.map(card => [card.related.print.oracleId, card]));
+        const tokenMap = new Map(tokens.map((card) => [card.related.print.oracleId, card]));
+        const emblemMap = new Map(emblems.map((card) => [card.related.print.oracleId, card]));
+        const otherMap = new Map(otherRelated.map((card) => [card.related.print.oracleId, card]));
 
         // Reset the arrays, but rebuild them by preserving existing quantities
         tokens = relatedCards
-            .filter(card => card.related.print.layout === 'token')
-            .map(card => {
+            .filter((card) => card.related.print.layout === 'token')
+            .map((card) => {
                 const existing = tokenMap.get(card.related.print.oracleId);
                 return existing ? existing : { ...card, quantity: 1 }; // Preserve or initialize
             });
 
         emblems = relatedCards
-            .filter(card => card.related.print.layout === 'emblem')
-            .map(card => {
+            .filter((card) => card.related.print.layout === 'emblem')
+            .map((card) => {
                 const existing = emblemMap.get(card.related.print.oracleId);
                 return existing ? existing : { ...card, quantity: 1 }; // Preserve or initialize
             });
 
         otherRelated = relatedCards
-            .filter(card => !['token', 'emblem'].includes(card.related.print.layout))
-            .map(card => {
+            .filter((card) => !['token', 'emblem'].includes(card.related.print.layout))
+            .map((card) => {
                 const existing = otherMap.get(card.related.print.oracleId);
                 return existing ? existing : { ...card, quantity: 1 }; // Preserve or initialize
             });
     }
-
 </script>
 
-<Button on:click={() => showModal = true}>
+<Button on:click={() => (showModal = true)}>
     <div class="flex flex-row gap-1">
         <Icon name="download" />
         <p>{$t('common.download')}</p>
@@ -187,7 +189,12 @@
         {#if relatedCards.length}
             <Panel>
                 <div class="flex flex-col items-start gap-3 m-1">
-                    <Switch size="5" label={$t('tassadecks.editor.download.modal.switch.related-cards')} bind:value={downloadRelatedPrints} on:change={handleRelatedSwitch} />
+                    <Switch
+                        size="5"
+                        label={$t('tassadecks.editor.download.modal.switch.related-cards')}
+                        bind:value={downloadRelatedPrints}
+                        on:change={handleRelatedSwitch}
+                    />
                     <div class="flex flex-col items-start gap-3 m-3 transition-opacity duration-300 {downloadRelatedPrints ? '' : 'opacity-0'}">
                         {#if tokens.length}
                             <EditorDeckPrintOptionsItemsList
