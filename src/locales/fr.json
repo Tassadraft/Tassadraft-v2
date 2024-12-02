@@ -8,6 +8,7 @@
         "coming-soon": "Bientôt disponible ...",
         "close": "Fermer",
         "close-modal": "Fermer la fenêtre",
+        "cancel": "Annuler",
         "delete": "Supprimer",
         "public": "Public",
         "enabled": "Activé",
@@ -212,6 +213,8 @@
             }
         },
         "editor": {
+            "switch-print": "Changer édition",
+            "choose-print": "Choisir édition",
             "new-category": {
                 "title": "Nouvelle catégorie",
                 "placeholder": "Stase",
@@ -235,11 +238,24 @@
                 "placeholder": "Forêt",
                 "already": "Carte déjà dans le deck"
             },
-            "print": {
-                "switch": "Changer d'impression",
-                "choose": "Choisir une impression"
+            "download": {
+                "modal": {
+                    "title": "Options de téléchargement",
+                    "confirm": "Continuer",
+                    "switch": {
+                        "title": "Sélectionnez ce que vous voulez télécharger",
+                        "deck-cards": "Cartes du deck",
+                        "related-cards": "Cartes liées",
+                        "tokens": "Jetons",
+                        "emblems": "Emblèmes",
+                        "other-cards": "Autres cartes liées"
+                    }
+                }
             },
-            "clear-categories": "Nettoyer catégories"
+            "clear-categories": {
+                "title": "Nettoyer catégories",
+                "text": "Êtes-vous sûr de vouloir supprimer les catégories sans cartes ? Cette action n'est pas réversible."
+            }
         }
     }
 }

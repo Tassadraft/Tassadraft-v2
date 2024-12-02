@@ -47,11 +47,11 @@
         <div class="flex flex-row justify-center">
             {#if successText}
                 <div class="flex flex-row justify-center space-x-12 w-full">
-                    <Button on:click={handleSuccess}>
-                        {successText || $t('common.yes')}
-                    </Button>
                     <Button on:click={handleClose}>
                         {closeText || $t('common.no')}
+                    </Button>
+                    <Button on:click={handleSuccess}>
+                        {successText || $t('common.yes')}
                     </Button>
                 </div>
             {:else}

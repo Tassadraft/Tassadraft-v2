@@ -1,12 +1,12 @@
 <script>
-    import Icon from '../shared/Icon.svelte';
-    import Button from '../shared/Button.svelte';
+    import Icon from '../../shared/Icon.svelte';
+    import Button from '../../shared/Button.svelte';
     import { t } from 'svelte-i18n';
-    import Subtitle from '../shared/Subtitle.svelte';
-    import Modal from '../shared/Modal.svelte';
-    import Input from '../shared/Input.svelte';
-    import Form from '../shared/Form.svelte';
-    import { showToast } from '../../service/toastService.js';
+    import Subtitle from '../../shared/Subtitle.svelte';
+    import Modal from '../../shared/Modal.svelte';
+    import Input from '../../shared/Input.svelte';
+    import Form from '../../shared/Form.svelte';
+    import { showToast } from '../../../service/toastService.js';
 
     export let deck;
 

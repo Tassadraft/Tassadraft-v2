@@ -1,14 +1,14 @@
 <script>
-    import Icon from '../shared/Icon.svelte';
-    import Button from '../shared/Button.svelte';
-    import Modal from '../shared/Modal.svelte';
-    import CardSearchItem from './CardSearchItem.svelte';
-    import Pagination from '../shared/Pagination.svelte';
-    import Search from '../shared/Search.svelte';
-    import Subtitle from '../shared/Subtitle.svelte';
+    import Icon from '../../shared/Icon.svelte';
+    import Button from '../../shared/Button.svelte';
+    import Modal from '../../shared/Modal.svelte';
+    import CardSearchItem from '../CardSearchItem.svelte';
+    import Pagination from '../../shared/Pagination.svelte';
+    import Search from '../../shared/Search.svelte';
+    import Subtitle from '../../shared/Subtitle.svelte';
     import { t } from 'svelte-i18n';
-    import axios from '../../axiosConfig.js';
-    import { showToast } from '../../service/toastService.js';
+    import axios from '../../../axiosConfig.js';
+    import { showToast } from '../../../service/toastService.js';
 
     export let deck;
     export let addCardRequest = async () => {};

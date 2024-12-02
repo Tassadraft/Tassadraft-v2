@@ -1,9 +1,9 @@
 <script>
-    import IconButton from '../shared/IconButton.svelte';
+    import IconButton from '../../shared/IconButton.svelte';
     import { createEventDispatcher } from 'svelte';
-    import Select from '../shared/Select.svelte';
-    import Button from '../shared/Button.svelte';
-    import CardBadge from './CardBadge.svelte';
+    import Select from '../../shared/Select.svelte';
+    import Button from '../../shared/Button.svelte';
+    import CardBadge from '../CardBadge.svelte';
     import { t } from 'svelte-i18n';
 
     const dispatch = createEventDispatcher();
@@ -86,15 +86,15 @@
                     <IconButton icon="plus" size={32} disabled={!isBasicLand} on:click={() => dispatch('cardIncrement', selectedCard)} />
                 </div>
                 <div class="flex justify-center">
-                    <Button ariaLabel={$t('tassadecks.editor.print.switch')} on:click={() => (switching = true)}
-                        >{$t('tassadecks.editor.print.switch')}</Button
+                    <Button ariaLabel={$t('tassadecks.editor.switch-print')} on:click={() => (switching = true)}
+                        >{$t('tassadecks.editor.switch-print')}</Button
                     >
                 </div>
             {:else}
                 <div class="flex justify-center gap-10">
                     <IconButton icon="trash" size={32} on:click={() => dispatch('cardDecrement', selectedCard)} />
-                    <Button ariaLabel={$t('tassadecks.editor.print.switch')} on:click={() => (switching = true)}
-                        >{$t('tassadecks.editor.print.switch')}</Button
+                    <Button ariaLabel={$t('tassadecks.editor.switch-print')} on:click={() => (switching = true)}
+                        >{$t('tassadecks.editor.switch-print')}</Button
                     >
                 </div>
             {/if}

@@ -9,7 +9,7 @@
     import Account from './lib/pages/Account.svelte';
     import Logout from './lib/pages/Logout.svelte';
     import Tassadecks from './lib/pages/Tassadecks.svelte';
-    import Deck from './lib/tassadecks/Editor.svelte';
+    import Deck from './lib/tassadecks/editor/Editor.svelte';
     import NewDeck from './lib/tassadecks/NewDeck.svelte';
     import MyDecks from './lib/tassadecks/MyDecks.svelte';
     import BrowseDecks from './lib/tassadecks/BrowseDecks.svelte';

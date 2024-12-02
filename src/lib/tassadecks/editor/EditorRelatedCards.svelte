@@ -1,21 +1,23 @@
 <script>
-    import Subtitle from '../shared/Subtitle.svelte';
-    import CardPrintItem from './CardPrintItem.svelte';
-    import Pagination from '../shared/Pagination.svelte';
-    import Modal from '../shared/Modal.svelte';
-    import Button from '../shared/Button.svelte';
+    import Subtitle from '../../shared/Subtitle.svelte';
+    import CardPrintItem from '../CardPrintItem.svelte';
+    import Pagination from '../../shared/Pagination.svelte';
+    import Modal from '../../shared/Modal.svelte';
+    import Button from '../../shared/Button.svelte';
     import { SplideSlide } from '@splidejs/svelte-splide';
-    import Carousel from '../shared/Carousel.svelte';
     import { t } from 'svelte-i18n';
     import EditorRelatedCardDetails from './EditorRelatedCardDetails.svelte';
-    import axios from '../../axiosConfig.js';
-    import { showToast } from '../../service/toastService.js';
-    import IconInfo from '../shared/IconInfo.svelte';
+    import axios from '../../../axiosConfig.js';
+    import { showToast } from '../../../service/toastService.js';
+    import IconInfo from '../../shared/IconInfo.svelte';
+    import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
 
     export let handleCardPrintsDisplay = () => {};
     export let deck;
+    export let relatedCards = [];
 
-    let relatedCards = [];
     let cardDetailsContainerRef;
     let selectedRelatedCard;
     let showRelatedModal = false;

@@ -1,7 +1,7 @@
 <script>
-    import IconButton from '../shared/IconButton.svelte';
-    import Button from '../shared/Button.svelte';
-    import CardBadge from './CardBadge.svelte';
+    import IconButton from '../../shared/IconButton.svelte';
+    import Button from '../../shared/Button.svelte';
+    import CardBadge from '../CardBadge.svelte';
     import { t } from 'svelte-i18n';
 
     export let selectedRelatedCard;
@@ -61,8 +61,8 @@
                 </div>
             {/if}
             <div class="flex justify-center gap-10">
-                <Button ariaLabel={$t('tassadecks.editor.print.switch')} on:click={() => (switching = true)}
-                    >{$t('tassadecks.editor.print.switch')}</Button
+                <Button ariaLabel={$t('tassadecks.editor.switch-print')} on:click={() => (switching = true)}
+                    >{$t('tassadecks.editor.switch-print')}</Button
                 >
             </div>
         </div>

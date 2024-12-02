@@ -8,6 +8,7 @@
         "coming-soon": "Coming soon ...",
         "close": "Close",
         "close-modal": "Close modal",
+        "cancel": "Cancel",
         "delete": "Delete",
         "public": "Public",
         "enabled": "Enabled",
@@ -212,6 +213,8 @@
             }
         },
         "editor": {
+            "switch-print": "Switch print",
+            "choose-print": "Choose print",
             "new-category": {
                 "title": "New category",
                 "placeholder": "Stasis",
@@ -235,11 +238,24 @@
                 "placeholder": "Forest",
                 "already": "Card already in the deck"
             },
-            "print": {
-                "switch": "Switch print",
-                "choose": "Choose print"
+            "download": {
+                "modal": {
+                    "title": "Download options",
+                    "confirm": "Continue download",
+                    "switch": {
+                        "title": "Select what to download",
+                        "deck-cards": "Deck cards",
+                        "related-cards": "Related cards",
+                        "tokens": "Tokens",
+                        "emblems": "Emblems",
+                        "other-cards": "Other related cards"
+                    }
+                }
             },
-            "clear-categories": "Clear categories"
+            "clear-categories": {
+                "title": "Clear categories",
+                "text": "Are you sure you want to clear empty categories ? This is not reversible."
+            }
         }
     }
 }

@@ -1,28 +1,28 @@
 <script>
-    import Menu from '../menu/Menu.svelte';
-    import Title from '../shared/Title.svelte';
+    import Menu from '../../menu/Menu.svelte';
+    import Title from '../../shared/Title.svelte';
     import { onMount } from 'svelte';
-    import axios from '../../axiosConfig.js';
-    import Panel from '../shared/Panel.svelte';
-    import Switch from '../shared/Switch.svelte';
-    import Subtitle from '../shared/Subtitle.svelte';
-    import { showToast } from '../../service/toastService.js';
-    import Modal from '../shared/Modal.svelte';
-    import Button from '../shared/Button.svelte';
-    import IconButton from '../shared/IconButton.svelte';
-    import DisplayingMode from '../shared/DisplayingMode.svelte';
+    import axios from '../../../axiosConfig.js';
+    import Panel from '../../shared/Panel.svelte';
+    import Switch from '../../shared/Switch.svelte';
+    import Subtitle from '../../shared/Subtitle.svelte';
+    import { showToast } from '../../../service/toastService.js';
+    import Modal from '../../shared/Modal.svelte';
+    import Button from '../../shared/Button.svelte';
+    import IconButton from '../../shared/IconButton.svelte';
+    import DisplayingMode from '../../shared/DisplayingMode.svelte';
     import EditorCardDetails from './EditorCardDetails.svelte';
     import EditorCard from './EditorCard.svelte';
-    import Pagination from '../shared/Pagination.svelte';
-    import Editable from '../shared/Editable.svelte';
-    import Photo from '../shared/Photo.svelte';
-    import getBase64Strings from '../../service/base64Service.js';
-    import Loader from '../shared/Loader.svelte';
-    import { capitalizeFirstChar } from '../../service/stringService.js';
-    import CardPrintItem from './CardPrintItem.svelte';
-    import IconInfo from '../shared/IconInfo.svelte';
+    import Pagination from '../../shared/Pagination.svelte';
+    import Editable from '../../shared/Editable.svelte';
+    import Photo from '../../shared/Photo.svelte';
+    import getBase64Strings from '../../../service/base64Service.js';
+    import Loader from '../../shared/Loader.svelte';
+    import { capitalizeFirstChar } from '../../../service/stringService.js';
+    import CardPrintItem from '../CardPrintItem.svelte';
+    import IconInfo from '../../shared/IconInfo.svelte';
     import { navigate } from 'svelte-routing';
-    import { setDeck, decks } from '../../stores/deckStore.js';
+    import { setDeck, decks } from '../../../stores/deckStore.js';
     import { t } from 'svelte-i18n';
     import EditorDeckPrint from './EditorDeckPrint.svelte';
     import EditorRelatedCards from './EditorRelatedCards.svelte';
@@ -62,6 +62,7 @@
     let switchCardPrintBaseUrl = '';
 
     let cardDetailsContainerRef;
+    let relatedCards = [];
 
     let loading = false;
     let isLegal = false;
@@ -230,7 +231,7 @@
 
     const handleDecrement = async (e) => {
         for (const categoryObject of deck.categories) {
-            for (let cardObject of categoryObject.cards) {
+            for (const cardObject of categoryObject.cards) {
                 if (cardObject.print.oracleId === e.detail.print.oracleId) {
                     const removed = await removeCardRequest(cardObject.print);
                     if (!removed) {
@@ -238,7 +239,7 @@
                     }
                     cardObject.quantity = cardObject.quantity - 1;
                     if (cardObject.quantity <= 0) {
-                        categoryObject.cards = categoryObject.cards.filter((co) => co.id !== co.id);
+                        categoryObject.cards = categoryObject.cards.filter((co) => co.id !== cardObject.id);
                         showCardModal = false;
                     }
                     selectedCard = { ...selectedCard, quantity: selectedCard.quantity - 1 };
@@ -411,7 +412,7 @@
 <Panel>
     <div class="flex flex-row flex-wrap gap-5">
         <EditorSearch bind:deck {addCardRequest} {removeCardRequest} />
-        <EditorDeckPrint bind:deck />
+        <EditorDeckPrint bind:deck bind:relatedCards />
         <Photo mode="inline" on:photo={handleProcessPhoto}>{$t('tassadecks.editor.batch.photo')}</Photo>
         <EditorNewCategory bind:deck />
         <EditorClearCategories bind:deck />
@@ -496,7 +497,7 @@
     {/each}
 </div>
 
-<EditorRelatedCards bind:deck {handleCardPrintsDisplay} />
+<EditorRelatedCards bind:deck bind:relatedCards {handleCardPrintsDisplay} />
 
 <!-- Editor card modal -->
 <Modal bind:showModal={showCardModal} on:close={handleCloseCardDetails} fullWidth={true}>
