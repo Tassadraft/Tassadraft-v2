@@ -80,18 +80,19 @@
         let totalCards = 0; // Track total cards processed
         let deckCardsCount = 0; // Count total cards in the deck
 
-        // Calculate total cards count including related cards
-        deckCardsCount = deck.categories.reduce((acc, deckCategory) => {
-            return (
-                acc +
-                deckCategory.cards.reduce((a, card) => {
-                    if (card.print.layout !== 'flip' && card.print.faces?.length > 1) {
-                        return a + card.quantity + 1;
-                    }
-                    return a + card.quantity;
-                }, 0)
-            );
-        }, 0);
+        if (downloadDeckCards) {
+            deckCardsCount = deck.categories.reduce((acc, deckCategory) => {
+                return (
+                    acc +
+                    deckCategory.cards.reduce((a, card) => {
+                        if (card.print.layout !== 'flip' && card.print.faces?.length > 1) {
+                            return a + card.quantity + 1;
+                        }
+                        return a + card.quantity;
+                    }, 0)
+                );
+            }, 0);
+        }
 
         if (downloadRelatedPrints) {
             if (downloadTokens) {
@@ -136,19 +137,21 @@
         };
 
         // Iterate over the deck's categories and cards
-        for (const category of deck.categories) {
-            for (const card of category.cards) {
-                if (card.print.layout !== 'flip' && card.print.faces?.length > 1) {
-                    // Handle double-faced cards
-                    for (let i = 0; i < card.quantity; i++) {
-                        for (const face of card.print.faces) {
-                            await addAndPositionCard(face.imageUri.normal);
+        if (downloadDeckCards) {
+            for (const category of deck.categories) {
+                for (const card of category.cards) {
+                    if (card.print.layout !== 'flip' && card.print.faces?.length > 1) {
+                        // Handle double-faced cards
+                        for (let i = 0; i < card.quantity; i++) {
+                            for (const face of card.print.faces) {
+                                await addAndPositionCard(face.imageUri.normal);
+                            }
                         }
-                    }
-                } else if (card.print.imageUri) {
-                    // Handle regular cards
-                    for (let i = 0; i < card.quantity; i++) {
-                        await addAndPositionCard(card.print.imageUri.normal);
+                    } else if (card.print.imageUri) {
+                        // Handle regular cards
+                        for (let i = 0; i < card.quantity; i++) {
+                            await addAndPositionCard(card.print.imageUri.normal);
+                        }
                     }
                 }
             }
