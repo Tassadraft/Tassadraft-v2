@@ -68,9 +68,9 @@
 
 <Popover target={popoverTarget} show={showPopover}>
     <div class="flex flex-row gap-3 justify-center">
-        {#if currentItem.related.print.faces.length > 1}
+        {#if currentItem.related.print.layout !== 'flip' && currentItem.related.print.faces.length > 1}
             {#each currentItem.related.print.faces as face}
-                <img class="w-64 rounded-lg" src={face.print.imageUri.normal} alt={face.print.translation.name} />
+                <img class="w-64 rounded-lg" src={face.imageUri.normal} alt={face.translation.name} />
             {/each}
         {:else}
             <img class="w-64 rounded-lg" src={currentItem.related.print.imageUri.normal} alt={currentItem.related.print.translation.name} />
