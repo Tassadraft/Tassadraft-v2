@@ -43,6 +43,8 @@
         'Download',
         'Help',
         'Clear',
+        'ArrowLeft',
+        'ArrowRight'
     ];
 
     const toCamelCase = (str) => {

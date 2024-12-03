@@ -10,7 +10,7 @@
     export let disabled = false;
     export let label;
     export let readonly = false;
-    export let inputRef;
+    export let inputRef = null;
 
     const realType = type;
 

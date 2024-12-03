@@ -2,6 +2,9 @@
 
 ### Infrastructure
 
+- Improved routing
+- 404 & forbidden pages
+
 ### New features
 
 - Decks browse

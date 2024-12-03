@@ -1,7 +1,6 @@
 <script>
     import { onMount } from 'svelte';
     import { Router, Route } from 'svelte-routing';
-    import { t, locale } from 'svelte-i18n';
     import Homepage from './lib/pages/Home.svelte';
     import Tassadraft from './lib/pages/Tassadraft.svelte';
     import Settings from './lib/pages/Settings.svelte';
@@ -17,10 +16,46 @@
     import ConfirmResetPassword from './lib/pages/ConfirmResetPassword.svelte';
     import { defineCustomElements } from '@ionic/pwa-elements/loader';
     import Subscribe from './lib/pages/Subscribe.svelte';
-    import { updateAccount } from './stores/authStore.js';
-    import { showToast } from './service/toastService.js';
+    import Forbidden from './lib/pages/Forbidden.svelte';
+    import { updateAccount, currentAccount } from './stores/authStore.js';
+    import NotFound from "./lib/pages/NotFound.svelte";
+    import axios from "axios";
 
     export let url = '';
+
+    const logInformations = async (token) => {
+        const tokenExpiresAt = localStorage.getItem('apiTokenExpiration');
+        if (tokenExpiresAt && new Date(tokenExpiresAt) < new Date()) {
+            localStorage.removeItem('apiToken');
+            localStorage.removeItem('apiTokenExpiration');
+            localStorage.removeItem('subscribed');
+            return;
+        }
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        axios
+            .get('/api/auth')
+            .then((response) => {
+                if (response.status !== 200) {
+                    throw new Error('Invalid token');
+                }
+            })
+            .catch(() => {
+                localStorage.removeItem('apiToken');
+                axios.defaults.headers.common['Authorization'] = '';
+            });
+        axios
+            .get('/api/auth/reserved')
+            .then((response) => {
+                if (response.status === 200) {
+                    localStorage.setItem('subscribed', 'true');
+                } else {
+                    localStorage.setItem('subscribed', 'false');
+                }
+            })
+            .catch(() => {
+                localStorage.setItem('subscribed', 'false');
+            });
+    };
 
     onMount(async () => {
         await defineCustomElements(window);
@@ -34,12 +69,10 @@
             localStorage.setItem('currency', 'euro');
         }
 
-        if (localStorage.getItem('apiToken')) {
-            try {
-                await updateAccount();
-            } catch (e) {
-                showToast($t('toast.account.error'), 'error');
-            }
+        const token = localStorage.getItem('apiToken');
+        if (token) {
+            await logInformations(token);
+            await updateAccount();
         }
     });
 </script>
@@ -48,20 +81,33 @@
     <Router {url}>
         <div>
             <Route path="/"><Homepage /></Route>
-            <Route path="/tassadraft"><Tassadraft /></Route>
-            <Route path="/tassadecks"><Tassadecks /></Route>
-            <Route path="/settings"><Settings /></Route>
-            <Route path="/account"><Account /></Route>
-            <Route path="/reset-password"><ResetPassword /></Route>
-            <Route path="/reset-password/confirm/:token" let:params><ConfirmResetPassword {...params} /></Route>
             <Route path="/login"><Login /></Route>
-            <Route path="/logout"><Logout /></Route>
             <Route path="/subscribe"><Subscribe /></Route>
+            <Route path="/settings"><Settings /></Route>
 
-            <Route path="/decks/edit/:deckId" let:params><Deck {...params} /></Route>
-            <Route path="/decks/new"><NewDeck /></Route>
-            <Route path="/decks/me"><MyDecks /></Route>
-            <Route path="/decks"><BrowseDecks /></Route>
+            {#if $currentAccount}
+                <Route path="/tassadraft"><Tassadraft /></Route>
+                <Route path="/tassadecks"><Tassadecks /></Route>
+                <Route path="/account"><Account /></Route>
+                <Route path="/reset-password"><ResetPassword /></Route>
+                <Route path="/reset-password/confirm/:token" let:params><ConfirmResetPassword {...params} /></Route>
+                <Route path="/logout"><Logout /></Route>
+
+                <Route path="/decks/edit/:deckId" let:params><Deck {...params} /></Route>
+                <Route path="/decks/new"><NewDeck /></Route>
+                <Route path="/decks/me"><MyDecks /></Route>
+                <Route path="/decks"><BrowseDecks /></Route>
+            {:else}
+                <Route path="/tassadraft"><Forbidden /></Route>
+                <Route path="/tassadecks"><Forbidden /></Route>
+                <Route path="/account"><Forbidden /></Route>
+                <Route path="/decks/edit/:deckId" let:params><Forbidden /></Route>
+                <Route path="/decks/new"><Forbidden /></Route>
+                <Route path="/decks/me"><Forbidden /></Route>
+                <Route path="/decks"><Forbidden /></Route>
+            {/if}
+
+            <Route path="*"><NotFound /></Route>
         </div>
     </Router>
 </main>

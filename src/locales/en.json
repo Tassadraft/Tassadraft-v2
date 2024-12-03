@@ -9,6 +9,7 @@
         "close": "Close",
         "close-modal": "Close modal",
         "cancel": "Cancel",
+        "back-to-home": "Back to homepage",
         "delete": "Delete",
         "public": "Public",
         "enabled": "Enabled",
@@ -258,5 +259,12 @@
                 "text": "Are you sure you want to clear empty categories ? This is not reversible."
             }
         }
+    },
+    "forbidden": {
+        "title": "Forbidden",
+        "subtitle": "You have to be logged & subscribed to access this app's part."
+    },
+    "not-found": {
+        "title": "Page not found"
     }
 }
