@@ -9,6 +9,7 @@
         "close": "Fermer",
         "close-modal": "Fermer la fenêtre",
         "cancel": "Annuler",
+        "back-to-home": "Retour à la page d'accueil",
         "delete": "Supprimer",
         "public": "Public",
         "enabled": "Activé",
@@ -258,5 +259,12 @@
                 "text": "Êtes-vous sûr de vouloir supprimer les catégories sans cartes ? Cette action n'est pas réversible."
             }
         }
+    },
+    "forbidden": {
+        "title": "Accès refusé",
+        "subtitle": "Vous devez êtez connecté et abonné pour accéder à cette partie de l'application."
+    },
+    "not-found": {
+        "title": "Page inexistante"
     }
 }
