@@ -128,6 +128,10 @@
     },
     "profile": {
         "title": "Profil",
+        "profile-picture": {
+            "title": "Profile picture",
+            "description": "Upload here a profile picture"
+        },
         "subscription": "Abonnement",
         "subscription-ends": "Abonnement se termine le",
         "subscribed-on": "Abonné le",
@@ -208,7 +212,8 @@
                     "placeholder": "Ceci est un deck aggro censé gagner en 5 tours."
                 },
                 "file": {
-                    "title": "Importer un fichier de liste de deck"
+                    "title": "Importer un fichier de liste de deck",
+                    "description": "L'export Archidekt est supporté\nFormat de ligne :\n<[quantité]x [nom de la carte anglaise] [...]>"
                 }
             }
         },

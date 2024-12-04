@@ -74,6 +74,6 @@
         <Switch size="6" name="enabled" bind:value={deck.enabled} label={$t('common.enabled')} />
     </div>
     {#if !scratch}
-        <FileUpload name="file" title={$t('tassadecks.new.form.file.title')} description={$t('tassadecks.new.form.file.description')} accept="txt" />
+        <FileUpload name="file" accept="txt" title={$t('tassadecks.new.form.file.title')} description={$t('tassadecks.new.form.file.description')} />
     {/if}
 </Form>

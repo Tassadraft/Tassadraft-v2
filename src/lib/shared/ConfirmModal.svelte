@@ -1,5 +1,5 @@
 <script>
-    import Modal from "./Modal.svelte";
+    import Modal from './Modal.svelte';
     import { t } from 'svelte-i18n';
 
     export let showModal;

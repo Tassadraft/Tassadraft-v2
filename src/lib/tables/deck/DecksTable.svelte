@@ -8,7 +8,7 @@
     import Loader from '../../shared/Loader.svelte';
     import { t } from 'svelte-i18n';
     import { deleteDeck } from '../../../stores/deckStore.js';
-    import ConfirmModal from "../../shared/ConfirmModal.svelte";
+    import ConfirmModal from '../../shared/ConfirmModal.svelte';
 
     export let decks = [];
     export let displayOwner = false;

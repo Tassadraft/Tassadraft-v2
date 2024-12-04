@@ -4,7 +4,7 @@
     import Fab from '../../shared/Fab.svelte';
     import TableHeader from '../TableHeader.svelte';
     import { t } from 'svelte-i18n';
-    import ConfirmModal from "../../shared/ConfirmModal.svelte";
+    import ConfirmModal from '../../shared/ConfirmModal.svelte';
 
     export let cards = [];
     export let deletedCards = [];

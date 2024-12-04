@@ -110,7 +110,7 @@
     "menu": {
         "home": "Home",
         "settings": "Settings",
-        "profile": "Profil",
+        "profile": "Profile",
         "logout": "Logout",
         "login": "Login"
     },
@@ -128,6 +128,10 @@
     },
     "profile": {
         "title": "Profile",
+        "profile-picture": {
+            "title": "Profile picture",
+            "description": "Upload here a profile picture"
+        },
         "subscription": "Subscription",
         "subscription-ends": "Subscription ends on",
         "subscribed-on": "Subscribed on",
@@ -208,7 +212,8 @@
                     "placeholder": "This is a aggro deck that's supposed to win in 5 turns."
                 },
                 "file": {
-                    "title": "Import deck list file"
+                    "title": "Import deck list file",
+                    "description": "Archidekt is supported\nLine format :\n<[quantity]x [english card name] [...]>"
                 }
             }
         },

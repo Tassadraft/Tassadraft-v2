@@ -8,7 +8,7 @@
     import { showToast } from '../../service/toastService.js';
     import Loader from '../shared/Loader.svelte';
     import { t } from 'svelte-i18n';
-    import ConfirmModal from "../shared/ConfirmModal.svelte";
+    import ConfirmModal from '../shared/ConfirmModal.svelte';
 
     const dispatch = createEventDispatcher();
 

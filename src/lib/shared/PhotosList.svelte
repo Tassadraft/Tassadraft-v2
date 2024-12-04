@@ -4,7 +4,7 @@
     import Fab from './Fab.svelte';
     import { showToast } from '../../service/toastService.js';
     import { t } from 'svelte-i18n';
-    import ConfirmModal from "./ConfirmModal.svelte";
+    import ConfirmModal from './ConfirmModal.svelte';
 
     export let photos = [];
     export let cards = [];

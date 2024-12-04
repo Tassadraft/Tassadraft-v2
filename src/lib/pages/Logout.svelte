@@ -2,11 +2,11 @@
     import { showToast } from '../../service/toastService.js';
     import { navigate } from 'svelte-routing';
     import { clearProfile } from '../../stores/profileStore.js';
-    import Subtitle from "../shared/Subtitle.svelte";
+    import Subtitle from '../shared/Subtitle.svelte';
     import { t } from 'svelte-i18n';
-    import Menu from "../menu/Menu.svelte";
-    import Title from "../shared/Title.svelte";
-    import ConfirmModal from "../shared/ConfirmModal.svelte";
+    import Menu from '../menu/Menu.svelte';
+    import Title from '../shared/Title.svelte';
+    import ConfirmModal from '../shared/ConfirmModal.svelte';
 
     let showModal = true;
 

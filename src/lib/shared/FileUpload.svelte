@@ -1,59 +1,84 @@
 <script>
     import Icon from './Icon.svelte';
     import { t } from 'svelte-i18n';
+    import { onMount } from 'svelte';
+    import { raw } from '../../service/stringService.js';
 
     export let name = '';
-    export let description;
+    export let description = '';
     export let title = null;
-    export let width = '64';
+    export let width = '96';
     export let accept = '';
+    export let path = '';
+    export let fileName = '';
 
-    let fileName = '';
+    let acceptedFormats = '';
     let file = null;
     let isDragging = false;
+    let previewSrc = `${process.env.VITE_TASSADAPI_BASE_URL}/${path}`;
 
-    $: acceptedFormats = accept
-        .split(' ')
-        .map((format) => `.${format}`)
-        .join(',');
+    onMount(() => {
+        title = title ?? $t('common.file.description');
+        description = description ?? $t('common.file.description');
+        acceptedFormats = accept
+            .split(' ')
+            .map((format) => `.${format}`)
+            .join(',');
+    });
 
-    function handleFileChange(event) {
+    const handleFileChange = (event) => {
         const files = event.target.files;
         if (files.length > 0) {
             file = files[0];
             fileName = file.name;
-        }
-    }
 
-    function handleDragOver(event) {
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewSrc = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewSrc = '';
+            }
+        }
+    };
+
+    const handleDragOver = (event) => {
         event.preventDefault();
         isDragging = true;
-    }
+    };
 
-    function handleDragLeave() {
+    const handleDragLeave = () => {
         isDragging = false;
-    }
+    };
 
-    function handleDrop(event) {
+    const handleDrop = (event) => {
         event.preventDefault();
         isDragging = false;
         const files = event.dataTransfer.files;
         if (files.length > 0) {
             file = files[0];
             fileName = file.name;
-        }
-    }
 
-    function handleKeyDown(event) {
+            // Generate a preview for images
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewSrc = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewSrc = '';
+            }
+        }
+    };
+
+    const handleKeyDown = (event) => {
         if (event.key === 'Enter' || event.key === ' ') {
             document.getElementById('file-upload').click();
         }
-    }
-
-    $: {
-        title ? (title = $t('common.file.description')) : '';
-        description ? (description = $t('common.file.description')) : '';
-    }
+    };
 </script>
 
 <div class="flex flex-col w-full my-5">
@@ -74,11 +99,17 @@
     >
         <input id="file-upload" type="file" class="hidden" {name} accept={acceptedFormats} on:change={handleFileChange} />
         <Icon name="upload" size="35" color="primary" />
-        <span class="text-center text-sm text-gray-500 mt-2">
+        <span class="text-center text-sm text-gray-500 my-3">
             {#if fileName}
-                {fileName}
+                {#if previewSrc}
+                    <div class="mt-3 flex justify-center">
+                        <img src={previewSrc} alt="Preview" class="w-24 h-24 object-cover rounded" />
+                    </div>
+                {:else}
+                    {fileName}
+                {/if}
             {:else}
-                {description}
+                {@html raw(description)}
             {/if}
         </span>
     </button>

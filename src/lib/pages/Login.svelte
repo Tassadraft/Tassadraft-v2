@@ -31,7 +31,7 @@
         try {
             await updateProfile();
         } catch (e) {
-            showToast($t('toast.profile.get.error'));
+            showToast($t('toast.profile.get.error'), 'error');
         }
 
         // Subscription

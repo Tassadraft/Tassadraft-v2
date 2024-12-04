@@ -1,7 +1,7 @@
 <script>
-    import Icon from "./Icon.svelte";
-    import Button from "./Button.svelte";
-    import Link from "./Link.svelte";
+    import Icon from './Icon.svelte';
+    import Button from './Button.svelte';
+    import Link from './Link.svelte';
 
     export let href;
     export let text;

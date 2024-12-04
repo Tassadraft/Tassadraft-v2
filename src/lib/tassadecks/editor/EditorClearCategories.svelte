@@ -6,7 +6,7 @@
     import { showToast } from '../../../service/toastService.js';
     import Modal from '../../shared/Modal.svelte';
     import Subtitle from '../../shared/Subtitle.svelte';
-    import ConfirmModal from "../../shared/ConfirmModal.svelte";
+    import ConfirmModal from '../../shared/ConfirmModal.svelte';
 
     export let deck;
 

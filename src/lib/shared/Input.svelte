@@ -26,8 +26,8 @@
     const switchType = () => (type = type === 'password' ? 'text' : 'password');
 
     const inputAttributes = {
-        ...(min !== null && {min}),
-        ...(max !== null && {max})
+        ...(min !== null && { min }),
+        ...(max !== null && { max }),
     };
 </script>
 
@@ -74,7 +74,7 @@
             {...inputAttributes}
         />
         <Button additionalStyle="absolute top-2 right-2 cursor-pointer" on:click={switchType}>
-            <Icon name="eye"/>
+            <Icon name="eye" />
         </Button>
     {:else}
         <input
@@ -91,15 +91,16 @@
             {...inputAttributes}
         />
         <Button additionalStyle="absolute top-2 right-2 cursor-pointer" on:click={switchType}>
-            <Icon name="eyeSlash"/>
+            <Icon name="eyeSlash" />
         </Button>
     {/if}
 </div>
 
 <style>
     label {
-        transition: bottom 0.8s ease,
-        left 0.8s ease,
-        color 0.8s ease;
+        transition:
+            bottom 0.8s ease,
+            left 0.8s ease,
+            color 0.8s ease;
     }
 </style>

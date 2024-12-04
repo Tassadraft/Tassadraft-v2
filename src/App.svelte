@@ -17,9 +17,9 @@
     import Subscribe from './lib/pages/Subscribe.svelte';
     import Forbidden from './lib/pages/Forbidden.svelte';
     import { updateProfile, profile } from './stores/profileStore.js';
-    import NotFound from "./lib/pages/NotFound.svelte";
-    import axios from "axios";
-    import Profile from "./lib/pages/Profile.svelte";
+    import NotFound from './lib/pages/NotFound.svelte';
+    import axios from 'axios';
+    import Profile from './lib/pages/Profile.svelte';
 
     export let url = '';
 

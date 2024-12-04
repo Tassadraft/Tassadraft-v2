@@ -3,4 +3,8 @@ const capitalizeFirstChar = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-export { capitalizeFirstChar };
+const raw = (str) => {
+    return str.replaceAll('\n', '<br>');
+};
+
+export { capitalizeFirstChar, raw };
