@@ -63,7 +63,13 @@
             }
         },
         "account": {
-            "error": "An error occurred while fetching your profile"
+            "get": {
+                "error": "An error occurred while fetching your profile"
+            },
+            "update": {
+                "success": "Account updated",
+                "error": "An error occurred while updating your profile"
+            }
         },
         "editor": {
             "load": {
@@ -155,6 +161,13 @@
         },
         "tassadecks": {
             "description": "Your dedicated deck editor"
+        }
+    },
+    "logout": {
+        "title": "Logout",
+        "modal": {
+            "title": "Logout",
+            "text": "Are you sure you want to logout ?"
         }
     },
     "tassadraft": {

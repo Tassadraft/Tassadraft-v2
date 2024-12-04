@@ -10,6 +10,7 @@
     export let successText = '';
     export let fullWidth = false;
     export let dialog;
+    export let confirm = false;
 
     const handleSuccess = () => {
         dispatch('success');
@@ -47,12 +48,19 @@
         <div class="flex flex-row justify-center">
             {#if successText}
                 <div class="flex flex-row justify-center space-x-12 w-full">
-                    <Button on:click={handleClose}>
-                        {closeText || $t('common.no')}
-                    </Button>
+                    {#if !confirm}
+                        <Button on:click={handleClose}>
+                            {closeText || $t('common.no')}
+                        </Button>
+                    {/if}
                     <Button on:click={handleSuccess}>
                         {successText || $t('common.yes')}
                     </Button>
+                    {#if confirm}
+                        <Button on:click={handleClose}>
+                            {closeText || $t('common.no')}
+                        </Button>
+                    {/if}
                 </div>
             {:else}
                 <Button className="mx-auto" on:click={handleClose}>

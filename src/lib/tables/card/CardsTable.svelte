@@ -1,10 +1,10 @@
 <script>
     import CardRow from './CardRow.svelte';
-    import Modal from '../../shared/Modal.svelte';
     import { showToast } from '../../../service/toastService.js';
     import Fab from '../../shared/Fab.svelte';
     import TableHeader from '../TableHeader.svelte';
     import { t } from 'svelte-i18n';
+    import ConfirmModal from "../../shared/ConfirmModal.svelte";
 
     export let cards = [];
     export let deletedCards = [];
@@ -69,11 +69,11 @@
     </table>
 </div>
 
-<Modal bind:showModal successText={$t('common.yes')} closeText={$t('common.no')} on:success={handleDeleteSuccess}>
+<ConfirmModal bind:showModal on:success={handleDeleteSuccess}>
     <p class="text-black dark:text-white">
         Delete {deletingCard?.translation.name} ?
     </p>
-</Modal>
+</ConfirmModal>
 
 {#if deletedCards.length > 0}
     <Fab icon="undo" horizontal="left" vertical="bottom" on:click={handleUndo} />

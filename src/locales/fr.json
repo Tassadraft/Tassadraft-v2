@@ -63,7 +63,13 @@
             }
         },
         "account": {
-            "error": "Une erreur s'est produite lors de la récupération de votre profil"
+            "get": {
+                "error": "Une erreur est survenue lors de la récupération de votre profil"
+            },
+            "update": {
+                "success": "Informations du compte mises à jour",
+                "error": "Une erreur est survenue lors de la mise à jour du profil"
+            }
         },
         "editor": {
             "load": {
@@ -155,6 +161,13 @@
         },
         "tassadecks": {
             "description": "Votre éditeur de deck dédié"
+        }
+    },
+    "logout": {
+        "title": "Déconnexion",
+        "modal": {
+            "title": "Déconnexion",
+            "text": "Êtes-vous sûr de vouloir vous déconnecter ?"
         }
     },
     "tassadraft": {
