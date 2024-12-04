@@ -87,7 +87,7 @@
     {/if}
     <button
         type="button"
-        class={`w-${width} flex flex-col items-center justify-center border-2 rounded-lg cursor-pointer transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 m-auto`}
+        class={`w-${width} flex flex-col items-center justify-center border-2 rounded-lg cursor-pointer transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 m-auto p-3`}
         class:bg-blue-50={isDragging}
         class:border-blue-500={isDragging}
         on:click={() => document.getElementById('file-upload').click()}
