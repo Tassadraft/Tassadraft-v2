@@ -44,7 +44,7 @@
         'Help',
         'Clear',
         'ArrowLeft',
-        'ArrowRight'
+        'ArrowRight',
     ];
 
     const toCamelCase = (str) => {

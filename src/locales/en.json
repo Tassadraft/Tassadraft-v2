@@ -62,8 +62,14 @@
                 "error": "An error occurred while sending email. Retry later."
             }
         },
-        "account": {
-            "error": "An error occurred while fetching your profile"
+        "profile": {
+            "get": {
+                "error": "An error occurred while fetching your profile"
+            },
+            "update": {
+                "success": "Profile updated",
+                "error": "An error occurred while updating your profile"
+            }
         },
         "editor": {
             "load": {
@@ -104,7 +110,7 @@
     "menu": {
         "home": "Home",
         "settings": "Settings",
-        "account": "Account",
+        "profile": "Profile",
         "logout": "Logout",
         "login": "Login"
     },
@@ -120,8 +126,12 @@
             "title": "Preferred language"
         }
     },
-    "account": {
-        "title": "Account",
+    "profile": {
+        "title": "Profile",
+        "profile-picture": {
+            "title": "Profile picture",
+            "description": "Upload here a profile picture"
+        },
         "subscription": "Subscription",
         "subscription-ends": "Subscription ends on",
         "subscribed-on": "Subscribed on",
@@ -155,6 +165,13 @@
         },
         "tassadecks": {
             "description": "Your dedicated deck editor"
+        }
+    },
+    "logout": {
+        "title": "Logout",
+        "modal": {
+            "title": "Logout",
+            "text": "Are you sure you want to logout ?"
         }
     },
     "tassadraft": {
@@ -195,7 +212,8 @@
                     "placeholder": "This is a aggro deck that's supposed to win in 5 turns."
                 },
                 "file": {
-                    "title": "Import deck list file"
+                    "title": "Import deck list file",
+                    "description": "Archidekt is supported\nLine format :\n<[quantity]x [english card name] [...]>"
                 }
             }
         },

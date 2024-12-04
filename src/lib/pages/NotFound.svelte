@@ -1,8 +1,8 @@
 <script>
-    import Title from "../shared/Title.svelte";
-    import Menu from "../menu/Menu.svelte";
+    import Title from '../shared/Title.svelte';
+    import Menu from '../menu/Menu.svelte';
     import { t } from 'svelte-i18n';
-    import BackTo from "../shared/BackTo.svelte";
+    import BackTo from '../shared/BackTo.svelte';
 </script>
 
 <Menu />

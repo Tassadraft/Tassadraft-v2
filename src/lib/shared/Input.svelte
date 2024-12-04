@@ -11,6 +11,8 @@
     export let label;
     export let readonly = false;
     export let inputRef = null;
+    export let min = null;
+    export let max = null;
 
     const realType = type;
 
@@ -22,6 +24,11 @@
 
     const typeWorkaround = (node) => (node.type = type);
     const switchType = () => (type = type === 'password' ? 'text' : 'password');
+
+    const inputAttributes = {
+        ...(min !== null && { min }),
+        ...(max !== null && { max }),
+    };
 </script>
 
 <div class="relative w-full mt-8 mb-5">
@@ -50,6 +57,7 @@
             {readonly}
             bind:this={inputRef}
             class={classes}
+            {...inputAttributes}
         />
     {:else if type === 'password'}
         <input
@@ -63,6 +71,7 @@
             {disabled}
             {readonly}
             class={`${classes} pr-9`}
+            {...inputAttributes}
         />
         <Button additionalStyle="absolute top-2 right-2 cursor-pointer" on:click={switchType}>
             <Icon name="eye" />
@@ -79,6 +88,7 @@
             {disabled}
             {readonly}
             class={`${classes} pr-9`}
+            {...inputAttributes}
         />
         <Button additionalStyle="absolute top-2 right-2 cursor-pointer" on:click={switchType}>
             <Icon name="eyeSlash" />

@@ -8,6 +8,7 @@
     import { showToast } from '../../service/toastService.js';
     import Loader from '../shared/Loader.svelte';
     import { t } from 'svelte-i18n';
+    import ConfirmModal from '../shared/ConfirmModal.svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -67,8 +68,8 @@
 <Segment bind:selected={selectedOption} {options} on:change={handleSegmentChange} />
 <Loader bind:loading />
 
-<Modal bind:showModal successText={$t('common.yes')} closeText={$t('common.no')} on:success={handleSuccess}>
+<ConfirmModal bind:showModal on:success={handleSuccess}>
     <Subtitle slot="header">{$t('tassadraft.process.modal.title')}</Subtitle>
     <p class="text-black dark:text-white">{$t('tassadraft.process.modal.text')}</p>
     <p class="text-black dark:text-white">{$t('tassadraft.process.modal.question')}</p>
-</Modal>
+</ConfirmModal>

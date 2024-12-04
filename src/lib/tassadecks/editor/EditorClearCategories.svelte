@@ -6,6 +6,7 @@
     import { showToast } from '../../../service/toastService.js';
     import Modal from '../../shared/Modal.svelte';
     import Subtitle from '../../shared/Subtitle.svelte';
+    import ConfirmModal from '../../shared/ConfirmModal.svelte';
 
     export let deck;
 
@@ -32,7 +33,7 @@
     </div>
 </Button>
 
-<Modal bind:showModal successText={$t('common.yes')} closeText={$t('common.no')} on:success={handleClear}>
+<ConfirmModal bind:showModal on:success={handleClear}>
     <Subtitle slot="header">{$t('tassadecks.editor.clear-categories.title')}</Subtitle>
     <p class="text-black dark:text-white">{$t('tassadecks.editor.clear-categories.text')}</p>
-</Modal>
+</ConfirmModal>

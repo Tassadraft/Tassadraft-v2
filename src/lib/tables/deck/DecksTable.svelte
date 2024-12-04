@@ -8,6 +8,7 @@
     import Loader from '../../shared/Loader.svelte';
     import { t } from 'svelte-i18n';
     import { deleteDeck } from '../../../stores/deckStore.js';
+    import ConfirmModal from '../../shared/ConfirmModal.svelte';
 
     export let decks = [];
     export let displayOwner = false;
@@ -88,6 +89,6 @@
 
 <Loader bind:loading />
 
-<Modal bind:showModal successText={$t('common.yes')} closeText={$t('common.no')} on:success={handleDelete}>
+<ConfirmModal bind:showModal on:success={handleDelete}>
     <Subtitle>{`${$t('tassadecks.delete-deck')}`} {selectedDeck.name} ?</Subtitle>
-</Modal>
+</ConfirmModal>

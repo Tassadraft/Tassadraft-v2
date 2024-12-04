@@ -1,10 +1,10 @@
 <script>
     import Button from './Button.svelte';
-    import Modal from './Modal.svelte';
     import Subtitle from './Subtitle.svelte';
     import Fab from './Fab.svelte';
     import { showToast } from '../../service/toastService.js';
     import { t } from 'svelte-i18n';
+    import ConfirmModal from './ConfirmModal.svelte';
 
     export let photos = [];
     export let cards = [];
@@ -52,9 +52,9 @@
         </Button>
     {/each}
 
-    <Modal bind:showModal successText={$t('common.yes')} closeText={$t('common.no')} on:success={handleDelete}>
+    <ConfirmModal bind:showModal on:success={handleDelete}>
         <Subtitle>Are you sure you want to delete this photo ?</Subtitle>
-    </Modal>
+    </ConfirmModal>
 </div>
 
 {#if deletedPhotos.length > 0}
