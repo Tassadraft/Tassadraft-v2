@@ -14,7 +14,7 @@
     onMount(async () => {
         if (localStorage.getItem('apiToken')) {
             try {
-                const { data } = await axios.get('/api/auth/account/get-email');
+                const { data } = await axios.get('/api/auth/profile/get-email');
                 email = data.email;
                 readonly = true;
             } catch (error) {

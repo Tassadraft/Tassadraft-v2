@@ -62,12 +62,12 @@
                 "error": "An error occurred while sending email. Retry later."
             }
         },
-        "account": {
+        "profile": {
             "get": {
                 "error": "An error occurred while fetching your profile"
             },
             "update": {
-                "success": "Account updated",
+                "success": "Profile updated",
                 "error": "An error occurred while updating your profile"
             }
         },
@@ -110,7 +110,7 @@
     "menu": {
         "home": "Home",
         "settings": "Settings",
-        "account": "Account",
+        "profile": "Profil",
         "logout": "Logout",
         "login": "Login"
     },
@@ -126,8 +126,8 @@
             "title": "Preferred language"
         }
     },
-    "account": {
-        "title": "Account",
+    "profile": {
+        "title": "Profile",
         "subscription": "Subscription",
         "subscription-ends": "Subscription ends on",
         "subscribed-on": "Subscribed on",

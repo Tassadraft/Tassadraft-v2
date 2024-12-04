@@ -9,7 +9,7 @@
     import Title from '../shared/Title.svelte';
     import Link from '../shared/Link.svelte';
     import { navigate } from 'svelte-routing';
-    import { updateAccount } from '../../stores/authStore.js';
+    import { updateProfile } from '../../stores/profileStore.js';
     import { t } from 'svelte-i18n';
 
     onMount(() => {
@@ -27,11 +27,11 @@
         localStorage.setItem('apiTokenExpiration', event.detail.token.expiresAt);
         axios.defaults.headers.common['Authorization'] = `Bearer ${event.detail.token.token}`;
 
-        // Account
+        // Profile
         try {
-            await updateAccount();
+            await updateProfile();
         } catch (e) {
-            showToast($t('toast.account.get.error'));
+            showToast($t('toast.profile.get.error'));
         }
 
         // Subscription

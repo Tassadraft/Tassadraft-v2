@@ -5,7 +5,6 @@
     import Tassadraft from './lib/pages/Tassadraft.svelte';
     import Settings from './lib/pages/Settings.svelte';
     import Login from './lib/pages/Login.svelte';
-    import Account from './lib/pages/Account.svelte';
     import Logout from './lib/pages/Logout.svelte';
     import Tassadecks from './lib/pages/Tassadecks.svelte';
     import Deck from './lib/tassadecks/editor/Editor.svelte';
@@ -17,9 +16,10 @@
     import { defineCustomElements } from '@ionic/pwa-elements/loader';
     import Subscribe from './lib/pages/Subscribe.svelte';
     import Forbidden from './lib/pages/Forbidden.svelte';
-    import { updateAccount, currentAccount } from './stores/authStore.js';
+    import { updateProfile, profile } from './stores/profileStore.js';
     import NotFound from "./lib/pages/NotFound.svelte";
     import axios from "axios";
+    import Profile from "./lib/pages/Profile.svelte";
 
     export let url = '';
 
@@ -72,7 +72,7 @@
         const token = localStorage.getItem('apiToken');
         if (token) {
             await logInformations(token);
-            await updateAccount();
+            await updateProfile();
         }
     });
 </script>
@@ -85,10 +85,10 @@
             <Route path="/subscribe"><Subscribe /></Route>
             <Route path="/settings"><Settings /></Route>
 
-            {#if $currentAccount}
+            {#if $profile}
                 <Route path="/tassadraft"><Tassadraft /></Route>
                 <Route path="/tassadecks"><Tassadecks /></Route>
-                <Route path="/account"><Account /></Route>
+                <Route path="/profile"><Profile /></Route>
                 <Route path="/reset-password"><ResetPassword /></Route>
                 <Route path="/reset-password/confirm/:token" let:params><ConfirmResetPassword {...params} /></Route>
                 <Route path="/logout"><Logout /></Route>
@@ -100,8 +100,8 @@
             {:else}
                 <Route path="/tassadraft"><Forbidden /></Route>
                 <Route path="/tassadecks"><Forbidden /></Route>
-                <Route path="/account"><Forbidden /></Route>
-                <Route path="/decks/edit/:deckId" let:params><Forbidden /></Route>
+                <Route path="/profile"><Forbidden /></Route>
+                <Route path="/decks/edit/:deckId"><Forbidden /></Route>
                 <Route path="/decks/new"><Forbidden /></Route>
                 <Route path="/decks/me"><Forbidden /></Route>
                 <Route path="/decks"><Forbidden /></Route>

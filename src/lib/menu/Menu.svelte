@@ -62,7 +62,7 @@
                 <MenuItem iconLeft="camera" href="#">{$t('common.tassacards')}</MenuItem>
                 <MenuItem iconLeft="settings" href="/settings">{$t('menu.settings')}</MenuItem>
                 {#if connected}
-                    <MenuItem iconLeft="user" href="/account">{$t('menu.account')}</MenuItem>
+                    <MenuItem iconLeft="user" href="/profile">{$t('menu.profile')}</MenuItem>
                     <MenuItem iconLeft="userRemove" href="/logout">{$t('menu.logout')}</MenuItem>
                 {:else}
                     <MenuItem iconLeft="user" href="/login">{$t('menu.login')}</MenuItem>

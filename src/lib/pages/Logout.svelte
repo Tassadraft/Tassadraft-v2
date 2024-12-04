@@ -1,7 +1,7 @@
 <script>
     import { showToast } from '../../service/toastService.js';
     import { navigate } from 'svelte-routing';
-    import { clearCurrentAccount } from '../../stores/authStore.js';
+    import { clearProfile } from '../../stores/profileStore.js';
     import Subtitle from "../shared/Subtitle.svelte";
     import { t } from 'svelte-i18n';
     import Menu from "../menu/Menu.svelte";
@@ -13,7 +13,7 @@
     const handleSuccess = () => {
         localStorage.removeItem('apiToken');
         localStorage.removeItem('subscribed');
-        clearCurrentAccount();
+        clearProfile();
         showToast('Logged out', 'success');
         navigate('/login');
     };
