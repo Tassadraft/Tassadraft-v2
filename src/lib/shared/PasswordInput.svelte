@@ -1,7 +1,7 @@
 <script>
     import Input from './Input.svelte';
     import { t } from 'svelte-i18n';
-    import { onMount } from "svelte";
+    import { onMount } from 'svelte';
 
     export let value = '';
     export let name = 'password';

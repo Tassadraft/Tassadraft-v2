@@ -20,8 +20,8 @@
     import NotFound from './lib/pages/NotFound.svelte';
     import axios from 'axios';
     import Profile from './lib/pages/Profile.svelte';
-    import Contact from "./lib/pages/Contact.svelte";
-    import Legals from "./lib/pages/Legals.svelte";
+    import Contact from './lib/pages/Contact.svelte';
+    import Legals from './lib/pages/Legals.svelte';
 
     export let url = '';
 

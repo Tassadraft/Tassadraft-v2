@@ -1,10 +1,10 @@
 <script>
     import Menu from '../menu/Menu.svelte';
-    import Title from "../shared/Title.svelte";
+    import Title from '../shared/Title.svelte';
     import { t, json } from 'svelte-i18n';
-    import Subtitle from "../shared/Subtitle.svelte";
-    import Link from "../shared/Link.svelte";
-    import Panel from "../shared/Panel.svelte";
+    import Subtitle from '../shared/Subtitle.svelte';
+    import Link from '../shared/Link.svelte';
+    import Panel from '../shared/Panel.svelte';
 </script>
 
 <Menu />
@@ -21,7 +21,12 @@
         <p><span class="font-bold">{$t('legals.editor.responsible')} :</span> {process.env.VITE_COMPANY_RESPONSIBLE}</p>
         <p><span class="font-bold">{$t('common.address')} :</span> {process.env.VITE_COMPANY_ADDRESS}</p>
         <p><span class="font-bold">{$t('legals.editor.siret')} :</span> {process.env.VITE_COMPANY_SIRET}</p>
-        <p><span class="font-bold">{$t('common.contact')} :</span> <Link href="mailto:tassadapi@tassadraft.com" className="text-primary-500 hover:text-white duration-300 transition-colors">{process.env.VITE_TASSADAPI_CONTACT}</Link></p>
+        <p>
+            <span class="font-bold">{$t('common.contact')} :</span>
+            <Link href="mailto:tassadapi@tassadraft.com" className="text-primary-500 hover:text-white duration-300 transition-colors"
+                >{process.env.VITE_TASSADAPI_CONTACT}</Link
+            >
+        </p>
     </Panel>
 
     <Panel>
