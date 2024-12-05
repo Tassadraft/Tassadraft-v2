@@ -21,6 +21,7 @@
     import axios from 'axios';
     import Profile from './lib/pages/Profile.svelte';
     import Contact from "./lib/pages/Contact.svelte";
+    import Legals from "./lib/pages/Legals.svelte";
 
     export let url = '';
 
@@ -101,6 +102,7 @@
                 <Route path="/decks"><BrowseDecks /></Route>
 
                 <Route path="/contact"><Contact /></Route>
+                <Route path="/legals"><Legals /></Route>
             {:else}
                 <Route path="/tassadraft"><Forbidden /></Route>
                 <Route path="/tassadecks"><Forbidden /></Route>
@@ -110,6 +112,7 @@
                 <Route path="/decks/me"><Forbidden /></Route>
                 <Route path="/decks"><Forbidden /></Route>
                 <Route path="/contact"><Forbidden /></Route>
+                <Route path="/legals"><Forbidden /></Route>
             {/if}
 
             <Route path="*"><NotFound /></Route>
