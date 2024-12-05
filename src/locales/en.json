@@ -10,6 +10,8 @@
         "close-modal": "Close modal",
         "cancel": "Cancel",
         "back-to-home": "Back to homepage",
+        "contact": "Contact",
+        "address": "Address",
         "delete": "Delete",
         "public": "Public",
         "enabled": "Enabled",
@@ -204,6 +206,57 @@
             "placeholder": "Hello, I'd like to help Tassadraft : how can I do so ?"
         },
         "consent": "I agree to the processing of my personal data for the purpose of responding to my inquiry in accordance with the Privacy Policy."
+    },
+    "legals": {
+        "title": "Legal Notice",
+        "editor": {
+            "title": "Editor",
+            "legal-status": "Legal Status",
+            "siret": "SIRET",
+            "self-employed-business": "Self-Employed Business",
+            "responsible": "Responsible"
+        },
+        "hosting": {
+            "title": "Hosting",
+            "host": "Host",
+            "address": "Address",
+            "rcs": "RCS",
+            "capital": "Capital",
+            "ape-code": "APE Code",
+            "vat-number": "VAT Number",
+            "datacenter": "Datacenter"
+        },
+        "intellectual-property": {
+            "title": "Intellectual Property",
+            "description": "The Tassadraft application and its content (texts, images, logos) are protected by copyright. Any reproduction or representation, in whole or in part, without written authorization is prohibited.",
+            "disclaimer": "Magic: The Gathering is a registered trademark of Wizards of the Coast. Tassadraft is neither affiliated with nor endorsed by Wizards of the Coast."
+        },
+        "personal-data": {
+            "title": "Personal Data",
+            "description": "The information collected via the application is intended for managing subscriptions and improving services.",
+            "rights": "In accordance with the 'Informatique et Libertés' law and the GDPR, you have the right to access, rectify, and delete your data.",
+            "contact": "To exercise these rights, please contact us at:"
+        },
+        "terms-of-use": {
+            "title": "Terms of Use (ToU)",
+            "description": "Using the application implies acceptance of the ToU available on our website.",
+            "details": [
+                "Card recognition and deck management services are accessible through a paid subscription.",
+                "Pricing and terms are detailed in the ToU."
+            ]
+        },
+        "responsibility": {
+            "title": "Responsibility",
+            "description": "Tassadraft strives to ensure the accuracy of the information provided. However, it cannot be held responsible for any errors or omissions, nor for the consequences of using this information."
+        },
+        "hyperlinks": {
+            "title": "Hyperlinks",
+            "description": "The application may contain links to third-party websites. Tassadraft has no control over these sites and disclaims any responsibility for their content."
+        },
+        "applicable-law": {
+            "title": "Applicable Law",
+            "description": "This legal notice is governed by French law. In the event of a dispute, and after any attempt at amicable resolution has failed, the French courts shall have exclusive jurisdiction."
+        }
     },
     "tassadraft": {
         "photos": "Photos",

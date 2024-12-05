@@ -4,6 +4,7 @@
 
 -   Improved routing
 -   404 & forbidden pages
+-   `/contact` & `/legals`
 
 ### New features
 
@@ -11,6 +12,8 @@
 -   Deck creator from scratch & from exported file
 -   Deck editor : card search, card print switch, category creation, clear empty categories, rename category, category change
 -   Deck download into editor : can choose what to print : card prints, related (tokens, emblems, other ones)
+-   Contact form handlers
+-   Legals written & translated
 
 ### Processing
 

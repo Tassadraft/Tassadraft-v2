@@ -10,6 +10,8 @@
         "close-modal": "Fermer la fenêtre",
         "cancel": "Annuler",
         "back-to-home": "Retour à la page d'accueil",
+        "contact": "Contact",
+        "address": "Adresse",
         "delete": "Supprimer",
         "public": "Public",
         "enabled": "Activé",
@@ -54,6 +56,10 @@
             "already": "Vous êtes déjà connecté",
             "success": "Vous êtes maintenant connecté",
             "error": "Identifiants invalides"
+        },
+        "contact": {
+            "success": "Formulaire de contact soumis avec succès",
+            "error": "Une erreur est survenue lors de la soumission du formulaire de contact"
         },
         "photo": {
             "deleted": "Photo supprimée",
@@ -200,6 +206,57 @@
             "placeholder": "Bonjour, comment pourrais-je aider Tassadraft ?"
         },
         "consent": "J’accepte le traitement de mes données personnelles dans le but de répondre à ma demande, conformément à la Politique de Confidentialité."
+    },
+    "legals": {
+        "title": "Mentions Légales",
+        "editor": {
+            "title": "Éditeur",
+            "legal-status": "Statut Juridique",
+            "siret": "SIRET",
+            "self-employed-business": "Auto-entreprise",
+            "responsible": "Responsable"
+        },
+        "hosting": {
+            "title": "Hébergement",
+            "host": "Hébergeur",
+            "address": "Adresse",
+            "rcs": "RCS",
+            "capital": "Capital Social",
+            "ape-code": "Code APE",
+            "vat-number": "N° TVA",
+            "datacenter": "Datacenter"
+        },
+        "intellectual-property": {
+            "title": "Propriété Intellectuelle",
+            "description": "L'application Tassadraft et ses contenus (textes, images, logos) sont protégés par le droit d'auteur. Toute reproduction ou représentation, totale ou partielle, sans autorisation écrite est interdite.",
+            "disclaimer": "Magic: The Gathering est une marque déposée de Wizards of the Coast. Tassadraft n'est ni affiliée, ni approuvée par Wizards of the Coast."
+        },
+        "personal-data": {
+            "title": "Données Personnelles",
+            "description": "Les informations collectées via l'application sont destinées à la gestion des abonnements et à l'amélioration des services.",
+            "rights": "Conformément à la loi «Informatique et Libertés» et au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données.",
+            "contact": "Pour exercer ces droits, contactez-nous à l'adresse suivante :"
+        },
+        "terms-of-use": {
+            "title": "Conditions Générales d'Utilisation (CGU)",
+            "description": "L'utilisation de l'application implique l'acceptation des CGU disponibles sur notre site.",
+            "details": [
+                "Les services de reconnaissance de cartes et de gestion de decks sont accessibles via un abonnement payant.",
+                "Les tarifs et modalités sont détaillés dans les CGU."
+            ]
+        },
+        "responsibility": {
+            "title": "Responsabilité",
+            "description": "Tassadraft s'efforce d'assurer l'exactitude des informations diffusées. Toutefois, elle ne saurait être tenue responsable des erreurs ou omissions, ni des conséquences de l'utilisation de ces informations."
+        },
+        "hyperlinks": {
+            "title": "Liens Hypertextes",
+            "description": "L'application peut contenir des liens vers des sites tiers. Tassadraft n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu."
+        },
+        "applicable-law": {
+            "title": "Droit Applicable",
+            "description": "Les présentes mentions légales sont soumises au droit français. En cas de litige, et après échec de toute tentative de résolution amiable, les tribunaux français seront seuls compétents."
+        }
     },
     "tassadraft": {
         "photos": "Photos",
