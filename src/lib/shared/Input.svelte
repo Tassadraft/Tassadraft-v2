@@ -31,16 +31,16 @@
     };
 </script>
 
-<div class="relative w-full mt-8 mb-5">
+<div class="relative w-full mt-10 mb-5">
     <label
         for={name}
-        class="absolute pointer-events-none z-10 transition-all duration-800 ease-in-out {focused || value
+        class="absolute pointer-events-none z-10 transition-all duration-800 ease-in-out font-medium {focused || value
             ? 'text-primary-500 bottom-11 left-1'
             : 'text-gray-500 bottom-2.5 left-3'}"
     >
         {label}
         {#if required}
-            <span class="text-red-500">*</span>
+            <span class="text-red-500 font-medium">*</span>
         {/if}
     </label>
 

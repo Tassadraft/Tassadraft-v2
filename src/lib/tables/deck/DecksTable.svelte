@@ -4,7 +4,7 @@
     import { createEventDispatcher } from 'svelte';
     import Subtitle from '../../shared/Subtitle.svelte';
     import Modal from '../../shared/Modal.svelte';
-    import axios from '../../../axiosConfig.js';
+    import axios from 'axios';
     import Loader from '../../shared/Loader.svelte';
     import { t } from 'svelte-i18n';
     import { deleteDeck } from '../../../stores/deckStore.js';

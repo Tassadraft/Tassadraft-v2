@@ -20,6 +20,7 @@
     import NotFound from './lib/pages/NotFound.svelte';
     import axios from 'axios';
     import Profile from './lib/pages/Profile.svelte';
+    import Contact from "./lib/pages/Contact.svelte";
 
     export let url = '';
 
@@ -58,6 +59,7 @@
     };
 
     onMount(async () => {
+        axios.defaults.baseURL = process.env.VITE_TASSADAPI_BASE_URL;
         await defineCustomElements(window);
 
         const theme = localStorage.getItem('theme');
@@ -97,6 +99,8 @@
                 <Route path="/decks/new"><NewDeck /></Route>
                 <Route path="/decks/me"><MyDecks /></Route>
                 <Route path="/decks"><BrowseDecks /></Route>
+
+                <Route path="/contact"><Contact /></Route>
             {:else}
                 <Route path="/tassadraft"><Forbidden /></Route>
                 <Route path="/tassadecks"><Forbidden /></Route>
@@ -105,6 +109,7 @@
                 <Route path="/decks/new"><Forbidden /></Route>
                 <Route path="/decks/me"><Forbidden /></Route>
                 <Route path="/decks"><Forbidden /></Route>
+                <Route path="/contact"><Forbidden /></Route>
             {/if}
 
             <Route path="*"><NotFound /></Route>

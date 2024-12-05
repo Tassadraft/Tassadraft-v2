@@ -50,6 +50,15 @@
         "edit-deck": "Edit deck"
     },
     "toast": {
+        "login": {
+            "already": "You are already logged in",
+            "success": "You are now logged in",
+            "error": "Wrong credentials"
+        },
+        "contact": {
+            "success": "Contact form successfully submitted",
+            "error": "An error occurred while submitting contact form"
+        },
         "photo": {
             "deleted": "Photo deleted",
             "restored": "Photo restored",
@@ -167,12 +176,34 @@
             "description": "Your dedicated deck editor"
         }
     },
+    "login": {
+        "title": "Login"
+    },
     "logout": {
         "title": "Logout",
         "modal": {
             "title": "Logout",
             "text": "Are you sure you want to logout ?"
         }
+    },
+    "contact": {
+        "title": "Contact",
+        "subject": {
+            "label": "Subject",
+            "new-feature": "New feature",
+            "suggestion": "Suggestion",
+            "question": "Question",
+            "help": "Help",
+            "feedback": "Feedback",
+            "customer-support": "Customer support",
+            "business": "Business",
+            "other": "Other"
+        },
+        "message": {
+            "label": "Message",
+            "placeholder": "Hello, I'd like to help Tassadraft : how can I do so ?"
+        },
+        "consent": "I agree to the processing of my personal data for the purpose of responding to my inquiry in accordance with the Privacy Policy."
     },
     "tassadraft": {
         "photos": "Photos",

@@ -5,7 +5,7 @@
     import FileUpload from '../shared/FileUpload.svelte';
     import { showToast } from '../../service/toastService.js';
     import { onMount } from 'svelte';
-    import axios from '../../axiosConfig.js';
+    import axios from 'axios';
     import Select from '../shared/Select.svelte';
     import { capitalizeFirstChar } from '../../service/stringService.js';
     import { navigate } from 'svelte-routing';

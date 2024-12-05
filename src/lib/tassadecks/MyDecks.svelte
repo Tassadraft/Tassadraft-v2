@@ -2,7 +2,7 @@
     import Title from '../shared/Title.svelte';
     import Menu from '../menu/Menu.svelte';
     import { onMount } from 'svelte';
-    import axios from '../../axiosConfig.js';
+    import axios from 'axios';
     import Pagination from '../shared/Pagination.svelte';
     import DecksTable from '../tables/deck/DecksTable.svelte';
     import DecksGrid from './DecksGrid.svelte';

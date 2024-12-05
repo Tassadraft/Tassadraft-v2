@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import axios from '../axiosConfig.js';
+import axios from 'axios';
 
 export const profile = writable(null);
 

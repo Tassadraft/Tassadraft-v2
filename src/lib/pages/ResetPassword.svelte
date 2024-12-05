@@ -3,7 +3,7 @@
     import Form from '../shared/Form.svelte';
     import Input from '../shared/Input.svelte';
     import { onMount } from 'svelte';
-    import axios from '../../axiosConfig.js';
+    import axios from 'axios';
     import Menu from '../menu/Menu.svelte';
     import { showToast } from '../../service/toastService.js';
     import { t } from 'svelte-i18n';

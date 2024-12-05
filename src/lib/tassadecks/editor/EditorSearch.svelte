@@ -7,7 +7,7 @@
     import Search from '../../shared/Search.svelte';
     import Subtitle from '../../shared/Subtitle.svelte';
     import { t } from 'svelte-i18n';
-    import axios from '../../../axiosConfig.js';
+    import axios from 'axios';
     import { showToast } from '../../../service/toastService.js';
 
     export let deck;
