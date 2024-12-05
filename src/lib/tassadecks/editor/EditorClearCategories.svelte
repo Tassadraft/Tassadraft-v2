@@ -2,9 +2,8 @@
     import Icon from '../../shared/Icon.svelte';
     import Button from '../../shared/Button.svelte';
     import { t } from 'svelte-i18n';
-    import axios from '../../../axiosConfig.js';
+    import axios from 'axios';
     import { showToast } from '../../../service/toastService.js';
-    import Modal from '../../shared/Modal.svelte';
     import Subtitle from '../../shared/Subtitle.svelte';
     import ConfirmModal from '../../shared/ConfirmModal.svelte';
 

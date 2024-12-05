@@ -1,7 +1,7 @@
 <script>
     import Icon from './Icon.svelte';
     import Button from './Button.svelte';
-    import axios from '../../axiosConfig.js';
+    import axios from 'axios';
     import Loader from './Loader.svelte';
 
     let canGoBack = false;

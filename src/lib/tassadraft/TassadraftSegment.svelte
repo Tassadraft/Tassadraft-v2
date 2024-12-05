@@ -2,7 +2,7 @@
     import Segment from '../shared/Segment.svelte';
     import Modal from '../shared/Modal.svelte';
     import Subtitle from '../shared/Subtitle.svelte';
-    import axios from '../../axiosConfig.js';
+    import axios from 'axios';
     import { createEventDispatcher } from 'svelte';
     import getBase64Strings from '../../service/base64Service.js';
     import { showToast } from '../../service/toastService.js';

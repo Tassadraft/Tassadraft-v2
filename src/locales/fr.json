@@ -27,11 +27,11 @@
         "name": "Nom",
         "username": {
             "label": "Nom d'utilisateur",
-            "placeholder": "John123"
+            "placeholder": "Jean123"
         },
         "email": {
             "label": "Email",
-            "placeholder": "john.smith@gmail.com"
+            "placeholder": "jean.dupont@gmail.com"
         },
         "password": {
             "label": "Mot de passe",
@@ -50,6 +50,11 @@
         "edit-deck": "Modifier le deck"
     },
     "toast": {
+        "login": {
+            "already": "Vous êtes déjà connecté",
+            "success": "Vous êtes maintenant connecté",
+            "error": "Identifiants invalides"
+        },
         "photo": {
             "deleted": "Photo supprimée",
             "restored": "Photo restaurée",
@@ -167,12 +172,34 @@
             "description": "Votre éditeur de deck dédié"
         }
     },
+    "login": {
+        "title": "Connexion"
+    },
     "logout": {
         "title": "Déconnexion",
         "modal": {
             "title": "Déconnexion",
             "text": "Êtes-vous sûr de vouloir vous déconnecter ?"
         }
+    },
+    "contact": {
+        "title": "Contact",
+        "subject": {
+            "label": "Sujet",
+            "new-feature": "Nouvelle fonctionnalité",
+            "suggestion": "Suggestion",
+            "question": "Question",
+            "help": "Aide",
+            "feedback": "Retour",
+            "customer-support": "Support consommateurs",
+            "business": "Professionnel",
+            "other": "Autre"
+        },
+        "message": {
+            "label": "Message",
+            "placeholder": "Bonjour, comment pourrais-je aider Tassadraft ?"
+        },
+        "consent": "J’accepte le traitement de mes données personnelles dans le but de répondre à ma demande, conformément à la Politique de Confidentialité."
     },
     "tassadraft": {
         "photos": "Photos",

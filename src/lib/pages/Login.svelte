@@ -5,7 +5,7 @@
     import Input from '../shared/Input.svelte';
     import PasswordInput from '../shared/PasswordInput.svelte';
     import { showToast } from '../../service/toastService.js';
-    import axios from '../../axiosConfig.js';
+    import axios from 'axios';
     import Title from '../shared/Title.svelte';
     import Link from '../shared/Link.svelte';
     import { navigate } from 'svelte-routing';
@@ -14,7 +14,7 @@
 
     onMount(() => {
         if (localStorage.getItem('apiToken')) {
-            showToast('You are already logged in', 'warning');
+            showToast($t('toast.login.already'), 'warning');
             navigate('/');
         }
     });
@@ -41,21 +41,21 @@
         } catch (error) {
             localStorage.setItem('subscribed', 'false');
         }
-        showToast('You are now logged in');
+        showToast($t('toast.login.success'));
         navigate('/');
     };
 
-    const handleFailure = (event) => {
-        showToast(event.detail, 'error');
+    const handleFailure = () => {
+        showToast($t('toast.login.error'), 'error');
     };
 </script>
 
 <Menu />
 
-<Title title="Login" />
+<Title title={$t('login.title')} />
 
 <Form action="/api/login" method="post" on:success={handleSuccess} on:error={handleFailure}>
-    <Input type="email" name="email" placeholder="jean.dupont@gmail.com" label="Email" value={email} required={true} />
+    <Input type="email" name="email" placeholder={$t('common.email.placeholder')} label={$t('common.email.label')} value={email} required={true} />
     <PasswordInput value={password} required={true} />
     <div class="w-full mb-3">
         <Link href="/reset-password" className="text-primary-500 hover:text-white duration-300 transition-colors">Forgot password ?</Link>

@@ -1,5 +1,5 @@
 <script>
-    import axios from '../../axiosConfig.js';
+    import axios from 'axios';
     import Button from './Button.svelte';
     import Loader from './Loader.svelte';
     import Icon from './Icon.svelte';
@@ -48,7 +48,7 @@
     <slot />
     {#if submittable}
         <div class="w-full flex justify-end">
-            <Button type="submit" additionalStyle="bg-green-700 hover:bg-green-800 rounded-md p-2">
+            <Button type="submit" additionalStyle="bg-green-700 hover:bg-green-800 rounded-lg p-2">
                 <div class="flex flex-row items-center gap-3">
                     <p class="text-white">{$t('common.submit')}</p>
                     <Icon name="send" />
