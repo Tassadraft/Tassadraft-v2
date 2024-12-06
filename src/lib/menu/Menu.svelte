@@ -1,12 +1,10 @@
 <script>
-    import MenuItem from './MenuItem.svelte';
     import { onMount } from 'svelte';
     import Icon from '../shared/Icon.svelte';
     import ThemeSwitch from '../shared/ThemeSwitch.svelte';
     import Button from '../shared/Button.svelte';
     import IconButton from '../shared/IconButton.svelte';
-    import { t } from 'svelte-i18n';
-    import { profile } from '../../stores/profileStore.js';
+    import CommonMenu from "./CommonMenu.svelte";
 
     let isOpen = false;
 
@@ -50,19 +48,7 @@
                 <IconButton icon="close" on:click={closeMenu} />
             </div>
 
-            <ul class="space-y-4 p-4">
-                <MenuItem iconLeft="home" href="/">{$t('menu.home')}</MenuItem>
-                <MenuItem iconLeft="camera" href="/tassadraft">{$t('common.tassadraft')}</MenuItem>
-                <MenuItem iconLeft="book" href="/tassadecks">{$t('common.tassadecks')}</MenuItem>
-                <MenuItem iconLeft="camera" href="#">{$t('common.tassacards')}</MenuItem>
-                <MenuItem iconLeft="settings" href="/settings">{$t('menu.settings')}</MenuItem>
-                {#if $profile}
-                    <MenuItem iconLeft="user" href="/profile">{$t('menu.profile')}</MenuItem>
-                    <MenuItem iconLeft="userRemove" href="/logout">{$t('menu.logout')}</MenuItem>
-                {:else}
-                    <MenuItem iconLeft="user" href="/login">{$t('menu.login')}</MenuItem>
-                {/if}
-            </ul>
+            <CommonMenu />
         </nav>
     </div>
 </div>
