@@ -56,7 +56,11 @@
         </div>
         <p>{$t('legals.personal-data.description')}</p>
         <p>{$t('legals.personal-data.rights')}</p>
-        <p>{$t('legals.personal-data.contact')} <Link href="mailto:tassadapi@tassadraft.com">{process.env.VITE_TASSADAPI_CONTACT}</Link>.</p>
+        <p>{$t('legals.personal-data.contact')}
+            <Link href="mailto:tassadapi@tassadraft.com" className="text-primary-500 hover:text-white duration-300 transition-colors">
+                {process.env.VITE_TASSADAPI_CONTACT}
+            </Link>.
+        </p>
     </Panel>
 
     <Panel>
