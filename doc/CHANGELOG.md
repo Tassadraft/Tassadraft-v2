@@ -22,6 +22,6 @@
 
 ### Code quality
 
-- Simplified text colors by globalizing into app.css
+-   Simplified text colors by globalizing into app.css
 
 [Documentation](/README.md)
