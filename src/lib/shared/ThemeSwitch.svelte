@@ -15,12 +15,16 @@
 
 {#if title}
     <div class="legend font-bold mb-2">
-        {title}
+        <p>{title}</p>
     </div>
 {/if}
 
 <div class="flex flex-row items-center gap-0.5">
-    <Icon name="sun" size={iconSize} color={checked ? '' : 'primary'} />
+    <span class={checked ? '' : 'text-primary-500'}>
+        <Icon name="sun" size={iconSize} />
+    </span>
     <Switch size={switchSize} bind:value={checked} />
-    <Icon name="moon" size={iconSize} color={checked ? 'primary' : ''} />
+    <span class={checked ? 'text-primary-500' : ''}>
+        <Icon name="moon" size={iconSize} />
+    </span>
 </div>

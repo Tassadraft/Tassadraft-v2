@@ -19,7 +19,7 @@
     id={`group-${uniqueID}`}
 >
     <div class="legend font-bold mb-2" id={`label-${uniqueID}`}>
-        {legend}
+        <p>{legend}</p>
     </div>
     {#each options as { value, label }}
         <div>

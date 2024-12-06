@@ -70,9 +70,7 @@
 </div>
 
 <ConfirmModal bind:showModal on:success={handleDeleteSuccess}>
-    <p class="text-black dark:text-white">
-        Delete {deletingCard?.translation.name} ?
-    </p>
+    <p>Delete {deletingCard?.translation.name} ?</p>
 </ConfirmModal>
 
 {#if deletedCards.length > 0}

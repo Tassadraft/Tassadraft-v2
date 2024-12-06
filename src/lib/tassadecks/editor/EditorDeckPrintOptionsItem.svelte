@@ -12,7 +12,7 @@
 
 <div class="flex flex-row gap-1" bind:this={containerRef}>
     <IconButton icon="minus" disabled={item.quantity === 0} on:click={() => dispatch('decrement', item)} />
-    <p class="dark:text-white">{item.quantity}</p>
+    <p>{item.quantity}</p>
     <IconButton icon="plus" on:click={() => dispatch('increment', item)} />
     <Link
         on:mouseenter={() => dispatch('mouseenter', { ref: containerRef, item })}
@@ -20,6 +20,6 @@
         on:mouseleave={() => dispatch('mouseleave')}
         on:blur={() => dispatch('mouseleave')}
     >
-        <p class="ml-3 dark:text-white">{item.related.print.translation.name}</p>
+        <p class="ml-3">{item.related.print.translation.name}</p>
     </Link>
 </div>

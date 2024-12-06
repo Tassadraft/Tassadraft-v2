@@ -52,6 +52,10 @@
         "edit-deck": "Modifier le deck"
     },
     "toast": {
+        "terms-and-conditions": {
+            "success": "Conditions générales d'utilisation acceptées",
+            "error": "Une erreur est survenue lors de l'acceptation des conditions générales d'utilisation"
+        },
         "login": {
             "already": "Vous êtes déjà connecté",
             "success": "Vous êtes maintenant connecté",
@@ -140,8 +144,8 @@
     "profile": {
         "title": "Profil",
         "profile-picture": {
-            "title": "Profile picture",
-            "description": "Upload here a profile picture"
+            "title": "Photo de profil",
+            "description": "Uploadez ici une photo de phofil"
         },
         "subscription": "Abonnement",
         "subscription-ends": "Abonnement se termine le",
@@ -256,6 +260,117 @@
         "applicable-law": {
             "title": "Droit Applicable",
             "description": "Les présentes mentions légales sont soumises au droit français. En cas de litige, et après échec de toute tentative de résolution amiable, les tribunaux français seront seuls compétents."
+        }
+    },
+    "terms-and-conditions": {
+        "title": "Conditions générales d'utilisation",
+        "object": {
+            "title": "1. Objet des CGU",
+            "description": "Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation de l'application Tassadraft, accessible via le web et les plateformes mobiles. En utilisant l'application ou les services associés, vous acceptez intégralement ces CGU."
+        },
+        "description": {
+            "title": "2. Description des services",
+            "description": "Tassadraft est une plateforme pour les amateurs de Magic: The Gathering (MTG) qui propose :",
+            "details": [
+                "Reconnaissance de cartes MTG à partir de photos (traitement par lot inclus).",
+                "Gestion et édition de decks, avec support de plusieurs formats et impression personnalisée avec choix des éditions.",
+                "Tassadapi, une API propriétaire ouverte, dont la documentation est disponible sur https://docs.tassadraft.com."
+            ],
+            "open-source": {
+                "title": "2.1. Open-source",
+                "description": "Les applications mobile et web sont des clients open-source développés avec Svelte et construites à l'aide de Capacitor.\nLe code source est disponible publiquement sous licence MIT sur https://github.com/Tassadraft/Tassadraft-v2.\nToute contribution ou réutilisation du code doit respecter les termes de la licence MIT."
+            }
+        },
+        "access": {
+            "title": "3. Modalités d'accès",
+            "object": [
+                "Web : Les fonctionnalités complètes (paiement inclus) sont accessibles depuis la version web de l'application.",
+                "Mobile : L'application mobile offre des fonctionnalités similaires, à l'exception des paiements, qui sont uniquement disponibles via la version web.",
+                "L'application nécessite une connexion Internet. L'utilisateur est responsable de la configuration de son appareil pour accéder aux services."
+            ]
+        },
+        "subscription": {
+            "title": "4. Modalités d'abonnement",
+            "description": "L’accès aux services de Tassadraft est soumis à un abonnement payant, avec les options suivantes :",
+            "object": [
+                "Essai gratuit : 24 heures.",
+                "Abonnement mensuel : 3,99 € pour 1 mois.",
+                "Abonnement trimestriel : 9,99 € pour 3 mois.",
+                "Abonnement semestriel : 16,99 € pour 6 mois.",
+                "Abonnement annuel : 29,99 € pour 12 mois."
+            ],
+            "payment": {
+                "title": "4.1. Paiement",
+                "description": "Les paiements s’effectuent uniquement via la version web de l'application, à l'aide des options sécurisées proposées.\nLes prix incluent toutes taxes applicables."
+            },
+            "end-subscription": {
+                "title": "4.2. Renouvellement et annulation",
+                "renew": "Les abonnements sont reconduits automatiquement sauf annulation par l'utilisateur au moins 24 heures avant la date de renouvellement.",
+                "cancel": "L'annulation ne donne pas droit à un remboursement pour la période en cours."
+            }
+        },
+        "tassadapi": {
+            "title": "5. API Tassadapi",
+            "description": "Tassadapi est une API propriétaire ouverte permettant d’interagir avec les services de Tassadraft. Sa documentation est accessible sur https://docs.tassadraft.com.\nL’accès et l’utilisation de l’API doivent se conformer aux restrictions d’usage précisées dans la documentation et respecter les droits de propriété intellectuelle."
+        },
+        "user-responsibility": {
+            "title": "6. Responsabilités de l'utilisateur",
+            "description": "L'utilisateur s'engage à :",
+            "object": [
+                "Respecter les lois en vigueur, notamment les droits de propriété intellectuelle.",
+                "Ne pas utiliser l'application ou l'API de manière frauduleuse ou nuisible (piratage, abus de l’API, etc.).",
+                "Fournir des informations exactes lors de l'inscription."
+            ]
+        },
+        "intellectual-propriety": {
+            "title": "7. Propriété intellectuelle",
+            "api": "API Tassadapi : Tassadapi est une propriété exclusive de Tassadraft. Toute utilisation abusive, reproduction non autorisée, ou distribution des fonctionnalités de l'API est interdite.",
+            "clients": "Clients web et mobile : Les applications étant open-source, elles sont distribuées sous licence MIT. Les utilisateurs doivent respecter les termes de cette licence en cas de modification ou redistribution."
+        },
+        "app-responsibility": {
+            "title": "8. Limitation de responsabilité",
+            "description": "Tassadraft met tout en œuvre pour garantir une expérience optimale, mais ne garantit pas :",
+            "object": [
+                "Une disponibilité continue des services.",
+                "L’absence d’erreurs ou de bugs dans l’application.",
+                "Une compatibilité avec tous les appareils ou navigateurs."
+            ],
+            "tassadraft-not-responsible": "Tassadraft ne pourra être tenu responsable des pertes de données, interruptions de service, ou dommages indirects liés à l’utilisation des services."
+        },
+        "data": {
+            "title": "9. Traitement des données personnelles",
+            "collected": {
+                "title": "9.1. Données collectées",
+                "object": [
+                    "Informations fournies par l’utilisateur lors de l'inscription (email, nom, etc.).",
+                    "Données liées à l'utilisation des fonctionnalités (decks créés, formulaire de contact)."
+                ]
+            },
+            "goals": {
+                "title": "9.2. Finalités",
+                "object": ["Améliorer l'expérience utilisateur.", "Gérer les abonnements.", "Analyser l'utilisation pour optimiser les services."],
+                "details": "Pour plus de détails, consultez notre [Politique de Confidentialité]."
+            }
+        },
+        "contributions": {
+            "title": "10. Contributions et open-source",
+            "description": "Si un utilisateur contribue au code source des clients open-source via GitHub, il accepte de céder les droits nécessaires à Tassadraft conformément aux termes de la licence MIT. Tassadraft se réserve le droit de refuser ou de modifier une contribution."
+        },
+        "support": {
+            "title": "11. Support",
+            "description": "Pour toute question, assistance ou réclamation, remplissez le formulaire de contact, ou à défaut contactez-nous à l'adresse suivante : tassadapi@tassadraft.com."
+        },
+        "cancellation": {
+            "title": "12. Résiliation",
+            "description": "Tassadraft se réserve le droit de suspendre ou résilier l'accès à l'application et à l’API en cas de non-respect des CGU."
+        },
+        "update": {
+            "title": "13. Modifications des CGU",
+            "description": "Les présentes CGU peuvent être modifiées à tout moment. Toute modification sera notifiée via l'application ou le site web. En continuant à utiliser les services après la notification, vous acceptez les nouvelles CGU."
+        },
+        "right": {
+            "title": "14. Droit applicable et juridiction compétente",
+            "description": "Les présentes CGU sont régies par le droit français. Tout litige sera soumis aux tribunaux compétents en France."
         }
     },
     "tassadraft": {

@@ -22,8 +22,15 @@
     import Profile from './lib/pages/Profile.svelte';
     import Contact from './lib/pages/Contact.svelte';
     import Legals from './lib/pages/Legals.svelte';
+    import TermsAndConditions from './lib/pages/TermsAndConditions.svelte';
+    import ConfirmModal from './lib/shared/ConfirmModal.svelte';
+    import Title from './lib/shared/Title.svelte';
+    import { t } from 'svelte-i18n';
+    import { showToast } from './service/toastService.js';
 
     export let url = '';
+
+    let showModal = false;
 
     const logInformations = async (token) => {
         const tokenExpiresAt = localStorage.getItem('apiTokenExpiration');
@@ -59,6 +66,20 @@
             });
     };
 
+    const handleAcceptTermsAndConditions = async () => {
+        try {
+            const response = await axios.get('/api/auth/terms-and-conditions');
+            if (response.status !== 200) {
+                throw new Error();
+            }
+            showToast($t('toast.terms-and-conditions.success'));
+        } catch (e) {
+            showToast($t('toast.terms-and-conditions.error'));
+        } finally {
+            showModal = false;
+        }
+    };
+
     onMount(async () => {
         axios.defaults.baseURL = process.env.VITE_TASSADAPI_BASE_URL;
         await defineCustomElements(window);
@@ -76,17 +97,22 @@
         if (token) {
             await logInformations(token);
             await updateProfile();
+            if (!$profile.acceptedTermsAndConditions) {
+                showModal = true;
+            }
         }
     });
 </script>
 
-<main class="bg-gray-200 dark:bg-gray-900 text-black dark:text-white min-h-screen min-w-screen px-3.5">
+<main class="bg-gray-200 dark:bg-gray-900 min-h-screen min-w-screen px-3.5">
     <Router {url}>
         <div>
             <Route path="/"><Homepage /></Route>
             <Route path="/login"><Login /></Route>
             <Route path="/subscribe"><Subscribe /></Route>
             <Route path="/settings"><Settings /></Route>
+            <Route path="/legals"><Legals /></Route>
+            <Route path="/terms-and-conditions"><TermsAndConditions /></Route>
 
             {#if $profile}
                 <Route path="/tassadraft"><Tassadraft /></Route>
@@ -102,7 +128,6 @@
                 <Route path="/decks"><BrowseDecks /></Route>
 
                 <Route path="/contact"><Contact /></Route>
-                <Route path="/legals"><Legals /></Route>
             {:else}
                 <Route path="/tassadraft"><Forbidden /></Route>
                 <Route path="/tassadecks"><Forbidden /></Route>
@@ -112,10 +137,14 @@
                 <Route path="/decks/me"><Forbidden /></Route>
                 <Route path="/decks"><Forbidden /></Route>
                 <Route path="/contact"><Forbidden /></Route>
-                <Route path="/legals"><Forbidden /></Route>
             {/if}
 
             <Route path="*"><NotFound /></Route>
         </div>
     </Router>
 </main>
+
+<ConfirmModal bind:showModal closable={false} fullWidth={true} on:success={handleAcceptTermsAndConditions}>
+    <Title title={$t('terms-and-conditions.title')} slot="header" />
+    <TermsAndConditions isModal={true} />
+</ConfirmModal>

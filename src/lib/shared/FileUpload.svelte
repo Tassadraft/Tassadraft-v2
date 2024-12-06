@@ -98,7 +98,9 @@
         aria-label="File uploader"
     >
         <input id="file-upload" type="file" class="hidden" {name} accept={acceptedFormats} on:change={handleFileChange} />
-        <Icon name="upload" size="35" color="primary" />
+        <span class="text-primary-500">
+            <Icon name="upload" size="35" />
+        </span>
         <span class="text-center text-sm text-gray-500 my-3">
             {#if fileName}
                 {#if previewSrc}

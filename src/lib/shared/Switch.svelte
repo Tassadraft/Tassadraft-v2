@@ -41,7 +41,7 @@
         </span>
     </label>
     {#if label}
-        <p class={value ? 'duration-300 transition-colors text-primary-500' : 'dark:text-white'}>
+        <p class={value ? 'duration-300 transition-colors text-primary-500' : ''}>
             {label}
             {#if required}
                 <span class="text-red-500">*</span>

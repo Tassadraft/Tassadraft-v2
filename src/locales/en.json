@@ -52,6 +52,10 @@
         "edit-deck": "Edit deck"
     },
     "toast": {
+        "terms-and-conditions": {
+            "success": "Terms and conditions accepted",
+            "error": "An error occurred while accepting terms and conditions"
+        },
         "login": {
             "already": "You are already logged in",
             "success": "You are now logged in",
@@ -256,6 +260,117 @@
         "applicable-law": {
             "title": "Applicable Law",
             "description": "This legal notice is governed by French law. In the event of a dispute, and after any attempt at amicable resolution has failed, the French courts shall have exclusive jurisdiction."
+        }
+    },
+    "terms-and-conditions": {
+        "title": "Terms and Conditions of Use",
+        "object": {
+            "title": "1. Purpose of the Terms and Conditions",
+            "description": "These Terms and Conditions of Use (T&Cs) govern access to and use of the Tassadraft application, available via web and mobile platforms. By using the application or associated services, you fully accept these T&Cs."
+        },
+        "description": {
+            "title": "2. Description of Services",
+            "description": "Tassadraft is a platform for Magic: The Gathering (MTG) enthusiasts offering:",
+            "details": [
+                "Recognition of MTG cards from photos (batch processing included).",
+                "Deck management and editing with support for multiple formats and personalized printing with edition selection.",
+                "Tassadapi, a proprietary open API with documentation available at https://docs.tassadraft.com."
+            ],
+            "open-source": {
+                "title": "2.1. Open Source",
+                "description": "The mobile and web applications are open-source clients developed with Svelte and built using Capacitor. \nThe source code is publicly available under the MIT license at https://github.com/Tassadraft/Tassadraft-v2. \nAny contribution or reuse of the code must comply with the terms of the MIT license."
+            }
+        },
+        "access": {
+            "title": "3. Access Terms",
+            "object": [
+                "Web: Full features (including payment) are accessible via the web version of the application.",
+                "Mobile: The mobile application offers similar features, except for payments, which are only available through the web version.",
+                "The application requires an Internet connection. Users are responsible for configuring their devices to access the services."
+            ]
+        },
+        "subscription": {
+            "title": "4. Subscription Terms",
+            "description": "Access to Tassadraft services requires a paid subscription, with the following options:",
+            "object": [
+                "Free Trial: 24 hours.",
+                "Monthly Subscription: €3.99 for 1 month.",
+                "Quarterly Subscription: €9.99 for 3 months.",
+                "Semi-Annual Subscription: €16.99 for 6 months.",
+                "Annual Subscription: €29.99 for 12 months."
+            ],
+            "payment": {
+                "title": "4.1. Payment",
+                "description": "Payments are made exclusively via the web version of the application using the secure options provided. \nPrices include all applicable taxes."
+            },
+            "end-subscription": {
+                "title": "4.2. Renewal and Cancellation",
+                "renew": "Subscriptions renew automatically unless canceled by the user at least 24 hours before the renewal date.",
+                "cancel": "Cancellation does not entitle the user to a refund for the current period."
+            }
+        },
+        "tassadapi": {
+            "title": "5. Tassadapi API",
+            "description": "Tassadapi is a proprietary open API that allows interaction with Tassadraft's services. Its documentation is available at https://docs.tassadraft.com. \nAccess to and use of the API must comply with the usage restrictions specified in the documentation and respect intellectual property rights."
+        },
+        "user-responsibility": {
+            "title": "6. User Responsibilities",
+            "description": "The user agrees to:",
+            "object": [
+                "Comply with applicable laws, including intellectual property rights.",
+                "Not use the application or API in a fraudulent or harmful manner (e.g., hacking, API abuse).",
+                "Provide accurate information during registration."
+            ]
+        },
+        "intellectual-propriety": {
+            "title": "7. Intellectual Property",
+            "api": "Tassadapi API: Tassadapi is the exclusive property of Tassadraft. Any misuse, unauthorized reproduction, or distribution of API features is prohibited.",
+            "clients": "Web and Mobile Clients: The applications are open-source and distributed under the MIT license. Users must adhere to this license's terms when modifying or redistributing the code."
+        },
+        "app-responsibility": {
+            "title": "8. Limitation of Liability",
+            "description": "Tassadraft strives to provide an optimal experience but does not guarantee:",
+            "object": [
+                "Continuous service availability.",
+                "The absence of errors or bugs in the application.",
+                "Compatibility with all devices or browsers."
+            ],
+            "tassadraft-not-responsible": "Tassadraft is not liable for data loss, service interruptions, or indirect damages related to the use of its services."
+        },
+        "data": {
+            "title": "9. Personal Data Processing",
+            "collected": {
+                "title": "9.1. Data Collected",
+                "object": [
+                    "Information provided by the user during registration (email, name, etc.).",
+                    "Data related to feature usage (created decks, contact form submissions)."
+                ]
+            },
+            "goals": {
+                "title": "9.2. Purposes",
+                "object": ["Improve user experience.", "Manage subscriptions.", "Analyze usage to optimize services."],
+                "details": "For more details, consult our [Privacy Policy]."
+            }
+        },
+        "contributions": {
+            "title": "10. Contributions and Open Source",
+            "description": "If a user contributes to the open-source code on GitHub, they agree to grant the necessary rights to Tassadraft in accordance with the MIT license terms. Tassadraft reserves the right to refuse or modify contributions."
+        },
+        "support": {
+            "title": "11. Support",
+            "description": "For any questions, assistance, or complaints, fill out the contact form or, alternatively, email us at tassadapi@tassadraft.com."
+        },
+        "cancellation": {
+            "title": "12. Termination",
+            "description": "Tassadraft reserves the right to suspend or terminate access to the application and API in case of violation of the T&Cs."
+        },
+        "update": {
+            "title": "13. Changes to the T&Cs",
+            "description": "These T&Cs may be modified at any time. Any changes will be notified via the application or website. By continuing to use the services after notification, you accept the new T&Cs."
+        },
+        "right": {
+            "title": "14. Governing Law and Jurisdiction",
+            "description": "These T&Cs are governed by French law. Any disputes will be submitted to the competent courts in France."
         }
     },
     "tassadraft": {

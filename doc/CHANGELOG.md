@@ -4,7 +4,7 @@
 
 -   Improved routing
 -   404 & forbidden pages
--   `/contact` & `/legals`
+-   `/contact`, `/terms-and-conditions` & `/legals` routes
 
 ### New features
 
@@ -14,11 +14,14 @@
 -   Deck download into editor : can choose what to print : card prints, related (tokens, emblems, other ones)
 -   Contact form handlers
 -   Legals written & translated
+-   Terms and conditions written & translated + blocking modal to force accepting if not yet done
 
 ### Processing
 
 -   Added processing to deck editor
 
 ### Code quality
+
+- Simplified text colors by globalizing into app.css
 
 [Documentation](/README.md)

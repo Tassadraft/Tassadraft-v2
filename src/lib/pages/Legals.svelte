@@ -64,11 +64,13 @@
             <Subtitle>{$t('legals.terms-of-use.title')}</Subtitle>
         </div>
         <p>{$t('legals.terms-of-use.description')}</p>
-        <ul class="ml-3">
-            {#each $json('legals.terms-of-use.details') as detail}
-                <li class="list-disc">{detail}</li>
-            {/each}
-        </ul>
+        {#if $json('legals.terms-of-use.details')}
+            <ul class="ml-3 mt-2">
+                {#each $json('legals.terms-of-use.details') as detail}
+                    <li class="list-disc">{detail}</li>
+                {/each}
+            </ul>
+        {/if}
     </Panel>
 
     <Panel>

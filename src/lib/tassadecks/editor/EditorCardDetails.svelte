@@ -82,7 +82,7 @@
             {#if isBasicLand}
                 <div class="flex flex-row gap-3 justify-center">
                     <IconButton icon="minus" size={32} on:click={() => dispatch('cardDecrement', selectedCard)} />
-                    <p class="dark:text-white">{selectedCard.quantity}</p>
+                    <p>{selectedCard.quantity}</p>
                     <IconButton icon="plus" size={32} disabled={!isBasicLand} on:click={() => dispatch('cardIncrement', selectedCard)} />
                 </div>
                 <div class="flex justify-center">
