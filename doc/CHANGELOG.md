@@ -15,6 +15,7 @@
 -   Contact form handlers
 -   Legals written & translated
 -   Terms and conditions written & translated + blocking modal to force accepting if not yet done
+-   Added footer
 
 ### Processing
 
