@@ -88,7 +88,7 @@
         {#if isBasicLand}
             <div class="flex flex-row gap-3 justify-center">
                 <IconButton icon="minus" size={32} on:click={handleDecrement} />
-                <p class="dark:text-white">{cardObject.quantity}</p>
+                <p>{cardObject.quantity}</p>
                 <IconButton icon="plus" size={32} on:click={handleIncrement} />
             </div>
         {/if}

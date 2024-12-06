@@ -1,7 +1,7 @@
 <script>
     import Button from './Button.svelte';
-    import { createEventDispatcher } from 'svelte';
-    import { t } from 'svelte-i18n';
+    import {createEventDispatcher} from 'svelte';
+    import {t} from 'svelte-i18n';
 
     const dispatch = createEventDispatcher();
 
@@ -11,14 +11,17 @@
     export let fullWidth = false;
     export let dialog;
     export let confirm = false;
+    export let closable = true;
 
     const handleSuccess = () => {
-        dispatch('success');
+        dispatch('success'); // Dispatch success event
     };
 
     const handleClose = () => {
-        dispatch('close');
-        dialog.close();
+        if (closable) {
+            dispatch('close');
+            dialog.close();
+        }
     };
 
     $: if (dialog) {
@@ -26,29 +29,35 @@
             dialog.showModal();
             dispatch('open');
         } else {
-            handleClose();
+            dialog.close();
         }
     }
 </script>
 
-<dialog bind:this={dialog} on:close={() => (showModal = false)} class="rounded-lg border-none p-0 {fullWidth ? 'w-9/10' : 'max-w-lg'}">
-    <Button
-        type="button"
-        ariaLabel={$t('common.close-modal')}
-        className="fixed inset-0 w-full h-full cursor-default"
-        customStyle={true}
-        on:click={handleClose}
-    />
+<dialog
+    bind:this={dialog}
+    on:close={() => (showModal = false)}
+    class="rounded-lg border-none p-0 {fullWidth ? 'w-9/10' : 'max-w-lg'}"
+>
+    {#if closable}
+        <Button
+            type="button"
+            ariaLabel={$t('common.close-modal')}
+            className="fixed inset-0 w-full h-full cursor-default"
+            customStyle={true}
+            on:click={handleClose}
+        />
+    {/if}
 
     <div class="p-4 bg-white dark:bg-gray-700 rounded-lg relative">
-        <slot name="header" />
-        <hr class="my-2" />
-        <slot />
-        <hr class="my-2" />
+        <slot name="header"/>
+        <hr class="my-2"/>
+        <slot/>
+        <hr class="my-2"/>
         <div class="flex flex-row justify-center">
             {#if successText}
                 <div class="flex flex-row justify-center space-x-12 w-full">
-                    {#if !confirm}
+                    {#if !confirm && closable}
                         <Button on:click={handleClose}>
                             {closeText || $t('common.no')}
                         </Button>
@@ -56,7 +65,7 @@
                     <Button on:click={handleSuccess}>
                         {successText || $t('common.yes')}
                     </Button>
-                    {#if confirm}
+                    {#if confirm && closable}
                         <Button on:click={handleClose}>
                             {closeText || $t('common.no')}
                         </Button>
@@ -75,9 +84,11 @@
     dialog::backdrop {
         background: rgba(0, 0, 0, 0.5);
     }
+
     dialog[open] {
         animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
+
     @keyframes zoom {
         from {
             transform: scale(0.95);
@@ -86,9 +97,11 @@
             transform: scale(1);
         }
     }
+
     dialog[open]::backdrop {
         animation: fade 0.2s ease-out;
     }
+
     @keyframes fade {
         from {
             opacity: 0;

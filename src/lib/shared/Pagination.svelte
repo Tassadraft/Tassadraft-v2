@@ -44,7 +44,7 @@
                 <Icon name="chevronLeft" />
             </Button>
             <!-- Page Indicator -->
-            <p class="dark:text-white">
+            <p>
                 {paginatedObject.currentPage} / {paginatedObject.lastPage}
             </p>
             <!-- Next Page Button -->

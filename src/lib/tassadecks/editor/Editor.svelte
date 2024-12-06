@@ -437,7 +437,7 @@
                 <div class="flex flex-row justify-center items-center gap-3 bg-gray-200 dark:bg-gray-900 rounded-xl" style="z-index: 1001">
                     <Editable
                         bind:value={categoryObject.category.name}
-                        className="text-xl font-bold text-black dark:text-white relative"
+                        className="text-xl font-bold relative"
                         on:rename={() => renameCategoryRequest(categoryObject)}
                         editable={categoryObject.category.name !== 'Commander' && categoryObject.category.name !== 'Visual representation'}
                     >

@@ -27,5 +27,5 @@
 <Title title={$t('logout.title')} />
 <ConfirmModal bind:showModal on:success={handleSuccess} on:close={handleClose}>
     <Subtitle slot="header">{$t('logout.modal.title')}</Subtitle>
-    <p class="text-black dark:text-white">{$t('logout.modal.text')}</p>
+    <p>{$t('logout.modal.text')}</p>
 </ConfirmModal>

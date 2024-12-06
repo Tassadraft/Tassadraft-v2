@@ -33,5 +33,5 @@
         vertical
     ]} {horizontalClasses[horizontal]}"
 >
-    <Icon name={icon} color="primary-100" />
+    <Icon name={icon} />
 </Button>

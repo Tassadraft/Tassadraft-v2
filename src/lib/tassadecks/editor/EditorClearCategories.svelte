@@ -34,5 +34,5 @@
 
 <ConfirmModal bind:showModal on:success={handleClear}>
     <Subtitle slot="header">{$t('tassadecks.editor.clear-categories.title')}</Subtitle>
-    <p class="text-black dark:text-white">{$t('tassadecks.editor.clear-categories.text')}</p>
+    <p>{$t('tassadecks.editor.clear-categories.text')}</p>
 </ConfirmModal>

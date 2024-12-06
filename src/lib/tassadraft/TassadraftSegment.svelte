@@ -70,6 +70,6 @@
 
 <ConfirmModal bind:showModal on:success={handleSuccess}>
     <Subtitle slot="header">{$t('tassadraft.process.modal.title')}</Subtitle>
-    <p class="text-black dark:text-white">{$t('tassadraft.process.modal.text')}</p>
-    <p class="text-black dark:text-white">{$t('tassadraft.process.modal.question')}</p>
+    <p>{$t('tassadraft.process.modal.text')}</p>
+    <p>{$t('tassadraft.process.modal.question')}</p>
 </ConfirmModal>

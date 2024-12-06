@@ -4,7 +4,7 @@
 
 -   Improved routing
 -   404 & forbidden pages
--   `/contact` & `/legals`
+-   `/contact` & `/legals` routes
 
 ### New features
 
