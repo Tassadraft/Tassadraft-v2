@@ -16,13 +16,13 @@
 
 <Link
     href={notClickable ? null : href}
-    className={`hover:${footer ? 'bg-gray-300' : 'bg-gray-600'} dark:hover:bg-gray-700 px-2 cursor-pointer flex flex-row transition-colors duration-300 rounded ${notClickable ? 'cursor-not-allowed opacity-50' : ''}`}
+    className={`hover:${footer ? 'bg-gray-300 flex justify-center' : 'bg-gray-600'} dark:hover:bg-gray-700 px-2 cursor-pointer flex flex-row transition-colors duration-300 rounded ${notClickable ? 'cursor-not-allowed opacity-50' : ''}`}
     {target}
 >
     <div class="text-primary-500 left">
         <Icon name={iconLeft} />
     </div>
-    <p class="{footer ? '' : 'text-xl'} p-2">
+    <p class="{footer ? '' : 'text-xl'} text-nowrap p-2">
         <slot />
     </p>
     {#if iconRight}
