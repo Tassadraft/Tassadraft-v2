@@ -31,6 +31,7 @@
     export let url = '';
 
     let showModal = false;
+    let termsAndConditionsRef;
 
     const logInformations = async (token) => {
         const tokenExpiresAt = localStorage.getItem('apiTokenExpiration');
@@ -144,7 +145,9 @@
     </Router>
 </main>
 
-<ConfirmModal bind:showModal closable={false} fullWidth={true} on:success={handleAcceptTermsAndConditions}>
+<ConfirmModal bind:containerRef={termsAndConditionsRef} successText={$t('terms-and-conditions.accept')} bind:showModal closable={false} fullWidth={true} on:success={handleAcceptTermsAndConditions}>
     <Title title={$t('terms-and-conditions.title')} slot="header" />
-    <TermsAndConditions isModal={true} />
+    <div class="border border-red-500" bind:this={termsAndConditionsRef}>
+        <TermsAndConditions isModal={true} />
+    </div>
 </ConfirmModal>

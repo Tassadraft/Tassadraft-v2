@@ -264,6 +264,7 @@
     },
     "terms-and-conditions": {
         "title": "Conditions générales d'utilisation",
+        "accept": "J'accepte les conditions",
         "object": {
             "title": "1. Objet des CGU",
             "description": "Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation de l'application Tassadraft, accessible via le web et les plateformes mobiles. En utilisant l'application ou les services associés, vous acceptez intégralement ces CGU."
@@ -273,7 +274,7 @@
             "description": "Tassadraft est une plateforme pour les amateurs de Magic: The Gathering (MTG) qui propose :",
             "details": [
                 "Reconnaissance de cartes MTG à partir de photos (traitement par lot inclus).",
-                "Gestion et édition de decks, avec support de plusieurs formats et impression personnalisée avec choix des éditions.",
+                "Gestion et édition de decks, avec support de plusieurs formats et téléchargement personnalisé avec choix des éditions.",
                 "Tassadapi, une API propriétaire ouverte, dont la documentation est disponible sur https://docs.tassadraft.com."
             ],
             "open-source": {

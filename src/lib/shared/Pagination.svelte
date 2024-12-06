@@ -21,13 +21,14 @@
             console.error('Failed to fetch paginated data:', error);
         } finally {
             loading = false;
-            containerRef.scrollTo({
-                top: 0,
-                behavior: 'smooth',
-            });
+            if (containerRef) {
+                containerRef.scrollTo({
+                    top: 0,
+                    behavior: 'smooth',
+                });
+            }
         }
     };
-
     $: canGoBack = paginatedObject.currentPage > paginatedObject.firstPage;
     $: canGoForward = paginatedObject.currentPage < paginatedObject.lastPage;
 </script>

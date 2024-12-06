@@ -188,6 +188,6 @@
         <div class="mb-3">
             <Subtitle>{$t('terms-and-conditions.right.title')}</Subtitle>
         </div>
-        <p>{$t('terms-and-conditions.right  .description')}</p>
+        <p>{$t('terms-and-conditions.right.description')}</p>
     </Panel>
 </div>

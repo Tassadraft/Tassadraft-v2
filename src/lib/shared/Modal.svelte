@@ -14,7 +14,7 @@
     export let closable = true;
 
     const handleSuccess = () => {
-        dispatch('success'); // Dispatch success event
+        dispatch('success');
     };
 
     const handleClose = () => {
