@@ -44,6 +44,8 @@
         'Clear',
         'ArrowLeft',
         'ArrowRight',
+        'Gavel',
+        'OpenSource',
     ];
 
     const toCamelCase = (str) => {

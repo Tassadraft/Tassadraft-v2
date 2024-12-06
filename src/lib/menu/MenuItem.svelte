@@ -1,26 +1,42 @@
 <script>
+    import { location } from '../../stores/locationStore.js';
     import Link from '../shared/Link.svelte';
     import Icon from '../shared/Icon.svelte';
 
     export let href = '';
     export let iconLeft = '';
     export let iconRight = 'chevronRight';
-    const notClickable = href === window.location.pathname;
+    export let footer = false;
+    export let target = '';
+
+    let notClickable = true;
+
+    $: notClickable = href === $location;
 </script>
 
 <Link
     href={notClickable ? null : href}
-    className={`hover:bg-gray-600 dark:hover:bg-gray-500 cursor-pointer flex flex-row transition-colors duration-300 rounded ${notClickable ? 'cursor-not-allowed opacity-50' : ''}`}
+    className={`hover:${footer ? 'bg-gray-300' : 'bg-gray-600'} dark:hover:bg-gray-700 px-2 cursor-pointer flex flex-row transition-colors duration-300 rounded ${notClickable ? 'cursor-not-allowed opacity-50' : ''}`}
+    {target}
 >
-    <div class="mt-2.5 text-primary-500">
+    <div class="text-primary-500 left">
         <Icon name={iconLeft} />
     </div>
-    <p class="text-xl p-2">
+    <p class="{footer ? '' : 'text-xl'} p-2">
         <slot />
     </p>
     {#if iconRight}
-        <div class="mt-3 w-full flex">
+        <div class="flex dark:text-white right">
             <Icon name={iconRight} />
         </div>
     {/if}
 </Link>
+
+<style>
+    .left {
+        margin-top: 0.5rem;
+    }
+    .right {
+        margin-top: 0.55rem;
+    }
+</style>

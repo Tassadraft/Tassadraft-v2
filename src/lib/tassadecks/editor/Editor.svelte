@@ -21,7 +21,7 @@
     import { capitalizeFirstChar } from '../../../service/stringService.js';
     import CardPrintItem from '../CardPrintItem.svelte';
     import IconInfo from '../../shared/IconInfo.svelte';
-    import { navigate } from 'svelte-routing';
+    import { navigate } from '../../../stores/locationStore.js';
     import { setDeck, decks } from '../../../stores/deckStore.js';
     import { t } from 'svelte-i18n';
     import EditorDeckPrint from './EditorDeckPrint.svelte';
@@ -413,7 +413,9 @@
     <div class="flex flex-row flex-wrap gap-5">
         <EditorSearch bind:deck {addCardRequest} {removeCardRequest} />
         <EditorDeckPrint bind:deck bind:relatedCards />
-        <Photo mode="inline" on:photo={handleProcessPhoto}>{$t('tassadecks.editor.batch.photo')}</Photo>
+        <Photo mode="inline" on:photo={handleProcessPhoto}>
+            <p>{$t('tassadecks.editor.batch.photo')}</p>
+        </Photo>
         <EditorNewCategory bind:deck />
         <EditorClearCategories bind:deck />
 

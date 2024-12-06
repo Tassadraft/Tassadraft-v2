@@ -16,7 +16,7 @@
                     top: 0,
                     behavior: 'smooth',
                 });
-            }, 1000)
+            }, 1000);
         }
     };
 </script>

@@ -8,7 +8,7 @@
     import axios from 'axios';
     import Select from '../shared/Select.svelte';
     import { capitalizeFirstChar } from '../../service/stringService.js';
-    import { navigate } from 'svelte-routing';
+    import { navigate } from '../../stores/locationStore.js';
     import { t } from 'svelte-i18n';
 
     export let scratch = true;

@@ -56,9 +56,5 @@
             <CardSearchItem bind:deck {card} {addCardRequest} {removeCardRequest} />
         {/each}
     </div>
-    <Pagination
-        bind:paginatedObject={paginatedSearchedCards}
-        bind:baseUrl={cardSearchBaseUrl}
-        bind:containerRef={scrollContainer}
-    />
+    <Pagination bind:paginatedObject={paginatedSearchedCards} bind:baseUrl={cardSearchBaseUrl} bind:containerRef={scrollContainer} />
 </Modal>

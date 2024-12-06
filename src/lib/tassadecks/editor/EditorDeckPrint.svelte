@@ -212,7 +212,7 @@
 </script>
 
 <Button on:click={() => (showModal = true)}>
-    <div class="flex flex-row gap-1">
+    <div class="flex gap-1">
         <Icon name="download" />
         <p>{$t('common.download')}</p>
     </div>
