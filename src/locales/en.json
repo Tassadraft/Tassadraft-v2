@@ -264,6 +264,7 @@
     },
     "terms-and-conditions": {
         "title": "Terms and Conditions of Use",
+        "accept": "I Agree to the Terms",
         "object": {
             "title": "1. Purpose of the Terms and Conditions",
             "description": "These Terms and Conditions of Use (T&Cs) govern access to and use of the Tassadraft application, available via web and mobile platforms. By using the application or associated services, you fully accept these T&Cs."
@@ -273,7 +274,7 @@
             "description": "Tassadraft is a platform for Magic: The Gathering (MTG) enthusiasts offering:",
             "details": [
                 "Recognition of MTG cards from photos (batch processing included).",
-                "Deck management and editing with support for multiple formats and personalized printing with edition selection.",
+                "Deck management and editing with support for multiple formats and personalized download with edition selection.",
                 "Tassadapi, a proprietary open API with documentation available at https://docs.tassadraft.com."
             ],
             "open-source": {

@@ -16,8 +16,8 @@
 
     let paginatedSearchedCards = { cards: [] };
     let cardSearchBaseUrl = '';
-    const searchBarName = 'searchCard';
     let showModal = false;
+    let scrollContainer;
 
     const handleSearch = async (query) => {
         try {
@@ -46,14 +46,19 @@
         bind:results={paginatedSearchedCards.cards}
         placeholder={$t('tassadecks.editor.search.placeholder')}
         label={$t('tassadecks.editor.search.label')}
-        name={searchBarName}
+        name="searchCard"
         {handleSearch}
     />
 
-    <div class="flex flex-row flex-wrap gap-5 justify-center">
+    <!-- TODO: fix this issue #58 -->
+    <div bind:this={scrollContainer} class="flex flex-row flex-wrap gap-5 justify-center">
         {#each paginatedSearchedCards.cards as card}
             <CardSearchItem bind:deck {card} {addCardRequest} {removeCardRequest} />
         {/each}
     </div>
-    <Pagination bind:paginatedObject={paginatedSearchedCards} bind:baseUrl={cardSearchBaseUrl} />
+    <Pagination
+        bind:paginatedObject={paginatedSearchedCards}
+        bind:baseUrl={cardSearchBaseUrl}
+        bind:containerRef={scrollContainer}
+    />
 </Modal>
