@@ -348,11 +348,7 @@
             },
             "goals": {
                 "title": "9.2. Finalités",
-                "object": [
-                    "Améliorer l'expérience utilisateur.",
-                    "Gérer les abonnements.",
-                    "Analyser l'utilisation pour optimiser les services."
-                ],
+                "object": ["Améliorer l'expérience utilisateur.", "Gérer les abonnements.", "Analyser l'utilisation pour optimiser les services."],
                 "details": "Pour plus de détails, consultez notre [Politique de Confidentialité]."
             }
         },

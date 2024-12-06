@@ -1,7 +1,7 @@
 <script>
     import Button from './Button.svelte';
-    import {createEventDispatcher} from 'svelte';
-    import {t} from 'svelte-i18n';
+    import { createEventDispatcher } from 'svelte';
+    import { t } from 'svelte-i18n';
 
     const dispatch = createEventDispatcher();
 
@@ -34,11 +34,7 @@
     }
 </script>
 
-<dialog
-    bind:this={dialog}
-    on:close={() => (showModal = false)}
-    class="rounded-lg border-none p-0 {fullWidth ? 'w-9/10' : 'max-w-lg'}"
->
+<dialog bind:this={dialog} on:close={() => (showModal = false)} class="rounded-lg border-none p-0 {fullWidth ? 'w-9/10' : 'max-w-lg'}">
     {#if closable}
         <Button
             type="button"
@@ -50,10 +46,10 @@
     {/if}
 
     <div class="p-4 bg-white dark:bg-gray-700 rounded-lg relative">
-        <slot name="header"/>
-        <hr class="my-2"/>
-        <slot/>
-        <hr class="my-2"/>
+        <slot name="header" />
+        <hr class="my-2" />
+        <slot />
+        <hr class="my-2" />
         <div class="flex flex-row justify-center">
             {#if successText}
                 <div class="flex flex-row justify-center space-x-12 w-full">

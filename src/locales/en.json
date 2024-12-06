@@ -348,11 +348,7 @@
             },
             "goals": {
                 "title": "9.2. Purposes",
-                "object": [
-                    "Improve user experience.",
-                    "Manage subscriptions.",
-                    "Analyze usage to optimize services."
-                ],
+                "object": ["Improve user experience.", "Manage subscriptions.", "Analyze usage to optimize services."],
                 "details": "For more details, consult our [Privacy Policy]."
             }
         },

@@ -22,11 +22,11 @@
     import Profile from './lib/pages/Profile.svelte';
     import Contact from './lib/pages/Contact.svelte';
     import Legals from './lib/pages/Legals.svelte';
-    import TermsAndConditions from "./lib/pages/TermsAndConditions.svelte";
-    import ConfirmModal from "./lib/shared/ConfirmModal.svelte";
-    import Title from "./lib/shared/Title.svelte";
+    import TermsAndConditions from './lib/pages/TermsAndConditions.svelte';
+    import ConfirmModal from './lib/shared/ConfirmModal.svelte';
+    import Title from './lib/shared/Title.svelte';
     import { t } from 'svelte-i18n';
-    import {showToast} from "./service/toastService.js";
+    import { showToast } from './service/toastService.js';
 
     export let url = '';
 

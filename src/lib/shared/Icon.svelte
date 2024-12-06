@@ -68,9 +68,5 @@
 </script>
 
 {#if IconComponent}
-    <svelte:component
-        this={IconComponent}
-        {size}
-        className="transition-all duration-300"
-    />
+    <svelte:component this={IconComponent} {size} className="transition-all duration-300" />
 {/if}
