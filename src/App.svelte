@@ -29,7 +29,7 @@
     import { showToast } from './service/toastService.js';
     import Footer from './lib/shared/Footer.svelte';
     import { location } from './stores/locationStore.js';
-    import Fab from "./lib/shared/Fab.svelte";
+    import Fab from './lib/shared/Fab.svelte';
 
     export let url = '';
 
