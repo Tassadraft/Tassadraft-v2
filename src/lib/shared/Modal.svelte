@@ -34,7 +34,7 @@
     }
 </script>
 
-<dialog bind:this={dialog} on:close={() => (showModal = false)} class="rounded-lg border-none p-0 {fullWidth ? 'w-9/10' : 'max-w-lg'}">
+<dialog bind:this={dialog} on:close={() => (showModal = false)} style={`width: ${fullWidth ? '90%' : '50%'}`} class={`rounded-lg border-none p-0`}>
     {#if closable}
         <Button
             type="button"

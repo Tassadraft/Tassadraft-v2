@@ -1,6 +1,6 @@
 <script>
     import { showToast } from '../../service/toastService.js';
-    import { navigate } from 'svelte-routing';
+    import { navigate } from '../../stores/locationStore.js';
     import { clearProfile } from '../../stores/profileStore.js';
     import Subtitle from '../shared/Subtitle.svelte';
     import { t } from 'svelte-i18n';

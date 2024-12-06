@@ -127,7 +127,11 @@
         "settings": "Settings",
         "profile": "Profile",
         "logout": "Logout",
-        "login": "Login"
+        "login": "Login",
+        "legals": "Legals",
+        "terms-and-conditions": "Terms and conditions",
+        "contact": "Contact",
+        "source-code": "Source code"
     },
     "settings": {
         "title": "Settings",

@@ -127,7 +127,11 @@
         "settings": "Paramètres",
         "profile": "Profil",
         "logout": "Déconnexion",
-        "login": "Connexion"
+        "login": "Connexion",
+        "legals": "Mentions légales",
+        "terms-and-conditions": "Conditions générales d'utilisation",
+        "contact": "Contact",
+        "source-code": "Code source"
     },
     "settings": {
         "title": "Paramètres",

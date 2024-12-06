@@ -8,7 +8,7 @@
     import axios from 'axios';
     import Title from '../shared/Title.svelte';
     import Link from '../shared/Link.svelte';
-    import { navigate } from 'svelte-routing';
+    import { navigate } from '../../stores/locationStore.js';
     import { updateProfile } from '../../stores/profileStore.js';
     import { t } from 'svelte-i18n';
 

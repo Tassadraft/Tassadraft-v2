@@ -6,14 +6,9 @@
     import Button from '../shared/Button.svelte';
     import IconButton from '../shared/IconButton.svelte';
     import { t } from 'svelte-i18n';
+    import { profile } from '../../stores/profileStore.js';
 
     let isOpen = false;
-    let connected = false;
-
-    $: {
-        const token = localStorage.getItem('apiToken');
-        connected = token !== '' && token !== null && token !== undefined;
-    }
 
     const closeMenu = () => {
         isOpen = false;
@@ -61,7 +56,7 @@
                 <MenuItem iconLeft="book" href="/tassadecks">{$t('common.tassadecks')}</MenuItem>
                 <MenuItem iconLeft="camera" href="#">{$t('common.tassacards')}</MenuItem>
                 <MenuItem iconLeft="settings" href="/settings">{$t('menu.settings')}</MenuItem>
-                {#if connected}
+                {#if $profile}
                     <MenuItem iconLeft="user" href="/profile">{$t('menu.profile')}</MenuItem>
                     <MenuItem iconLeft="userRemove" href="/logout">{$t('menu.logout')}</MenuItem>
                 {:else}

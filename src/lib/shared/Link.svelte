@@ -1,5 +1,5 @@
 <script>
-    import { navigate } from 'svelte-routing'; // or your routing utility
+    import { navigate } from '../../stores/locationStore.js';
 
     export let href = '';
     export let className = '';

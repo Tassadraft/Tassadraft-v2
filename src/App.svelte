@@ -27,6 +27,9 @@
     import Title from './lib/shared/Title.svelte';
     import { t } from 'svelte-i18n';
     import { showToast } from './service/toastService.js';
+    import Footer from './lib/shared/Footer.svelte';
+    import { location } from './stores/locationStore.js';
+    import Fab from './lib/shared/Fab.svelte';
 
     export let url = '';
 
@@ -105,9 +108,9 @@
     });
 </script>
 
-<main class="bg-gray-200 dark:bg-gray-900 min-h-screen min-w-screen px-3.5">
-    <Router {url}>
-        <div>
+<main class="flex flex-col bg-gray-200 dark:bg-gray-900 min-h-screen min-w-screen">
+    <div class="px-3.5 min-h-screen">
+        <Router {url}>
             <Route path="/"><Homepage /></Route>
             <Route path="/login"><Login /></Route>
             <Route path="/subscribe"><Subscribe /></Route>
@@ -141,11 +144,19 @@
             {/if}
 
             <Route path="*"><NotFound /></Route>
-        </div>
-    </Router>
+        </Router>
+    </div>
+    <Footer />
 </main>
 
-<ConfirmModal bind:containerRef={termsAndConditionsRef} successText={$t('terms-and-conditions.accept')} bind:showModal closable={false} fullWidth={true} on:success={handleAcceptTermsAndConditions}>
+<ConfirmModal
+    bind:containerRef={termsAndConditionsRef}
+    successText={$t('terms-and-conditions.accept')}
+    bind:showModal
+    closable={false}
+    fullWidth={true}
+    on:success={handleAcceptTermsAndConditions}
+>
     <Title title={$t('terms-and-conditions.title')} slot="header" />
     <div class="border border-red-500" bind:this={termsAndConditionsRef}>
         <TermsAndConditions isModal={true} />
