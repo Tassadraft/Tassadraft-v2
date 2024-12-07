@@ -24,7 +24,7 @@
     {#each options as { value, label }}
         <div>
             <input class="sr-only" type="radio" id={slugify(label)} bind:group={selected} {value} on:change={() => handleChange(value)} />
-            <label for={slugify(label)} class="relative block text-left pl-8">
+            <label for={slugify(label)} class="relative block text-left pl-8 dark:text-white">
                 {label}
                 <span
                     class="absolute left-0 top-1/2 transform -translate-y-1/2 size-4 border border-gray-400 rounded-full flex items-center justify-center pointer-events-none"
