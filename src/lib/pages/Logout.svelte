@@ -7,15 +7,23 @@
     import Menu from '../menu/Menu.svelte';
     import Title from '../shared/Title.svelte';
     import ConfirmModal from '../shared/ConfirmModal.svelte';
+    import axios from "axios";
 
     let showModal = true;
 
-    const handleSuccess = () => {
-        localStorage.removeItem('apiToken');
-        localStorage.removeItem('subscribed');
-        clearProfile();
-        showToast('Logged out', 'success');
-        navigate('/login');
+    const handleSuccess = async () => {
+        try {
+            await axios.get('/api/auth/logout');
+            localStorage.removeItem('apiToken');
+            localStorage.removeItem('subscribed');
+            clearProfile();
+        } catch (error) {
+            showToast($t('toast.logout.error'), 'error');
+            navigate('/');
+        } finally {
+            showToast($t('toast.logout.success'));
+            navigate('/login');
+        }
     };
 
     const handleClose = () => {

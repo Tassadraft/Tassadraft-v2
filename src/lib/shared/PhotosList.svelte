@@ -27,7 +27,7 @@
         });
         deletedPhotos = [...deletedPhotos, photo];
         photos = photos.filter((photo) => photo.uri !== selectedPhotoUri);
-        showToast($t('toast.photo.deleted'), 'success');
+        showToast($t('toast.photo.deleted'));
     };
 
     const handleUndo = () => {
@@ -41,7 +41,7 @@
                 cards = [...cards, card];
             }
         });
-        showToast($t('toast.photo.restored'), 'success');
+        showToast($t('toast.photo.restored'));
     };
 </script>
 

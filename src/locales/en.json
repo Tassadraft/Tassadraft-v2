@@ -61,6 +61,10 @@
             "success": "You are now logged in",
             "error": "Wrong credentials"
         },
+        "logout": {
+            "success": "You are now disconnected",
+            "error": "An error occurred while disconnecting"
+        },
         "contact": {
             "success": "Contact form successfully submitted",
             "error": "An error occurred while submitting contact form"

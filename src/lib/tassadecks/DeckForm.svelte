@@ -34,7 +34,7 @@
     });
 
     const handleSuccess = (event) => {
-        showToast(event.detail.message, 'success');
+        showToast(event.detail.message);
         navigate(`/decks/edit/${event.detail.deckId}`);
     };
 

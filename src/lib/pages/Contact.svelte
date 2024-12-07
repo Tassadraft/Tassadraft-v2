@@ -24,7 +24,7 @@
     const handleSuccess = () => {
         message = '';
         consent = false;
-        showToast($t('toast.contact.success'), 'success');
+        showToast($t('toast.contact.success'));
     };
 
     const handleError = () => {

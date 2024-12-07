@@ -61,6 +61,10 @@
             "success": "Vous êtes maintenant connecté",
             "error": "Identifiants invalides"
         },
+        "logout": {
+            "success": "Vous êtes maintenant déconnecté",
+            "error": "Une erreur est survenue lors de la déconnexion"
+        },
         "contact": {
             "success": "Formulaire de contact soumis avec succès",
             "error": "Une erreur est survenue lors de la soumission du formulaire de contact"

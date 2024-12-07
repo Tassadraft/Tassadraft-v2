@@ -25,7 +25,7 @@
         cards = cards.filter((card) => card.scryfallId !== deletingCard.scryfallId);
         deletedCards = [...deletedCards, deletingCard];
         showModal = false;
-        showToast(`${deletingCard.translation.name} deleted`, 'success');
+        showToast(`${deletingCard.translation.name} deleted`);
     };
 
     const handleUndo = () => {
