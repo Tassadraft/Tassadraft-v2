@@ -25,11 +25,10 @@
     import TermsAndConditions from './lib/pages/TermsAndConditions.svelte';
     import ConfirmModal from './lib/shared/ConfirmModal.svelte';
     import Title from './lib/shared/Title.svelte';
-    import { t } from 'svelte-i18n';
+    import { t, isLoading } from 'svelte-i18n';
     import { showToast } from './service/toastService.js';
     import Footer from './lib/shared/Footer.svelte';
-    import { location } from './stores/locationStore.js';
-    import Fab from './lib/shared/Fab.svelte';
+    import Loader from "./lib/shared/Loader.svelte";
 
     export let url = '';
 
@@ -110,41 +109,45 @@
 
 <main class="flex flex-col bg-gray-200 dark:bg-gray-900 min-h-screen min-w-screen">
     <div class="px-3.5 min-h-screen">
-        <Router {url}>
-            <Route path="/"><Homepage /></Route>
-            <Route path="/login"><Login /></Route>
-            <Route path="/subscribe"><Subscribe /></Route>
-            <Route path="/settings"><Settings /></Route>
-            <Route path="/legals"><Legals /></Route>
-            <Route path="/terms-and-conditions"><TermsAndConditions /></Route>
+        {#if $isLoading}
+            <Router {url}>
+                <Route path="/"><Homepage /></Route>
+                <Route path="/login"><Login /></Route>
+                <Route path="/subscribe"><Subscribe /></Route>
+                <Route path="/settings"><Settings /></Route>
+                <Route path="/legals"><Legals /></Route>
+                <Route path="/terms-and-conditions"><TermsAndConditions /></Route>
 
-            {#if $profile}
-                <Route path="/tassadraft"><Tassadraft /></Route>
-                <Route path="/tassadecks"><Tassadecks /></Route>
-                <Route path="/profile"><Profile /></Route>
-                <Route path="/reset-password"><ResetPassword /></Route>
-                <Route path="/reset-password/confirm/:token" let:params><ConfirmResetPassword {...params} /></Route>
-                <Route path="/logout"><Logout /></Route>
+                {#if $profile}
+                    <Route path="/tassadraft"><Tassadraft /></Route>
+                    <Route path="/tassadecks"><Tassadecks /></Route>
+                    <Route path="/profile"><Profile /></Route>
+                    <Route path="/reset-password"><ResetPassword /></Route>
+                    <Route path="/reset-password/confirm/:token" let:params><ConfirmResetPassword {...params} /></Route>
+                    <Route path="/logout"><Logout /></Route>
 
-                <Route path="/decks/edit/:deckId" let:params><Deck {...params} /></Route>
-                <Route path="/decks/new"><NewDeck /></Route>
-                <Route path="/decks/me"><MyDecks /></Route>
-                <Route path="/decks"><BrowseDecks /></Route>
+                    <Route path="/decks/edit/:deckId" let:params><Deck {...params} /></Route>
+                    <Route path="/decks/new"><NewDeck /></Route>
+                    <Route path="/decks/me"><MyDecks /></Route>
+                    <Route path="/decks"><BrowseDecks /></Route>
 
-                <Route path="/contact"><Contact /></Route>
-            {:else}
-                <Route path="/tassadraft"><Forbidden /></Route>
-                <Route path="/tassadecks"><Forbidden /></Route>
-                <Route path="/profile"><Forbidden /></Route>
-                <Route path="/decks/edit/:deckId"><Forbidden /></Route>
-                <Route path="/decks/new"><Forbidden /></Route>
-                <Route path="/decks/me"><Forbidden /></Route>
-                <Route path="/decks"><Forbidden /></Route>
-                <Route path="/contact"><Forbidden /></Route>
-            {/if}
+                    <Route path="/contact"><Contact /></Route>
+                {:else}
+                    <Route path="/tassadraft"><Forbidden /></Route>
+                    <Route path="/tassadecks"><Forbidden /></Route>
+                    <Route path="/profile"><Forbidden /></Route>
+                    <Route path="/decks/edit/:deckId"><Forbidden /></Route>
+                    <Route path="/decks/new"><Forbidden /></Route>
+                    <Route path="/decks/me"><Forbidden /></Route>
+                    <Route path="/decks"><Forbidden /></Route>
+                    <Route path="/contact"><Forbidden /></Route>
+                {/if}
 
-            <Route path="*"><NotFound /></Route>
-        </Router>
+                <Route path="*"><NotFound /></Route>
+            </Router>
+        {:else}
+            <Loader loading={true} />
+        {/if}
     </div>
     <Footer />
 </main>
