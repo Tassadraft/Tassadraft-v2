@@ -109,7 +109,7 @@
 
 <main class="flex flex-col bg-gray-200 dark:bg-gray-900 min-h-screen min-w-screen">
     <div class="px-3.5 min-h-screen">
-        {#if $isLoading}
+        {#if !$isLoading}
             <Router {url}>
                 <Route path="/"><Homepage /></Route>
                 <Route path="/login"><Login /></Route>

@@ -16,7 +16,7 @@
 
 <Link
     href={notClickable ? null : href}
-    className={`hover:${footer ? 'bg-gray-300 flex justify-center' : 'bg-gray-600'} dark:hover:bg-gray-700 px-2 cursor-pointer flex flex-row transition-colors duration-300 rounded ${notClickable ? 'cursor-not-allowed opacity-50' : ''}`}
+    className={`${!notClickable ? footer ? 'hover:bg-gray-300' : 'hover:bg-gray-600' : ''} ${footer ? 'flex justify-center' : ''} px-2 flex flex-row transition-colors duration-300 rounded ${notClickable ? 'cursor-not-allowed opacity-50' : 'cursor-pointer dark:hover:bg-gray-700'}`}
     {target}
 >
     <div class="text-primary-500 left">
