@@ -33,7 +33,7 @@
         on:change={handleSelect}
     >
         {#each options as option}
-            <option value={option.value} selected={selectedOption?.value === option.value}>
+            <option class="capitalize" value={option.value} selected={selectedOption?.value === option.value}>
                 {option.label}
             </option>
         {/each}

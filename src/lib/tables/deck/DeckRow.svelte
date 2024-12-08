@@ -3,7 +3,6 @@
     import Link from '../../shared/Link.svelte';
     import IconButton from '../../shared/IconButton.svelte';
     import { createEventDispatcher } from 'svelte';
-    import { capitalizeFirstChar } from '../../../service/stringService.js';
     import { t } from 'svelte-i18n';
 
     export let deck;
@@ -21,7 +20,7 @@
 
     <td class="text-center border-r border-primary-700">
         <Link href={`/decks/edit/${deck.id}`} ariaLabel={$t('common.edit-deck')}>
-            <p class="text-xs truncate">{capitalizeFirstChar(deck.format)}</p>
+            <p class="text-xs truncate capitalize">{deck.format}</p>
         </Link>
     </td>
 

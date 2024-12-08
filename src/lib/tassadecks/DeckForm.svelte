@@ -7,7 +7,6 @@
     import { onMount } from 'svelte';
     import axios from 'axios';
     import Select from '../shared/Select.svelte';
-    import { capitalizeFirstChar } from '../../service/stringService.js';
     import { navigate } from '../../stores/locationStore.js';
     import { t } from 'svelte-i18n';
 
@@ -26,7 +25,7 @@
     onMount(async () => {
         try {
             const { data } = await axios.get('/api/auth/reserved/decks/supported-formats');
-            supportedFormats = data.map((format, index) => ({ value: index, label: capitalizeFirstChar(format) }));
+            supportedFormats = data.map((format, index) => ({ value: index, label: format }));
             selectedFormat = supportedFormats[0];
         } catch (error) {
             console.error(error);

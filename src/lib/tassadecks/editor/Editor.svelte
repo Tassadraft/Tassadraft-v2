@@ -18,7 +18,6 @@
     import Photo from '../../shared/Photo.svelte';
     import getBase64Strings from '../../../service/base64Service.js';
     import Loader from '../../shared/Loader.svelte';
-    import { capitalizeFirstChar } from '../../../service/stringService.js';
     import CardPrintItem from '../CardPrintItem.svelte';
     import IconInfo from '../../shared/IconInfo.svelte';
     import { navigate } from '../../../stores/locationStore.js';
@@ -396,7 +395,7 @@
     <div class="flex flex-row flex-wrap gap-20 justify-center mb-3">
         <p>{cardsLength} cards</p>
         <p>{$t(`common.${isLegal ? 'legal' : 'not-legal'}`)}</p>
-        <Subtitle>{capitalizeFirstChar(deck.format)}</Subtitle>
+        <Subtitle>{deck.format}</Subtitle>
     </div>
     <div class="flex justify-center mb-3">
         <Editable bind:value={deck.description} on:rename={metadataRequest} min={0}>
