@@ -20,11 +20,11 @@
 {/if}
 
 <div class="flex flex-row items-center gap-0.5">
-    <span class={checked ? '' : 'text-primary-500'}>
+    <span class={checked ? 'dark:text-white' : 'text-primary-500'}>
         <Icon name="sun" size={iconSize} />
     </span>
     <Switch size={switchSize} bind:value={checked} />
-    <span class={checked ? 'text-primary-500' : ''}>
+    <span class={checked ? 'text-primary-500' : 'dark:text-white'}>
         <Icon name="moon" size={iconSize} />
     </span>
 </div>
