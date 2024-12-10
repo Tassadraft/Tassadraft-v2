@@ -37,6 +37,7 @@
 <Title title={$t('reset-password.title')} />
 
 <Form action="/api/reset-password/send-mail" method="POST" on:success={handleSuccess} on:error={handleFailure}>
+    <input type="hidden" name="frontUri" value={process.env.VITE_FRONT_URI}>
     <Input
         label={$t('common.email.label')}
         placeholder={$t('common.email.placeholder')}
