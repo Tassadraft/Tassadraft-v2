@@ -47,7 +47,7 @@
 <form {action} on:submit={handleSubmit} {method} class="bg-gray-200 dark:bg-gray-700 rounded-2xl p-3 shadow">
     <slot />
     {#if submittable}
-        <div class="w-full flex justify-end">
+        <div class="w-full flex justify-end mt-3">
             <Button type="submit" additionalStyle="bg-green-700 hover:bg-green-800 rounded-lg p-2">
                 <div class="flex flex-row items-center gap-3">
                     <p class="text-white">{$t('common.submit')}</p>
