@@ -3,23 +3,18 @@
     import Form from '../shared/Form.svelte';
     import Input from '../shared/Input.svelte';
     import { onMount } from 'svelte';
-    import axios from 'axios';
     import Menu from '../menu/Menu.svelte';
     import { showToast } from '../../service/toastService.js';
     import { t } from 'svelte-i18n';
+    import { profile } from '../../stores/profileStore.js';
 
     let email = '';
     let readonly = false;
 
     onMount(async () => {
-        if (localStorage.getItem('apiToken')) {
-            try {
-                const { data } = await axios.get('/api/auth/profile/get-email');
-                email = data.email;
-                readonly = true;
-            } catch (error) {
-                console.error(error);
-            }
+        if ($profile && $profile.email) {
+            email = $profile.email;
+            readonly = true;
         }
     });
 
@@ -37,7 +32,7 @@
 <Title title={$t('reset-password.title')} />
 
 <Form action="/api/reset-password/send-mail" method="POST" on:success={handleSuccess} on:error={handleFailure}>
-    <input type="hidden" name="frontUri" value={process.env.VITE_FRONT_URI}>
+    <input type="hidden" name="frontUri" value={`${process.env.VITE_FRONT_URI}/reset-password/confirm`}>
     <Input
         label={$t('common.email.label')}
         placeholder={$t('common.email.placeholder')}
