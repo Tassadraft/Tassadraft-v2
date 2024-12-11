@@ -15,7 +15,7 @@
     const handleClick = async (page, perPage) => {
         try {
             loading = true;
-            const { data } = await axios.get(`${baseUrl}&page=${page}&per_page=${perPage}`);
+            const { data } = await axios.get(`${baseUrl}&page=${page}&perPage=${perPage}`);
             paginatedObject = data;
         } catch (error) {
             console.error('Failed to fetch paginated data:', error);
