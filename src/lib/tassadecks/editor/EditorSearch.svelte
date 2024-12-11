@@ -21,7 +21,7 @@
 
     const handleSearch = async (query) => {
         try {
-            cardSearchBaseUrl = `/api/auth/reserved/cards/search?query=${query}&languageCode=${localStorage.getItem('languageCode')}`;
+            cardSearchBaseUrl = `/api/auth/reserved/cards/search?query=${query}&language=${localStorage.getItem('language')}`;
             const { data: paginated } = await axios.get(cardSearchBaseUrl);
             paginatedSearchedCards = paginated;
         } catch (e) {

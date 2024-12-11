@@ -71,7 +71,7 @@
             deck = $decks[deckId];
         } else {
             try {
-                const { data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?languageCode=${localStorage.getItem('languageCode')}`);
+                const { data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?language=${localStorage.getItem('language')}`);
                 deck = deckData;
                 setDeck(deck);
             } catch (e) {
@@ -266,7 +266,7 @@
         try {
             loading = true;
             const base64Strings = await getBase64Strings([{ uri: e.detail.photo.webPath }]);
-            const response = await axios.post(`/api/auth/reserved/process?languageCode=${localStorage.getItem('languageCode')}`, {
+            const response = await axios.post(`/api/auth/reserved/process?language=${localStorage.getItem('language')}`, {
                 photos: base64Strings,
             });
             for (const processedCard of response.data.cards) {

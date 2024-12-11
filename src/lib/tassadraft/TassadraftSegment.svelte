@@ -48,7 +48,7 @@
         try {
             loading = true;
             const base64Strings = await getBase64Strings(photos.filter((photo) => !photo.processed));
-            const response = await axios.post(`/api/auth/reserved/process?languageCode=${localStorage.getItem('languageCode')}`, {
+            const response = await axios.post(`/api/auth/reserved/cards/process?language=${localStorage.getItem('language')}`, {
                 photos: base64Strings,
             });
             loading = false;

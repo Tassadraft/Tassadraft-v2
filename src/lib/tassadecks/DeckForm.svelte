@@ -44,7 +44,7 @@
 
 <Form
     method="POST"
-    action={`/api/auth/reserved/decks/${deck.id > 0 ? `edit/${deck.id}` : 'new'}?languageCode=${localStorage.getItem('languageCode')}`}
+    action={`/api/auth/reserved/decks/${deck.id > 0 ? `edit/${deck.id}` : 'new'}?language=${localStorage.getItem('language')}`}
     on:success={handleSuccess}
     on:error={handleError}
 >

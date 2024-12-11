@@ -21,7 +21,7 @@
         const formData = new FormData(form);
 
         const formDataObj = {
-            languageCode: localStorage.getItem('languageCode'),
+            language: localStorage.getItem('language'),
         };
         formData.forEach((value, key) => {
             formDataObj[key] = value;

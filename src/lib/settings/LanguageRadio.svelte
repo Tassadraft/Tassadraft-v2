@@ -2,11 +2,11 @@
     import Radio from '../shared/Radio.svelte';
     import { locale, t } from 'svelte-i18n';
 
-    let radioValue = localStorage.getItem('languageCode');
+    let radioValue = localStorage.getItem('language');
     let languages = [];
 
     const handleChange = (event) => {
-        localStorage.setItem('languageCode', event);
+        localStorage.setItem('language', event);
         locale.set(event);
     };
 

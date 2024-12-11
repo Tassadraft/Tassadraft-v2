@@ -13,9 +13,10 @@
 
     let myDecks = {};
     let displayingMode = 'list';
+    let baseUrl = `/api/auth/reserved/decks/me?language=${localStorage.getItem('language')}`;
 
     onMount(async () => {
-        const { data: decks } = await axios.get('/api/auth/reserved/decks/me');
+        const { data: decks } = await axios.get(baseUrl);
         myDecks = decks;
     });
 
@@ -43,5 +44,5 @@
     {:else if displayingMode === 'list'}
         <DecksTable bind:decks={myDecks.decks} on:deckDeleted={handleDeletedDeck} />
     {/if}
-    <Pagination bind:paginatedObject={myDecks} baseUrl={`/api/auth/reserved/decks/me?languageCode=${localStorage.getItem('languageCode')}`} />
+    <Pagination bind:paginatedObject={myDecks} {baseUrl} />
 </Panel>
