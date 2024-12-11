@@ -21,6 +21,9 @@
                 <MenuItem footer={true} iconLeft="gavel" href="/legals">{$t('menu.legals')}</MenuItem>
                 <MenuItem footer={true} iconLeft="search" href="/terms-and-conditions">{$t('menu.terms-and-conditions')}</MenuItem>
                 <MenuItem footer={true} iconLeft="pen" href="/contact">{$t('menu.contact')}</MenuItem>
+                <li class="p-2">
+                    <p class="text-center">© 2024 Tassadraft Studio</p>
+                </li>
             </ul>
         </div>
     </div>
