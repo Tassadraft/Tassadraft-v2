@@ -66,8 +66,11 @@
                     { category: { name: card?.translation.mainType }, cards: [{ ...responseCard.card, quantity: 1 }] },
                 ];
                 deck.categories.sort((a, b) => {
-                    if (a.category.name === 'Commander' || b.category.name === 'Commander') {
+                    if (a.category.name === 'Commander') {
                         return -1;
+                    }
+                    if (b.category.name === 'Commander') {
+                        return 1;
                     }
                     return a.category.name.localeCompare(b.category.name);
                 });

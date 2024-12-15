@@ -29,8 +29,11 @@
         showToast($t('toast.editor.add-category.success'));
         deck = { ...deck, categories: [...deck.categories, event.detail.category] };
         deck.categories.sort((a, b) => {
-            if (a.category.name === 'Commander' || b.category.name === 'Commander') {
+            if (a.category.name === 'Commander') {
                 return -1;
+            }
+            if (b.category.name === 'Commander') {
+                return 1;
             }
             return a.category.name.localeCompare(b.category.name);
         });
@@ -38,7 +41,7 @@
     };
 
     const handleError = () => {
-        showToast($t('toast.editor.add-category.error', 'error'));
+        showToast($t('toast.editor.add-category.error'), 'error');
     };
 </script>
 
@@ -51,7 +54,7 @@
 
 <Modal bind:showModal fullWidth={true} on:open={onModalOpen}>
     <Subtitle slot="header">{$t('tassadecks.editor.new-category.title')}</Subtitle>
-    <Form action={`/api/auth/reserved/decks/edit/${deck.id}/rename-category`} method="POST" on:success={handleSuccess} on:error={handleError}>
+    <Form action={`/api/auth/reserved/decks/edit/${deck.id}/add-category`} method="POST" on:success={handleSuccess} on:error={handleError}>
         <Input
             bind:inputRef
             name="name"
