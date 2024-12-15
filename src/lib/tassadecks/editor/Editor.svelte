@@ -404,18 +404,17 @@
 </Panel>
 
 <Panel>
-    <div class="flex flex-row flex-wrap gap-5">
-        <EditorSearch bind:deck {addCardRequest} {removeCardRequest} />
-        <EditorDeckPrint bind:deck bind:relatedCards />
-        <Photo mode="inline" on:photo={handleProcessPhoto}>
-            <p>{$t('tassadecks.editor.batch.photo')}</p>
-        </Photo>
-        <EditorNewCategory bind:deck />
-        <EditorClearCategories bind:deck />
-
-        <div class="flex justify-end w-full">
-            <DisplayingMode bind:displayingMode />
+    <div class="flex">
+        <div class="flex flex-row flex-wrap flex-grow justify-center gap-5 md:gap-10">
+            <EditorSearch bind:deck {addCardRequest} {removeCardRequest} />
+            <EditorDeckPrint bind:deck bind:relatedCards />
+            <Photo mode="inline" on:photo={handleProcessPhoto}>
+                <p>{$t('tassadecks.editor.batch.photo')}</p>
+            </Photo>
+            <EditorNewCategory bind:deck />
+            <EditorClearCategories bind:deck />
         </div>
+        <DisplayingMode bind:displayingMode />
     </div>
 </Panel>
 
