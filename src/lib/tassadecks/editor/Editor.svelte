@@ -450,7 +450,7 @@
                             <li class="flex flex-row gap-1">
                                 <Button
                                     customStyle={true}
-                                    class="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.print.legality?.commander ===
+                                    className="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.print.legality?.commander ===
                                     'legal'
                                         ? ''
                                         : 'text-red-700'}"
