@@ -62,7 +62,7 @@
     {#if editing}
         <input
             bind:this={inputElement}
-            class={`${className} bg-transparent`}
+            class={`${className} bg-transparent dark:text-white`}
             type="text"
             bind:value
             on:keydown={handleKeyDown}

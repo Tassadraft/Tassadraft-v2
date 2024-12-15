@@ -8,8 +8,8 @@
     let canGoForward = false;
     let loading = false;
 
-    export let baseUrl = '';
-    export let paginatedObject = {};
+    export let baseUrl;
+    export let paginatedObject;
     export let containerRef = window;
 
     const handleClick = async (page, perPage) => {

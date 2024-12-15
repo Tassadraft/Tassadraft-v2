@@ -72,7 +72,7 @@
         </div>
         <div class="flex flex-col gap-2 justify-center">
             <div class="w-full flex flex-row">
-                <Select bind:options bind:selectedOption name="category" on:change={() => dispatch('changeCategory', selectedOption)} />
+                <Select bind:options bind:selectedOption name="category" on:change={(e) => dispatch('changeCategory', e.detail.selectedOption)} />
             </div>
             {#if isTransforming || isFlip}
                 <div class="sm:hidden flex justify-center">

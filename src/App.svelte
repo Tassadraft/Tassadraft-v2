@@ -118,7 +118,7 @@
                 <Route path="/legals"><Legals /></Route>
                 <Route path="/terms-and-conditions"><TermsAndConditions /></Route>
 
-                {#if $profile}
+                {#if $profile && ($profile.role === 'friend' || $profile.role === 'admin')}
                     <Route path="/tassadraft"><Tassadraft /></Route>
                     <Route path="/tassadecks"><Tassadecks /></Route>
                     <Route path="/profile"><Profile /></Route>

@@ -493,10 +493,10 @@
     {/each}
 </div>
 
-<EditorRelatedCards bind:deck bind:relatedCards {handleCardPrintsDisplay} />
+<EditorRelatedCards bind:deck bind:relatedCards bind:switchCardPrintBaseUrl {handleCardPrintsDisplay} />
 
 <!-- Editor card modal -->
-<Modal bind:showModal={showCardModal} on:close={handleCloseCardDetails} fullWidth={true}>
+<Modal bind:showModal={showCardModal} on:close={handleCloseCardDetails} fullWidth={true}}>
     <Subtitle slot="header">{selectedCard?.print?.translation?.name}</Subtitle>
     {#if isSelectedCardSwitchingPrint}
         <div bind:this={cardDetailsContainerRef} class="flex flex-row flex-wrap gap-5 justify-center overflow-y-auto max-h-[75vh]">
@@ -504,7 +504,7 @@
                 <CardPrintItem bind:card={print} bind:selectedCard on:choosePrint={handleCardPrintChoice} />
             {/each}
         </div>
-        <Pagination bind:paginatedObject={paginatedCardPrints} baseUrl={switchCardPrintBaseUrl} containerRef={cardDetailsContainerRef} />
+        <Pagination bind:paginatedObject={paginatedCardPrints} bind:baseUrl={switchCardPrintBaseUrl} containerRef={cardDetailsContainerRef} />
     {:else}
         <EditorCardDetails
             bind:selectedCard

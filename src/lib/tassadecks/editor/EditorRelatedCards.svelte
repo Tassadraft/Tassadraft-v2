@@ -4,7 +4,6 @@
     import Pagination from '../../shared/Pagination.svelte';
     import Modal from '../../shared/Modal.svelte';
     import Button from '../../shared/Button.svelte';
-    import { SplideSlide } from '@splidejs/svelte-splide';
     import { t } from 'svelte-i18n';
     import EditorRelatedCardDetails from './EditorRelatedCardDetails.svelte';
     import axios from 'axios';
@@ -14,13 +13,13 @@
     export let handleCardPrintsDisplay = () => {};
     export let deck;
     export let relatedCards = [];
+    export let switchCardPrintBaseUrl;
 
     let cardDetailsContainerRef;
     let selectedRelatedCard;
     let showRelatedModal = false;
     let paginatedCardPrints = { cards: [] };
     let isSelectedCardSwitchingPrint = true;
-    let switchCardPrintBaseUrl = '';
 
     const switchRelatedCardPrintRequest = async (print) => {
         try {
@@ -85,7 +84,6 @@
 </script>
 
 <!-- TODO: replace by carousel after component patch -->
-
 {#if relatedCards.length}
     <div class="flex flex-row gap-3">
         <Subtitle className="my-5 font-bold text-xl">{$t('tassadecks.editor.related-cards.title')}</Subtitle>
@@ -119,7 +117,7 @@
                 />
             {/each}
         </div>
-        <Pagination bind:paginatedObject={paginatedCardPrints} baseUrl={switchCardPrintBaseUrl} containerRef={cardDetailsContainerRef} />
+        <Pagination bind:paginatedObject={paginatedCardPrints} bind:baseUrl={switchCardPrintBaseUrl} containerRef={cardDetailsContainerRef} />
     {:else}
         <EditorRelatedCardDetails bind:selectedRelatedCard bind:switching={isSelectedCardSwitchingPrint} {deck} />
     {/if}

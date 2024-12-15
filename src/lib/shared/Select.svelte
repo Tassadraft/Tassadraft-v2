@@ -11,7 +11,7 @@
 
     const handleSelect = (e) => {
         selectedOption = options.find((option) => {
-            return option.value === e.target.value;
+            return option.value === Number(e.target.value);
         });
         dispatch('change', { selectedOption });
     };

@@ -71,9 +71,11 @@
         </div>
         <div class="flex flex-col gap-3 justify-center mt-3">
             <Subtitle>{$t('tassadecks.editor.related-cards.base-cards')}</Subtitle>
-            {#each selectedRelatedCard.bases as baseCard}
-                <EditorRelatedBaseCard {baseCard} format={deck.format} />
-            {/each}
+            <div class="flex gap-3 justify-center">
+                {#each selectedRelatedCard.bases as baseCard}
+                    <EditorRelatedBaseCard {baseCard} format={deck.format} />
+                {/each}
+            </div>
         </div>
     </div>
 {/if}
