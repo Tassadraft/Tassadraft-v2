@@ -27,8 +27,6 @@
 
     const handleSuccess = (event) => {
         showToast($t('toast.editor.add-category.success'));
-        console.log(deck.categories[0]);
-        console.log(event.detail);
         deck = { ...deck, categories: [...deck.categories, event.detail.category] };
         deck.categories.sort((a, b) => {
             if (a.category.name === 'Commander' || b.category.name === 'Commander') {
@@ -53,8 +51,7 @@
 
 <Modal bind:showModal fullWidth={true} on:open={onModalOpen}>
     <Subtitle slot="header">{$t('tassadecks.editor.new-category.title')}</Subtitle>
-    <Form action={`/api/auth/reserved/decks/edit/${deck.id}`} method="POST" on:success={handleSuccess} on:error={handleError}>
-        <input type="hidden" name="actionType" value="addCategory" />
+    <Form action={`/api/auth/reserved/decks/edit/${deck.id}/rename-category`} method="POST" on:success={handleSuccess} on:error={handleError}>
         <Input
             bind:inputRef
             name="name"

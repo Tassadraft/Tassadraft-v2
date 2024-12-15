@@ -85,10 +85,24 @@
         createdAt = rawCreatedAt.toLocaleString();
     });
 
+    const metadataRequest = async () => {
+        try {
+            await axios.post(`/api/auth/reserved/decks/edit/${deck.id}/metadata`, {
+                name: deck.name,
+                description: deck.description,
+                enabled: deck.enabled,
+                public: deck.public,
+            });
+            showToast(`${deck.name} metadata updated`);
+        } catch (e) {
+            showToast(`Error while updating ${deck.name} metadata`, 'error');
+            return {};
+        }
+    };
+
     const addCardRequest = async (print) => {
         try {
-            const response = await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
-                actionType: 'addCard',
+            const response = await axios.post(`/api/auth/reserved/decks/edit/${deck.id}/add-card`, {
                 cardId: print.oracleId,
             });
             showToast(`1 ${print?.translation?.name} added to ${deck.name}`);
@@ -102,8 +116,7 @@
 
     const removeCardRequest = async (card) => {
         try {
-            const response = await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
-                actionType: 'removeCard',
+            const response = await axios.post(`/api/auth/reserved/decks/edit/${deck.id}/remove-card`, {
                 cardId: card.oracleId,
             });
             showToast(`1 ${card.translation.name} removed from ${deck.name}`);
@@ -115,25 +128,23 @@
         }
     };
 
-    const metadataRequest = async () => {
+    const moveCardRequest = async (cardObject, categoryObject) => {
         try {
-            await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
-                actionType: 'metadata',
-                name: deck.name,
-                description: deck.description,
-                enabled: deck.enabled,
-                public: deck.public,
+            await axios.post(`/api/auth/reserved/decks/edit/${deck.id}/move-card`, {
+                categoryId: categoryObject.id,
+                cardId: cardObject.print.oracleId,
             });
-            showToast(`${deck.name} metadata updated`);
+            showToast(`${cardObject.print.translation.name} moved to ${categoryObject.category.name}`);
+            return true;
         } catch (e) {
-            showToast(`Error while updating ${deck.name} metadata`, 'error');
-            return {};
+            showToast(`Error while moving ${cardObject.print.translation.name} to ${categoryObject.category.name}`, 'error');
+            return false;
         }
     };
 
     const renameCategoryRequest = async (categoryObject) => {
         try {
-            await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
+            await axios.post(`/api/auth/reserved/decks/edit/${deck.id}/rename-category`, {
                 actionType: 'renameCategory',
                 deckId: deck.id,
                 categoryId: categoryObject.id,
@@ -143,22 +154,6 @@
             return true;
         } catch (e) {
             showToast(`Error while renaming ${categoryObject.category.name} category`, 'error');
-            return false;
-        }
-    };
-
-    const moveCardRequest = async (cardObject, categoryObject) => {
-        try {
-            await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
-                actionType: 'moveCard',
-                deckId: deck.id,
-                categoryId: categoryObject.id,
-                cardId: cardObject.print.oracleId,
-            });
-            showToast(`${cardObject.print.translation.name} moved to ${categoryObject.category.name}`);
-            return true;
-        } catch (e) {
-            showToast(`Error while moving ${cardObject.print.translation.name} to ${categoryObject.category.name}`, 'error');
             return false;
         }
     };

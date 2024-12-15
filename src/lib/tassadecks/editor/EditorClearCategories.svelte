@@ -13,9 +13,7 @@
 
     const handleClear = async () => {
         try {
-            const { data } = await axios.post(`/api/auth/reserved/decks/edit/${deck.id}`, {
-                actionType: 'clearCategories',
-            });
+            const { data } = await axios.delete(`/api/auth/reserved/decks/edit/${deck.id}/clear-categories`);
             deck = { ...data.deck };
             showModal = false;
             showToast(`${deck.name} categories cleared`);
