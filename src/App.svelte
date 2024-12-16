@@ -161,7 +161,7 @@
     on:success={handleAcceptTermsAndConditions}
 >
     <Title title={$t('terms-and-conditions.title')} slot="header" />
-    <div class="border border-red-500" bind:this={termsAndConditionsRef}>
+    <div bind:this={termsAndConditionsRef}>
         <TermsAndConditions isModal={true} />
     </div>
 </ConfirmModal>
