@@ -132,7 +132,7 @@
         "profile": "Profile",
         "logout": "Logout",
         "login": "Login",
-        "legals": "Legals",
+        "legal-notice": "Legal notice",
         "terms-and-conditions": "Terms and conditions",
         "contact": "Contact",
         "source-code": "Source code"
@@ -219,7 +219,7 @@
         },
         "consent": "I agree to the processing of my personal data for the purpose of responding to my inquiry in accordance with the Privacy Policy."
     },
-    "legals": {
+    "legal-notice": {
         "title": "Legal Notice",
         "editor": {
             "title": "Editor",

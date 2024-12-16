@@ -21,7 +21,6 @@
     import axios from 'axios';
     import Profile from './lib/pages/Profile.svelte';
     import Contact from './lib/pages/Contact.svelte';
-    import Legals from './lib/pages/Legals.svelte';
     import TermsAndConditions from './lib/pages/TermsAndConditions.svelte';
     import ConfirmModal from './lib/shared/ConfirmModal.svelte';
     import Title from './lib/shared/Title.svelte';
@@ -29,6 +28,7 @@
     import { showToast } from './service/toastService.js';
     import Footer from './lib/shared/Footer.svelte';
     import Loader from "./lib/shared/Loader.svelte";
+    import LegalNotice from "./lib/pages/LegalNotice.svelte";
 
     export let url = '';
 
@@ -115,7 +115,7 @@
                 <Route path="/login"><Login /></Route>
                 <Route path="/subscribe"><Subscribe /></Route>
                 <Route path="/settings"><Settings /></Route>
-                <Route path="/legals"><Legals /></Route>
+                <Route path="/legal-notice"><LegalNotice /></Route>
                 <Route path="/terms-and-conditions"><TermsAndConditions /></Route>
 
                 {#if $profile && ($profile.role === 'friend' || $profile.role === 'admin')}
