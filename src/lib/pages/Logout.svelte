@@ -7,7 +7,7 @@
     import Menu from '../menu/Menu.svelte';
     import Title from '../shared/Title.svelte';
     import ConfirmModal from '../shared/ConfirmModal.svelte';
-    import axios from "axios";
+    import axios from 'axios';
 
     let showModal = true;
 

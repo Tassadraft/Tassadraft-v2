@@ -40,10 +40,7 @@
         {:else if displayingMode === 'list'}
             <DecksTable bind:decks={allDecks.decks} displayOwner={true} />
         {/if}
-        <Pagination
-            bind:paginatedObject={allDecks}
-            baseUrl={`/api/auth/reserved/decks/public?language=${localStorage.getItem('language')}`}
-        />
+        <Pagination bind:paginatedObject={allDecks} baseUrl={`/api/auth/reserved/decks/public?language=${localStorage.getItem('language')}`} />
     </Panel>
 {/if}
 {#if myDecks.total}

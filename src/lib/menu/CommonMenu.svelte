@@ -1,7 +1,7 @@
 <script>
-    import MenuItem from "./MenuItem.svelte";
+    import MenuItem from './MenuItem.svelte';
     import { t } from 'svelte-i18n';
-    import { profile } from "../../stores/profileStore.js";
+    import { profile } from '../../stores/profileStore.js';
 
     export let footer = false;
 </script>

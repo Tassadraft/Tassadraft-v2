@@ -4,7 +4,7 @@
     import ThemeSwitch from '../shared/ThemeSwitch.svelte';
     import Button from '../shared/Button.svelte';
     import IconButton from '../shared/IconButton.svelte';
-    import CommonMenu from "./CommonMenu.svelte";
+    import CommonMenu from './CommonMenu.svelte';
 
     let isOpen = false;
 

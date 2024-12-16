@@ -449,8 +449,8 @@
                             <li class="flex flex-row gap-1">
                                 <Button
                                     customStyle={true}
-                                    className="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.print.legality?.commander ===
-                                    'legal'
+                                    className="text-left hover:text-primary-500 transition-colors duration-300 {cardObject.print.legality
+                                        ?.commander === 'legal'
                                         ? ''
                                         : 'text-red-700'}"
                                     on:click={() => {
@@ -495,7 +495,7 @@
 <EditorRelatedCards bind:deck bind:relatedCards bind:switchCardPrintBaseUrl {handleCardPrintsDisplay} />
 
 <!-- Editor card modal -->
-<Modal bind:showModal={showCardModal} on:close={handleCloseCardDetails} fullWidth={true}}>
+<Modal bind:showModal={showCardModal} on:close={handleCloseCardDetails} fullWidth="{true}}">
     <Subtitle slot="header">{selectedCard?.print?.translation?.name}</Subtitle>
     {#if isSelectedCardSwitchingPrint}
         <div bind:this={cardDetailsContainerRef} class="flex flex-row flex-wrap gap-5 justify-center overflow-y-auto max-h-[75vh]">

@@ -27,8 +27,8 @@
     import { t, isLoading } from 'svelte-i18n';
     import { showToast } from './service/toastService.js';
     import Footer from './lib/shared/Footer.svelte';
-    import Loader from "./lib/shared/Loader.svelte";
-    import LegalNotice from "./lib/pages/LegalNotice.svelte";
+    import Loader from './lib/shared/Loader.svelte';
+    import LegalNotice from './lib/pages/LegalNotice.svelte';
 
     export let url = '';
 

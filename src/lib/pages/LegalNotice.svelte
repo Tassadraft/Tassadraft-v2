@@ -56,7 +56,8 @@
         </div>
         <p>{$t('legal-notice.personal-data.description')}</p>
         <p>{$t('legal-notice.personal-data.rights')}</p>
-        <p>{$t('legal-notice.personal-data.contact')}
+        <p>
+            {$t('legal-notice.personal-data.contact')}
             <Link href="mailto:tassadapi@tassadraft.com" className="text-primary-500 hover:text-white duration-300 transition-colors">
                 {process.env.VITE_TASSADAPI_CONTACT}
             </Link>.
