@@ -5,7 +5,7 @@
 </script>
 
 
-<div class="absolute top-0 left-0 w-full h-screen flex flex-col gap-5 justify-center align-middle text-center pointer-events-none">
+<div class="absolute top-0 left-0 w-full h-screen flex flex-col justify-center items-center text-center pointer-events-none">
     <div class="flex flex-col gap-5 pointer-events-auto">
         <Title title={$t('not-found.title')} />
         <BackTo href="/" text={$t('common.back-to-home')} />

@@ -5,6 +5,7 @@
     import { showToast } from '../../service/toastService.js';
     import { navigate } from '../../stores/locationStore.js';
     import { t } from 'svelte-i18n';
+    import { checkPassword } from "../../service/checkStringService.js";
 
     export let token = '';
 
@@ -13,36 +14,20 @@
     let canSubmit = false;
     let message = '';
 
-    const checkPassword = () => {
-        if (password !== confirmPassword) {
-            return $t('reset-password.confirm.password.match');
-        } else if (password.length < 8) {
-            return $t('reset-password.confirm.password.length');
-        } else if (!password.match(/[a-z]/)) {
-            return $t('reset-password.confirm.password.lowercase');
-        } else if (!password.match(/[A-Z]/)) {
-            return $t('reset-password.confirm.password.uppercase');
-        } else if (!password.match(/[0-9]/)) {
-            return $t('reset-password.confirm.password.number');
-        } else if (!password.match(/[^a-zA-Z0-9]/)) {
-            return $t('reset-password.confirm.password.special-character');
-        } else {
-            return '';
-        }
-    };
-
     const handleSuccess = () => {
-        showToast($t('reset-password.confirm.password.success'));
+        showToast($t('toast.reset-password.confirm.success'));
         navigate('/login');
     };
 
-    const handleFailure = (event) => {
-        showToast(event.detail, 'error');
+    const handleFailure = () => {
+        showToast($t('toast.reset-password.confirm.error', 'error'));
     };
 
     $: {
-        message = checkPassword();
-        canSubmit = password === confirmPassword && message === '';
+        if (password && confirmPassword) {
+            message = $t(checkPassword(password, confirmPassword));
+            canSubmit = password === confirmPassword && message === '';
+        }
     }
 </script>
 

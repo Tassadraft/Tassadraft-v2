@@ -37,7 +37,13 @@
         },
         "password": {
             "label": "Password",
-            "placeholder": "xxx"
+            "placeholder": "xxx",
+            "match": "Passwords do not match",
+            "length": "Password must be at least 8 characters long",
+            "lowercase": "Password must contain at least one lowercase letter",
+            "uppercase": "Password must contain at least one uppercase letter",
+            "number": "Password must contain at least one number",
+            "special-character": "Password must contain at least one special character"
         },
         "confirm-password": {
             "label": "Confirm password",
@@ -57,7 +63,6 @@
             "error": "An error occurred while accepting terms and conditions"
         },
         "login": {
-            "already": "You are already logged in",
             "success": "You are now logged in",
             "error": "Wrong credentials"
         },
@@ -79,6 +84,10 @@
             "mail": {
                 "success": "An email has been sent to reset your password",
                 "error": "An error occurred while sending email. Retry later."
+            },
+            "confirm": {
+                "success": "Password reset successfully",
+                "error": "An error occurred while confirming account creation. Retry later."
             }
         },
         "profile": {
@@ -106,6 +115,16 @@
             "add-category": {
                 "success": "Category created",
                 "error": "Error while creating category"
+            }
+        },
+        "create-account": {
+            "send-mail": {
+                "success": "A mail has been sent to your email address to confirm your account creation",
+                "error": "Error while sending the mail : retry later"
+            },
+            "confirm": {
+                "success": "Your account has been created : you are now connected",
+                "error": "An error occurred while finalizing account creation"
             }
         }
     },
@@ -163,16 +182,7 @@
     "reset-password": {
         "title": "Reset password",
         "confirm": {
-            "title": "Finish reset password",
-            "password": {
-                "match": "Passwords do not match",
-                "length": "Password must be at least 8 characters long",
-                "lowercase": "Password must contain at least one lowercase letter",
-                "uppercase": "Password must contain at least one uppercase letter",
-                "number": "Password must contain at least one number",
-                "special-character": "Password must contain at least one special character",
-                "success": "Password reset successfully"
-            }
+            "title": "Finish reset password"
         }
     },
     "subscribe": {
@@ -492,5 +502,11 @@
     },
     "not-found": {
         "title": "Page not found"
+    },
+    "already-connected": {
+        "title": "Already connected"
+    },
+    "create-account": {
+        "title": "Create new account"
     }
 }

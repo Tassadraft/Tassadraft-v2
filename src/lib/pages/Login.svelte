@@ -1,5 +1,4 @@
 <script>
-    import { onMount } from 'svelte';
     import Form from '../shared/Form.svelte';
     import Input from '../shared/Input.svelte';
     import PasswordInput from '../shared/PasswordInput.svelte';
@@ -10,13 +9,6 @@
     import { navigate } from '../../stores/locationStore.js';
     import { updateProfile } from '../../stores/profileStore.js';
     import { t } from 'svelte-i18n';
-
-    onMount(() => {
-        if (localStorage.getItem('apiToken')) {
-            showToast($t('toast.login.already'), 'warning');
-            navigate('/');
-        }
-    });
 
     let email = '';
     let password = '';
