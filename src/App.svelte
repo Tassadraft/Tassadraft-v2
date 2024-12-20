@@ -29,6 +29,8 @@
     import Footer from './lib/shared/Footer.svelte';
     import Loader from './lib/shared/Loader.svelte';
     import LegalNotice from './lib/pages/LegalNotice.svelte';
+    import AlreadyConnected from "./lib/pages/AlreadyConnected.svelte";
+    import CreateAccount from "./lib/pages/CreateAccount.svelte";
 
     export let url = '';
 
@@ -112,13 +114,15 @@
         {#if !$isLoading}
             <Router {url}>
                 <Route path="/"><Homepage /></Route>
-                <Route path="/login"><Login /></Route>
                 <Route path="/subscribe"><Subscribe /></Route>
                 <Route path="/settings"><Settings /></Route>
                 <Route path="/legal-notice"><LegalNotice /></Route>
                 <Route path="/terms-and-conditions"><TermsAndConditions /></Route>
 
-                {#if $profile && ($profile.role === 'friend' || $profile.role === 'admin')}
+                {#if $profile}
+                    <Route path="/login"><AlreadyConnected /></Route>
+                    <Route path="/create-account"><AlreadyConnected /></Route>
+                    <Route path="/create-account/confirm/:token"><AlreadyConnected /></Route>
                     <Route path="/tassadraft"><Tassadraft /></Route>
                     <Route path="/tassadecks"><Tassadecks /></Route>
                     <Route path="/profile"><Profile /></Route>
@@ -133,6 +137,9 @@
 
                     <Route path="/contact"><Contact /></Route>
                 {:else}
+                    <Route path="/login"><Login /></Route>
+                    <Route path="/create-account"><CreateAccount  /></Route>
+                    <Route path="/create-account/confirm/:token" let:params><ConfirmResetPassword {...params} /></Route>
                     <Route path="/tassadraft"><Forbidden /></Route>
                     <Route path="/tassadecks"><Forbidden /></Route>
                     <Route path="/profile"><Forbidden /></Route>
