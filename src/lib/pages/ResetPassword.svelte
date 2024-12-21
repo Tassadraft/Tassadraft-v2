@@ -3,7 +3,6 @@
     import Form from '../shared/Form.svelte';
     import Input from '../shared/Input.svelte';
     import { onMount } from 'svelte';
-    import Menu from '../menu/Menu.svelte';
     import { showToast } from '../../service/toastService.js';
     import { t } from 'svelte-i18n';
     import { profile } from '../../stores/profileStore.js';
@@ -26,8 +25,6 @@
         showToast($t('toast.reset-password.mail.error'), 'error');
     };
 </script>
-
-<Menu />
 
 <Title title={$t('reset-password.title')} />
 

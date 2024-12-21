@@ -1,13 +1,10 @@
 <script>
-    import Menu from '../menu/Menu.svelte';
     import Title from '../shared/Title.svelte';
     import { t, json } from 'svelte-i18n';
     import Subtitle from '../shared/Subtitle.svelte';
     import Link from '../shared/Link.svelte';
     import Panel from '../shared/Panel.svelte';
 </script>
-
-<Menu />
 
 <Title title={$t('legal-notice.title')} />
 

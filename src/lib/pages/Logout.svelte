@@ -4,7 +4,6 @@
     import { clearProfile } from '../../stores/profileStore.js';
     import Subtitle from '../shared/Subtitle.svelte';
     import { t } from 'svelte-i18n';
-    import Menu from '../menu/Menu.svelte';
     import Title from '../shared/Title.svelte';
     import ConfirmModal from '../shared/ConfirmModal.svelte';
     import axios from 'axios';
@@ -31,8 +30,8 @@
     };
 </script>
 
-<Menu />
 <Title title={$t('logout.title')} />
+
 <ConfirmModal bind:showModal on:success={handleSuccess} on:close={handleClose}>
     <Subtitle slot="header">{$t('logout.modal.title')}</Subtitle>
     <p>{$t('logout.modal.text')}</p>

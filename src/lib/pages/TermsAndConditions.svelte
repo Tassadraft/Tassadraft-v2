@@ -1,5 +1,4 @@
 <script>
-    import Menu from '../menu/Menu.svelte';
     import Title from '../shared/Title.svelte';
     import { t, json } from 'svelte-i18n';
     import Subtitle from '../shared/Subtitle.svelte';
@@ -9,7 +8,6 @@
 </script>
 
 {#if !isModal}
-    <Menu />
     <Title title={$t('terms-and-conditions.title')} />
 {/if}
 

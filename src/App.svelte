@@ -31,6 +31,7 @@
     import LegalNotice from './lib/pages/LegalNotice.svelte';
     import AlreadyConnected from "./lib/pages/AlreadyConnected.svelte";
     import CreateAccount from "./lib/pages/CreateAccount.svelte";
+    import Menu from "./lib/menu/Menu.svelte";
 
     export let url = '';
 
@@ -111,6 +112,7 @@
 
 <main class="flex flex-col bg-gray-200 dark:bg-gray-900 min-h-screen min-w-screen">
     <div class="px-3.5 min-h-screen">
+        <Menu />
         {#if !$isLoading}
             <Router {url}>
                 <Route path="/"><Homepage /></Route>
@@ -118,6 +120,8 @@
                 <Route path="/settings"><Settings /></Route>
                 <Route path="/legal-notice"><LegalNotice /></Route>
                 <Route path="/terms-and-conditions"><TermsAndConditions /></Route>
+                <Route path="/reset-password"><ResetPassword /></Route>
+                <Route path="/reset-password/confirm/:token" let:params><ConfirmResetPassword {...params} /></Route>
 
                 {#if $profile}
                     <Route path="/login"><AlreadyConnected /></Route>
@@ -126,8 +130,6 @@
                     <Route path="/tassadraft"><Tassadraft /></Route>
                     <Route path="/tassadecks"><Tassadecks /></Route>
                     <Route path="/profile"><Profile /></Route>
-                    <Route path="/reset-password"><ResetPassword /></Route>
-                    <Route path="/reset-password/confirm/:token" let:params><ConfirmResetPassword {...params} /></Route>
                     <Route path="/logout"><Logout /></Route>
 
                     <Route path="/decks/edit/:deckId" let:params><Deck {...params} /></Route>

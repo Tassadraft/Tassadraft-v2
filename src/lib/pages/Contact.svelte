@@ -1,5 +1,4 @@
 <script>
-    import Menu from '../menu/Menu.svelte';
     import Title from '../shared/Title.svelte';
     import { t } from 'svelte-i18n';
     import Form from '../shared/Form.svelte';
@@ -31,8 +30,6 @@
         showToast($t('toast.contact.error'), 'error');
     };
 </script>
-
-<Menu />
 
 <Title title={$t('contact.title')} />
 

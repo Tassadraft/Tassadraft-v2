@@ -2,7 +2,6 @@
     import Form from '../shared/Form.svelte';
     import PasswordInput from '../shared/PasswordInput.svelte';
     import Title from '../shared/Title.svelte';
-    import Menu from '../menu/Menu.svelte';
     import { showToast } from '../../service/toastService.js';
     import { navigate } from '../../stores/locationStore.js';
     import { t } from 'svelte-i18n';
@@ -31,8 +30,6 @@
         }
     }
 </script>
-
-<Menu />
 
 <Title title={$t('reset-password.confirm.title')} />
 

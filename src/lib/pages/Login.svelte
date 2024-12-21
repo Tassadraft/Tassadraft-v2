@@ -1,5 +1,4 @@
 <script>
-    import Menu from '../menu/Menu.svelte';
     import Form from '../shared/Form.svelte';
     import Input from '../shared/Input.svelte';
     import PasswordInput from '../shared/PasswordInput.svelte';
@@ -41,8 +40,6 @@
         showToast($t('toast.login.error'), 'error');
     };
 </script>
-
-<Menu />
 
 <Title title={$t('login.title')} />
 
