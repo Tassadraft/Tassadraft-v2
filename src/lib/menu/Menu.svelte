@@ -28,7 +28,7 @@
     });
 </script>
 
-<div class="flex justify-start">
+<div class="relative z-20 flex justify-start">
     <div class="mt-3">
         <Button idName="menu-button" className={isOpen ? 'opacity-0' : ''} on:click={() => (isOpen = !isOpen)}>
             <Icon name="burger" />
@@ -48,7 +48,7 @@
                 <IconButton icon="close" on:click={closeMenu} />
             </div>
 
-            <CommonMenu />
+            <CommonMenu on:click={closeMenu} />
         </nav>
     </div>
 </div>

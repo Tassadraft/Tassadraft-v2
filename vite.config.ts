@@ -28,7 +28,10 @@ export default defineConfig({
         ...viteEnv,
     },
     optimizeDeps: {
-        include: ['@ionic/pwa-elements/loader'],
+        include: [
+            '@ionic/pwa-elements/loader',
+            'vanta/dist/vanta.fog.min',
+        ],
     },
     build: {
         rollupOptions: {

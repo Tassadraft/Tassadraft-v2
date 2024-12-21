@@ -5,6 +5,7 @@
     import Icon from './Icon.svelte';
     import { t } from 'svelte-i18n';
     import { createEventDispatcher } from 'svelte';
+    import FormBackground from "./background/FormBackground.svelte";
 
     const dispatch = createEventDispatcher();
 
@@ -44,17 +45,25 @@
     };
 </script>
 
-<form {action} on:submit={handleSubmit} {method} class="bg-gray-200 dark:bg-gray-700 rounded-2xl p-3 shadow">
-    <slot />
+<FormBackground/>
+
+<form
+    {action}
+    on:submit={handleSubmit}
+    {method}
+    class="relative z-10 bg-gray-200 dark:bg-gray-700 rounded-2xl p-6 shadow-lg m-auto mt-24"
+    style="max-width: 500px;"
+>
+    <slot/>
     {#if submittable}
-        <div class="w-full flex justify-end mt-3">
+        <div class="w-full flex justify-end mt-4">
             <Button type="submit" additionalStyle="bg-green-700 hover:bg-green-800 rounded-lg p-2">
                 <div class="flex flex-row items-center gap-3">
                     <p class="text-white">{$t('common.submit')}</p>
-                    <Icon name="send" />
+                    <Icon name="send"/>
                 </div>
             </Button>
         </div>
     {/if}
-    <Loader bind:loading />
+    <Loader bind:loading/>
 </form>

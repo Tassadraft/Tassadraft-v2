@@ -18,6 +18,7 @@
     href={notClickable ? null : href}
     className={`${!notClickable ? (footer ? 'hover:bg-gray-300' : 'hover:bg-gray-600') : ''} ${footer ? 'flex justify-center' : ''} px-2 flex flex-row transition-colors duration-300 rounded ${notClickable ? 'cursor-not-allowed opacity-50' : 'cursor-pointer dark:hover:bg-gray-700'}`}
     {target}
+    on:click
 >
     <div class="text-primary-500 left">
         <Icon name={iconLeft} />

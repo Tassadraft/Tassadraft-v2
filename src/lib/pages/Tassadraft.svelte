@@ -1,5 +1,4 @@
 <script>
-    import Menu from '../menu/Menu.svelte';
     import Photo from '../shared/Photo.svelte';
     import TassadraftSegment from '../tassadraft/TassadraftSegment.svelte';
     import Title from '../shared/Title.svelte';
@@ -35,8 +34,8 @@
     };
 </script>
 
-<Menu />
 <Title title={$t('common.tassadraft')} />
+
 <TassadraftSegment bind:selectedOption={state} bind:photos on:processed={handleProcessed} />
 
 {#if state === 'photos'}

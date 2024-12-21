@@ -24,4 +24,4 @@
     ];
 </script>
 
-<Radio {handleChange} options={languages} fontSize={16} legend={$t('settings.language.title')} bind:userSelected={radioValue} />
+<Radio {handleChange} options={languages} fontSize={16} legend={$t('settings.language.title')} />

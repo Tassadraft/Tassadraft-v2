@@ -1,5 +1,4 @@
 <script>
-    import Menu from '../menu/Menu.svelte';
     import Form from '../shared/Form.svelte';
     import Title from '../shared/Title.svelte';
     import CurrencyRadio from '../settings/CurrencyRadio.svelte';
@@ -7,8 +6,6 @@
     import LanguageRadio from '../settings/LanguageRadio.svelte';
     import { t } from 'svelte-i18n';
 </script>
-
-<Menu />
 
 <Title title={$t('settings.title')} />
 

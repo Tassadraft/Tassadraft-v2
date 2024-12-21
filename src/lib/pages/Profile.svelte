@@ -1,5 +1,4 @@
 <script>
-    import Menu from '../menu/Menu.svelte';
     import Form from '../shared/Form.svelte';
     import Input from '../shared/Input.svelte';
     import Title from '../shared/Title.svelte';
@@ -47,8 +46,6 @@
         subscriptionCreatedOn = new Date($profile.subscription.createdAt).toLocaleDateString();
     }
 </script>
-
-<Menu />
 
 <Title title={$t('profile.title')} />
 <Form action="/api/auth/profile/update" method="POST" on:success={handleSuccess} on:error={handleError}>

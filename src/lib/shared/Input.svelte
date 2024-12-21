@@ -31,7 +31,7 @@
     };
 </script>
 
-<div class="relative w-full mt-10 mb-5">
+<div class="relative mt-10 mb-5">
     <label
         for={name}
         class="absolute pointer-events-none z-10 transition-all duration-800 ease-in-out font-medium {focused || value

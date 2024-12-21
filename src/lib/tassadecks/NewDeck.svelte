@@ -6,6 +6,6 @@
 </script>
 
 <Menu />
-<Title title={$t('tassadecks.new.title')} />
+<Title title={$t('tassadecks.new.title')} hasBackground={true} />
 
 <DeckForm scratch={false} />

@@ -1,5 +1,8 @@
 <script>
     import { navigate } from '../../stores/locationStore.js';
+    import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
 
     export let href = '';
     export let className = '';
@@ -11,6 +14,7 @@
         if (target === '' || target === '_self') {
             event.preventDefault();
             if (href) {
+                dispatch('click');
                 navigate(href);
             }
         }

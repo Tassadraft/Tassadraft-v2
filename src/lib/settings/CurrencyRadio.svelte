@@ -23,4 +23,4 @@
     ];
 </script>
 
-<Radio {handleChange} options={currencies} fontSize={16} legend={$t('settings.currency.title')} bind:userSelected={radioValue} />
+<Radio {handleChange} options={currencies} fontSize={16} legend={$t('settings.currency.title')} />
