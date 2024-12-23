@@ -6,6 +6,7 @@
     import { navigate } from '../../stores/locationStore.js';
     import { t } from 'svelte-i18n';
     import { checkPassword } from "../../services/checkStringService.js";
+    import { profile } from "../../stores/profileStore.js";
 
     export let token = '';
 
@@ -16,7 +17,11 @@
 
     const handleSuccess = () => {
         showToast($t('toast.reset-password.confirm.success'));
-        navigate('/login');
+        if (!$profile) {
+            navigate('/login');
+        } else {
+            navigate('/');
+        }
     };
 
     const handleFailure = () => {

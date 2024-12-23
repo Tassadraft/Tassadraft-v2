@@ -10,9 +10,7 @@
     import { navigate } from '../../stores/locationStore.js';
     import { t } from 'svelte-i18n';
 
-    export let scratch = true;
     export let deck = {
-        id: -1,
         name: '',
         description: '',
         public: false,
@@ -21,6 +19,7 @@
 
     let supportedFormats = [];
     let selectedFormat = null;
+    let isValid = false;
 
     onMount(async () => {
         try {
@@ -40,28 +39,32 @@
     const handleError = (event) => {
         showToast(event.detail, 'error');
     };
+
+    $: isValid = deck.name && (deck.description ? true : deck.description.length <= 1024) && selectedFormat
 </script>
 
 <Form
     method="POST"
-    action={`/api/auth/reserved/decks/${deck.id > 0 ? `edit/${deck.id}` : 'new'}?language=${localStorage.getItem('language')}`}
+    action={`/api/auth/reserved/decks/new?language=${localStorage.getItem('language')}`}
     on:success={handleSuccess}
     on:error={handleError}
+    bind:isValid
 >
     <Input
         label={$t('tassadecks.new.form.name.label')}
         placeholder={$t('tassadecks.new.form.name.placeholder')}
-        type="text"
         name="name"
         bind:value={deck.name}
         required={true}
+        min={3}
+        max={50}
     />
     <Input
         label={$t('tassadecks.new.form.description.label')}
         placeholder={$t('tassadecks.new.form.description.placeholder')}
-        type="text"
         name="description"
         bind:value={deck.description}
+        max={1024}
     />
     {#if supportedFormats.length}
         <div class="mb-5">
@@ -72,7 +75,5 @@
     <div class="mt-3 mb-3">
         <Switch size="6" name="enabled" bind:value={deck.enabled} label={$t('common.enabled')} />
     </div>
-    {#if !scratch}
-        <FileUpload name="file" accept="txt" title={$t('tassadecks.new.form.file.title')} description={$t('tassadecks.new.form.file.description')} />
-    {/if}
+    <FileUpload name="file" accept="txt" title={$t('tassadecks.new.form.file.title')} description={$t('tassadecks.new.form.file.description')} />
 </Form>

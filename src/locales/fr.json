@@ -82,8 +82,8 @@
         },
         "reset-password": {
             "mail": {
-                "success": "Un email a été envoyé pour réinitialiser votre mot de passe",
-                "error": "Une erreur s'est produite lors de l'envoi de l'email. Réessayez plus tard."
+                "success": "Un mail a été envoyé pour réinitialiser votre mot de passe",
+                "error": "Une erreur s'est produite lors de l'envoi du mail. Réessayez plus tard."
             },
             "confirm": {
                 "success": "Mot de passe changé avec succès",
@@ -170,6 +170,7 @@
     },
     "profile": {
         "title": "Profil",
+        "reset-password": "Réinitialiser le mot de passe",
         "profile-picture": {
             "title": "Photo de profil",
             "description": "Uploadez ici une photo de phofil"

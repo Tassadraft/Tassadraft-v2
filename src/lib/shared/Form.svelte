@@ -13,6 +13,7 @@
     export let action = '';
     export let isValid = false;
     export let submittable = true;
+    export let showBackground = true;
 
     let loading = false;
     let isSendButtonDisabled = false;
@@ -49,13 +50,15 @@
     $: isSendButtonDisabled = !isValid;
 </script>
 
-<FormBackground/>
+{#if showBackground}
+    <FormBackground/>
+{/if}
 
 <form
     {action}
     on:submit={handleSubmit}
     {method}
-    class="relative z-10 bg-gray-200 dark:bg-gray-700 rounded-2xl p-6 shadow-lg m-auto mt-24"
+    class="relative z-10 bg-gray-200 dark:bg-gray-700 rounded-2xl p-2 md:p-6 shadow-lg m-auto {showBackground ? 'mt-24' : ''}"
     style="max-width: 500px;"
 >
     <slot/>

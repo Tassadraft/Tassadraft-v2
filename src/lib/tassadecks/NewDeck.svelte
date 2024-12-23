@@ -6,4 +6,4 @@
 
 <Title title={$t('tassadecks.new.title')} hasBackground={true} />
 
-<DeckForm scratch={false} />
+<DeckForm />

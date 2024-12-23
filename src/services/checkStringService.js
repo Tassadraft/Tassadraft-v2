@@ -16,4 +16,9 @@ const checkPassword = (password, confirmPassword) => {
     }
 };
 
-export { checkPassword };
+const isValidEmail = (email) => {
+    const isValidEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return isValidEmailRegex.test(email);
+};
+
+export { checkPassword, isValidEmail };
