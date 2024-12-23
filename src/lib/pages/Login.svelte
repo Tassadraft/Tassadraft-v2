@@ -18,12 +18,7 @@
         localStorage.setItem('apiTokenExpiration', event.detail.token.expiresAt);
         axios.defaults.headers.common['Authorization'] = `Bearer ${event.detail.token.token}`;
 
-        // Profile
-        try {
-            await updateProfile();
-        } catch (e) {
-            showToast($t('toast.profile.get.error'), 'error');
-        }
+        await updateProfile(event.detail.user);
 
         // Subscription
         try {

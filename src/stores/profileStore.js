@@ -7,9 +7,12 @@ export function setProfile(user) {
     profile.set(user);
 }
 
-export async function updateProfile() {
+export async function updateProfile(profile = null) {
     try {
-        const { data: profile } = await axios.get('/api/auth/profile');
+        if (!profile) {
+            const { data: fetchedProfile } = await axios.get('/api/auth/profile');
+            profile = fetchedProfile;
+        }
         setProfile(profile);
     } catch (e) {
         throw new Error();
