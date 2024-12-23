@@ -5,7 +5,7 @@
     import { showToast } from '../../services/toastService.js';
     import { t } from 'svelte-i18n';
     import Input from "../shared/Input.svelte";
-    import { checkPassword } from "../../services/checkStringService.js";
+    import {checkPassword, isValidEmail} from "../../services/checkStringService.js";
     import Switch from "../shared/Switch.svelte";
 
     let username = '';
@@ -26,7 +26,7 @@
     };
 
     $: {
-        if (username && email && password && confirmPassword && consent) {
+        if (username && email && isValidEmail(email) && password && confirmPassword && consent) {
             message = $t(checkPassword(password, confirmPassword));
             canSubmit = password === confirmPassword && !message;
         }

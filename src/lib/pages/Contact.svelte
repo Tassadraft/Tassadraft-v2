@@ -12,6 +12,7 @@
     let subjects = [];
     let message = '';
     let consent = false;
+    let isValid = false;
 
     onMount(async () => {
         const { data } = await axios.get('/api/auth/contact/subjects');
@@ -29,11 +30,13 @@
     const handleError = () => {
         showToast($t('toast.contact.error'), 'error');
     };
+
+    $: isValid = consent && message && message.length >= 32 && message.length <= 1024;
 </script>
 
 <Title title={$t('contact.title')} hasBackground={true} />
 
-<Form action="/api/auth/contact" method="POST" on:success={handleSuccess} on:error={handleError}>
+<Form action="/api/auth/contact" method="POST" on:success={handleSuccess} on:error={handleError} bind:isValid>
     <Select name="subject" label={$t('contact.subject.label')} options={subjects} />
     <Textarea
         name="message"
@@ -41,6 +44,8 @@
         label={$t('contact.message.label')}
         placeholder={$t('contact.message.placeholder')}
         required={true}
+        min={32}
+        max={1024}
     />
     <Switch name="consent" size="6" label={$t('contact.consent')} bind:value={consent} required={true} />
 </Form>

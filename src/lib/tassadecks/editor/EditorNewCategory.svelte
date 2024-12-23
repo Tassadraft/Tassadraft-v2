@@ -7,6 +7,7 @@
     import Input from '../../shared/Input.svelte';
     import Form from '../../shared/Form.svelte';
     import { showToast } from '../../../services/toastService.js';
+    import { isMobile } from '../../../stores/isMobileStore.js';
 
     export let deck;
 
@@ -52,9 +53,9 @@
     </div>
 </Button>
 
-<Modal bind:showModal fullWidth={true} on:open={onModalOpen}>
+<Modal bind:showModal bind:fullWidth={$isMobile} on:open={onModalOpen}>
     <Subtitle slot="header">{$t('tassadecks.editor.new-category.title')}</Subtitle>
-    <Form action={`/api/auth/reserved/decks/edit/${deck.id}/add-category`} method="POST" on:success={handleSuccess} on:error={handleError}>
+    <Form action={`/api/auth/reserved/decks/edit/${deck.id}/add-category`} method="POST" on:success={handleSuccess} on:error={handleError} showBackground={false} bind:isValid={newName}>
         <Input
             bind:inputRef
             name="name"

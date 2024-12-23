@@ -12,6 +12,7 @@
 
     let email = '';
     let password = '';
+    let isValid = false;
 
     const handleSuccess = async (event) => {
         localStorage.setItem('apiToken', event.detail.token.token);
@@ -34,13 +35,15 @@
     const handleFailure = () => {
         showToast($t('toast.login.error'), 'error');
     };
+
+    $: isValid = email && password;
 </script>
 
 <Title title={$t('login.title')} hasBackground={true} />
 
-<Form action="/api/login" method="post" on:success={handleSuccess} on:error={handleFailure}>
-    <Input type="email" name="email" placeholder={$t('common.email.placeholder')} label={$t('common.email.label')} value={email} required={true} />
-    <PasswordInput value={password} required={true} />
+<Form action="/api/login" method="post" on:success={handleSuccess} on:error={handleFailure} bind:isValid>
+    <Input type="email" name="email" placeholder={$t('common.email.placeholder')} label={$t('common.email.label')} bind:value={email} required={true} />
+    <PasswordInput bind:value={password} required={true} />
     <div class="w-full mb-3">
         <Link href="/reset-password" className="text-primary-500 hover:text-white duration-300 transition-colors">Forgot password ?</Link>
     </div>

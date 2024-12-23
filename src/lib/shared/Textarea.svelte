@@ -24,8 +24,8 @@
     <label
         for={name}
         class="absolute pointer-events-none z-10 transition-all duration-800 ease-in-out {focused || value
-            ? 'text-primary-500 bottom-16 left-1'
-            : 'text-gray-500 bottom-8 left-3'}"
+            ? `text-primary-500 ${inputAttributes.minlength || inputAttributes.maxlength ? 'bottom-21' : 'bottom-16'} left-1`
+            : 'text-gray-500 bottom-11 left-3'}"
     >
         {label}
         {#if required}
@@ -44,6 +44,19 @@
         class={classes}
         {...inputAttributes}
     ></textarea>
+    {#if inputAttributes.minlength && value.length < inputAttributes.minlength}
+        <p class="text-right">
+            <span class="text-red-500">
+                {value.length}/{inputAttributes.minlength}
+            </span>
+        </p>
+    {:else if inputAttributes.maxlength}
+        <p class="text-right">
+            <span class={value.length > inputAttributes.maxlength ? 'text-red-500' : ''}>
+                {value.length}/{inputAttributes.maxlength}
+            </span>
+        </p>
+    {/if}
 </div>
 
 <style>

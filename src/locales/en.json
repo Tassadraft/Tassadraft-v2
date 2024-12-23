@@ -82,8 +82,8 @@
         },
         "reset-password": {
             "mail": {
-                "success": "An email has been sent to reset your password",
-                "error": "An error occurred while sending email. Retry later."
+                "success": "A mail has been sent to reset your password",
+                "error": "An error occurred while sending mail. Retry later."
             },
             "confirm": {
                 "success": "Password reset successfully",
@@ -170,6 +170,7 @@
     },
     "profile": {
         "title": "Profile",
+        "reset-password": "Reset password",
         "profile-picture": {
             "title": "Profile picture",
             "description": "Upload here a profile picture"

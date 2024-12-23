@@ -24,6 +24,9 @@ export default {
                     900: '#A5371B',
                 },
             },
+            inset: {
+                '21': '5.25rem',
+            },
         },
     },
     plugins: [],
