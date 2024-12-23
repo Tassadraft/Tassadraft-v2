@@ -6,7 +6,7 @@
     import Modal from '../../shared/Modal.svelte';
     import Input from '../../shared/Input.svelte';
     import Form from '../../shared/Form.svelte';
-    import { showToast } from '../../../service/toastService.js';
+    import { showToast } from '../../../services/toastService.js';
 
     export let deck;
 

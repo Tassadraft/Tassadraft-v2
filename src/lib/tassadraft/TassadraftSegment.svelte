@@ -4,8 +4,8 @@
     import Subtitle from '../shared/Subtitle.svelte';
     import axios from 'axios';
     import { createEventDispatcher } from 'svelte';
-    import getBase64Strings from '../../service/base64Service.js';
-    import { showToast } from '../../service/toastService.js';
+    import getBase64Strings from '../../services/base64Service.js';
+    import { showToast } from '../../services/toastService.js';
     import Loader from '../shared/Loader.svelte';
     import { t } from 'svelte-i18n';
     import ConfirmModal from '../shared/ConfirmModal.svelte';

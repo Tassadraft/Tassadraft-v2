@@ -1,6 +1,6 @@
 <script>
     import CardRow from './CardRow.svelte';
-    import { showToast } from '../../../service/toastService.js';
+    import { showToast } from '../../../services/toastService.js';
     import Fab from '../../shared/Fab.svelte';
     import TableHeader from '../TableHeader.svelte';
     import { t } from 'svelte-i18n';

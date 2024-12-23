@@ -22,7 +22,7 @@
     {style}
     class="{customStyle
         ? className
-        : `cursor-pointer rounded ${disabled ? 'text-gray-400 cursor-not-allowed' : 'text-gray-800 dark:text-primary-500 hover:text-gray-700 hover:dark:text-primary-400'} transition-colors duration-300`} {additionalStyle}"
+        : `rounded ${disabled ? 'text-gray-400 cursor-not-allowed' : 'text-gray-800 dark:text-primary-500 hover:text-gray-700 hover:dark:text-primary-400 cursor-pointer'} transition-colors duration-300`} {additionalStyle}"
 >
     <slot />
 </button>

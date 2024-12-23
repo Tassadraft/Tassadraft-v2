@@ -1,12 +1,11 @@
 <script>
-    import Menu from '../../menu/Menu.svelte';
     import Title from '../../shared/Title.svelte';
     import { onMount } from 'svelte';
     import axios from 'axios';
     import Panel from '../../shared/Panel.svelte';
     import Switch from '../../shared/Switch.svelte';
     import Subtitle from '../../shared/Subtitle.svelte';
-    import { showToast } from '../../../service/toastService.js';
+    import { showToast } from '../../../services/toastService.js';
     import Modal from '../../shared/Modal.svelte';
     import Button from '../../shared/Button.svelte';
     import IconButton from '../../shared/IconButton.svelte';
@@ -16,7 +15,7 @@
     import Pagination from '../../shared/Pagination.svelte';
     import Editable from '../../shared/Editable.svelte';
     import Photo from '../../shared/Photo.svelte';
-    import getBase64Strings from '../../../service/base64Service.js';
+    import getBase64Strings from '../../../services/base64Service.js';
     import Loader from '../../shared/Loader.svelte';
     import CardPrintItem from '../CardPrintItem.svelte';
     import IconInfo from '../../shared/IconInfo.svelte';
@@ -362,7 +361,6 @@
     }
 </script>
 
-<Menu />
 <Editable bind:value={deck.name} className="text-3xl font-bold mb-2" iconClassName="mt-1" on:rename={metadataRequest}>
     <Title bind:title={deck.name} />
 </Editable>

@@ -11,9 +11,11 @@
 
     export let method = 'GET';
     export let action = '';
+    export let isValid = false;
     export let submittable = true;
 
     let loading = false;
+    let isSendButtonDisabled = false;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -43,6 +45,8 @@
             dispatch('error', error.message);
         }
     };
+
+    $: isSendButtonDisabled = !isValid;
 </script>
 
 <FormBackground/>
@@ -57,7 +61,7 @@
     <slot/>
     {#if submittable}
         <div class="w-full flex justify-end mt-4">
-            <Button type="submit" additionalStyle="bg-green-700 hover:bg-green-800 rounded-lg p-2">
+            <Button type="submit" bind:disabled={isSendButtonDisabled} additionalStyle="bg-green-700 ${isSendButtonDisabled ? 'cursor-not-allowed' : 'hover:bg-green-800'} rounded-lg p-2">
                 <div class="flex flex-row items-center gap-3">
                     <p class="text-white">{$t('common.submit')}</p>
                     <Icon name="send"/>

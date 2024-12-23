@@ -7,7 +7,7 @@
     import { t } from 'svelte-i18n';
     import EditorRelatedCardDetails from './EditorRelatedCardDetails.svelte';
     import axios from 'axios';
-    import { showToast } from '../../../service/toastService.js';
+    import { showToast } from '../../../services/toastService.js';
     import IconInfo from '../../shared/IconInfo.svelte';
 
     export let handleCardPrintsDisplay = () => {};

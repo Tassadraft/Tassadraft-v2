@@ -507,6 +507,10 @@
         "title": "Déjà connecté"
     },
     "create-account": {
-        "title": "Créer un nouveau compte"
+        "title": "Créer un nouveau compte",
+        "consent": "J’ai lu et j’accepte les Conditions Générales d’Utilisation.",
+        "confirm": {
+            "title": "Confirmer la création du compte"
+        }
     }
 }

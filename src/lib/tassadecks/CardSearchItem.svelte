@@ -1,6 +1,6 @@
 <script>
     import IconButton from '../shared/IconButton.svelte';
-    import { showToast } from '../../service/toastService.js';
+    import { showToast } from '../../services/toastService.js';
     import CardBadge from './CardBadge.svelte';
     import { t } from 'svelte-i18n';
 

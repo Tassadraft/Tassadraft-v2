@@ -7,7 +7,7 @@
     import { onMount } from 'svelte';
     import axios from 'axios';
     import Switch from '../shared/Switch.svelte';
-    import { showToast } from '../../service/toastService.js';
+    import { showToast } from '../../services/toastService.js';
 
     let subjects = [];
     let message = '';
@@ -31,7 +31,7 @@
     };
 </script>
 
-<Title title={$t('contact.title')} />
+<Title title={$t('contact.title')} hasBackground={true} />
 
 <Form action="/api/auth/contact" method="POST" on:success={handleSuccess} on:error={handleError}>
     <Select name="subject" label={$t('contact.subject.label')} options={subjects} />

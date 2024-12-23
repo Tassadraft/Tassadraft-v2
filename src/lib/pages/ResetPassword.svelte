@@ -3,7 +3,7 @@
     import Form from '../shared/Form.svelte';
     import Input from '../shared/Input.svelte';
     import { onMount } from 'svelte';
-    import { showToast } from '../../service/toastService.js';
+    import { showToast } from '../../services/toastService.js';
     import { t } from 'svelte-i18n';
     import { profile } from '../../stores/profileStore.js';
 
@@ -26,7 +26,7 @@
     };
 </script>
 
-<Title title={$t('reset-password.title')} />
+<Title title={$t('reset-password.title')} hasBackground={true} />
 
 <Form action="/api/reset-password/send-mail" method="POST" on:success={handleSuccess} on:error={handleFailure}>
     <input type="hidden" name="frontUri" value={`${process.env.VITE_FRONT_URI}/reset-password/confirm`} />

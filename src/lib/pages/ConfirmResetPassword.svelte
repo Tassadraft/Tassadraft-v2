@@ -2,10 +2,10 @@
     import Form from '../shared/Form.svelte';
     import PasswordInput from '../shared/PasswordInput.svelte';
     import Title from '../shared/Title.svelte';
-    import { showToast } from '../../service/toastService.js';
+    import { showToast } from '../../services/toastService.js';
     import { navigate } from '../../stores/locationStore.js';
     import { t } from 'svelte-i18n';
-    import { checkPassword } from "../../service/checkStringService.js";
+    import { checkPassword } from "../../services/checkStringService.js";
 
     export let token = '';
 
@@ -31,9 +31,9 @@
     }
 </script>
 
-<Title title={$t('reset-password.confirm.title')} />
+<Title title={$t('reset-password.confirm.title')} hasBackground={true} />
 
-<Form action={`/api/reset-password/confirm/${token}`} method="POST" on:success={handleSuccess} on:error={handleFailure} bind:submittable={canSubmit}>
+<Form action={`/api/reset-password/confirm/${token}`} method="POST" on:success={handleSuccess} on:error={handleFailure} bind:isValid={canSubmit}>
     <PasswordInput name="password" bind:value={password} />
     <PasswordInput name="confirmPassword" label={$t('common.confirm-password.label')} bind:value={confirmPassword} />
 </Form>
