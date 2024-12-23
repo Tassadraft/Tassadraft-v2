@@ -2,7 +2,7 @@
     import Form from '../shared/Form.svelte';
     import Input from '../shared/Input.svelte';
     import PasswordInput from '../shared/PasswordInput.svelte';
-    import { showToast } from '../../service/toastService.js';
+    import { showToast } from '../../services/toastService.js';
     import axios from 'axios';
     import Title from '../shared/Title.svelte';
     import Link from '../shared/Link.svelte';
@@ -41,7 +41,7 @@
     };
 </script>
 
-<Title title={$t('login.title')} />
+<Title title={$t('login.title')} hasBackground={true} />
 
 <Form action="/api/login" method="post" on:success={handleSuccess} on:error={handleFailure}>
     <Input type="email" name="email" placeholder={$t('common.email.placeholder')} label={$t('common.email.label')} value={email} required={true} />

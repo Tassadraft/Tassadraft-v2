@@ -8,7 +8,7 @@
     import Subtitle from '../../shared/Subtitle.svelte';
     import { t } from 'svelte-i18n';
     import axios from 'axios';
-    import { showToast } from '../../../service/toastService.js';
+    import { showToast } from '../../../services/toastService.js';
 
     export let deck;
     export let addCardRequest = async () => {};

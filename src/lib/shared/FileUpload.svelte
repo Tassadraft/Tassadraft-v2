@@ -2,7 +2,7 @@
     import Icon from './Icon.svelte';
     import { t } from 'svelte-i18n';
     import { onMount } from 'svelte';
-    import { raw } from '../../service/stringService.js';
+    import { raw } from '../../services/stringService.js';
 
     export let name = '';
     export let description = '';

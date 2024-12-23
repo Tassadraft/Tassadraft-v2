@@ -25,13 +25,14 @@
     import ConfirmModal from './lib/shared/ConfirmModal.svelte';
     import Title from './lib/shared/Title.svelte';
     import { t, isLoading } from 'svelte-i18n';
-    import { showToast } from './service/toastService.js';
+    import { showToast } from './services/toastService.js';
     import Footer from './lib/shared/Footer.svelte';
     import Loader from './lib/shared/Loader.svelte';
     import LegalNotice from './lib/pages/LegalNotice.svelte';
     import AlreadyConnected from "./lib/pages/AlreadyConnected.svelte";
     import CreateAccount from "./lib/pages/CreateAccount.svelte";
     import Menu from "./lib/menu/Menu.svelte";
+    import ConfirmAccountCreation from "./lib/pages/ConfirmAccountCreation.svelte";
 
     export let url = '';
 
@@ -141,7 +142,7 @@
                 {:else}
                     <Route path="/login"><Login /></Route>
                     <Route path="/create-account"><CreateAccount  /></Route>
-                    <Route path="/create-account/confirm/:token" let:params><ConfirmResetPassword {...params} /></Route>
+                    <Route path="/create-account/confirm/:token" let:params><ConfirmAccountCreation {...params} /></Route>
                     <Route path="/tassadraft"><Forbidden /></Route>
                     <Route path="/tassadecks"><Forbidden /></Route>
                     <Route path="/profile"><Forbidden /></Route>

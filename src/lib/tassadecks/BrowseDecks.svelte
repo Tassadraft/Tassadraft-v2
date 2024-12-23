@@ -1,6 +1,5 @@
 <script>
     import Title from '../shared/Title.svelte';
-    import Menu from '../menu/Menu.svelte';
     import { onMount } from 'svelte';
     import axios from 'axios';
     import Pagination from '../shared/Pagination.svelte';
@@ -27,7 +26,6 @@
     };
 </script>
 
-<Menu />
 <Title title="All decks" />
 
 <DisplayingMode bind:displayingMode />

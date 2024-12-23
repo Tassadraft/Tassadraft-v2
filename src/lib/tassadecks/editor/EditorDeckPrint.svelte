@@ -1,6 +1,6 @@
 <script>
     import { jsPDF } from 'jspdf';
-    import slugify from '../../../service/slugifyService.js';
+    import slugify from '../../../services/slugifyService.js';
     import { t } from 'svelte-i18n';
     import Button from '../../shared/Button.svelte';
     import Icon from '../../shared/Icon.svelte';

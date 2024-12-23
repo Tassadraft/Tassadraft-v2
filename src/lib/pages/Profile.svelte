@@ -4,7 +4,7 @@
     import Title from '../shared/Title.svelte';
     import Link from '../shared/Link.svelte';
     import { profile, setProfile } from '../../stores/profileStore.js';
-    import { showToast } from '../../service/toastService.js';
+    import { showToast } from '../../services/toastService.js';
     import { t } from 'svelte-i18n';
     import { onMount } from 'svelte';
     import FileUpload from '../shared/FileUpload.svelte';
@@ -47,7 +47,8 @@
     }
 </script>
 
-<Title title={$t('profile.title')} />
+<Title title={$t('profile.title')} hasBackground={true} />
+
 <Form action="/api/auth/profile/update" method="POST" on:success={handleSuccess} on:error={handleError}>
     <Input name="username" placeholder={$t('common.username.label')} label={$t('common.username.label')} bind:value={formValues.username} min />
     <Input name="email" placeholder={$t('common.email.label')} label={$t('common.email.label')} bind:value={formValues.email} disabled={true} />

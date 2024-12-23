@@ -507,6 +507,10 @@
         "title": "Already connected"
     },
     "create-account": {
-        "title": "Create new account"
+        "title": "Create new account",
+        "consent": "I have read and accept the Terms and Conditions.",
+        "confirm": {
+            "title": "Confirm account creation"
+        }
     }
 }

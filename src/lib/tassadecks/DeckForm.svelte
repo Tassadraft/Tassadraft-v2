@@ -3,7 +3,7 @@
     import Input from '../shared/Input.svelte';
     import Switch from '../shared/Switch.svelte';
     import FileUpload from '../shared/FileUpload.svelte';
-    import { showToast } from '../../service/toastService.js';
+    import { showToast } from '../../services/toastService.js';
     import { onMount } from 'svelte';
     import axios from 'axios';
     import Select from '../shared/Select.svelte';

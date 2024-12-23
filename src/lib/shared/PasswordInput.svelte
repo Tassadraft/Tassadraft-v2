@@ -6,13 +6,15 @@
     export let value = '';
     export let name = 'password';
     export let required = false;
+    export let label = '';
 
     let placeholder;
-    let label;
 
     onMount(() => {
         placeholder = $t('common.password.placeholder');
-        label = $t('common.password.label');
+        if (!label) {
+            label = $t('common.password.label');
+        }
     });
 </script>
 

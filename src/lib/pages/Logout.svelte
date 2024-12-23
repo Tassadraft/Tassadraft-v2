@@ -1,5 +1,5 @@
 <script>
-    import { showToast } from '../../service/toastService.js';
+    import { showToast } from '../../services/toastService.js';
     import { navigate } from '../../stores/locationStore.js';
     import { clearProfile } from '../../stores/profileStore.js';
     import Subtitle from '../shared/Subtitle.svelte';

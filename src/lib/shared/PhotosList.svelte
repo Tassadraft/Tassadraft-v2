@@ -2,7 +2,7 @@
     import Button from './Button.svelte';
     import Subtitle from './Subtitle.svelte';
     import Fab from './Fab.svelte';
-    import { showToast } from '../../service/toastService.js';
+    import { showToast } from '../../services/toastService.js';
     import { t } from 'svelte-i18n';
     import ConfirmModal from './ConfirmModal.svelte';
 
