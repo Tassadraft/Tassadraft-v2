@@ -42,7 +42,14 @@
 <Title title={$t('login.title')} hasBackground={true} />
 
 <Form action="/api/login" method="post" on:success={handleSuccess} on:error={handleFailure} bind:isValid>
-    <Input type="email" name="email" placeholder={$t('common.email.placeholder')} label={$t('common.email.label')} bind:value={email} required={true} />
+    <Input
+        type="email"
+        name="email"
+        placeholder={$t('common.email.placeholder')}
+        label={$t('common.email.label')}
+        bind:value={email}
+        required={true}
+    />
     <PasswordInput bind:value={password} required={true} />
     <div class="w-full mb-3">
         <Link href="/reset-password" className="text-primary-500 hover:text-white duration-300 transition-colors">Forgot password ?</Link>

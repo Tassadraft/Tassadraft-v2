@@ -40,7 +40,7 @@
         showToast(event.detail, 'error');
     };
 
-    $: isValid = deck.name && (deck.description ? true : deck.description.length <= 1024) && selectedFormat
+    $: isValid = deck.name && (deck.description ? true : deck.description.length <= 1024) && selectedFormat;
 </script>
 
 <Form

@@ -55,7 +55,14 @@
 
 <Modal bind:showModal bind:fullWidth={$isMobile} on:open={onModalOpen}>
     <Subtitle slot="header">{$t('tassadecks.editor.new-category.title')}</Subtitle>
-    <Form action={`/api/auth/reserved/decks/edit/${deck.id}/add-category`} method="POST" on:success={handleSuccess} on:error={handleError} showBackground={false} bind:isValid={newName}>
+    <Form
+        action={`/api/auth/reserved/decks/edit/${deck.id}/add-category`}
+        method="POST"
+        on:success={handleSuccess}
+        on:error={handleError}
+        showBackground={false}
+        bind:isValid={newName}
+    >
         <Input
             bind:inputRef
             name="name"

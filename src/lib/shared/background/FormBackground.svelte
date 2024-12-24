@@ -13,14 +13,14 @@
             mouseControls: true,
             touchControls: true,
             gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
+            minHeight: 200.0,
+            minWidth: 200.0,
             highlightColor: 0x286e,
             midtoneColor: 0x7f7f9d,
             lowlightColor: 0x213131,
             baseColor: 0x0,
             blurFactor: 0.56,
-            zoom: 2.20
+            zoom: 2.2,
         });
 
         return () => {

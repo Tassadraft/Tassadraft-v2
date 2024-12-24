@@ -4,9 +4,9 @@
     import Title from '../shared/Title.svelte';
     import { showToast } from '../../services/toastService.js';
     import { t } from 'svelte-i18n';
-    import Input from "../shared/Input.svelte";
-    import {checkPassword, isValidEmail} from "../../services/checkStringService.js";
-    import Switch from "../shared/Switch.svelte";
+    import Input from '../shared/Input.svelte';
+    import { checkPassword, isValidEmail } from '../../services/checkStringService.js';
+    import Switch from '../shared/Switch.svelte';
 
     let username = '';
     let email = '';
@@ -38,8 +38,21 @@
 <Form action="/api/account-creation/send-mail" method="POST" on:success={handleSuccess} on:error={handleFailure} bind:isValid={canSubmit}>
     <input type="hidden" name="frontClient" value="Tassadraft" />
     <input type="hidden" name="frontUri" value={`${process.env.VITE_FRONT_URI}/create-account/confirm`} />
-    <Input name="username" placeholder={$t('common.username.placeholder')} label={$t('common.username.label')} bind:value={username} required={true} />
-    <Input type="email" name="email" placeholder={$t('common.email.placeholder')} label={$t('common.email.label')} bind:value={email} required={true} />
+    <Input
+        name="username"
+        placeholder={$t('common.username.placeholder')}
+        label={$t('common.username.label')}
+        bind:value={username}
+        required={true}
+    />
+    <Input
+        type="email"
+        name="email"
+        placeholder={$t('common.email.placeholder')}
+        label={$t('common.email.label')}
+        bind:value={email}
+        required={true}
+    />
     <PasswordInput name="password" bind:value={password} />
     <PasswordInput name="confirmPassword" label={$t('common.confirm-password.label')} bind:value={confirmPassword} />
     <Switch name="consent" size="6" label={$t('create-account.consent')} bind:value={consent} required={true} />

@@ -6,7 +6,7 @@
     import { showToast } from '../../services/toastService.js';
     import { t } from 'svelte-i18n';
     import { profile } from '../../stores/profileStore.js';
-    import {isValidEmail} from "../../services/checkStringService.js";
+    import { isValidEmail } from '../../services/checkStringService.js';
 
     let email = '';
     let readonly = false;

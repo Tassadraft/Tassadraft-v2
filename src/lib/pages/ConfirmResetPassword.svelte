@@ -5,8 +5,8 @@
     import { showToast } from '../../services/toastService.js';
     import { navigate } from '../../stores/locationStore.js';
     import { t } from 'svelte-i18n';
-    import { checkPassword } from "../../services/checkStringService.js";
-    import { profile } from "../../stores/profileStore.js";
+    import { checkPassword } from '../../services/checkStringService.js';
+    import { profile } from '../../stores/profileStore.js';
 
     export let token = '';
 

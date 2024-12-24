@@ -6,5 +6,5 @@
 
 ### Links
 
--   [Changelog](/doc/CHANGELOG.md)
--   [MIT Licence](/doc/LICENCE.md)
+- [Changelog](/doc/CHANGELOG.md)
+- [MIT Licence](/doc/LICENCE.md)

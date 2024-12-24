@@ -25,7 +25,7 @@ export default {
                 },
             },
             inset: {
-                '21': '5.25rem',
+                21: '5.25rem',
             },
         },
     },
