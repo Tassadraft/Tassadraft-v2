@@ -5,6 +5,7 @@
     import Button from '../shared/Button.svelte';
     import IconButton from '../shared/IconButton.svelte';
     import CommonMenu from './CommonMenu.svelte';
+    import FlagMenu from './FlagMenu.svelte';
 
     let isOpen = false;
 
@@ -47,8 +48,11 @@
             style="z-index: 10000"
         >
             <div class="flex justify-between items-center p-4">
-                <div class="flex items-center space-x-0">
+                <div class="flex gap-5 justify-center items-center">
                     <ThemeSwitch />
+                    <div class="mt-2">
+                        <FlagMenu />
+                    </div>
                 </div>
                 <IconButton icon="close" on:click={closeMenu} />
             </div>

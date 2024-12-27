@@ -8,6 +8,7 @@
     import { t } from 'svelte-i18n';
     import { onMount } from 'svelte';
     import FileUpload from '../shared/FileUpload.svelte';
+    import { language } from '../../stores/languageStore.js';
 
     let subscriptionEndsOn = '';
     let subscriptionCreatedOn = '';
@@ -17,6 +18,18 @@
     };
     let path = '';
     let isValid = false;
+
+    let lastSubscriptionEndedAt;
+
+    const dateOptions = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+    };
 
     onMount(() => {
         formValues = {
@@ -48,6 +61,11 @@
     }
 
     $: isValid = formValues.username && formValues.email;
+    $: {
+        if ($profile.lastSubscription) {
+            lastSubscriptionEndedAt = new Date($profile.lastSubscription.endAt).toLocaleString($language, dateOptions);
+        }
+    }
 </script>
 
 <Title title={$t('profile.title')} hasBackground={true} />

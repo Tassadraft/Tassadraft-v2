@@ -28,7 +28,7 @@
 {#if show}
     <div
         bind:this={popover}
-        class="absolute text-center text-primary-500 bg-white border border-gray-300 p-2 rounded-md shadow-md w-4/12 z-50"
+        class="absolute text-center text-primary-500 bg-white border border-gray-300 p-2 rounded-md shadow-md z-50"
         style="position: fixed; left: {x}px; top: {y}px; transform: translate(-50%, 0);"
     >
         <slot />

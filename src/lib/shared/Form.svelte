@@ -6,6 +6,7 @@
     import { t } from 'svelte-i18n';
     import { createEventDispatcher } from 'svelte';
     import FormBackground from './background/FormBackground.svelte';
+    import { language } from '../../stores/languageStore.js';
 
     const dispatch = createEventDispatcher();
 
@@ -25,8 +26,9 @@
         const formData = new FormData(form);
 
         const formDataObj = {
-            language: localStorage.getItem('language'),
+            language: $language,
         };
+
         formData.forEach((value, key) => {
             formDataObj[key] = value;
         });

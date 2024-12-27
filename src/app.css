@@ -24,5 +24,5 @@ h2,
 h3,
 h4,
 h5 {
-    @apply dark:text-white;
+    @apply text-gray-700 dark:text-white;
 }

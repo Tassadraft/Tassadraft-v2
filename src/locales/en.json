@@ -5,6 +5,7 @@
         "tassadecks": "Tassadecks",
         "yes": "Yes",
         "no": "No",
+        "language": "Language",
         "coming-soon": "Coming soon ...",
         "close": "Close",
         "close-modal": "Close modal",
@@ -187,7 +188,29 @@
         }
     },
     "subscribe": {
-        "title": "Subscribe"
+        "title": "Subscribe",
+        "product": {
+            "free": "Free",
+            "subscribe": "Subscribe",
+            "day": "day",
+            "month": "month",
+            "months": "months",
+            "year": "year",
+            "learn-more": "Learn more",
+            "details": {
+                "title": "Loading product ...",
+                "already-subscribed": "Already subscribed"
+            }
+        },
+        "success": {
+            "title": "Successfully subscribed"
+        },
+        "cancel": {
+            "title": "Subscription checkout cancelled"
+        },
+        "error": {
+            "title": "Something went wrong"
+        }
     },
     "home": {
         "title": "Home",

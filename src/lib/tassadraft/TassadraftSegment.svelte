@@ -9,6 +9,7 @@
     import Loader from '../shared/Loader.svelte';
     import { t } from 'svelte-i18n';
     import ConfirmModal from '../shared/ConfirmModal.svelte';
+    import { language } from '../../stores/languageStore.js';
 
     const dispatch = createEventDispatcher();
 
@@ -48,7 +49,7 @@
         try {
             loading = true;
             const base64Strings = await getBase64Strings(photos.filter((photo) => !photo.processed));
-            const response = await axios.post(`/api/auth/reserved/cards/process?language=${localStorage.getItem('language')}`, {
+            const response = await axios.post(`/api/auth/reserved/cards/process?language=${$language}`, {
                 photos: base64Strings,
             });
             loading = false;

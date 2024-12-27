@@ -23,7 +23,7 @@
     <div class="text-primary-500 left">
         <Icon name={iconLeft} />
     </div>
-    <p class="{footer ? '' : 'text-xl'} text-nowrap p-2">
+    <p class="{footer ? '' : 'text-white text-xl'} text-nowrap p-2">
         <slot />
     </p>
     {#if iconRight}

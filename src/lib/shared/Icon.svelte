@@ -46,6 +46,10 @@
         'ArrowRight',
         'Gavel',
         'OpenSource',
+        'ChevronDown',
+        'ChevronUp',
+        'EnglishFlag',
+        'FrenchFlag',
     ];
 
     const toCamelCase = (str) => {

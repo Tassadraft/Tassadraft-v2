@@ -27,6 +27,7 @@
     import EditorSearch from './EditorSearch.svelte';
     import EditorNewCategory from './EditorNewCategory.svelte';
     import EditorClearCategories from './EditorClearCategories.svelte';
+    import { language } from '../../../stores/languageStore.js';
 
     export let deckId = '';
 
@@ -70,7 +71,7 @@
             deck = $decks[deckId];
         } else {
             try {
-                const { data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?language=${localStorage.getItem('language')}`);
+                const { data: deckData } = await axios.get(`/api/auth/reserved/decks/${deckId}?language=${$language}`);
                 deck = deckData;
                 setDeck(deck);
             } catch (e) {
@@ -260,7 +261,7 @@
         try {
             loading = true;
             const base64Strings = await getBase64Strings([{ uri: e.detail.photo.webPath }]);
-            const response = await axios.post(`/api/auth/reserved/process?language=${localStorage.getItem('language')}`, {
+            const response = await axios.post(`/api/auth/reserved/process?language=${$language}`, {
                 photos: base64Strings,
             });
             for (const processedCard of response.data.cards) {

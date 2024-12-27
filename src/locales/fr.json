@@ -5,6 +5,7 @@
         "tassadecks": "Tassadecks",
         "yes": "Oui",
         "no": "Non",
+        "language": "Langue",
         "coming-soon": "Bientôt disponible ...",
         "close": "Fermer",
         "close-modal": "Fermer la fenêtre",
@@ -187,7 +188,29 @@
         }
     },
     "subscribe": {
-        "title": "S'abonner"
+        "title": "S'abonner",
+        "product": {
+            "free": "Gratuit",
+            "subscribe": "S'abonner",
+            "day": "jour",
+            "month": "mois",
+            "months": "mois",
+            "year": "an",
+            "learn-more": "Lire plus",
+            "details": {
+                "title": "Chargement du produit ...",
+                "already subscribed": "Déjà abonné"
+            }
+        },
+        "success": {
+            "title": "Abonné avec succès"
+        },
+        "cancel": {
+            "title": "Session d'abonnement annulée"
+        },
+        "error": {
+            "title": "Quelque chose s'est mal passé"
+        }
     },
     "home": {
         "title": "Accueil",
