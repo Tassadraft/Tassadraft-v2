@@ -37,7 +37,6 @@
     export let url = '';
 
     let showModal = false;
-    let termsAndConditionsRef;
 
     const logInformations = async (token) => {
         const tokenExpiresAt = localStorage.getItem('apiTokenExpiration');
@@ -163,7 +162,6 @@
 </main>
 
 <ConfirmModal
-    bind:containerRef={termsAndConditionsRef}
     successText={$t('terms-and-conditions.accept')}
     bind:showModal
     closable={false}
@@ -171,7 +169,7 @@
     on:success={handleAcceptTermsAndConditions}
 >
     <Title title={$t('terms-and-conditions.title')} slot="header" />
-    <div bind:this={termsAndConditionsRef}>
+    <div>
         <TermsAndConditions isModal={true} />
     </div>
 </ConfirmModal>
