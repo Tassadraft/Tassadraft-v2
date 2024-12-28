@@ -114,7 +114,7 @@
             >
                 <div class="inline-block">
                     <div class="flex flex-row gap-1 items-center">
-                        <p>{$t('profile.subscribe')}</p>
+                        <p class="text-white">{$t('profile.subscribe')}</p>
                         <div class="text-primary-500">
                             <Icon name="arrowRight"/>
                         </div>
@@ -128,7 +128,7 @@
             >
                 <div class="inline-block">
                     <div class="flex flex-row gap-1 items-center">
-                        <p>{$t('common.view-product')}</p>
+                        <p class="text-white">{$t('common.view-product')}</p>
                         <div class="text-primary-500">
                             <Icon name="arrowRight"/>
                         </div>

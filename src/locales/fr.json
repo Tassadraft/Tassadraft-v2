@@ -131,14 +131,17 @@
         },
         "subscribe": {
             "success": {
-                "success": "",
-                "error": ""
+                "success": "Vous êtes maintenant abonné à Tassadapi",
+                "error": "Une erreur est survenue lors de l'abonnement à Tassadapi"
             },
             "cancel-session": {
-                "success": "",
-                "error": ""
+                "success": "Session d'abonnement annulée",
+                "error": "Une erreur est survenue lors de l'annulation de la session d'abonnement"
             },
-            "error": ""
+            "cancel": {
+                "success": "Abonnement annulé",
+                "error": "Une erreur est survenue lors de l'annulation de l'abonnement"
+            }
         }
     },
     "badge": {
