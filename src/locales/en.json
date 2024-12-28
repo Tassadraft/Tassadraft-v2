@@ -56,7 +56,8 @@
             "title": "Select a file",
             "description": "Drag & drop or click to select a file."
         },
-        "edit-deck": "Edit deck"
+        "edit-deck": "Edit deck",
+        "view-product": "View product"
     },
     "toast": {
         "terms-and-conditions": {
@@ -127,6 +128,20 @@
                 "success": "Your account has been created : you are now connected",
                 "error": "An error occurred while finalizing account creation"
             }
+        },
+        "subscribe": {
+            "success": {
+                "success": "You are now subscribed to Tassadapi",
+                "error": "An error occurred while subscribing to Tassadapi"
+            },
+            "cancel-session": {
+                "success": "Subscription checkout cancelled",
+                "error": "An error occurred while cancelling the subscription checkout"
+            },
+            "cancel": {
+                "success": "Subscription cancelled",
+                "error": "An error occurred while cancelling your active subscription"
+            }
         }
     },
     "badge": {
@@ -155,7 +170,8 @@
         "legal-notice": "Legal notice",
         "terms-and-conditions": "Terms and conditions",
         "contact": "Contact",
-        "source-code": "Source code"
+        "source-code": "Source code",
+        "subscribe": "Subscribe"
     },
     "settings": {
         "title": "Settings",
@@ -179,7 +195,8 @@
         "subscription": "Subscription",
         "subscription-ends": "Subscription ends on",
         "subscribed-on": "Subscribed on",
-        "subscribe": "Subscribe"
+        "subscribe": "Subscribe",
+        "last-subscription": "End of the last subscription"
     },
     "reset-password": {
         "title": "Reset password",
@@ -199,13 +216,17 @@
             "learn-more": "Learn more",
             "details": {
                 "title": "Loading product ...",
-                "already-subscribed": "Already subscribed"
+                "already-subscribed": "Already subscribed",
+                "cancel": {
+                    "title": "Cancel subscription",
+                    "text": "Are you sure you want to cancel your active subscription ?"
+                }
             }
         },
         "success": {
             "title": "Successfully subscribed"
         },
-        "cancel": {
+        "cancel-session": {
             "title": "Subscription checkout cancelled"
         },
         "error": {

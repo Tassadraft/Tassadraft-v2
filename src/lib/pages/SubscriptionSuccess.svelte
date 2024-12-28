@@ -6,6 +6,8 @@
     import Loader from '../shared/Loader.svelte';
     import Success from '../shared/Success.svelte';
     import Failure from '../shared/Failure.svelte';
+    import { updateProfile } from "../../stores/profileStore.js";
+    import {showToast} from "../../services/toastService.js";
 
     let loading = true;
     let success = false;
@@ -14,8 +16,11 @@
     onMount(async () => {
         try {
             await axios.get('/api/auth/subscribe/session/activate');
+            showToast($t('toast.subscribe.success.success'));
             success = true;
+            await updateProfile();
         } catch (e) {
+            showToast($t('toast.subscribe.success.error'), 'error');
             failure = true;
         }
         loading = false;

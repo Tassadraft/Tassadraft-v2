@@ -65,15 +65,21 @@
 >
     <slot />
     {#if submittable}
-        <div class="w-full flex justify-end mt-4">
+        <div class="w-full flex justify-between mt-4">
+            <div>
+                <slot name="other-option" />
+            </div>
             <Button
                 type="submit"
                 bind:disabled={isSendButtonDisabled}
-                additionalStyle="bg-green-700 ${isSendButtonDisabled ? 'cursor-not-allowed' : 'hover:bg-green-800'} rounded-lg p-2"
+                customStyle={true}
+                additionalStyle="bg-green-700 {isSendButtonDisabled ? 'cursor-not-allowed' : 'hover:bg-green-800'} transition-all duration-300 py-2 px-4 rounded-xl text-2xl font-bold"
             >
                 <div class="flex flex-row items-center gap-3">
                     <p class="text-white">{$t('common.submit')}</p>
-                    <Icon name="send" />
+                    <div class="text-primary-500">
+                        <Icon name="send" />
+                    </div>
                 </div>
             </Button>
         </div>

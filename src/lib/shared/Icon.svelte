@@ -50,6 +50,7 @@
         'ChevronUp',
         'EnglishFlag',
         'FrenchFlag',
+        'Mastercard',
     ];
 
     const toCamelCase = (str) => {

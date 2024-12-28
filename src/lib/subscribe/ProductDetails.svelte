@@ -7,6 +7,10 @@
     import Subtitle from '../shared/Subtitle.svelte';
     import Icon from '../shared/Icon.svelte';
     import Link from '../shared/Link.svelte';
+    import Button from "../shared/Button.svelte";
+    import ConfirmModal from "../shared/ConfirmModal.svelte";
+    import { updateProfile } from "../../stores/profileStore.js";
+    import {showToast} from "../../services/toastService.js";
 
     export let stripePriceId;
 
@@ -14,8 +18,13 @@
     let title;
     let product;
     let purchaseUri;
+    let showModal = false;
 
     onMount(async () => {
+        await createCheckoutSession();
+    });
+
+    const createCheckoutSession = async () => {
         try {
             const { data } = await axios.post(`/api/auth/subscribe/session/create/${stripePriceId}`, {
                 frontUri: process.env.VITE_FRONT_URI,
@@ -26,7 +35,21 @@
             console.log(e.response);
         }
         loading = false;
-    });
+    };
+
+    const handleCancel = async () => {
+        showModal = false;
+        loading = true;
+        try {
+            await axios.get('/api/auth/subscribe/cancel');
+            showToast($t('toast.subscribe.cancel.success'));
+            await updateProfile();
+            await createCheckoutSession();
+        } catch (e) {
+            showToast($t('toast.subscribe.cancel.error'), 'error');
+        }
+        loading = false;
+    };
 
     $: title = product?.translation?.name ?? $t('subscribe.product.details.title');
 </script>
@@ -77,10 +100,20 @@
             </div>
         </Link>
     {:else}
-        <p class="text-lg font-bold">
-            <span class="text-primary-500">
-                {$t('subscribe.product.details.already-subscribed')}
-            </span>
-        </p>
+        <Button
+            customStyle={true}
+            className="inline-flex justify-center bg-red-600 hover:bg-red-700 transition-all duration-300 py-2 px-4 rounded-xl text-2xl font-bold"
+            on:click={() => showModal = true}
+        >
+            <p>{$t('subscribe.product.details.cancel.title')}</p>
+        </Button>
     {/if}
 {/if}
+
+<ConfirmModal
+    bind:showModal
+    on:success={handleCancel}
+>
+    <Title title={$t('subscribe.product.details.cancel.title')} slot="header" />
+    <p>{$t('subscribe.product.details.cancel.text')}</p>
+</ConfirmModal>

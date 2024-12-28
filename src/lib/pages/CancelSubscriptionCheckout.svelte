@@ -6,6 +6,7 @@
     import Loader from '../shared/Loader.svelte';
     import Success from '../shared/Success.svelte';
     import Failure from '../shared/Failure.svelte';
+    import {showToast} from "../../services/toastService.js";
 
     let loading = true;
     let success = false;
@@ -14,15 +15,17 @@
     onMount(async () => {
         try {
             await axios.get('/api/auth/subscribe/session/cancel');
+            showToast($t('toast.subscribe.cancel-session.success'));
             success = true;
         } catch (e) {
+            showToast($t('toast.subscribe.cancel-session.error'), 'error');
             failure = true;
         }
         loading = false;
     });
 </script>
 
-<Title title={$t(`subscribe.${failure ? 'error' : 'cancel'}.title`)} />
+<Title title={$t(`subscribe.${failure ? 'error' : 'cancel-session'}.title`)} />
 
 <Loader bind:loading />
 

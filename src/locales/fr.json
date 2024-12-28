@@ -56,7 +56,8 @@
             "title": "Sélectionnez un fichier",
             "description": "Glissez-déposez ou cliquez pour sélectionner un fichier."
         },
-        "edit-deck": "Modifier le deck"
+        "edit-deck": "Modifier le deck",
+        "view-product": "Voir le produit"
     },
     "toast": {
         "terms-and-conditions": {
@@ -127,6 +128,17 @@
                 "success": "Votre compte a été créé : Vous êtes maintenant connecté",
                 "error": "Une erreur est survenue lors de la finalisation de la création du compte"
             }
+        },
+        "subscribe": {
+            "success": {
+                "success": "",
+                "error": ""
+            },
+            "cancel-session": {
+                "success": "",
+                "error": ""
+            },
+            "error": ""
         }
     },
     "badge": {
@@ -155,7 +167,8 @@
         "legals": "Mentions légales",
         "terms-and-conditions": "Conditions générales d'utilisation",
         "contact": "Contact",
-        "source-code": "Code source"
+        "source-code": "Code source",
+        "subscribe": "S'abonner"
     },
     "settings": {
         "title": "Paramètres",
@@ -179,7 +192,8 @@
         "subscription": "Abonnement",
         "subscription-ends": "Abonnement se termine le",
         "subscribed-on": "Abonné le",
-        "subscribe": "S'abonner"
+        "subscribe": "S'abonner",
+        "last-subscription": "Fin du dernier abonnement"
     },
     "reset-password": {
         "title": "Réinitialiser le mot de passe",
@@ -199,13 +213,17 @@
             "learn-more": "Lire plus",
             "details": {
                 "title": "Chargement du produit ...",
-                "already subscribed": "Déjà abonné"
+                "already subscribed": "Déjà abonné",
+                "cancel": {
+                    "title": "Annuler l'abonnement",
+                    "text": "Êtes-vous sûr de vouloir annuler l'abonnement actif ?"
+                }
             }
         },
         "success": {
             "title": "Abonné avec succès"
         },
-        "cancel": {
+        "cancel-session": {
             "title": "Session d'abonnement annulée"
         },
         "error": {

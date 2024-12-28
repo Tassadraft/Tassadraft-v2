@@ -37,6 +37,7 @@
     import CancelSubscriptionCheckout from './lib/pages/CancelSubscriptionCheckout.svelte';
     import ProductDetails from './lib/subscribe/ProductDetails.svelte';
     import { setLanguage } from './stores/languageStore.js';
+    import Subtitle from "./lib/shared/Subtitle.svelte";
 
     export let url = '';
 
@@ -183,8 +184,6 @@
     fullWidth={true}
     on:success={handleAcceptTermsAndConditions}
 >
-    <Title title={$t('terms-and-conditions.title')} slot="header" />
-    <div>
-        <TermsAndConditions isModal={true} />
-    </div>
+    <Subtitle slot="header">{$t('terms-and-conditions.title')}</Subtitle>
+    <TermsAndConditions isModal={true} />
 </ConfirmModal>
