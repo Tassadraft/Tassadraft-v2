@@ -9,6 +9,7 @@
     import Select from '../shared/Select.svelte';
     import { navigate } from '../../stores/locationStore.js';
     import { t } from 'svelte-i18n';
+    import { language } from '../../stores/languageStore.js';
 
     export let deck = {
         name: '',
@@ -43,13 +44,7 @@
     $: isValid = deck.name && (deck.description ? true : deck.description.length <= 1024) && selectedFormat;
 </script>
 
-<Form
-    method="POST"
-    action={`/api/auth/reserved/decks/new?language=${localStorage.getItem('language')}`}
-    on:success={handleSuccess}
-    on:error={handleError}
-    bind:isValid
->
+<Form method="POST" action={`/api/auth/reserved/decks/new?language=${$language}`} on:success={handleSuccess} on:error={handleError} bind:isValid>
     <Input
         label={$t('tassadecks.new.form.name.label')}
         placeholder={$t('tassadecks.new.form.name.placeholder')}

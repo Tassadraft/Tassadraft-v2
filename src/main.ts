@@ -12,7 +12,7 @@ register('fr', () => import('./locales/fr.json'));
 
 init({
     fallbackLocale: 'en',
-    initialLocale: localStorage.getItem('language') || 'en',
+    initialLocale: localStorage.getItem('language'),
 });
 
 locale.set(localStorage.getItem('language'));

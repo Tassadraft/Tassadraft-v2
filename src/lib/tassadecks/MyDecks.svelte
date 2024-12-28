@@ -9,10 +9,11 @@
     import DisplayingMode from '../shared/DisplayingMode.svelte';
     import Panel from '../shared/Panel.svelte';
     import { t } from 'svelte-i18n';
+    import { language } from '../../stores/languageStore.js';
 
     let myDecks = {};
     let displayingMode = 'list';
-    let baseUrl = `/api/auth/reserved/decks/me?language=${localStorage.getItem('language')}`;
+    let baseUrl = `/api/auth/reserved/decks/me?language=${$language}`;
 
     onMount(async () => {
         const { data: decks } = await axios.get(baseUrl);

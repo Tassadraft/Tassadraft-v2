@@ -9,6 +9,7 @@
     import { t } from 'svelte-i18n';
     import axios from 'axios';
     import { showToast } from '../../../services/toastService.js';
+    import { language } from '../../../stores/languageStore.js';
 
     export let deck;
     export let addCardRequest = async () => {};
@@ -21,7 +22,7 @@
 
     const handleSearch = async (query) => {
         try {
-            cardSearchBaseUrl = `/api/auth/reserved/cards/search?query=${query}&language=${localStorage.getItem('language')}`;
+            cardSearchBaseUrl = `/api/auth/reserved/cards/search?query=${query}&language=${$language}`;
             const { data: paginated } = await axios.get(cardSearchBaseUrl);
             paginatedSearchedCards = paginated;
         } catch (e) {

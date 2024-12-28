@@ -33,6 +33,11 @@
     import CreateAccount from './lib/pages/CreateAccount.svelte';
     import Menu from './lib/menu/Menu.svelte';
     import ConfirmAccountCreation from './lib/pages/ConfirmAccountCreation.svelte';
+    import SubscriptionSuccess from './lib/pages/SubscriptionSuccess.svelte';
+    import CancelSubscriptionCheckout from './lib/pages/CancelSubscriptionCheckout.svelte';
+    import ProductDetails from './lib/subscribe/ProductDetails.svelte';
+    import { setLanguage } from './stores/languageStore.js';
+    import Subtitle from "./lib/shared/Subtitle.svelte";
 
     export let url = '';
 
@@ -89,6 +94,7 @@
     onMount(async () => {
         axios.defaults.baseURL = process.env.VITE_TASSADAPI_BASE_URL;
         await defineCustomElements(window);
+        setLanguage(localStorage.getItem('language'));
 
         const theme = localStorage.getItem('theme');
         if (theme !== 'light' && theme !== 'dark') {
@@ -116,7 +122,6 @@
         {#if !$isLoading}
             <Router {url}>
                 <Route path="/"><Homepage /></Route>
-                <Route path="/subscribe"><Subscribe /></Route>
                 <Route path="/settings"><Settings /></Route>
                 <Route path="/legal-notice"><LegalNotice /></Route>
                 <Route path="/terms-and-conditions"><TermsAndConditions /></Route>
@@ -127,21 +132,29 @@
                     <Route path="/login"><AlreadyConnected /></Route>
                     <Route path="/create-account"><AlreadyConnected /></Route>
                     <Route path="/create-account/confirm/:token"><AlreadyConnected /></Route>
+
                     <Route path="/tassadraft"><Tassadraft /></Route>
                     <Route path="/tassadecks"><Tassadecks /></Route>
-                    <Route path="/profile"><Profile /></Route>
-                    <Route path="/logout"><Logout /></Route>
 
                     <Route path="/decks/edit/:deckId" let:params><Deck {...params} /></Route>
                     <Route path="/decks/new"><NewDeck /></Route>
                     <Route path="/decks/me"><MyDecks /></Route>
                     <Route path="/decks"><BrowseDecks /></Route>
 
+                    <Route path="/subscribe"><Subscribe /></Route>
+                    <Route path="/subscribe/product/:stripePriceId" let:params><ProductDetails {...params} /></Route>
+                    <Route path="/subscribe/success"><SubscriptionSuccess /></Route>
+                    <Route path="/subscribe/cancel"><CancelSubscriptionCheckout /></Route>
+
                     <Route path="/contact"><Contact /></Route>
+                    <Route path="/profile"><Profile /></Route>
+                    <Route path="/logout"><Logout /></Route>
                 {:else}
                     <Route path="/login"><Login /></Route>
+
                     <Route path="/create-account"><CreateAccount /></Route>
                     <Route path="/create-account/confirm/:token" let:params><ConfirmAccountCreation {...params} /></Route>
+
                     <Route path="/tassadraft"><Forbidden /></Route>
                     <Route path="/tassadecks"><Forbidden /></Route>
                     <Route path="/profile"><Forbidden /></Route>
@@ -150,6 +163,9 @@
                     <Route path="/decks/me"><Forbidden /></Route>
                     <Route path="/decks"><Forbidden /></Route>
                     <Route path="/contact"><Forbidden /></Route>
+                    <Route path="/subscribe"><Forbidden /></Route>
+                    <Route path="/subscribe/success/:checkoutSessionId"><Forbidden /></Route>
+                    <Route path="/subscribe/cancel"><Forbidden /></Route>
                 {/if}
 
                 <Route path="*"><NotFound /></Route>
@@ -168,8 +184,6 @@
     fullWidth={true}
     on:success={handleAcceptTermsAndConditions}
 >
-    <Title title={$t('terms-and-conditions.title')} slot="header" />
-    <div>
-        <TermsAndConditions isModal={true} />
-    </div>
+    <Subtitle slot="header">{$t('terms-and-conditions.title')}</Subtitle>
+    <TermsAndConditions isModal={true} />
 </ConfirmModal>

@@ -9,13 +9,14 @@
     import DisplayingMode from '../shared/DisplayingMode.svelte';
     import Panel from '../shared/Panel.svelte';
     import { t } from 'svelte-i18n';
+    import { language } from '../../stores/languageStore.js';
 
     let allDecks = {};
     let myDecks = {};
     let displayingMode = 'list';
 
     onMount(async () => {
-        const { data } = await axios.get(`/api/decks?language=${localStorage.getItem('language')}`);
+        const { data } = await axios.get(`/api/decks?language=${$language}`);
         allDecks = data.allDecks;
         myDecks = data.myDecks;
     });
@@ -38,7 +39,7 @@
         {:else if displayingMode === 'list'}
             <DecksTable bind:decks={allDecks.decks} displayOwner={true} />
         {/if}
-        <Pagination bind:paginatedObject={allDecks} baseUrl={`/api/auth/reserved/decks/public?language=${localStorage.getItem('language')}`} />
+        <Pagination bind:paginatedObject={allDecks} baseUrl={`/api/auth/reserved/decks/public?language=${$language}`} />
     </Panel>
 {/if}
 {#if myDecks.total}
@@ -49,6 +50,6 @@
         {:else if displayingMode === 'list'}
             <DecksTable bind:decks={myDecks.decks} on:deckDeleted={handleDeletedDeck} />
         {/if}
-        <Pagination bind:paginatedObject={myDecks} baseUrl={`/api/auth/reserved/decks/me?language=${localStorage.getItem('language')}`} />
+        <Pagination bind:paginatedObject={myDecks} baseUrl={`/api/auth/reserved/decks/me?language=${$language}`} />
     </Panel>
 {/if}
