@@ -65,16 +65,10 @@
     $: if ($profile?.activeSubscription) {
         subscriptionEndsOn = new Date($profile.activeSubscription.endAt).toLocaleDateString($language, lightDateOptions);
         subscriptionCreatedOn = new Date($profile.activeSubscription.createdAt).toLocaleDateString($language, lightDateOptions);
+        lastSubscriptionEndedAt = new Date($profile.lastSubscription.endAt).toLocaleString($language, dateOptions);
     }
 
     $: isValid = formValues.username && formValues.email;
-    $: {
-        if ($profile.lastSubscription) {
-            lastSubscriptionEndedAt = new Date($profile.lastSubscription.endAt).toLocaleString($language, dateOptions);
-        }
-    }
-
-    console.log($profile);
 </script>
 
 <Title title={$t('profile.title')} hasBackground={true}/>
