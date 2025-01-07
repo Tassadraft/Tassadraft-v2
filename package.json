@@ -10,7 +10,8 @@
         "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
         "preinstall": "node install.js",
         "format": "npx prettier --write .",
-        "build:android:base": "npm run build && npx cap copy android && npx cap sync android",
+        "build:mobile:base": "npm run build && npx capacitor-assets generate",
+        "build:android:base": "npm run build:mobile:base && npx cap copy android && npx cap sync android",
         "build:android:debug": " npm run build:android:base && cd android && ./gradlew assembleDebug",
         "build:android": " npm run build:android:base && cd android && ./gradlew assembleRelease"
     },
@@ -18,6 +19,7 @@
         "@rollup/rollup-linux-x64-gnu": "^4.19.0"
     },
     "devDependencies": {
+        "@capacitor/assets": "^3.0.5",
         "@sveltejs/vite-plugin-svelte": "^3.1.1",
         "@tsconfig/svelte": "^5.0.4",
         "@types/node": "^20.14.10",

@@ -23,6 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 
+android/
+ios/
+icons/
+public/manifest.webmanifest
+
 package-lock.json
 
 .env.local
