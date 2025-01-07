@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">Tassadraft-v2</string>
-    <string name="title_activity_main">Tassadraft-v2</string>
-    <string name="package_name">com.example.mysveltekitapp</string>
-    <string name="custom_url_scheme">com.example.mysveltekitapp</string>
-</resources>
