@@ -46,7 +46,7 @@
 
 <Form method="POST" action={`/api/auth/reserved/decks/new?language=${$language}`} on:success={handleSuccess} on:error={handleError} bind:isValid>
     <Input
-        label={$t('tassadecks.new.form.name.label')}
+        label={$t('common.name.label')}
         placeholder={$t('tassadecks.new.form.name.placeholder')}
         name="name"
         bind:value={deck.name}

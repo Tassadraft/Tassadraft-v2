@@ -201,11 +201,13 @@
     "reset-password": {
         "title": "Reset password",
         "confirm": {
-            "title": "Finish reset password"
+            "title": "Finish reset password",
+            "meta-description": "Complete the password reset process by entering a valid password and repeat it."
         }
     },
     "subscribe": {
         "title": "Subscribe",
+        "meta-description": "Click on a product to view its details. You mostly can see here products' prices and durations.",
         "product": {
             "free": "Free",
             "subscribe": "Subscribe",
@@ -216,25 +218,18 @@
             "learn-more": "Learn more",
             "details": {
                 "title": "Loading product ...",
+                "meta-description": "Subscribe to product by clicking the button on the bottom of the page ! It will give you a total accès to Tassadapi.",
                 "already-subscribed": "Already subscribed",
                 "cancel": {
                     "title": "Cancel subscription",
                     "text": "Are you sure you want to cancel your active subscription ?"
                 }
             }
-        },
-        "success": {
-            "title": "Successfully subscribed"
-        },
-        "cancel-session": {
-            "title": "Subscription checkout cancelled"
-        },
-        "error": {
-            "title": "Something went wrong"
         }
     },
     "home": {
         "title": "Home",
+        "meta-description": "Welcome to Tassadraft homepage ! You can choose in which sub-app you want to continue navigation.",
         "tassadraft": {
             "description": "Your batch card recognition tool"
         },
@@ -246,7 +241,8 @@
         }
     },
     "login": {
-        "title": "Login"
+        "title": "Login",
+        "meta-description": "Login here to continue navigation onto Tassadraft. While you are not connected, you won't be able to access the rest of the app."
     },
     "logout": {
         "title": "Logout",
@@ -257,6 +253,7 @@
     },
     "contact": {
         "title": "Contact",
+        "meta-description": "The form contact allows you to ask a question, alert on a bug or to suggest a new feature to Tassadapi admins.",
         "subject": {
             "label": "Subject",
             "new-feature": "New feature",
@@ -438,6 +435,7 @@
         }
     },
     "tassadraft": {
+        "meta-description": "Tassadraft allows you to perform batch recognition from multiple photos. It's mostly useful to quickly know some cards' prices.",
         "photos": "Photos",
         "cards": "Cards",
         "no-photo": "No photos are available",
@@ -450,6 +448,7 @@
         }
     },
     "tassadecks": {
+        "meta-description": "Manage decks by browsing your decks, public decks, and editing them.",
         "owned-decks": {
             "one": "deck owned",
             "other": "decks owned"
@@ -467,7 +466,6 @@
             },
             "form": {
                 "name": {
-                    "label": "Name",
                     "placeholder": "Mono red aggro"
                 },
                 "description": {
@@ -482,6 +480,7 @@
         },
         "my-decks": {
             "title": "Choose a deck to edit",
+            "meta-description": "Browse your decks and access deck editor for the one you choose.",
             "card": {
                 "title": "Edit a deck",
                 "description": "Edit one of your decks, or one shared with you"
@@ -489,12 +488,14 @@
         },
         "browse": {
             "title": "Browse all decks",
+            "meta-description": "Browse all decks (public and yours) and access deck editor for the one you choose.",
             "card": {
                 "title": "Browse all decks",
                 "description": "Browse all public, shared with you, and your decks"
             }
         },
         "editor": {
+            "meta-description": "Edit a deck by adding and deleting cards, categories, and a lot of other features. Easy and modular print mode also available.",
             "switch-print": "Switch print",
             "choose-print": "Choose print",
             "new-category": {
@@ -553,6 +554,7 @@
     },
     "create-account": {
         "title": "Create new account",
+        "meta-description": "Create your account to join Tassadraft users !",
         "consent": "I have read and accept the Terms and Conditions.",
         "confirm": {
             "title": "Confirm account creation"

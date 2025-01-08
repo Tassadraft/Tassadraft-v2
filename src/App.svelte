@@ -23,7 +23,6 @@
     import Contact from './lib/pages/Contact.svelte';
     import TermsAndConditions from './lib/pages/TermsAndConditions.svelte';
     import ConfirmModal from './lib/shared/ConfirmModal.svelte';
-    import Title from './lib/shared/Title.svelte';
     import { t, isLoading } from 'svelte-i18n';
     import { showToast } from './services/toastService.js';
     import Footer from './lib/shared/Footer.svelte';

@@ -46,6 +46,7 @@
         "dotenv": "^16.4.5",
         "jspdf": "^2.5.2",
         "svelte-i18n": "^4.0.1",
+        "svelte-meta-tags": "^3.1.4",
         "svelte-preprocess": "^6.0.2",
         "svelte-routing": "^2.13.0",
         "three": "^0.171.0",
