@@ -460,9 +460,10 @@
         "delete-deck": "Are you sure you want to delete ",
         "new": {
             "title": "New deck",
+            "meta-description": "Create a new deck from scratch or by importing a file",
             "card": {
                 "title": "New deck",
-                "description": "Create a new deck from zero or by importing a file"
+                "description": "Create a new deck from scratch or by importing a file"
             },
             "form": {
                 "name": {

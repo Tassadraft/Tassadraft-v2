@@ -6,7 +6,7 @@
     import Loader from '../shared/Loader.svelte';
     import Success from '../shared/Success.svelte';
     import Failure from '../shared/Failure.svelte';
-    import {showToast} from "../../services/toastService.js";
+    import { showToast } from '../../services/toastService.js';
 
     let loading = true;
     let success = false;

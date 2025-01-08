@@ -7,10 +7,10 @@
     import Subtitle from '../shared/Subtitle.svelte';
     import Icon from '../shared/Icon.svelte';
     import Link from '../shared/Link.svelte';
-    import Button from "../shared/Button.svelte";
-    import ConfirmModal from "../shared/ConfirmModal.svelte";
-    import { updateProfile } from "../../stores/profileStore.js";
-    import {showToast} from "../../services/toastService.js";
+    import Button from '../shared/Button.svelte';
+    import ConfirmModal from '../shared/ConfirmModal.svelte';
+    import { updateProfile } from '../../stores/profileStore.js';
+    import { showToast } from '../../services/toastService.js';
 
     export let stripePriceId;
 
@@ -103,17 +103,14 @@
         <Button
             customStyle={true}
             className="inline-flex justify-center bg-red-600 hover:bg-red-700 transition-all duration-300 py-2 px-4 rounded-xl text-2xl font-bold"
-            on:click={() => showModal = true}
+            on:click={() => (showModal = true)}
         >
             <p>{$t('subscribe.product.details.cancel.title')}</p>
         </Button>
     {/if}
 {/if}
 
-<ConfirmModal
-    bind:showModal
-    on:success={handleCancel}
->
+<ConfirmModal bind:showModal on:success={handleCancel}>
     <Title title={$t('subscribe.product.details.cancel.title')} slot="header" />
     <p>{$t('subscribe.product.details.cancel.text')}</p>
 </ConfirmModal>

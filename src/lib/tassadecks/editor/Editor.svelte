@@ -28,6 +28,7 @@
     import EditorNewCategory from './EditorNewCategory.svelte';
     import EditorClearCategories from './EditorClearCategories.svelte';
     import { language } from '../../../stores/languageStore.js';
+    import { MetaTags } from 'svelte-meta-tags';
 
     export let deckId = '';
 
@@ -361,6 +362,8 @@
         });
     }
 </script>
+
+<MetaTags description={$t('tassadecks.editor.meta-description')} />
 
 <Editable bind:value={deck.name} className="text-3xl font-bold mb-2" iconClassName="mt-1" on:rename={metadataRequest}>
     <Title bind:title={deck.name} />

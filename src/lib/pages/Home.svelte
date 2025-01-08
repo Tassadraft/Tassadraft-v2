@@ -1,6 +1,7 @@
 <script>
     import Card from '../shared/Card.svelte';
     import { t } from 'svelte-i18n';
+    import { MetaTags } from 'svelte-meta-tags';
 
     let products = [];
 
@@ -28,6 +29,8 @@
         ];
     }
 </script>
+
+<MetaTags description={$t('home.meta-description')} />
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
     {#each products as product}

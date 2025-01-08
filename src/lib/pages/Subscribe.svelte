@@ -5,6 +5,7 @@
     import axios from 'axios';
     import Product from '../subscribe/Product.svelte';
     import { language } from '../../stores/languageStore.js';
+    import { MetaTags } from 'svelte-meta-tags';
 
     let products = [];
 
@@ -13,6 +14,8 @@
         products = data.products;
     });
 </script>
+
+<MetaTags description={$t('subscribe.meta-description')} />
 
 <Title title={$t('subscribe.title')} />
 

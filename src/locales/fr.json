@@ -460,6 +460,7 @@
         "delete-deck": "Êtes-vous sûr de vouloir supprimer ",
         "new": {
             "title": "Nouveau deck",
+            "meta-description": "Créez un nouveau deck à partir de zéro ou en important un fichier.",
             "card": {
                 "title": "Nouveau deck",
                 "description": "Créez un nouveau deck à partir de zéro ou en important un fichier"

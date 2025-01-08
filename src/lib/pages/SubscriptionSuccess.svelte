@@ -6,8 +6,8 @@
     import Loader from '../shared/Loader.svelte';
     import Success from '../shared/Success.svelte';
     import Failure from '../shared/Failure.svelte';
-    import { updateProfile } from "../../stores/profileStore.js";
-    import {showToast} from "../../services/toastService.js";
+    import { updateProfile } from '../../stores/profileStore.js';
+    import { showToast } from '../../services/toastService.js';
 
     let loading = true;
     let success = false;

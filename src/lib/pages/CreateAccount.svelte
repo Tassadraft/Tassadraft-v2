@@ -7,6 +7,7 @@
     import Input from '../shared/Input.svelte';
     import { checkPassword, isValidEmail } from '../../services/checkStringService.js';
     import Switch from '../shared/Switch.svelte';
+    import { MetaTags } from 'svelte-meta-tags';
 
     let username = '';
     let email = '';
@@ -32,6 +33,8 @@
         }
     }
 </script>
+
+<MetaTags description={$t('create-account.meta-description')} />
 
 <Title title={$t('create-account.title')} hasBackground={true} />
 

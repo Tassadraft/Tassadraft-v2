@@ -2,7 +2,7 @@
     import Title from '../shared/Title.svelte';
     import { t } from 'svelte-i18n';
     import BackTo from '../shared/BackTo.svelte';
-    import {MetaTags} from "svelte-meta-tags";
+    import { MetaTags } from 'svelte-meta-tags';
 </script>
 
 <MetaTags />

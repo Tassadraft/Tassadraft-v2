@@ -2,7 +2,7 @@
     import MenuItem from './MenuItem.svelte';
     import { t } from 'svelte-i18n';
     import { profile } from '../../stores/profileStore.js';
-    import FileUpload from "../shared/FileUpload.svelte";
+    import FileUpload from '../shared/FileUpload.svelte';
 
     export let footer = false;
 </script>
@@ -18,7 +18,12 @@
         {#if !$profile.activeSubscription}
             <MenuItem {footer} iconLeft="mastercard" href="/subscribe" on:click>{$t('menu.subscribe')}</MenuItem>
         {:else}
-            <MenuItem {footer} iconLeft="mastercard" href={`/subscribe/product/${$profile.activeSubscription.product.translation.stripePriceId}`} on:click>{$t('common.view-product')}</MenuItem>
+            <MenuItem
+                {footer}
+                iconLeft="mastercard"
+                href={`/subscribe/product/${$profile.activeSubscription.product.translation.stripePriceId}`}
+                on:click>{$t('common.view-product')}</MenuItem
+            >
         {/if}
         <MenuItem {footer} iconLeft="userRemove" href="/logout" on:click>{$t('menu.logout')}</MenuItem>
     {:else}

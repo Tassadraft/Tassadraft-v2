@@ -36,7 +36,7 @@
     import CancelSubscriptionCheckout from './lib/pages/CancelSubscriptionCheckout.svelte';
     import ProductDetails from './lib/subscribe/ProductDetails.svelte';
     import { setLanguage } from './stores/languageStore.js';
-    import Subtitle from "./lib/shared/Subtitle.svelte";
+    import Subtitle from './lib/shared/Subtitle.svelte';
 
     export let url = '';
 

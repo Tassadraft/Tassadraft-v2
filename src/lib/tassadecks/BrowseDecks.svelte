@@ -10,6 +10,7 @@
     import Panel from '../shared/Panel.svelte';
     import { t } from 'svelte-i18n';
     import { language } from '../../stores/languageStore.js';
+    import { MetaTags } from 'svelte-meta-tags';
 
     let allDecks = {};
     let myDecks = {};
@@ -26,6 +27,8 @@
         myDecks = { ...myDecks };
     };
 </script>
+
+<MetaTags description={$t('tassadecks.browse.meta-description')} />
 
 <Title title="All decks" />
 
