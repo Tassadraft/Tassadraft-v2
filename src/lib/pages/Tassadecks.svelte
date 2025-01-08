@@ -2,6 +2,7 @@
     import Card from '../shared/Card.svelte';
     import Title from '../shared/Title.svelte';
     import { t } from 'svelte-i18n';
+    import { MetaTags } from 'svelte-meta-tags';
 
     let choices = [];
 
@@ -26,6 +27,8 @@
         },
     ];
 </script>
+
+<MetaTags description={$t('tassadecks.meta-description')} />
 
 <Title title={$t('common.tassadecks')} hasBackground={true} />
 

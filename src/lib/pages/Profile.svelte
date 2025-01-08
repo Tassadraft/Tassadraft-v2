@@ -3,13 +3,13 @@
     import Input from '../shared/Input.svelte';
     import Title from '../shared/Title.svelte';
     import Link from '../shared/Link.svelte';
-    import {profile, setProfile} from '../../stores/profileStore.js';
-    import {showToast} from '../../services/toastService.js';
-    import {t} from 'svelte-i18n';
-    import {onMount} from 'svelte';
+    import { profile, setProfile } from '../../stores/profileStore.js';
+    import { showToast } from '../../services/toastService.js';
+    import { t } from 'svelte-i18n';
+    import { onMount } from 'svelte';
     import FileUpload from '../shared/FileUpload.svelte';
-    import {language} from '../../stores/languageStore.js';
-    import Icon from "../shared/Icon.svelte";
+    import { language } from '../../stores/languageStore.js';
+    import Icon from '../shared/Icon.svelte';
 
     let subscriptionEndsOn = '';
     let subscriptionCreatedOn = '';
@@ -36,7 +36,7 @@
         year: 'numeric',
         month: 'long',
         day: 'numeric',
-    }
+    };
 
     onMount(() => {
         formValues = {
@@ -71,7 +71,9 @@
     $: isValid = formValues.username && formValues.email;
 </script>
 
-<Title title={$t('profile.title')} hasBackground={true}/>
+<meta name="robots" content="noindex" />
+
+<Title title={$t('profile.title')} hasBackground={true} />
 
 <Form action="/api/auth/profile/update" method="POST" on:success={handleSuccess} on:error={handleError} bind:isValid>
     <Input
@@ -82,8 +84,7 @@
         min={3}
         max={50}
     />
-    <Input name="email" placeholder={$t('common.email.label')} label={$t('common.email.label')}
-           bind:value={formValues.email} disabled={true}/>
+    <Input name="email" placeholder={$t('common.email.label')} label={$t('common.email.label')} bind:value={formValues.email} disabled={true} />
     <Link href="/reset-password" className="text-primary-500 hover:text-primary-800 transition-colors duration-300">
         {$t('profile.reset-password')}
     </Link>
@@ -96,9 +97,9 @@
         description={$t('profile.profile-picture.description')}
     />
     {#if $profile?.activeSubscription}
-        <Input label={$t('profile.subscription')} value={$profile.activeSubscription.product.translation.name} disabled={true}/>
-        <Input label={$t('profile.subscription-ends')} value={subscriptionEndsOn} disabled={true}/>
-        <Input label={$t('profile.subscribed-on')} value={subscriptionCreatedOn} disabled={true}/>
+        <Input label={$t('profile.subscription')} value={$profile.activeSubscription.product.translation.name} disabled={true} />
+        <Input label={$t('profile.subscription-ends')} value={subscriptionEndsOn} disabled={true} />
+        <Input label={$t('profile.subscribed-on')} value={subscriptionCreatedOn} disabled={true} />
     {/if}
     <div slot="other-option">
         {#if !$profile?.activeSubscription && $profile?.role === 'user'}
@@ -110,7 +111,7 @@
                     <div class="flex flex-row gap-1 items-center">
                         <p class="text-white">{$t('profile.subscribe')}</p>
                         <div class="text-primary-500">
-                            <Icon name="arrowRight"/>
+                            <Icon name="arrowRight" />
                         </div>
                     </div>
                 </div>
@@ -124,7 +125,7 @@
                     <div class="flex flex-row gap-1 items-center">
                         <p class="text-white">{$t('common.view-product')}</p>
                         <div class="text-primary-500">
-                            <Icon name="arrowRight"/>
+                            <Icon name="arrowRight" />
                         </div>
                     </div>
                 </div>

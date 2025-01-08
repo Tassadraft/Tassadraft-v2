@@ -7,6 +7,8 @@
     export let isModal = false;
 </script>
 
+<meta name="robots" content="noindex" />
+
 {#if !isModal}
     <Title title={$t('terms-and-conditions.title')} />
 {/if}

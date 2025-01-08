@@ -167,7 +167,7 @@
         "profile": "Profil",
         "logout": "Déconnexion",
         "login": "Connexion",
-        "legals": "Mentions légales",
+        "legal-notice": "Mentions légales",
         "terms-and-conditions": "Conditions générales d'utilisation",
         "contact": "Contact",
         "source-code": "Code source",
@@ -190,7 +190,7 @@
         "reset-password": "Réinitialiser le mot de passe",
         "profile-picture": {
             "title": "Photo de profil",
-            "description": "Uploadez ici une photo de phofil"
+            "description": "Uploadez ici une photo de profil"
         },
         "subscription": "Abonnement",
         "subscription-ends": "Abonnement se termine le",
@@ -201,11 +201,13 @@
     "reset-password": {
         "title": "Réinitialiser le mot de passe",
         "confirm": {
-            "title": "Finaliser la réinitialisation du mot de passe"
+            "title": "Finaliser la réinitialisation du mot de passe",
+            "meta-description": "Complétez le processus de réinitialisation du mot de passe en entrant un mot de passe valide et répétez-le."
         }
     },
     "subscribe": {
         "title": "S'abonner",
+        "meta-description": "Cliquez sur un abonnement pour accéder à ses détails. Vous pouvez notamment voir les prix et durées des différents abonnements.",
         "product": {
             "free": "Gratuit",
             "subscribe": "S'abonner",
@@ -216,25 +218,18 @@
             "learn-more": "Lire plus",
             "details": {
                 "title": "Chargement du produit ...",
+                "meta-description": "Abonnez-vous à l'abonnement en cliquant sur le bouton en bas de page ! Vous aurez ainsi un accès total à Tassadapi.",
                 "already subscribed": "Déjà abonné",
                 "cancel": {
                     "title": "Annuler l'abonnement",
                     "text": "Êtes-vous sûr de vouloir annuler l'abonnement actif ?"
                 }
             }
-        },
-        "success": {
-            "title": "Abonné avec succès"
-        },
-        "cancel-session": {
-            "title": "Session d'abonnement annulée"
-        },
-        "error": {
-            "title": "Quelque chose s'est mal passé"
         }
     },
     "home": {
         "title": "Accueil",
+        "meta-description": "Bienvenue sur l'accueil de Tassadraft ! Vous pouvez choisir dans quelle sous-application vous souhaitez continuer votre navigation.",
         "tassadraft": {
             "description": "Votre outil de reconnaissance de cartes en lot"
         },
@@ -246,7 +241,8 @@
         }
     },
     "login": {
-        "title": "Connexion"
+        "title": "Connexion",
+        "meta-description": "Connectez-vous pour continuer la navigation sur Tassadraft. Tant que vous n'êtes pas connecté, vous ne pourrez pas accéder au reste de l'application."
     },
     "logout": {
         "title": "Déconnexion",
@@ -257,6 +253,7 @@
     },
     "contact": {
         "title": "Contact",
+        "meta-description": "Le formulaire de contact permet de poser une question, d'alerter sur un bug ou encore de suggérer de nouvelles fonctionnalités aux admins.",
         "subject": {
             "label": "Sujet",
             "new-feature": "Nouvelle fonctionnalité",
@@ -274,7 +271,7 @@
         },
         "consent": "J’accepte le traitement de mes données personnelles dans le but de répondre à ma demande, conformément à la Politique de Confidentialité."
     },
-    "legals": {
+    "legal-notice": {
         "title": "Mentions Légales",
         "editor": {
             "title": "Éditeur",
@@ -438,6 +435,7 @@
         }
     },
     "tassadraft": {
+        "meta-description": "Tassadraft vous permet d'effectuer de la reconnaissance en lot à partir de plusieurs photos. C'est surtout utile pour rapidement connaître le prix de cartes.",
         "photos": "Photos",
         "cards": "Cartes",
         "no-photo": "Aucune photo disponible",
@@ -450,6 +448,7 @@
         }
     },
     "tassadecks": {
+        "meta-description": "Gérez des decks en parcourant vos decks, les decks publics, et en les éditant.",
         "owned-decks": {
             "one": "deck possédé",
             "other": "decks possédés"
@@ -461,13 +460,13 @@
         "delete-deck": "Êtes-vous sûr de vouloir supprimer ",
         "new": {
             "title": "Nouveau deck",
+            "meta-description": "Créez un nouveau deck à partir de zéro ou en important un fichier.",
             "card": {
                 "title": "Nouveau deck",
                 "description": "Créez un nouveau deck à partir de zéro ou en important un fichier"
             },
             "form": {
                 "name": {
-                    "label": "Nom",
                     "placeholder": "Mono rouge aggro"
                 },
                 "description": {
@@ -482,6 +481,7 @@
         },
         "my-decks": {
             "title": "Choisissez un deck à modifier",
+            "meta-description": "Parcourez vos decks et accédez à l'éditeur pour celui que vous choisissez.",
             "card": {
                 "title": "Modifier un deck",
                 "description": "Modifiez l'un de vos decks, ou un qui a été partagé avec vous"
@@ -489,12 +489,14 @@
         },
         "browse": {
             "title": "Parcourir tous les decks",
+            "meta-description": "Parcourez tous les decks (publics et les vôtres) et accédez à l'éditeur pour celui que vous choisissez.",
             "card": {
                 "title": "Parcourir tous les decks",
                 "description": "Parcourez tous les decks publics, partagés avec vous, et vos propres decks"
             }
         },
         "editor": {
+            "meta-description": "Modifier un deck en ajoutant et supprimant des cartes, catégories, et beaucoup d'autres fonctionnalités. Un mode d'impression facile et modulaire est également disponible.",
             "switch-print": "Changer édition",
             "choose-print": "Choisir édition",
             "new-category": {
@@ -543,7 +545,7 @@
     },
     "forbidden": {
         "title": "Accès refusé",
-        "subtitle": "Vous devez êtez connecté et abonné pour accéder à cette partie de l'application."
+        "subtitle": "Vous devez être connecté et abonné pour accéder à cette partie de l'application."
     },
     "not-found": {
         "title": "Page inexistante"
@@ -553,6 +555,7 @@
     },
     "create-account": {
         "title": "Créer un nouveau compte",
+        "meta-description": "créez votre compte pour rejoindre les utilisateurs de Tassadraft !",
         "consent": "J’ai lu et j’accepte les Conditions Générales d’Utilisation.",
         "confirm": {
             "title": "Confirmer la création du compte"

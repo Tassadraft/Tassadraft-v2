@@ -36,6 +36,8 @@
     }
 </script>
 
+<meta name="robots" content="noindex" />
+
 <Title title={$t('reset-password.confirm.title')} hasBackground={true} />
 
 <Form action={`/api/reset-password/confirm/${token}`} method="POST" on:success={handleSuccess} on:error={handleFailure} bind:isValid={canSubmit}>

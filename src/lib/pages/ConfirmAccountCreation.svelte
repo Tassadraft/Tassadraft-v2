@@ -34,4 +34,6 @@
     });
 </script>
 
+<meta name="robots" content="noindex" />
+
 <Title title={$t('create-account.confirm.title')} hasBackground={true} />

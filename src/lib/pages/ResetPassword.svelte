@@ -30,6 +30,8 @@
     $: isValid = email && isValidEmail(email);
 </script>
 
+<meta name="robots" content="noindex" />
+
 <Title title={$t('reset-password.title')} hasBackground={true} />
 
 <Form action="/api/reset-password/send-mail" method="POST" on:success={handleSuccess} on:error={handleFailure} bind:isValid>

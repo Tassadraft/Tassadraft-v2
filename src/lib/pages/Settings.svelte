@@ -7,6 +7,8 @@
     import LanguageSetting from '../settings/LanguageSetting.svelte';
 </script>
 
+<meta name="robots" content="noindex" />
+
 <Title title={$t('settings.title')} hasBackground={true} />
 
 <Form submittable={false}>

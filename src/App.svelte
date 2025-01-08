@@ -23,7 +23,6 @@
     import Contact from './lib/pages/Contact.svelte';
     import TermsAndConditions from './lib/pages/TermsAndConditions.svelte';
     import ConfirmModal from './lib/shared/ConfirmModal.svelte';
-    import Title from './lib/shared/Title.svelte';
     import { t, isLoading } from 'svelte-i18n';
     import { showToast } from './services/toastService.js';
     import Footer from './lib/shared/Footer.svelte';
@@ -37,7 +36,7 @@
     import CancelSubscriptionCheckout from './lib/pages/CancelSubscriptionCheckout.svelte';
     import ProductDetails from './lib/subscribe/ProductDetails.svelte';
     import { setLanguage } from './stores/languageStore.js';
-    import Subtitle from "./lib/shared/Subtitle.svelte";
+    import Subtitle from './lib/shared/Subtitle.svelte';
 
     export let url = '';
 

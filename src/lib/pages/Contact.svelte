@@ -8,6 +8,7 @@
     import axios from 'axios';
     import Switch from '../shared/Switch.svelte';
     import { showToast } from '../../services/toastService.js';
+    import { MetaTags } from 'svelte-meta-tags';
 
     let subjects = [];
     let message = '';
@@ -33,6 +34,8 @@
 
     $: isValid = consent && message && message.length >= 32 && message.length <= 1024;
 </script>
+
+<MetaTags description={$t('contact.meta-description')} />
 
 <Title title={$t('contact.title')} hasBackground={true} />
 

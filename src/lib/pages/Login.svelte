@@ -9,6 +9,7 @@
     import { navigate } from '../../stores/locationStore.js';
     import { updateProfile } from '../../stores/profileStore.js';
     import { t } from 'svelte-i18n';
+    import { MetaTags } from 'svelte-meta-tags';
 
     let email = '';
     let password = '';
@@ -38,6 +39,8 @@
 
     $: isValid = email && password;
 </script>
+
+<MetaTags description={$t('login.meta-description')} />
 
 <Title title={$t('login.title')} hasBackground={true} />
 

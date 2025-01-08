@@ -5,6 +5,7 @@
     import PhotosList from '../shared/PhotosList.svelte';
     import CardsTable from '../tables/card/CardsTable.svelte';
     import { t } from 'svelte-i18n';
+    import { MetaTags } from 'svelte-meta-tags';
 
     let photos = [];
     let cards = [];
@@ -33,6 +34,8 @@
         photos = photos.map((photo) => ({ ...photo, processed: true }));
     };
 </script>
+
+<MetaTags description={$t('tassadraft.meta-description')} />
 
 <Title title={$t('common.tassadraft')} />
 
