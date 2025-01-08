@@ -6,6 +6,8 @@
     import Panel from '../shared/Panel.svelte';
 </script>
 
+<meta name="robots" content="noindex" />
+
 <Title title={$t('legal-notice.title')} />
 
 <div class="p-3">

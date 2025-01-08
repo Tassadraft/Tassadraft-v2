@@ -25,6 +25,8 @@
     });
 </script>
 
+<meta name="robots" content="noindex" />
+
 <Title title={$t(`subscribe.${failure ? 'error' : 'cancel-session'}.title`)} />
 
 <Loader bind:loading />

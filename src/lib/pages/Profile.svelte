@@ -71,6 +71,8 @@
     $: isValid = formValues.username && formValues.email;
 </script>
 
+<meta name="robots" content="noindex" />
+
 <Title title={$t('profile.title')} hasBackground={true}/>
 
 <Form action="/api/auth/profile/update" method="POST" on:success={handleSuccess} on:error={handleError} bind:isValid>

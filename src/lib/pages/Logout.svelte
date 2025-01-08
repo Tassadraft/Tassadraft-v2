@@ -30,6 +30,8 @@
     };
 </script>
 
+<meta name="robots" content="noindex" />
+
 <Title title={$t('logout.title')} />
 
 <ConfirmModal bind:showModal on:success={handleSuccess} on:close={handleClose}>

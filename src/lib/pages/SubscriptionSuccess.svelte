@@ -27,6 +27,8 @@
     });
 </script>
 
+<meta name="robots" content="noindex" />
+
 <Title title={$t(`subscribe.${failure ? 'error' : 'success'}.title`)} />
 
 <Loader bind:loading />
